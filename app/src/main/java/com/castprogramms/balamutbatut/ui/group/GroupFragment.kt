@@ -11,8 +11,7 @@ import com.castprogramms.balamutbatut.R
 class GroupFragment : Fragment() {
 
     companion object {
-        fun newInstance() =
-            GroupFragment()
+        fun newInstance() = GroupFragment()
     }
 
     private lateinit var viewModel: GroupViewModel
@@ -20,7 +19,7 @@ class GroupFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflater.inflate(R.layout.group_fragment, container, false)
     }
 
