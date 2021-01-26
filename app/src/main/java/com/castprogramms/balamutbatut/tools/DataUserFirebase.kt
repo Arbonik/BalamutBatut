@@ -58,9 +58,7 @@ class DataUserFirebase: DataUserApi {
     }
 
     private val mutableListGroups = mutableListOf<Group>()
-    private val mutableLiveDataGroups = MutableLiveData<MutableList<Group>>().apply {
-        value = mutableListGroups
-    }
+    private val mutableLiveDataGroups = MutableLiveData<MutableList<Group>>(mutableListGroups)
 
     fun getAllGroup():MutableLiveData<MutableList<Group>>{
         getGroups()
@@ -74,7 +72,7 @@ class DataUserFirebase: DataUserApi {
                     value?.documents?.forEach {
                         this@DataUserFirebase.mutableListGroups.add(gsonConverter.fromJson(it.data.toString(), Group::class.java))
                     }
-                    mutableLiveDataGroups.value = this@DataUserFirebase.mutableListGroups
+                    mutableLiveDataGroups.postValue(this@DataUserFirebase.mutableListGroups)
                 }
             })
     }
@@ -83,7 +81,7 @@ class DataUserFirebase: DataUserApi {
         const val studentTag = "students"
         const val groupTag = "groups"
         fun printLog(message: String){
-            Log.d("Test", message)
+            Log.e("Test", message)
         }
     }
 }
