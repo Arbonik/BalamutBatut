@@ -8,11 +8,6 @@
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/progressFragment">
         <fragment
-            android:id="@+id/actionFragment"
-            android:name="com.castprogramms.balamutbatut.ui.action.ActionFragment"
-            android:label="@string/item_action"
-            tools:layout="@layout/action_fragment" />
-        <fragment
             android:id="@+id/profileFragment"
             android:name="com.castprogramms.balamutbatut.ui.profile.ProfileFragment"
             android:label="@string/item_profile"

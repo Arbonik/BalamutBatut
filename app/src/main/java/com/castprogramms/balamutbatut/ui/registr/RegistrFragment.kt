@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -65,7 +66,7 @@ class RegistrFragment: Fragment() {
     private fun updateUI(isSignedIn: GoogleSignInAccount?){
         if (isSignedIn != null) {
             DataUserFirebase.printLog(isSignedIn.email.toString())
-            view?.findNavController()?.navigate(R.id.action_registrFragment_to_navigation)
+            (requireActivity() as MainActivity).toMainGraph()
         }
         else
             DataUserFirebase.printLog("updateUI ERROR")
