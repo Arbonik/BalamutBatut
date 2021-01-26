@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_progress"
+        android:icon="@drawable/done_all_24"
+        android:title="@string/item_progress" />
+
+    <item
+        android:id="@+id/navigation_action"
+        android:icon="@drawable/calendar_24"
+        android:title="@string/item_action" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/person_24"
+        android:title="@string/item_profile" />
+
+</menu>
