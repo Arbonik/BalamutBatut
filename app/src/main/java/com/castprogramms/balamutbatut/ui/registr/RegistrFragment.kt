@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import com.castprogramms.balamutbatut.MainActivity
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -66,7 +64,7 @@ class RegistrFragment: Fragment() {
     private fun updateUI(isSignedIn: GoogleSignInAccount?){
         if (isSignedIn != null) {
             DataUserFirebase.printLog(isSignedIn.email.toString())
-            (requireActivity() as MainActivity).toMainGraph()
+            (requireActivity() as MainActivityStudent).toMainGraph()
         }
         else
             DataUserFirebase.printLog("updateUI ERROR")
