@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,7 +18,7 @@ class RegistrFragment: Fragment() {
     lateinit var registrViewModel: RegistrViewModel
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        registrViewModel = RegistrViewModel()
+
     }
 
     override fun onCreateView(
@@ -25,9 +26,9 @@ class RegistrFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        registrViewModel = RegistrViewModel()
         val view = inflater.inflate(R.layout.fragment_regist_google, container, false)
         registrViewModel.initGoogleSign(requireContext())
-
 
         return view
     }
@@ -59,8 +60,10 @@ class RegistrFragment: Fragment() {
         }
     }
     private fun updateUI(isSignedIn: GoogleSignInAccount?){
-        if (isSignedIn != null)
+        if (isSignedIn != null) {
             DataUserFirebase.printLog(isSignedIn.email.toString())
+            view?.findNavController()?.navigate(R.id.action_registrFragment_to_navigation)
+        }
         else
             DataUserFirebase.printLog("updateUI ERROR")
     }

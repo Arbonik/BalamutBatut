@@ -3,21 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation.xml"
-    app:startDestination="@id/progressFragment">
+    app:startDestination="@id/registrFragment">
 
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/progressFragment">
+        <fragment
+            android:id="@+id/actionFragment"
+            android:name="com.castprogramms.balamutbatut.ui.action.ActionFragment"
+            android:label="@string/item_action"
+            tools:layout="@layout/action_fragment" />
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.castprogramms.balamutbatut.ui.profile.ProfileFragment"
+            android:label="@string/item_profile"
+            tools:layout="@layout/profile_fragment" />
+        <fragment
+            android:id="@+id/progressFragment"
+            android:name="com.castprogramms.balamutbatut.ui.progress.ProgressFragment"
+            android:label="@string/item_progress"
+            tools:layout="@layout/progress_fragment" />
+    </navigation>
     <fragment
-        android:id="@+id/progressFragment"
-        android:name="com.castprogramms.balamutbatut.ui.progress.ProgressFragment"
-        android:label="@string/item_progress"
-        tools:layout="@layout/progress_fragment" />
-    <fragment
-        android:id="@+id/actionFragment"
-        android:name="com.castprogramms.balamutbatut.ui.action.ActionFragment"
-        android:label="@string/item_action"
-        tools:layout="@layout/action_fragment" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.castprogramms.balamutbatut.ui.profile.ProfileFragment"
-        android:label="@string/item_profile"
-        tools:layout="@layout/profile_fragment" />
+        android:id="@+id/registrFragment"
+        android:name="com.castprogramms.balamutbatut.ui.registr.RegistrFragment"
+        android:label="RegistrFragment" >
+        <action
+            android:id="@+id/action_registrFragment_to_navigation"
+            app:destination="@id/navigation" />
+    </fragment>
 </navigation>
