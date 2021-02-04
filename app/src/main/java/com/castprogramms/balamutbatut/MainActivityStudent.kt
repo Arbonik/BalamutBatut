@@ -16,7 +16,7 @@ class MainActivityStudent : MainActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_student)
 
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)

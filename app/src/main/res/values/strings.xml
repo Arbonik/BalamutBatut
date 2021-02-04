@@ -3,8 +3,8 @@
     <string name="item_action">Мероприятия</string>
     <string name="item_progress">Прогресс</string>
     <string name="item_profile">Профиль</string>
+    <string name="item_groups">Группы</string>
+    <string name="item_group">Группа</string>
     <string name="title_activity_main2">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
 </resources>

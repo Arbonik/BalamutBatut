@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BalamutBatut">
+        <activity android:name=".MainActivityTrainer" />
         <activity android:name=".MainActivityStudent">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
