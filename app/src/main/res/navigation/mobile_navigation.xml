@@ -6,7 +6,7 @@
     app:startDestination="@id/registrFragment">
 
     <navigation android:id="@+id/navigation"
-        app:startDestination="@id/progressFragment">
+        app:startDestination="@id/profileFragment">
         <fragment
             android:id="@+id/profileFragment"
             android:name="com.castprogramms.balamutbatut.ui.profile.ProfileFragment"

@@ -3,6 +3,18 @@
     <string name="item_action">Мероприятия</string>
     <string name="item_progress">Прогресс</string>
     <string name="item_profile">Профиль</string>
+    <string name="item_groups">Группы</string>
+    <string name="item_group">Группа</string>
     <string name="title_activity_main2">MainActivity</string>
+
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="or">or</string>
+    <string name="google_sign_up">Continue with Google</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="forgot_password">Forgot password?</string>
+
+    <string name="min_length">6 символов</string>
+
     <string name="title_dialog_info">Информация о достижении</string>
 </resources>
