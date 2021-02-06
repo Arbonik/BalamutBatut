@@ -4,22 +4,18 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.users.Student
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import com.google.gson.GsonBuilder
 
 class DataUserFirebase: DataUserApi {
 
-    private val gsonConverter = GsonBuilder().create()
+    private val gsonConverter = GsonBuilder().setLenient().create()
     val fireStore = FirebaseFirestore.getInstance()
 
-    override fun addStudent(student: Student, group: Group) {
-        fireStore.collection(groupTag)
+    override fun addStudent(student: Student, group: Group, studentID: String) {
+        fireStore.collection(studentTag)
             .document()
-            .collection(studentTag)
-            .add(student)
+            .set(student)
     }
 
     override fun updateStudent(student: Student) {
@@ -67,14 +63,37 @@ class DataUserFirebase: DataUserApi {
 
     override fun getGroups(){
         fireStore.collection(groupTag)
-            .addSnapshotListener(object :EventListener<QuerySnapshot>{
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+            .addSnapshotListener { value, error ->
+                try {
                     value?.documents?.forEach {
-                        this@DataUserFirebase.mutableListGroups.add(gsonConverter.fromJson(it.data.toString(), Group::class.java))
+                        this@DataUserFirebase.mutableListGroups.add(
+                            gsonConverter.fromJson(
+                                it.data.toString(),
+                                Group::class.java
+                            )
+                        )
                     }
                     mutableLiveDataGroups.postValue(this@DataUserFirebase.mutableListGroups)
+                }catch (e:Exception){
+                    printLog(error?.message.toString())
                 }
-            })
+            }
+    }
+
+    fun getStudent(studentID: String): Student{
+        var student = Student("", "", listOf(), "")
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .get()
+            .addOnCompleteListener {
+                if (it.isSuccessful){
+                    student = gsonConverter.fromJson(it.result?.data.toString(), Student::class.java)
+                }
+                else
+                    printLog(it.exception?.message.toString())
+            }
+
+        return student
     }
 
     companion object{
