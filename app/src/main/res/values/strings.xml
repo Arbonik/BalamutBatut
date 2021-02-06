@@ -10,7 +10,7 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="or">or</string>
-    <string name="sign_in">Sign In</string>
+    <string name="google_sign_up">Continue with Google</string>
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot password?</string>
 
