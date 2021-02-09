@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/or">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -77,7 +77,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email_container">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/discipline"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"/>
@@ -94,6 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/password_container" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/login"
         style="@style/MainButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
