@@ -134,6 +134,14 @@ class RegistrFragment: Fragment() {
             val bundle = Bundle().apply {
                 putString(USER_UUID_TAG, user?.uid)
         }
+            DataUserFirebase().getStudent("UwsuyZ4DB4J8b1AbRbE9").addOnCompleteListener {
+                if (it.isSuccessful) {
+                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
+                    Log.e("Data", User.student.toString())
+                }
+                else
+                    Log.e("Data", it.exception?.message.toString())
+            }
             Log.i(TAG, "login with email")
             (requireActivity() as MainActivityStudent).toMainGraph()
     }
