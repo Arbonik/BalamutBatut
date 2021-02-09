@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,7 +44,7 @@ class RegistrFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         registrViewModel = RegistrViewModel()
-        val view = inflater.inflate(R.layout.fragment_regist_google, container, false)
+        val view = inflater.inflate(R.layout.fragment_regist, container, false)
         registrViewModel.initGoogleSign(requireContext())
         val button : SignInButton = view.findViewById(R.id.sign_in_button)
         button.setOnClickListener {
