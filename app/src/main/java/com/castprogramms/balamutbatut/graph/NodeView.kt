@@ -10,11 +10,12 @@ import android.view.MotionEvent
 import android.widget.ImageButton
 import androidx.annotation.RequiresApi
 import com.castprogramms.balamutbatut.graph.CustomAlertDialog
+import com.castprogramms.balamutbatut.graph.NodeInfoAlertDialog
 
 // класс для отображения узла
-class NodeView(var center: PointF, var radius: Float, context: Context, var node: Node)
+class NodeView(val radius: Float,context: Context, var node: Node)
     : androidx.appcompat.widget.AppCompatImageButton(context){
-
+    var center = PointF()
     val gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
 
         override fun onLongPress(e: MotionEvent) { // длинный ТЫК
@@ -24,9 +25,9 @@ class NodeView(var center: PointF, var radius: Float, context: Context, var node
 
         override fun onSingleTapUp(e: MotionEvent): Boolean { // одиночный ТЫК
             Log.d("Test", this@NodeView.node.toString())
+            NodeInfoAlertDialog().createDialog(this@NodeView)?.create()?.show()
             return true
         }
-
     })
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

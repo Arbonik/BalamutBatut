@@ -4,36 +4,44 @@ import android.content.Context
 import android.graphics.PointF
 import android.os.Build
 import android.util.AttributeSet
+import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.users.Student
 import com.example.graphguilibrary.Line
 import com.example.graphguilibrary.Node
 import com.example.graphguilibrary.NodeView
 
 // класс для отрисовки графа
-class Model(context: Context):ViewGroup(context){
+class Model(context: Context, attributeSet: AttributeSet):ViewGroup(context,attributeSet){
 
-    var quantity = 5
+    var quantity = 4
 
-    val nodes1 = MutableList(quantity) {Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), "qwerty")}
+    var nodes1 = MutableList(quantity) {Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), "qwerty")}
 
     var nodes = mutableListOf<NodeView>()
     val lines = mutableListOf<Line>()
     val radius = Math.min(context.resources.displayMetrics.widthPixels, context.resources.displayMetrics.heightPixels) / 20.toFloat()
+
+        //constructor(context: Context, attributeSet: AttributeSet):this(context)
     init {
+        update()
+    }
+    fun setNodesWithInfo(nodes:MutableList<Node>){
+        nodes1 = nodes
         update()
     }
     fun update(){
         this.removeAllViews()
         nodes.clear()
         lines.clear()
-        for (i in 0 until quantity){
-
+        for (i in 0 until nodes1.size){
             nodes.add(
                     NodeView(
-                            PointF((0..1000).random().toFloat(), (0..1000).random().toFloat()),
                             radius,
                             this.context,
                             nodes1[i]
@@ -78,7 +86,7 @@ class Model(context: Context):ViewGroup(context){
         nodes.forEach {
             addView(it,LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
         }
-
+    //        Log.e("Test",DataUserFirebase().getStudent("UwsuyZ4DB4J8b1AbRbE9").toString())
 
     }
 
@@ -88,7 +96,7 @@ class Model(context: Context):ViewGroup(context){
 
         for (index in 0 until count) {
             val view = getChildAt(index)
-            var indexNode = -1
+            var indexNode: Int
             if (view is NodeView) {
                 indexNode = index - lines.size
                 if (indexNode == 0) {

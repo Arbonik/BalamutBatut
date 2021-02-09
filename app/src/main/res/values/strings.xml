@@ -22,4 +22,11 @@
 
     <string name="min_length">6 символов</string>
 
+    <string name="title_dialog_info">Информация о достижении</string>
+    
+    <string name="last_name">Фамилия: </string>
+    <string name="name">Имя: </string>
+    <string name="sex">Пол: </string>
+    <string name="group">Группа: </string>
+    <string name="birthday">День рождения: </string>
 </resources>

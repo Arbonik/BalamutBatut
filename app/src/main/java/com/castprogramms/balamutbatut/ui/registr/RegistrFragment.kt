@@ -2,6 +2,7 @@ package com.castprogramms.balamutbatut.ui.registr
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -19,11 +20,14 @@ import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.users.Student
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.gson.GsonBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -41,10 +45,9 @@ class RegistrFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         registrViewModel = RegistrViewModel()
-        val view = inflater.inflate(R.layout.fragment_regist, container, false)
-
-        registrViewModel.googleSignInClient = GoogleSignIn.getClient(requireActivity(), registrViewModel.gso)
-        val button: SignInButton = view.findViewById(R.id.sign_in_button)
+        val view = inflater.inflate(R.layout.fragment_regist_google, container, false)
+        registrViewModel.initGoogleSign(requireContext())
+        val button : SignInButton = view.findViewById(R.id.sign_in_button)
         button.setOnClickListener {
             signIn()
         }
@@ -174,7 +177,15 @@ class RegistrFragment: Fragment() {
     }
     private fun updateUI(isSignedIn: GoogleSignInAccount?){
         if (isSignedIn != null) {
-            DataUserFirebase.printLog(isSignedIn.email.toString())
+            User.id = isSignedIn.id.toString()
+            DataUserFirebase().getStudent("UwsuyZ4DB4J8b1AbRbE9").addOnCompleteListener {
+                if (it.isSuccessful) {
+                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
+                    Log.e("Data", User.student.toString())
+                }
+                else
+                    Log.e("Data", it.exception?.message.toString())
+            }
             (requireActivity() as MainActivityStudent).toMainGraph()
         }
         else
