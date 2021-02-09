@@ -135,7 +135,7 @@ class RegistrFragment: Fragment() {
                 putString(USER_UUID_TAG, user?.uid)
         }
             Log.i(TAG, "login with email")
-            view?.findNavController()?.navigate(R.id.action_registrFragment_to_navigation, bundle)
+            (requireActivity() as MainActivityStudent).toMainGraph()
     }
 
     fun signIn(){
