@@ -2,6 +2,7 @@ package com.castprogramms.balamutbatut.ui.registr
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +10,14 @@ import androidx.fragment.app.Fragment
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.gson.GsonBuilder
 
 class RegistrFragment: Fragment() {
     lateinit var registrViewModel: RegistrViewModel
@@ -64,7 +67,15 @@ class RegistrFragment: Fragment() {
     }
     private fun updateUI(isSignedIn: GoogleSignInAccount?){
         if (isSignedIn != null) {
-            DataUserFirebase.printLog(isSignedIn.email.toString())
+            User.id = isSignedIn.id.toString()
+            DataUserFirebase().getStudent("UwsuyZ4DB4J8b1AbRbE9").addOnCompleteListener {
+                if (it.isSuccessful) {
+                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
+                    Log.e("Data", User.student.toString())
+                }
+                else
+                    Log.e("Data", it.exception?.message.toString())
+            }
             (requireActivity() as MainActivityStudent).toMainGraph()
         }
         else

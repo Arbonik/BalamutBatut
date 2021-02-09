@@ -4,12 +4,15 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.users.Student
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import com.google.gson.GsonBuilder
+import com.google.gson.stream.JsonReader
+import java.io.InputStreamReader
 
 class DataUserFirebase: DataUserApi {
 
-    private val gsonConverter = GsonBuilder().setLenient().create()
+    private val gsonConverter = GsonBuilder().create()
     val fireStore = FirebaseFirestore.getInstance()
 
     override fun addStudent(student: Student, group: Group, studentID: String) {
@@ -74,26 +77,17 @@ class DataUserFirebase: DataUserApi {
                         )
                     }
                     mutableLiveDataGroups.postValue(this@DataUserFirebase.mutableListGroups)
-                }catch (e:Exception){
+                }catch (e: Exception){
                     printLog(error?.message.toString())
                 }
             }
     }
 
-    fun getStudent(studentID: String): Student{
-        var student = Student("", "", listOf(), "")
-        fireStore.collection(studentTag)
+    fun getStudent(studentID: String): Task<DocumentSnapshot> {
+        var student = Student("", "", "", arrayOf())
+        return fireStore.collection(studentTag)
             .document(studentID)
             .get()
-            .addOnCompleteListener {
-                if (it.isSuccessful){
-                    student = gsonConverter.fromJson(it.result?.data.toString(), Student::class.java)
-                }
-                else
-                    printLog(it.exception?.message.toString())
-            }
-
-        return student
     }
 
     companion object{
