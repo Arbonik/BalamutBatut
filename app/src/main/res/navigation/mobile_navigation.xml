@@ -25,5 +25,16 @@
         <action
             android:id="@+id/action_registrFragment_to_navigation"
             app:destination="@id/navigation" />
+        <action
+            android:id="@+id/action_registrFragment_to_insertDataUserFragment"
+            app:destination="@id/insertDataUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/insertDataUserFragment"
+        android:name="com.castprogramms.balamutbatut.ui.insertdatauser.InsertDataUserFragment"
+        android:label="InsertDataUserFragment" >
+        <action
+            android:id="@+id/action_insertDataUserFragment_to_navigation"
+            app:destination="@id/navigation" />
     </fragment>
 </navigation>

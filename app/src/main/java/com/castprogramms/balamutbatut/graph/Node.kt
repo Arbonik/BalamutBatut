@@ -1,4 +1,4 @@
-package com.example.graphguilibrary
+package com.castprogramms.balamutbatut.graph
 
 open class Node(var childNodeID: MutableList<Int>){
     var data :Any? = null

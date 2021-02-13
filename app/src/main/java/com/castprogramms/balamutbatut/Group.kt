@@ -6,5 +6,5 @@ data class Group(
     var name: String,
     var description: String,
     var numberTrainer: String,
-    var students : MutableList<Student>
+    var students : MutableList<String>
 )

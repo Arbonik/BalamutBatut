@@ -1,6 +1,5 @@
 package com.castprogramms.balamutbatut
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavController
@@ -8,6 +7,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.Registration
+import com.castprogramms.balamutbatut.tools.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivityStudent : MainActivity() {
@@ -17,14 +19,15 @@ class MainActivityStudent : MainActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_student)
-
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
-
         navView.visibility = View.GONE
     }
-    fun toMainGraph(){
-        navController.navigate(R.id.action_registrFragment_to_navigation)
+    fun toMainGraph(registration: Boolean = false){
+        if (registration)
+            navController.navigate(R.id.action_insertDataUserFragment_to_navigation)
+        else
+            navController.navigate(R.id.action_registrFragment_to_navigation)
         navView.visibility = View.VISIBLE
 
         val appBarConfiguration = AppBarConfiguration(

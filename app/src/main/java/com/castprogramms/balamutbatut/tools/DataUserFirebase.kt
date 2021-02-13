@@ -15,9 +15,9 @@ class DataUserFirebase: DataUserApi {
     private val gsonConverter = GsonBuilder().create()
     val fireStore = FirebaseFirestore.getInstance()
 
-    override fun addStudent(student: Student, group: Group, studentID: String) {
+    override fun addStudent(student: Student, studentID: String) {
         fireStore.collection(studentTag)
-            .document()
+            .document(studentID)
             .set(student)
     }
 
@@ -27,7 +27,7 @@ class DataUserFirebase: DataUserApi {
 
     override fun deleteStudent(student: Student) {
         fireStore.collection(studentTag)
-                .document(student.number)
+                .document()
                 .delete()
     }
 
@@ -84,9 +84,14 @@ class DataUserFirebase: DataUserApi {
     }
 
     fun getStudent(studentID: String): Task<DocumentSnapshot> {
-        var student = Student("", "", "", arrayOf())
         return fireStore.collection(studentTag)
             .document(studentID)
+            .get()
+    }
+
+    fun getStudentsGroup(studentID: String): Task<QuerySnapshot> {
+        return fireStore.collection(groupTag)
+            .whereArrayContains(studentTag, studentID)
             .get()
     }
 

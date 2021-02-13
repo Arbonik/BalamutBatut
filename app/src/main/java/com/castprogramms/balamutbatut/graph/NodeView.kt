@@ -2,14 +2,12 @@ package com.example.graphguilibrary
 
 import android.content.Context
 import android.graphics.*
-import android.os.Build
 import android.util.Log
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
-import android.widget.ImageButton
-import androidx.annotation.RequiresApi
 import com.castprogramms.balamutbatut.graph.CustomAlertDialog
+import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.graph.NodeInfoAlertDialog
 
 // класс для отображения узла

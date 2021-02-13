@@ -1,6 +1,6 @@
 package com.castprogramms.balamutbatut.tools
 
-import com.example.graphguilibrary.Node
+import com.castprogramms.balamutbatut.graph.Node
 
 interface NodeIO {
     fun getNode(position: Int): Node

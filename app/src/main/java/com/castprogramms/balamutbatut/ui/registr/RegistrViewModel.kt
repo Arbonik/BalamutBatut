@@ -3,23 +3,27 @@ package com.castprogramms.balamutbatut.ui.registr
 import android.content.Context
 import android.util.Log
 import android.util.Patterns
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.Registration
+import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.users.Student
+import com.castprogramms.balamutbatut.graph.Node
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.GsonBuilder
 
 class RegistrViewModel: ViewModel() {
-
     val SIGN_IN_CODE = 7
-    val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    val auth: FirebaseAuth = FirebaseAuth.getInstance()
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail().build()
+    val registration = Registration()
 
     lateinit var googleSignInClient : GoogleSignInClient
     var account : GoogleSignInAccount? = null
@@ -52,6 +56,40 @@ class RegistrViewModel: ViewModel() {
 
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
+    }
+
+    fun handleSignInResult(task: Task<GoogleSignInAccount>): Boolean {
+        DataUserFirebase.printLog("handle: "+ task.isSuccessful)
+        try {
+            account = task.getResult(ApiException::class.java)
+            return registration.updateUI(account)
+        }catch (e:ApiException){
+            DataUserFirebase.printLog("signInResult:failed code=" + e.statusCode)
+            return registration.updateUI(null)
+        }
+    }
+
+    private fun updateUI(isSignedIn: GoogleSignInAccount?): Boolean {
+        if (isSignedIn != null) {
+            User.id = auth.currentUser?.uid.toString()
+            DataUserFirebase().addStudent(
+                Student("Александр", "Звездаков", "23-10-2003",
+                List(4) { Node(if (it != 4 - 1) mutableListOf(it + 1) else mutableListOf(), "qwerty") }),
+                User.id)
+            DataUserFirebase().getStudent(User.testID).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
+                    Log.e("Data", User.student.toString())
+                }
+                else
+                    Log.e("Data", it.exception?.message.toString())
+            }
+            return true
+        }
+        else{
+            DataUserFirebase.printLog("updateUI ERROR")
+            return false
+        }
     }
 
 }

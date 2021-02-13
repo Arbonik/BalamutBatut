@@ -6,6 +6,8 @@ import com.castprogramms.balamutbatut.users.Student
 object User {
     var id = ""
 
+    val testID = "UwsuyZ4DB4J8b1AbRbE9a"
+
     var student : Student? = null
 
     val mutableLiveDataStudent = MutableLiveData(student)

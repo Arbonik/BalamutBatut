@@ -3,8 +3,6 @@ package com.castprogramms.balamutbatut.ui.registr
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,27 +12,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import com.castprogramms.balamutbatut.MainActivity
+import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
-import com.castprogramms.balamutbatut.tools.User
-import com.castprogramms.balamutbatut.users.Student
+import com.castprogramms.balamutbatut.tools.Registration
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.gson.GsonBuilder
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
-val USER_UUID_TAG = "userUUID"
-
 class RegistrFragment: Fragment() {
-
-    private lateinit var auth: FirebaseAuth
 
     lateinit var registrViewModel: RegistrViewModel
 
@@ -50,8 +39,6 @@ class RegistrFragment: Fragment() {
         button.setOnClickListener {
             signIn()
         }
-
-        auth = FirebaseAuth.getInstance()
 
         val username = view.findViewById<EditText>(R.id.email)
         val password = view.findViewById<EditText>(R.id.password)
@@ -93,7 +80,7 @@ class RegistrFragment: Fragment() {
                 val userLogin = username.text.toString()
                 val userPass = password.text.toString()
 
-                auth.createUserWithEmailAndPassword(userLogin, userPass)
+                registrViewModel.auth.createUserWithEmailAndPassword(userLogin, userPass)
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(
@@ -109,14 +96,14 @@ class RegistrFragment: Fragment() {
                         }
                     }
                     .addOnFailureListener { exception ->
-                        auth.signInWithEmailAndPassword(userLogin, userPass)
+                        registrViewModel.auth.signInWithEmailAndPassword(userLogin, userPass)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     Toast.makeText(
                                         requireContext(), resources.getString(R.string.welcome),
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    successLogin(auth.currentUser)
+                                    successLogin(registrViewModel.auth.currentUser)
                                 }
                             }
                     }
@@ -126,22 +113,24 @@ class RegistrFragment: Fragment() {
     }
     override fun onStart() {
         super.onStart()
-        if (auth.currentUser != null)
-                successLogin(auth.currentUser)
+        if (registrViewModel.auth.currentUser != null)
+                successLogin(registrViewModel.auth.currentUser)
+        else{
+            val googleAuth = GoogleSignIn.getLastSignedInAccount(requireContext())
+            if (googleAuth != null){
+                val authentication = Registration().auth(googleAuth)
+                if (authentication)
+                    (requireActivity() as MainActivityStudent).toMainGraph()
+            }
+        }
+
+
         }
 
         fun successLogin(user: FirebaseUser?) {
             val bundle = Bundle().apply {
-                putString(USER_UUID_TAG, user?.uid)
-        }
-            DataUserFirebase().getStudent("UwsuyZ4DB4J8b1AbRbE9").addOnCompleteListener {
-                if (it.isSuccessful) {
-                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
-                    Log.e("Data", User.student.toString())
-                }
-                else
-                    Log.e("Data", it.exception?.message.toString())
-            }
+                putString(USER_UUID_TAG, user?.uid) }
+            Registration().auth(user)
             Log.i(TAG, "login with email")
             (requireActivity() as MainActivityStudent).toMainGraph()
     }
@@ -163,7 +152,10 @@ class RegistrFragment: Fragment() {
             = GoogleSignIn.getSignedInAccountFromIntent(data)
             task.addOnCompleteListener {
                 if (it.isSuccessful){
-                    handleSignInResult(task)
+                    if (registrViewModel.handleSignInResult(task))
+                        (requireActivity() as MainActivityStudent).toMainGraph()
+                    else
+                        this.findNavController().navigate(R.id.action_registrFragment_to_insertDataUserFragment)
                 }
                 else{
                     DataUserFirebase.printLog(it.exception?.message.toString())
@@ -172,44 +164,8 @@ class RegistrFragment: Fragment() {
         }
     }
 
-    fun handleSignInResult(task: Task<GoogleSignInAccount>){
-        DataUserFirebase.printLog("handle: "+ task.isSuccessful)
-        try {
-            registrViewModel.account = task.getResult(ApiException::class.java)
-            updateUI(registrViewModel.account)
-        }catch (e:ApiException){
-            DataUserFirebase.printLog("signInResult:failed code=" + e.statusCode)
-            updateUI(null)
-        }
-    }
-    private fun updateUI(isSignedIn: GoogleSignInAccount?){
-        if (isSignedIn != null) {
-            User.id = isSignedIn.id.toString()
-            DataUserFirebase().getStudent("UwsuyZ4DB4J8b1AbRbE9").addOnCompleteListener {
-                if (it.isSuccessful) {
-                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
-                    Log.e("Data", User.student.toString())
-                }
-                else
-                    Log.e("Data", it.exception?.message.toString())
-            }
-            (requireActivity() as MainActivityStudent).toMainGraph()
-        }
-        else
-            DataUserFirebase.printLog("updateUI ERROR")
-    }
     companion object{
-        var TAG = "Register"
+        val TAG = "Register"
+        val USER_UUID_TAG = "userUUID"
     }
-}
-
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
 }

@@ -1,10 +1,12 @@
 package com.castprogramms.balamutbatut.users
 
-import com.example.graphguilibrary.Node
+import com.castprogramms.balamutbatut.graph.Node
 
 data class Student(
-        var name: String,
-        var age : String,
-        var number : String,
-        var nodes : Array<Node>
-)
+    var first_name: String,
+    var second_name : String,
+    var date : String,
+    var nodes : List<Node>
+){
+    var nameGroup : String? = null
+}

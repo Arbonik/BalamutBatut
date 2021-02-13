@@ -15,4 +15,5 @@
 
     <color name="tx_grey">#212121</color>
     <color name="google_dark_color">#4285F4</color>
+    <color name="red">#FF0000</color>
 </resources>

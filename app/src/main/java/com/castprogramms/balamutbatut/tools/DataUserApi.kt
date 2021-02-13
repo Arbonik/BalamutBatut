@@ -4,7 +4,7 @@ import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.users.Student
 
 interface DataUserApi {
-    fun addStudent(student: Student, group: Group, studentID: String)
+    fun addStudent(student: Student, studentID: String)
 
     fun updateStudent(student: Student)
 

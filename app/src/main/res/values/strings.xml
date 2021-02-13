@@ -7,26 +7,26 @@
     <string name="item_group">Группа</string>
     <string name="title_activity_main2">MainActivity</string>
 
-    <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="or">or</string>
-    <string name="google_sign_up">Continue with Google</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="success_register">Вы успешно зарегестрированы!.</string>
-
-
+    <string name="password">Пароль</string>
+    <string name="email">Электронная почта</string>
+    <string name="or">Или</string>
+    <string name="google_sign_up">Войти с помощью Google</string>
+    <string name="sign_up">Войти</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="invalid_password">Пароль должен содержать >5 символов</string>
+    <string name="invalid_username">Неверно введён логин</string>
+    <string name="welcome">"Добро пожаловать!"</string>
+    <string name="success_register">Вы успешно зарегестрированы!</string>
 
     <string name="min_length">6 символов</string>
 
     <string name="title_dialog_info">Информация о достижении</string>
-    
     <string name="last_name">Фамилия: </string>
     <string name="name">Имя: </string>
     <string name="sex">Пол: </string>
     <string name="group">Группа: </string>
     <string name="birthday">День рождения: </string>
+    <string name="date">Введите дату рождения: </string>
+    <string name="finish_registr">Завершить регестрацию</string>
+    <string name="your_date">Ваша дата рождения:</string>
 </resources>

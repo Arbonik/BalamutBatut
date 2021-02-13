@@ -1,12 +1,10 @@
 package com.castprogramms.balamutbatut.graph
 
 import android.app.AlertDialog
-import android.graphics.PointF
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
 import com.castprogramms.balamutbatut.R
-import com.example.graphguilibrary.Node
 import com.example.graphguilibrary.NodeView
 
 // класс для вызова AlertDialog

@@ -2,18 +2,9 @@ package com.castprogramms.balamutbatut.graph
 
 import android.content.Context
 import android.graphics.PointF
-import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import com.castprogramms.balamutbatut.Group
-import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.tools.DataUserFirebase
-import com.castprogramms.balamutbatut.tools.User
-import com.castprogramms.balamutbatut.users.Student
 import com.example.graphguilibrary.Line
-import com.example.graphguilibrary.Node
 import com.example.graphguilibrary.NodeView
 
 // класс для отрисовки графа
@@ -21,7 +12,7 @@ class Model(context: Context, attributeSet: AttributeSet):ViewGroup(context,attr
 
     var quantity = 4
 
-    var nodes1 = MutableList(quantity) {Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), "qwerty")}
+    var nodes1 = MutableList(quantity) { Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), "qwerty") }
 
     var nodes = mutableListOf<NodeView>()
     val lines = mutableListOf<Line>()
