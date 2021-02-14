@@ -46,30 +46,38 @@ class InsertDataUserFragment: Fragment() {
         val editFirstName: TextInputEditText = view.findViewById(R.id.name)
         val editLastName: TextInputEditText = view.findViewById(R.id.last_name)
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)
+        val listEmptyEditText = mutableListOf<Boolean>()
         finishRegistration.setOnClickListener {
-            val editTexts = mutableListOf(editFirstName, editLastName)
-            val validationEditText = validationDate(editTexts)
-            for(i in validationEditText.indices){
-                if (!validationEditText[i]){
-                    setWarningColorEditText(editTexts[i])
-                }
+            if (editFirstName.text.isNullOrBlank()){
+                editFirstName.error = requireContext().getString(R.string.add_first_name)
+                listEmptyEditText.add(false)
             }
-            if (!validationEditText.contains(false)) {
+            else
+                listEmptyEditText.add(true)
+
+            if (editLastName.text.isNullOrBlank()){
+                editLastName.error = requireContext().getString(R.string.add_second_name)
+                listEmptyEditText.add(false)
+            }
+            else
+                listEmptyEditText.add(true)
+
+            if (editDate.text == requireContext().getString(R.string.date)){
+                editDate.error = requireContext().getString(R.string.add_date)
+            }
+            else
+                listEmptyEditText.add(false)
+
+            if (!listEmptyEditText.contains(false)) {
                 addDataStudent(Student(editFirstName.text.toString(), editLastName.text.toString(),
                     date, listOf(Node(mutableListOf()))))
-//                val googleAuth = GoogleSignIn.getLastSignedInAccount(requireContext())
-//                if (googleAuth != null){
-//                    val authentication = Registration().auth(googleAuth)
-//                    if (authentication)
                 Registration().loadDate()
-                        (requireActivity() as MainActivityStudent).toMainGraph(true)
-//                }
+                (requireActivity() as MainActivityStudent).toMainGraph(true)
             }
         }
         editDate.setOnClickListener {
             setDate()
         }
-
         return view
     }
 
@@ -80,21 +88,6 @@ class InsertDataUserFragment: Fragment() {
             dateAndTime.get(Calendar.MONTH),
             dateAndTime.get(Calendar.DAY_OF_MONTH)
         ).show()
-    }
-
-    fun validationDate(mutableList: MutableList<TextInputEditText>): MutableList<Boolean>{
-        val listEmptyEditText = mutableListOf<Boolean>()
-        mutableList.forEach {
-            if (it.text.isNullOrBlank())
-                listEmptyEditText.add(false)
-            else
-                listEmptyEditText.add(true)
-        }
-        return listEmptyEditText
-    }
-
-    fun setWarningColorEditText(editText: TextInputEditText){
-        editText.setBackgroundColor(requireContext().resources.getColor(R.color.red))
     }
 
     fun addDataStudent(student: Student){

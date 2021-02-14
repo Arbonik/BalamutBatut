@@ -29,4 +29,8 @@
     <string name="date">Введите дату рождения: </string>
     <string name="finish_registr">Завершить регестрацию</string>
     <string name="your_date">Ваша дата рождения:</string>
+
+    <string name="add_first_name">Введите ваше имя</string>
+    <string name="add_second_name">Введите вашу фамилию</string>
+    <string name="add_date">Введите дату вашего рождения</string>
 </resources>

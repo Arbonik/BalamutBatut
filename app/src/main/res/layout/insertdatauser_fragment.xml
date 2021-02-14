@@ -65,6 +65,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="30dp"
         android:id="@+id/next"/>
+<!--    <RadioGroup-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/rectangles">-->
+<!--        <com.google.android.material.radiobutton.MaterialRadioButton-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
+<!---->
+<!--    </RadioGroup>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
