@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.progress.ProgressFragment">
 
-    <com.castprogramms.balamutbatut.graph.Model
+    <com.castprogramms.balamutbatut.graph.TreeGraphView
         android:id="@+id/model"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

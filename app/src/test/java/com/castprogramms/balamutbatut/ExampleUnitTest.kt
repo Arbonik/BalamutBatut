@@ -1,5 +1,6 @@
 package com.castprogramms.balamutbatut
 
+import com.castprogramms.balamutbatut.graph.Node
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +13,8 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val nodes = listOf(Node(mutableListOf()))
+        val nodes1 = listOf(Node(mutableListOf()))
+        assertArrayEquals((nodes.minus(nodes1)).toTypedArray(), arrayOf())
     }
 }

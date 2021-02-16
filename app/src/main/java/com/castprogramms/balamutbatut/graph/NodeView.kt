@@ -11,7 +11,7 @@ import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.graph.NodeInfoAlertDialog
 
 // класс для отображения узла
-class NodeView(val radius: Float,context: Context, var node: Node)
+class NodeView (val radius: Float,context: Context, var node: Node)
     : androidx.appcompat.widget.AppCompatImageButton(context){
     var center = PointF()
     val gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {

@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.tools.NodeData
 import com.example.graphguilibrary.NodeView
+import kotlin.math.min
 
 // класс для вызова AlertDialog
 class CustomAlertDialog {
@@ -17,11 +19,14 @@ class CustomAlertDialog {
                 .setPositiveButton("Добавить") { dialog, which ->
                     Log.d("Test",view.findViewById<EditText>(R.id.email).text.toString())
                     Log.d("Test",view.findViewById<EditText>(R.id.desc).text.toString())
-                    val model = nodeView.parent as Model
+                    val model = nodeView.parent as TreeGraphView
                     model.addNodeView(nodeView, NodeView(
-                            kotlin.math.min(nodeView.context.resources.displayMetrics.widthPixels, nodeView.context.resources.displayMetrics.heightPixels) / 20.toFloat(),
-                            nodeView.context,
-                            Node(mutableListOf(), mutableListOf(view.findViewById<EditText>(R.id.email).text.toString(), view.findViewById<EditText>(R.id.desc).text.toString()))
+                        min(nodeView.context.resources.displayMetrics.widthPixels,
+                                nodeView.context.resources.displayMetrics.heightPixels) / 20.toFloat(),
+                                nodeView.context,
+                                Node(mutableListOf(),
+                                NodeData(mutableListOf(view.findViewById<EditText>(R.id.email).text.toString(),
+                                    view.findViewById<EditText>(R.id.desc).text.toString())))
                     )
                     )
                 }

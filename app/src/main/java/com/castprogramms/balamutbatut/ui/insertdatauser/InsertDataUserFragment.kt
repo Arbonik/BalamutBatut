@@ -46,8 +46,8 @@ class InsertDataUserFragment: Fragment() {
         val editFirstName: TextInputEditText = view.findViewById(R.id.name)
         val editLastName: TextInputEditText = view.findViewById(R.id.last_name)
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)
-        val listEmptyEditText = mutableListOf<Boolean>()
         finishRegistration.setOnClickListener {
+            val listEmptyEditText = mutableListOf<Boolean>()
             if (editFirstName.text.isNullOrBlank()){
                 editFirstName.error = requireContext().getString(R.string.add_first_name)
                 listEmptyEditText.add(false)
@@ -64,9 +64,10 @@ class InsertDataUserFragment: Fragment() {
 
             if (editDate.text == requireContext().getString(R.string.date)){
                 editDate.error = requireContext().getString(R.string.add_date)
+                listEmptyEditText.add(false)
             }
             else
-                listEmptyEditText.add(false)
+                listEmptyEditText.add(true)
 
             if (!listEmptyEditText.contains(false)) {
                 addDataStudent(Student(editFirstName.text.toString(), editLastName.text.toString(),

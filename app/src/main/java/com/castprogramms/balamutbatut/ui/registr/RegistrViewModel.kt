@@ -12,6 +12,7 @@ import com.castprogramms.balamutbatut.tools.Registration
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.graph.Node
+import com.castprogramms.balamutbatut.tools.NodeData
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
@@ -74,7 +75,8 @@ class RegistrViewModel: ViewModel() {
             User.id = auth.currentUser?.uid.toString()
             DataUserFirebase().addStudent(
                 Student("Александр", "Звездаков", "23-10-2003",
-                List(4) { Node(if (it != 4 - 1) mutableListOf(it + 1) else mutableListOf(), "qwerty") }),
+                List(4) { Node(if (it != 4 - 1) mutableListOf(it + 1) else mutableListOf(),
+                NodeData(mutableListOf("qwerty"))) }),
                 User.id)
             DataUserFirebase().getStudent(User.testID).addOnCompleteListener {
                 if (it.isSuccessful) {

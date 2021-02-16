@@ -16,4 +16,5 @@ object User {
         this.student = student
         mutableLiveDataStudent.value = student
     }
+    val mutableLiveDataSuccess = MutableLiveData(false)
 }

@@ -17,6 +17,7 @@ import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.Registration
+import com.castprogramms.balamutbatut.tools.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
@@ -119,13 +120,13 @@ class RegistrFragment: Fragment() {
             val googleAuth = GoogleSignIn.getLastSignedInAccount(requireContext())
             if (googleAuth != null){
                 val authentication = Registration().auth(googleAuth)
-                if (authentication)
-                    (requireActivity() as MainActivityStudent).toMainGraph()
+                User.mutableLiveDataSuccess.observe(this, {
+                    if (it)
+                        (requireActivity() as MainActivityStudent).toMainGraph()
+                })
             }
         }
-
-
-        }
+    }
 
         fun successLogin(user: FirebaseUser?) {
             val bundle = Bundle().apply {
@@ -138,7 +139,8 @@ class RegistrFragment: Fragment() {
     fun signIn(){
         Log.i(TAG, "Open google Intent")
         try {
-            startActivityForResult(Intent(GoogleSignIn.getClient(requireActivity(), registrViewModel.gso).signInIntent),
+            startActivityForResult(Intent(GoogleSignIn.getClient(requireActivity(),
+                registrViewModel.gso).signInIntent),
                 registrViewModel.SIGN_IN_CODE)
         }catch (e:Exception){
             Log.e("Test", e.message.toString())
@@ -155,7 +157,8 @@ class RegistrFragment: Fragment() {
                     if (registrViewModel.handleSignInResult(task))
                         (requireActivity() as MainActivityStudent).toMainGraph()
                     else
-                        this.findNavController().navigate(R.id.action_registrFragment_to_insertDataUserFragment)
+                        this.findNavController()
+                            .navigate(R.id.action_registrFragment_to_insertDataUserFragment)
                 }
                 else{
                     DataUserFirebase.printLog(it.exception?.message.toString())

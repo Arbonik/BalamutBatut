@@ -9,4 +9,8 @@ data class Student(
     var nodes : List<Node>
 ){
     var nameGroup : String? = null
+
+    fun setNodesList(nodes: List<Node>){
+        this.nodes = nodes
+    }
 }

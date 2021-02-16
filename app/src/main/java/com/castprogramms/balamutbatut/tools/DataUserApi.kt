@@ -6,7 +6,7 @@ import com.castprogramms.balamutbatut.users.Student
 interface DataUserApi {
     fun addStudent(student: Student, studentID: String)
 
-    fun updateStudent(student: Student)
+    fun updateStudent(student: Student, studentID: String)
 
     fun deleteStudent(student: Student)
 

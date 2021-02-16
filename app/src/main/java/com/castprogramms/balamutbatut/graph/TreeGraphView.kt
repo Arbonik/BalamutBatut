@@ -4,21 +4,21 @@ import android.content.Context
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.ViewGroup
+import com.castprogramms.balamutbatut.tools.NodeData
+import com.castprogramms.balamutbatut.tools.User
 import com.example.graphguilibrary.Line
 import com.example.graphguilibrary.NodeView
 
 // класс для отрисовки графа
-class Model(context: Context, attributeSet: AttributeSet):ViewGroup(context,attributeSet){
+class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(context,attributeSet){
 
-    var quantity = 4
-
-    var nodes1 = MutableList(quantity) { Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), "qwerty") }
+    var quantity = 1
+    var nodes1 = MutableList(quantity) { Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), NodeData(mutableListOf("qwerty")))}
 
     var nodes = mutableListOf<NodeView>()
     val lines = mutableListOf<Line>()
     val radius = Math.min(context.resources.displayMetrics.widthPixels, context.resources.displayMetrics.heightPixels) / 20.toFloat()
 
-        //constructor(context: Context, attributeSet: AttributeSet):this(context)
     init {
         update()
     }
@@ -43,6 +43,8 @@ class Model(context: Context, attributeSet: AttributeSet):ViewGroup(context,attr
     }
     fun addNodeView(parentNodeView: NodeView, nodeView: NodeView){ // функция для добавления узла
         nodes.add(nodeView)
+        nodes1.add(nodeView.node)
+        User.student?.setNodesList(nodes1)
         parentNodeView.node.childNodeID.add(nodes.size-1)
         setNodesAndLines(nodes)
     }

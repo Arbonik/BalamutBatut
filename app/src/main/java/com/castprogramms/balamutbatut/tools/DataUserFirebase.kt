@@ -3,6 +3,7 @@ package com.castprogramms.balamutbatut.tools
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.Group
+import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.users.Student
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
@@ -21,7 +22,7 @@ class DataUserFirebase: DataUserApi {
             .set(student)
     }
 
-    override fun updateStudent(student: Student) {
+    override fun updateStudent(student: Student, studentID: String) {
         
     }
 
@@ -93,6 +94,12 @@ class DataUserFirebase: DataUserApi {
         return fireStore.collection(groupTag)
             .whereArrayContains(studentTag, studentID)
             .get()
+    }
+    fun updateNodeStudent(studentID: String, nodes:List<Node>){
+        if (User.student != null){
+            val diff = nodes.filter { !User.student?.nodes?.contains(it)!! }
+            printLog(diff.toString())
+        }
     }
 
     companion object{

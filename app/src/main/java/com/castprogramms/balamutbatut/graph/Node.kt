@@ -1,18 +1,25 @@
 package com.castprogramms.balamutbatut.graph
 
+import com.castprogramms.balamutbatut.tools.NodeData
+
 open class Node(var childNodeID: MutableList<Int>){
-    var data :Any? = null
+    var data = NodeData(mutableListOf())
     constructor(
             childNodeID: MutableList<Int>,
-            data : Any
+            data : NodeData
     ): this(childNodeID){
         this.data = data
     }
 
     override fun toString(): String {
-        if (data == null)
-            return "Пустой узел"
+        return data.toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Node){
+            return this.data == other.data
+        }
         else
-            return data.toString()
+            return false
     }
 }
