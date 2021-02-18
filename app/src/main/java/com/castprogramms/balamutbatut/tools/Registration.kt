@@ -74,12 +74,12 @@ class Registration {
                 if (it.data != null) {
                     User.mutableLiveDataSuccess.postValue(true)
                     Log.e("Data", it.data.toString())
-                    if (it.getString("type_person").toString() == "student")
+                    if (it.getString("type").toString() == "student")
                         User.setValue(
                             GsonBuilder().create().fromJson(it.data.toString(), Student::class.java)
                         )
                     else{
-                        if (it.getString("type_person").toString() == "trainer"){
+                        if (it.getString("type").toString() == "trainer"){
 
                         }
                     }
