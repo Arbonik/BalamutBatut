@@ -21,6 +21,7 @@
     <string name="min_length">6 символов</string>
 
     <string name="title_dialog_info">Информация о достижении</string>
+    <string name="title_set_data">Установка данных о достижении</string>
     <string name="last_name">Фамилия: </string>
     <string name="name">Имя: </string>
     <string name="sex">Пол: </string>
@@ -33,4 +34,8 @@
     <string name="add_first_name">Введите ваше имя</string>
     <string name="add_second_name">Введите вашу фамилию</string>
     <string name="add_date">Введите дату вашего рождения</string>
+    <string name="add_sex">Введите ваш пол</string>
+
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
 </resources>

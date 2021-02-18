@@ -57,6 +57,33 @@
         app:layout_constraintTop_toBottomOf="@id/name_container"
         android:id="@+id/date"/>
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rectangles"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:layout_marginStart="24dp"
+            android:layout_weight="1"
+            android:text="@string/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/male"/>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:layout_marginEnd="24dp"
+            android:text="@string/female"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/female"/>
+    </RadioGroup>
+
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,15 +92,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="30dp"
         android:id="@+id/next"/>
-<!--    <RadioGroup-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/rectangles">-->
-<!--        <com.google.android.material.radiobutton.MaterialRadioButton-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"/>-->
-<!---->
-<!--    </RadioGroup>-->
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

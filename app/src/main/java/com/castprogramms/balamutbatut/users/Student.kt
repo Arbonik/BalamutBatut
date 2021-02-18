@@ -2,14 +2,15 @@ package com.castprogramms.balamutbatut.users
 
 import com.castprogramms.balamutbatut.graph.Node
 
-data class Student(
-    var first_name: String,
-    var second_name : String,
-    var date : String,
+class Student(
+    first_name: String,
+    second_name : String,
+    date : String,
+    sex : String,
     var nodes : List<Node>
-){
+):Person(first_name, second_name, date, sex){
     var nameGroup : String? = null
-
+    val type = "student"
     fun setNodesList(nodes: List<Node>){
         this.nodes = nodes
     }

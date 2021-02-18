@@ -73,11 +73,11 @@ class RegistrViewModel: ViewModel() {
     private fun updateUI(isSignedIn: GoogleSignInAccount?): Boolean {
         if (isSignedIn != null) {
             User.id = auth.currentUser?.uid.toString()
-            DataUserFirebase().addStudent(
-                Student("Александр", "Звездаков", "23-10-2003",
-                List(4) { Node(if (it != 4 - 1) mutableListOf(it + 1) else mutableListOf(),
-                NodeData(mutableListOf("qwerty"))) }),
-                User.id)
+//            DataUserFirebase().addStudent(
+//                Student("Александр", "Звездаков", "23-10-2003",
+//                List(4) { Node(if (it != 4 - 1) mutableListOf(it + 1) else mutableListOf(),
+//                NodeData(mutableListOf("qwerty"))) }, ),
+//                User.id)
             DataUserFirebase().getStudent(User.testID).addOnCompleteListener {
                 if (it.isSuccessful) {
                     User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))

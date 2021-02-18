@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.viewpager2.widget.ViewPager2
 import com.castprogramms.balamutbatut.R
@@ -40,12 +41,13 @@ class ProfileFragment : Fragment() {
             viewPager2.currentItem = i
         }.attach()
         viewPager2.currentItem = 0
-        User.mutableLiveDataStudent.observe(viewLifecycleOwner) {
+        User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer{
             second_nameUser.text = it?.second_name
             nameUser.text = it?.first_name
             dateUser.text = it?.date
             groupNameUser.text = it?.nameGroup
-        }
+            sexUser.text = it?.sex
+        })
         return view
     }
 

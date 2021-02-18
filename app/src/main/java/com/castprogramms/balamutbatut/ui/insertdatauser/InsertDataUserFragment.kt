@@ -21,6 +21,7 @@ import com.castprogramms.balamutbatut.tools.Registration
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.google.android.material.radiobutton.MaterialRadioButton
 import java.util.*
 
 class InsertDataUserFragment: Fragment() {
@@ -33,6 +34,7 @@ class InsertDataUserFragment: Fragment() {
             date = "$dayOfMonth-${month+1}-$year"
         }
     }
+    var sex = ""
 
     val dateAndTime = Calendar.getInstance()
 
@@ -46,6 +48,8 @@ class InsertDataUserFragment: Fragment() {
         val editFirstName: TextInputEditText = view.findViewById(R.id.name)
         val editLastName: TextInputEditText = view.findViewById(R.id.last_name)
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)
+        val maleRadioButton : MaterialRadioButton = view.findViewById(R.id.male)
+        val femaleRadioButton : MaterialRadioButton = view.findViewById(R.id.female)
         finishRegistration.setOnClickListener {
             val listEmptyEditText = mutableListOf<Boolean>()
             if (editFirstName.text.isNullOrBlank()){
@@ -68,10 +72,20 @@ class InsertDataUserFragment: Fragment() {
             }
             else
                 listEmptyEditText.add(true)
+            if (!maleRadioButton.isChecked && !femaleRadioButton.isChecked){
+                maleRadioButton.error = requireContext().resources.getString(R.string.add_sex)
+                listEmptyEditText.add(false)
+            }
+            else{
+                if (maleRadioButton.isChecked)
+                    sex = requireContext().resources.getString(R.string.male)
 
+                if (femaleRadioButton.isChecked)
+                    sex = requireContext().resources.getString(R.string.female)
+            }
             if (!listEmptyEditText.contains(false)) {
                 addDataStudent(Student(editFirstName.text.toString(), editLastName.text.toString(),
-                    date, listOf(Node(mutableListOf()))))
+                    date, sex, listOf(Node(mutableListOf()))))
                 Registration().loadDate()
                 (requireActivity() as MainActivityStudent).toMainGraph(true)
             }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.graph.TreeGraphView
@@ -22,7 +23,7 @@ class ProgressFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.progress_fragment, container, false)
         val model = view.findViewById<TreeGraphView>(R.id.model)
-        User.mutableLiveDataStudent.observe(viewLifecycleOwner, {
+        User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer{
             if (it != null) {
                 model.setNodesWithInfo(it.nodes.toMutableList())
             }
