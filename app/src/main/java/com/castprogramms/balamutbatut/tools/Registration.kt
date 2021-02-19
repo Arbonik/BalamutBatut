@@ -16,7 +16,6 @@ import org.w3c.dom.Document
 
 class Registration {
     var account : GoogleSignInAccount? = null
-    val auth = FirebaseAuth.getInstance()
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail().build()
     fun login(context: Context, data: Intent){

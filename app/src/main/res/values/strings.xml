@@ -22,11 +22,11 @@
 
     <string name="title_dialog_info">Информация о достижении</string>
     <string name="title_set_data">Установка данных о достижении</string>
-    <string name="last_name">Фамилия: </string>
-    <string name="name">Имя: </string>
+    <string name="last_name">Фамилия</string>
+    <string name="name">Имя</string>
     <string name="sex">Пол: </string>
     <string name="group">Группа: </string>
-    <string name="birthday">День рождения: </string>
+    <string name="birthday">Дата рождения: </string>
     <string name="date">Введите дату рождения: </string>
     <string name="finish_registr">Завершить регестрацию</string>
     <string name="your_date">Ваша дата рождения:</string>
@@ -38,4 +38,6 @@
 
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
+
+    <string name="message_register">Введите информацию о себе, чтобы тренер мог добавить вас в группу</string>
 </resources>

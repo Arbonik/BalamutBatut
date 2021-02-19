@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Constraints
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -21,6 +24,7 @@ import com.castprogramms.balamutbatut.tools.Registration
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
 import java.util.*
 
@@ -30,13 +34,14 @@ class InsertDataUserFragment: Fragment() {
     var date = ""
     val dateSetListener = object : DatePickerDialog.OnDateSetListener{
         override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-            editDate.text = requireContext().getString(R.string.your_date) +" $dayOfMonth-${month+1}-$year"
+            editDate.text = requireContext().getString(R.string.your_date) + " $dayOfMonth-${month+1}-$year"
             date = "$dayOfMonth-${month+1}-$year"
         }
     }
     var sex = ""
 
     val dateAndTime = Calendar.getInstance()
+    lateinit var parentConstraintLayout : ConstraintLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +55,10 @@ class InsertDataUserFragment: Fragment() {
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)
         val maleRadioButton : MaterialRadioButton = view.findViewById(R.id.male)
         val femaleRadioButton : MaterialRadioButton = view.findViewById(R.id.female)
+        val closeButton : MaterialButton = view.findViewById(R.id.close_message)
+        val messageCard : MaterialCardView = view.findViewById(R.id.info)
+        parentConstraintLayout = view.findViewById(R.id.container_const)
+
         finishRegistration.setOnClickListener {
             val listEmptyEditText = mutableListOf<Boolean>()
             if (editFirstName.text.isNullOrBlank()){
@@ -93,7 +102,14 @@ class InsertDataUserFragment: Fragment() {
         editDate.setOnClickListener {
             setDate()
         }
+        closeButton.setOnClickListener {
+            onDeleteView(messageCard)
+        }
         return view
+    }
+
+    fun onDeleteView(view: View){
+        parentConstraintLayout.removeView(view)
     }
 
     fun setDate() {
@@ -108,4 +124,5 @@ class InsertDataUserFragment: Fragment() {
     fun addDataStudent(student: Student){
         DataUserFirebase().addStudent(student, User.id)
     }
+
 }
