@@ -10,4 +10,5 @@
         <item name="android:minHeight">48dp</item>
         <item name="strokeColor">#00FFFFFF</item>
     </style>
+
 </resources>

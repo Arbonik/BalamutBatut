@@ -17,4 +17,7 @@
     <style name="MainButton">
         <item name="android:backgroundTint">@color/purple_800</item>
     </style>
+    <style name="Message">
+        <item name="android:backgroundTint">@color/message_color</item>
+    </style>
 </resources>
