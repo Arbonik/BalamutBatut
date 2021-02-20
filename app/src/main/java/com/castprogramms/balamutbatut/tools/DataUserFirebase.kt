@@ -8,8 +8,6 @@ import com.castprogramms.balamutbatut.users.Student
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import com.google.gson.GsonBuilder
-import com.google.gson.stream.JsonReader
-import java.io.InputStreamReader
 
 class DataUserFirebase: DataUserApi {
 

@@ -1,7 +1,6 @@
 package com.castprogramms.balamutbatut.ui.insertdatauser
 
 import android.app.DatePickerDialog
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Constraints
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.castprogramms.balamutbatut.users.Student
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.castprogramms.balamutbatut.tools.Registration
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.User

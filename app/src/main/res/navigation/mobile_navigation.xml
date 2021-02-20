@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation.xml"
-    app:startDestination="@id/registrFragment">
+    app:startDestination="@id/insertDataUserFragment">
 
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/profileFragment">
@@ -18,6 +18,20 @@
             android:label="@string/item_progress"
             tools:layout="@layout/progress_fragment" />
     </navigation>
+    <navigation android:id="@+id/trainer_navigation"
+        app:startDestination="@id/profileFragment">
+        <fragment
+            android:id="@id/profileFragment"
+            android:name="com.castprogramms.balamutbatut.ui.profile.ProfileFragment"
+            android:label="@string/item_profile"
+            tools:layout="@layout/profile_fragment"/>
+        <fragment
+            android:id="@+id/group_fragment"
+            android:name="com.castprogramms.balamutbatut.ui.group.GroupFragment"
+            android:label="@string/item_groups"
+            tools:layout="@layout/group_fragment"/>
+
+    </navigation>
     <fragment
         android:id="@+id/registrFragment"
         android:name="com.castprogramms.balamutbatut.ui.registr.RegistrFragment"
@@ -28,6 +42,9 @@
         <action
             android:id="@+id/action_registrFragment_to_insertDataUserFragment"
             app:destination="@id/insertDataUserFragment" />
+        <action
+            android:id="@+id/action_registrFragment_to_trainer_navigation"
+            app:destination="@id/trainer_navigation" />
     </fragment>
     <fragment
         android:id="@+id/insertDataUserFragment"
@@ -36,5 +53,8 @@
         <action
             android:id="@+id/action_insertDataUserFragment_to_navigation"
             app:destination="@id/navigation" />
+        <action
+            android:id="@+id/action_insertDataUserFragment_to_trainer_navigation"
+            app:destination="@id/trainer_navigation" />
     </fragment>
 </navigation>

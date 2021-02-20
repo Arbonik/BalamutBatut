@@ -11,8 +11,6 @@ import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.Registration
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
-import com.castprogramms.balamutbatut.graph.Node
-import com.castprogramms.balamutbatut.tools.NodeData
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
@@ -80,7 +78,7 @@ class RegistrViewModel: ViewModel() {
 //                User.id)
             DataUserFirebase().getStudent(User.testID).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
+                    User.setValueStudent(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
                     Log.e("Data", User.student.toString())
                 }
                 else

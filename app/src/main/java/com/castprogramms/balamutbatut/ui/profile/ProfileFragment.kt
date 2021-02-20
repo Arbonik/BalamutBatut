@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.viewpager2.widget.ViewPager2
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.User

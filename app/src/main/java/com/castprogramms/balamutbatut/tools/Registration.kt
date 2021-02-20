@@ -4,15 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.castprogramms.balamutbatut.users.Student
+import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.gson.GsonBuilder
-import org.w3c.dom.Document
 
 class Registration {
     var account : GoogleSignInAccount? = null
@@ -45,7 +44,7 @@ class Registration {
             User.id = user.uid
             DataUserFirebase().getStudent(User.id).addOnCompleteListener {
                 if (it.isSuccessful && it.result != null) {
-                    User.setValue(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
+                    User.setValueStudent(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
                     Log.e("Data", User.student.toString())
                 }
                 else
@@ -54,7 +53,7 @@ class Registration {
                 try {
                     DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
                         Log.e("Data", it.documents.first().data.toString())
-                        User.setValue(User.student?.apply {
+                        User.setValueStudent(User.student?.apply {
                             nameGroup = it.documents.first().getString("name").toString()
                         }!!)
                     }
@@ -74,12 +73,14 @@ class Registration {
                     User.mutableLiveDataSuccess.postValue(true)
                     Log.e("Data", it.data.toString())
                     if (it.getString("type").toString() == "student")
-                        User.setValue(
+                        User.setValueStudent(
                             GsonBuilder().create().fromJson(it.data.toString(), Student::class.java)
                         )
                     else{
                         if (it.getString("type").toString() == "trainer"){
-
+                            User.setValueTrainer(
+                                GsonBuilder().create().fromJson(it.data.toString(), Trainer::class.java)
+                            )
                         }
                     }
                     Log.e("Data", User.student.toString())
@@ -88,7 +89,7 @@ class Registration {
                 if (User.student != null) {
                     DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
                         Log.e("Data", it.documents.first().data.toString())
-                        User.setValue(User.student?.apply {
+                        User.setValueStudent(User.student?.apply {
                             nameGroup = it.documents.first().getString("name").toString()
                         }!!)
                     }
@@ -109,7 +110,7 @@ class Registration {
     fun loadDate(){
         DataUserFirebase().getStudent(User.id).addOnSuccessListener {
             if (it.data != null) {
-                User.setValue(
+                User.setValueStudent(
                     GsonBuilder().create().fromJson(it.data.toString(), Student::class.java)
                 )
                 Log.e("Data", User.student.toString())
@@ -118,7 +119,7 @@ class Registration {
         if (User.student != null) {
             DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
                 Log.e("Data", it.documents.first().data.toString())
-                User.setValue(User.student?.apply {
+                User.setValueStudent(User.student?.apply {
                     nameGroup = it.documents.first().getString("name").toString()
                 }!!)
             }

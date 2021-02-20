@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.ViewGroup
-import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.NodeData
 import com.castprogramms.balamutbatut.tools.User
 import com.example.graphguilibrary.Line

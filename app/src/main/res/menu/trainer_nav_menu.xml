@@ -5,5 +5,9 @@
         android:id="@+id/group_Fragment"
         android:title="@string/item_groups"
         android:icon="@drawable/groups_24"/>
+    <item
+        android:id="@+id/profile_Fragment"
+        android:title="@string/item_profile"
+        android:icon="@drawable/person_24"/>
 
 </menu>
