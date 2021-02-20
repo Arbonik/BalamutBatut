@@ -7,6 +7,7 @@ import android.os.Handler
 import kotlinx.coroutines.*
 
 class SplashActivity : AppCompatActivity() {
+
     val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {

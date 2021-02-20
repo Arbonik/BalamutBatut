@@ -18,4 +18,8 @@
         <item name="android:backgroundTint">@color/purple_200</item>
     </style>
 
+    <style name="Message">
+        <item name="android:backgroundTint">#C1FFE4</item>
+    </style>
+
 </resources>
