@@ -96,6 +96,7 @@ class Registration {
                 }
             }
             if (User.student == null) {
+                User.mutableLiveDataSuccess.postValue(false)
                 User.id = isSignedIn.id.toString()
                 return false
             }

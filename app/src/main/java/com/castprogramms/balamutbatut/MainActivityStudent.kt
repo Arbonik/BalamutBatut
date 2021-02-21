@@ -8,6 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.castprogramms.balamutbatut.tools.Registration
+import com.castprogramms.balamutbatut.tools.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -18,9 +19,6 @@ class MainActivityStudent : MainActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_student)
-        val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
-        if (googleAuth != null)
-             Registration().auth(googleAuth)
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         navView.visibility = View.GONE

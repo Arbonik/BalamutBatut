@@ -23,6 +23,6 @@ object User {
         this.trainer = trainer
         mutableLiveDataTrainer.value = trainer
     }
-
-    val mutableLiveDataSuccess = MutableLiveData(false)
+    val boolean : Boolean? = null
+    val mutableLiveDataSuccess = MutableLiveData(boolean)
 }

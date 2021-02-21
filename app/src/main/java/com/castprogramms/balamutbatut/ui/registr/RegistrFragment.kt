@@ -120,8 +120,8 @@ class RegistrFragment: Fragment() {
             val googleAuth = GoogleSignIn.getLastSignedInAccount(requireContext())
             if (googleAuth != null){
                 val authentication = Registration().auth(googleAuth)
-                User.mutableLiveDataSuccess.observe(this, {
-                    if (it)
+                User.mutableLiveDataSuccess.observe(this, Observer{
+                    if (it != null && it )
                         (requireActivity() as MainActivityStudent).toMainGraph()
                 })
             }
