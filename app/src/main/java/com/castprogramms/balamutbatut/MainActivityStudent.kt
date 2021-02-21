@@ -22,6 +22,7 @@ class MainActivityStudent : MainActivity() {
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         navView.visibility = View.GONE
+
     }
     fun toMainGraph(registration: Boolean = false){
         if (registration)

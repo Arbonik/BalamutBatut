@@ -18,13 +18,11 @@ class MainActivityTrainer : AppCompatActivity() {
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_student)
-        val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
-        if (googleAuth != null)
-            Registration().auth(googleAuth)
+        setContentView(R.layout.activity_main_trainer)
         navView = findViewById(R.id.nav_view_trainer)
         navController = findNavController(R.id.nav_host_fragment_trainer)
         navView.visibility = View.GONE
+        toMainGraph()
     }
     fun toMainGraph(registration: Boolean = false){
         if (registration)
@@ -42,7 +40,7 @@ class MainActivityTrainer : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
     }
-    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment_trainer).navigateUp()
 
     override fun onBackPressed() {
 

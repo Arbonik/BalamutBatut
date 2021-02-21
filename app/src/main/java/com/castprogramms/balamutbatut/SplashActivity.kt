@@ -20,13 +20,19 @@ class SplashActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
-        if (googleAuth != null)
+//        if (googleAuth != null)
             Registration().auth(googleAuth)
         User.mutableLiveDataSuccess.observe(this, Observer{
             if (it != null) {
-                val intent = Intent(this@SplashActivity, MainActivityStudent::class.java)
-                startActivity(intent)
-                finish()
+                if (User.typeUser == "trainer") {
+                    val intent = Intent(this, MainActivityTrainer::class.java)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this@SplashActivity, MainActivityStudent::class.java)
+                    intent.putExtra("susses", it)
+                    startActivity(intent)
+                    finish()
+                }
             }
         })
 

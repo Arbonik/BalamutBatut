@@ -34,8 +34,8 @@ class Registration {
 
     }
 
-    fun auth(account : GoogleSignInAccount): Boolean {
-        Log.e("Data",account.id.toString())
+    fun auth(account : GoogleSignInAccount?): Boolean {
+        Log.e("Data",account?.id.toString())
         return updateUI(account)
     }
 
@@ -67,23 +67,32 @@ class Registration {
     fun updateUI(isSignedIn: GoogleSignInAccount?): Boolean {
         if (isSignedIn != null) {
             User.id = isSignedIn.id.toString()
-//          loadDate()
-            DataUserFirebase().getStudent(User.id).addOnSuccessListener {
-                if (it.data != null) {
-                    User.mutableLiveDataSuccess.postValue(true)
-                    Log.e("Data", it.data.toString())
-                    if (it.getString("type").toString() == "student")
-                        User.setValueStudent(
-                            GsonBuilder().create().fromJson(it.data.toString(), Student::class.java)
-                        )
-                    else{
-                        if (it.getString("type").toString() == "trainer"){
-                            User.setValueTrainer(
-                                GsonBuilder().create().fromJson(it.data.toString(), Trainer::class.java)
+            DataUserFirebase().getStudent(User.id).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val data = it.result
+                    if (data != null) {
+                        User.typeUser = data.getString("type").toString()
+                        Log.e("Data", data.data.toString())
+                        User.mutableLiveDataSuccess.postValue(true)
+                        when (User.typeUser) {
+                            "student" -> User.setValueStudent(
+                                GsonBuilder().create().fromJson(
+                                    data.data.toString(),
+                                    Student::class.java
+                                )
+                            )
+                            "trainer" -> User.setValueTrainer(
+                                GsonBuilder().create()
+                                    .fromJson(data.data.toString(), Trainer::class.java)
                             )
                         }
+                        Log.e("Data", User.student.toString())
+                        Log.e("Data", User.trainer.toString())
                     }
-                    Log.e("Data", User.student.toString())
+                }
+                else{
+                    Log.e("Data", it.exception?.message.toString())
+                    User.mutableLiveDataSuccess.postValue(false)
                 }
             }.continueWith {
                 if (User.student != null) {
@@ -95,14 +104,10 @@ class Registration {
                     }
                 }
             }
-            if (User.student == null) {
-                User.mutableLiveDataSuccess.postValue(false)
-                User.id = isSignedIn.id.toString()
-                return false
-            }
             return true
         }
         else {
+            User.mutableLiveDataSuccess.postValue(false)
             DataUserFirebase.printLog("updateUI ERROR")
             return false
         }

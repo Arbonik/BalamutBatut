@@ -19,14 +19,14 @@
             tools:layout="@layout/progress_fragment" />
     </navigation>
     <navigation android:id="@+id/trainer_navigation"
-        app:startDestination="@id/profileFragment">
+        app:startDestination="@id/profile_Fragment">
         <fragment
-            android:id="@id/profileFragment"
+            android:id="@+id/profile_Fragment"
             android:name="com.castprogramms.balamutbatut.ui.profile.ProfileFragment"
             android:label="@string/item_profile"
             tools:layout="@layout/profile_fragment"/>
         <fragment
-            android:id="@+id/group_fragment"
+            android:id="@+id/group_Fragment"
             android:name="com.castprogramms.balamutbatut.ui.group.GroupFragment"
             android:label="@string/item_groups"
             tools:layout="@layout/group_fragment"/>

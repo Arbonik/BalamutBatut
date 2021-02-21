@@ -114,18 +114,9 @@ class RegistrFragment: Fragment() {
     }
     override fun onStart() {
         super.onStart()
-        if (registrViewModel.auth.currentUser != null)
-                successLogin(registrViewModel.auth.currentUser)
-        else{
-            val googleAuth = GoogleSignIn.getLastSignedInAccount(requireContext())
-            if (googleAuth != null){
-                val authentication = Registration().auth(googleAuth)
-                User.mutableLiveDataSuccess.observe(this, Observer{
-                    if (it != null && it )
-                        (requireActivity() as MainActivityStudent).toMainGraph()
-                })
-            }
-        }
+        val activityStudent = requireActivity() as MainActivityStudent
+        if (activityStudent.intent.getBooleanExtra("susses", false))
+            activityStudent.toMainGraph()
     }
 
         fun successLogin(user: FirebaseUser?) {

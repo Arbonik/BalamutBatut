@@ -8,6 +8,7 @@ import com.castprogramms.balamutbatut.users.Trainer
 object User {
     var id = ""
     val testID = "UwsuyZ4DB4J8b1AbRbE9a"
+    var typeUser = ""
 
     var student : Student? = null
     var trainer : Trainer? = null
