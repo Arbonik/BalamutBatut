@@ -28,7 +28,7 @@ class MainActivityTrainer : AppCompatActivity() {
         if (registration)
             navController.navigate(R.id.action_insertDataUserFragment_to_navigation)
         else
-            navController.navigate(R.id.action_registrFragment_to_navigation)
+            navController.navigate(R.id.action_registrFragment_to_trainer_navigation)
         navView.visibility = View.VISIBLE
 
         val appBarConfiguration = AppBarConfiguration(

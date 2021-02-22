@@ -7,4 +7,7 @@ class Trainer(
     sex: String,
     var groupID : String
 ):Person(first_name, second_name, date, sex) {
+    override fun toString(): String {
+        return "Trainer(first_name: $first_name, second_name: $second_name, date: $date, sex: $sex, groupID: $groupID)"
+    }
 }

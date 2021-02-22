@@ -2,6 +2,9 @@ package com.castprogramms.balamutbatut.tools
 
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.users.Student
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 
 interface DataUserApi {
     fun addStudent(student: Student, studentID: String)
@@ -14,5 +17,5 @@ interface DataUserApi {
 
     fun addGroup(group: Group)
 
-    fun getGroups()
+    fun getGroups(): Query
 }

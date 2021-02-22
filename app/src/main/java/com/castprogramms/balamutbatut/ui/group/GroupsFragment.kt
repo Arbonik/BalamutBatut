@@ -6,21 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.ui.group.adapters.GroupsAdapter
 
-class GroupFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = GroupFragment()
-    }
-
+class GroupsFragment : Fragment() {
     private lateinit var viewModel: GroupViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.group_fragment, container, false)
+        val view = inflater.inflate(R.layout.groups_fragment, container, false)
+        val recyclerView : RecyclerView = view.findViewById(R.id.groups_list)
+        val groupAdapter = GroupsAdapter(DataUserFirebase().getGroups(), this)
+        recyclerView.adapter = groupAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

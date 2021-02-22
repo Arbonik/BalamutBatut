@@ -7,10 +7,6 @@ import com.castprogramms.balamutbatut.model.Group
 import com.castprogramms.balamutbatut.model.GroupRepository
 import com.castprogramms.balamutbatut.network.Resource
 
-class GroupViewModel(
-
-    val groupRepository : GroupRepository
-
-) : ViewModel() {
-    val group : LiveData<Resource<Group>> = groupRepository.getGroup()
+class GroupViewModel() : ViewModel() {
+//    val group : LiveData<Resource<Group>> = groupRepository.getGroup()
 }

@@ -55,31 +55,9 @@ class DataUserFirebase: DataUserApi {
             .add(group)
     }
 
-    private val mutableListGroups = mutableListOf<Group>()
-    private val mutableLiveDataGroups = MutableLiveData<MutableList<Group>>(mutableListGroups)
-
-    fun getAllGroup():MutableLiveData<MutableList<Group>>{
-        getGroups()
-        return mutableLiveDataGroups
-    }
-
-    override fun getGroups(){
-        fireStore.collection(groupTag)
-            .addSnapshotListener { value, error ->
-                try {
-                    value?.documents?.forEach {
-                        this@DataUserFirebase.mutableListGroups.add(
-                            gsonConverter.fromJson(
-                                it.data.toString(),
-                                Group::class.java
-                            )
-                        )
-                    }
-                    mutableLiveDataGroups.postValue(this@DataUserFirebase.mutableListGroups)
-                }catch (e: Exception){
-                    printLog(error?.message.toString())
-                }
-            }
+    override fun getGroups(): Query {
+        return fireStore.collection(groupTag)
+            .whereEqualTo("numberTrainer", User.id)
     }
 
     fun getStudent(studentID: String): Task<DocumentSnapshot> {
@@ -99,6 +77,12 @@ class DataUserFirebase: DataUserApi {
             printLog(diff.toString())
         }
     }
+
+    fun getGroupStudents(group: Group){
+//        return fireStore.collection(groupTag)
+//            .where
+    }
+
 
     companion object{
         const val studentTag = "students"
