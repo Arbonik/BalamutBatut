@@ -20,4 +20,10 @@
     <style name="Message">
         <item name="android:backgroundTint">@color/message_color</item>
     </style>
+
+    <style name="BackgroundDayNight_normal">
+        <item name="android:background">@color/white</item>
+        <item name="tabSelectedTextColor">@color/tx_grey</item>
+        <item name="tabTextColor">#888888</item>
+    </style>
 </resources>

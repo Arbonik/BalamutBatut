@@ -3,14 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    style="@style/BackgroundDayNight_normal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <LinearLayout
         android:paddingTop="8dp"
-        android:background="@color/white"
         android:id="@+id/linear"
         android:paddingStart="15dp"
         android:layout_width="match_parent"
@@ -50,7 +49,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/last_name"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -58,7 +56,6 @@
                     android:id="@+id/full_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -76,7 +73,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/name"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -84,7 +80,6 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
@@ -99,7 +94,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/sex"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -107,7 +101,6 @@
                     android:id="@+id/sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -124,7 +117,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/group"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -132,7 +124,6 @@
                     android:id="@+id/group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
@@ -148,7 +139,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/birthday"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -156,7 +146,6 @@
                     android:id="@+id/bitrh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
@@ -164,9 +153,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
-        app:tabSelectedTextColor="@color/tx_grey"
-        app:tabTextColor="#888888"
-        android:background="@color/white"
+        style="@style/BackgroundDayNight_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -182,4 +169,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tab_layout"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

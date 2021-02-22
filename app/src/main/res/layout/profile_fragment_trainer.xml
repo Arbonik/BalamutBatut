@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/BackgroundDayNight_normal"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:paddingTop="8dp"
-        android:background="@color/white"
         android:id="@+id/linear_trainer"
         android:paddingStart="15dp"
         android:layout_width="match_parent"
@@ -46,7 +46,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/last_name"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -54,7 +53,6 @@
                     android:id="@+id/first_name_trainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -71,7 +69,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/name"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -79,7 +76,6 @@
                     android:id="@+id/second_name_trainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
@@ -94,7 +90,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/sex"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -102,7 +97,6 @@
                     android:id="@+id/sex_trainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -119,7 +113,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/group"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -127,7 +120,6 @@
                     android:id="@+id/group_trainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
@@ -143,7 +135,6 @@
                     android:paddingStart="4dp"
                     android:paddingEnd="8dp"
                     android:text="@string/birthday"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
                 <TextView
@@ -151,7 +142,6 @@
                     android:id="@+id/bitrhday_trainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/tx_grey"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
