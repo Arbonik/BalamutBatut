@@ -25,7 +25,6 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
         notifyDataSetChanged()
         field = value
     }
-
 //    val gsonConverter = Gson()
     init {
 
@@ -46,8 +45,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
                     notifyDataSetChanged()
                 }
             }
-        }
-        )
+        })
     }
 
     fun update(){

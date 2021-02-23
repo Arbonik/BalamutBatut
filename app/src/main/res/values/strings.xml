@@ -5,7 +5,7 @@
     <string name="item_profile">Профиль</string>
     <string name="item_groups">Группы</string>
     <string name="item_group">Группа</string>
-    <string name="title_activity_main2">MainActivity</string>
+    <string name="students_fragment">Состав группы</string>
 
     <string name="password">Пароль</string>
     <string name="email">Электронная почта</string>
@@ -24,10 +24,10 @@
     <string name="title_set_data">Установка данных о достижении</string>
     <string name="last_name">Фамилия</string>
     <string name="name">Имя</string>
-    <string name="sex">Пол: </string>
-    <string name="group">Группа: </string>
-    <string name="birthday">Дата рождения: </string>
-    <string name="date">Введите дату рождения: </string>
+    <string name="sex">Пол</string>
+    <string name="group">Группа</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="date">Введите дату рождения</string>
     <string name="finish_registr">Завершить регестрацию</string>
     <string name="your_date">Ваша дата рождения:</string>
 

@@ -19,6 +19,11 @@
     </style>
     <style name="Message">
         <item name="android:backgroundTint">@color/message_color</item>
+        <item name="android:background">@color/message_color</item>
+    </style>
+
+    <style name="BackgroundRecyclerView">
+        <item name="android:background">@color/light_grey</item>
     </style>
 
     <style name="BackgroundDayNight_normal">

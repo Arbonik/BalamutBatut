@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardView">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_margin="8dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="@dimen/cardview_compat_inset_shadow"
+    android:elevation="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:checkable="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/group_name"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/group_name"
-            android:id="@+id/group_desc"/>
+            android:textStyle="bold"
+            android:textSize="18sp"
+            tools:text="Тестовая группа" />
 
         <TextView
+            android:id="@+id/group_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:text="Начинающие"/>
+        <TextView
             android:id="@+id/group_trainerNumber"
-            app:layout_constraintTop_toBottomOf="@id/group_desc"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="10 человек"/>
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

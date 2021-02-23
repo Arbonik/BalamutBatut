@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.profile_fragment, container, false)
+        val view = inflater.inflate(R.layout.profile_fragment_student, container, false)
         val second_nameUser: TextView = view.findViewById(R.id.full_name)
         val groupNameUser : TextView = view.findViewById(R.id.group)
         val nameUser: TextView = view.findViewById(R.id.name)

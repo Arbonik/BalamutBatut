@@ -11,6 +11,7 @@
     <color name="teal_300">#01CA7C</color><!--dark theme but-->
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="light_grey">#F3F5F6</color>
     <color name="white">#FFFFFFFF</color>
 
     <color name="tx_grey">#212121</color>

@@ -31,7 +31,7 @@ class StudentsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val query = DataUserFirebase().fireStore.collection(DataUserFirebase.studentTag)
-        val view = inflater.inflate(R.layout.group_fragment, container, false)
+        val view = inflater.inflate(R.layout.students_fragment, container, false)
         val recyclerView : RecyclerView = view.findViewById(R.id.students_list)
         if (group != null) {
             val studentsAdapter = StudentsAdapter(query, group!!)
