@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Constraints
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
+import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.google.android.material.button.MaterialButton
@@ -92,7 +93,7 @@ class InsertDataUserFragment: Fragment() {
                 addDataStudent(Student(editFirstName.text.toString(), editLastName.text.toString(),
                     date, sex, listOf(Node(mutableListOf()))))
                 Registration().loadDate()
-                (requireActivity() as MainActivityStudent).toMainGraph(true)
+                (requireActivity() as MainActivity).toStudent()
             }
         }
         editDate.setOnClickListener {

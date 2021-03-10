@@ -21,15 +21,6 @@ class MainActivityTrainer : AppCompatActivity() {
         setContentView(R.layout.activity_main_trainer)
         navView = findViewById(R.id.nav_view_trainer)
         navController = findNavController(R.id.nav_host_fragment_trainer)
-        navView.visibility = View.GONE
-        toMainGraph()
-    }
-    fun toMainGraph(registration: Boolean = false){
-        if (registration)
-            navController.navigate(R.id.action_insertDataUserFragment_to_navigation)
-        else
-            navController.navigate(R.id.action_registrFragment_to_trainer_navigation)
-        navView.visibility = View.VISIBLE
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -38,8 +29,18 @@ class MainActivityTrainer : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
+//        navView.visibility = View.GONE
+//        toMainGraph()
     }
+//    fun toMainGraph(registration: Boolean = false){
+//        if (registration)
+//            navController.navigate(R.id.action_insertDataUserFragment_to_navigation)
+//        else
+//            navController.navigate(R.id.action_registrFragment_to_trainer_navigation)
+//        navView.visibility = View.VISIBLE
+//
+//
+//    }
     override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment_trainer).navigateUp()
 
     override fun onBackPressed() {

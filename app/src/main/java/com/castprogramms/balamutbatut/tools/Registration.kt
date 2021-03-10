@@ -72,6 +72,7 @@ class Registration {
                     val data = it.result
                     if (data != null) {
                         User.typeUser = data.getString("type").toString()
+                        Log.e("Data", "Type: ${User.typeUser}")
                         Log.e("Data", data.data.toString())
                         User.mutableLiveDataSuccess.postValue(true)
                         when (User.typeUser) {

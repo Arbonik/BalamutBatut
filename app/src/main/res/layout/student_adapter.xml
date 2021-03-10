@@ -12,7 +12,7 @@
     android:clickable="true"
     android:focusable="true"
     android:checkable="true"
-    id="@+id/card_view_student">
+    android:id="@+id/card_view_student">
 
     <LinearLayout
         android:orientation="horizontal"

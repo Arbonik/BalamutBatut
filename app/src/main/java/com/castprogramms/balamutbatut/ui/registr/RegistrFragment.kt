@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser
 class RegistrFragment: Fragment() {
 
     lateinit var registrViewModel: RegistrViewModel
+    var sussesRegistr = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +42,14 @@ class RegistrFragment: Fragment() {
         button.setOnClickListener {
             signIn()
         }
+        User.mutableLiveDataSuccess.observe(viewLifecycleOwner, Observer {
+            if (sussesRegistr && it == true){
+                when(User.typeUser){
+                    "student" -> (requireActivity() as MainActivity).toStudent()
+                    "trainer" -> (requireActivity() as MainActivity).toTrainer()
+                }
+            }
+        })
 
         val username = view.findViewById<EditText>(R.id.email)
         val password = view.findViewById<EditText>(R.id.password)
@@ -114,17 +124,17 @@ class RegistrFragment: Fragment() {
     }
     override fun onStart() {
         super.onStart()
-        val activityStudent = requireActivity() as MainActivityStudent
-        if (activityStudent.intent.getBooleanExtra("susses", false))
-            activityStudent.toMainGraph()
+//        val activityStudent = requireActivity() as MainActivity
+//        if (activityStudent.intent.getBooleanExtra("susses", false))
+//            activityStudent.toStudent()
     }
 
         fun successLogin(user: FirebaseUser?) {
-            val bundle = Bundle().apply {
-                putString(USER_UUID_TAG, user?.uid) }
+//            val bundle = Bundle().apply {
+//                putString(USER_UUID_TAG, user?.uid) }
             Registration().auth(user)
             Log.i(TAG, "login with email")
-            (requireActivity() as MainActivityStudent).toMainGraph()
+            (requireActivity() as MainActivity).toStudent()
     }
 
     fun signIn(){
@@ -145,11 +155,17 @@ class RegistrFragment: Fragment() {
             = GoogleSignIn.getSignedInAccountFromIntent(data)
             task.addOnCompleteListener {
                 if (it.isSuccessful){
-                    if (registrViewModel.handleSignInResult(task))
-                        (requireActivity() as MainActivityStudent).toMainGraph()
-                    else
-                        this.findNavController()
-                            .navigate(R.id.action_registrFragment_to_insertDataUserFragment)
+                    sussesRegistr = registrViewModel.handleSignInResult(task)
+//                    if (){
+//                        when(User.typeUser){
+//                            "student" -> (requireActivity() as MainActivity).toStudent()
+//                            "trainer" -> (requireActivity() as MainActivity).toTrainer()
+//                        }
+//                    }
+//                        (requireActivity() as MainActivity).toStudent()
+//                    else
+//                        this.findNavController()
+//                            .navigate(R.id.action_registrFragment_to_insertDataUserFragment)
                 }
                 else{
                     DataUserFirebase.printLog(it.exception?.message.toString())

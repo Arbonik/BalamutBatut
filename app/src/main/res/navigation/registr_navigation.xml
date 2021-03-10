@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation android:id="@+id/registr_navigation.xml"
+    app:startDestination="@id/registrFragment2"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <fragment
+        android:id="@+id/registrFragment2"
+        android:name="com.castprogramms.balamutbatut.ui.registr.RegistrFragment"
+        android:label="RegistrFragment" >
+        <action
+            android:id="@+id/action_registrFragment2_to_insertDataUserFragment2"
+            app:destination="@id/insertDataUserFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/insertDataUserFragment2"
+        android:name="com.castprogramms.balamutbatut.ui.insertdatauser.InsertDataUserFragment"
+        android:label="InsertDataUserFragment" />
+    <action
+        android:id="@+id/action_global_navigation"
+        app:destination="@id/navigation" />
+    <action
+        android:id="@+id/action_global_trainer_navigation"
+        app:destination="@id/trainer_navigation" />
+</navigation>
