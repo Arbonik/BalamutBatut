@@ -25,7 +25,7 @@ class NodeView(val radius: Float,context: Context, var node: Node)
         }
 
         override fun onSingleTapUp(e: MotionEvent): Boolean { // одиночный ТЫК
-            Log.d("Test", this@NodeView.node.toString())
+//            Log.d("Test", this@NodeView.node.)
             findNavController().navigate(R.id.nodeViewFragment)
             //NodeInfoAlertDialog().createDialog(this@NodeView).create()?.show()
             return true

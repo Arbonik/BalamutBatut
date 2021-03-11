@@ -26,9 +26,8 @@ class CustomAlertDialog {
                                 nodeView.context,
                                 Node(mutableListOf(),
                                 NodeData(mutableListOf(view.findViewById<EditText>(R.id.email).text.toString(),
-                                    view.findViewById<EditText>(R.id.desc).text.toString())))
-                    )
-                    )
+                                    view.findViewById<EditText>(R.id.desc).text.toString()), "Сед - Живот - Сед", "Пргаешь, падаешь, " +
+                                        "отскакиваешь, снова падаешь, но уже на животик, снова отскакиваешь, падаешь, отскакиваешь, встаешь на ноги, готово.", R.drawable.lock_24))))
                 }
     }
 }

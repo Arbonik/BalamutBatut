@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.ViewGroup
+import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.NodeData
 import com.castprogramms.balamutbatut.tools.User
 import com.example.graphguilibrary.Line
@@ -13,7 +14,10 @@ import com.example.graphguilibrary.NodeView
 class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(context,attributeSet){
 
     var quantity = 1
-    var nodes1 = MutableList(quantity) { Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), NodeData(mutableListOf("qwerty")))}
+    var nodes1 = MutableList(quantity) { Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), NodeData(
+        mutableListOf("qwerty"), "Сед - Живот - Сед", "Пргаешь, падаешь, " +
+                "отскакиваешь, снова падаешь, но уже на животик, снова отскакиваешь, падаешь, отскакиваешь, встаешь на ноги, готово.", R.drawable.lock_24
+    ))}
 
     var nodes = mutableListOf<NodeView>()
     val lines = mutableListOf<Line>()

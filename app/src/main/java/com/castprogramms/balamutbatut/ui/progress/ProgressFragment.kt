@@ -11,6 +11,7 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.graph.TreeGraphView
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.users.Student
 
 class ProgressFragment : Fragment() {
 
@@ -38,6 +39,6 @@ class ProgressFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         if (User.student != null)
-            DataUserFirebase().updateNodeStudent(User.id, User.student?.nodes!!)
+            DataUserFirebase().updateNodeStudent(User.id, User.student?.nodes ?: mutableListOf())
     }
 }
