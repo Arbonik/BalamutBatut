@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.MotionEvent
+import androidx.navigation.findNavController
+import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.graph.CustomAlertDialog
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.graph.NodeInfoAlertDialog
@@ -24,7 +26,8 @@ class NodeView(val radius: Float,context: Context, var node: Node)
 
         override fun onSingleTapUp(e: MotionEvent): Boolean { // одиночный ТЫК
             Log.d("Test", this@NodeView.node.toString())
-            NodeInfoAlertDialog().createDialog(this@NodeView).create()?.show()
+            findNavController().navigate(R.id.nodeViewFragment)
+            //NodeInfoAlertDialog().createDialog(this@NodeView).create()?.show()
             return true
         }
 
