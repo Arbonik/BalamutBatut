@@ -49,6 +49,12 @@ class RegistrFragment: Fragment() {
                     "trainer" -> (requireActivity() as MainActivity).toTrainer()
                 }
             }
+            else{
+                if (it == false){
+                    findNavController()
+                        .navigate(R.id.action_registrFragment2_to_insertDataUserFragment2)
+                }
+            }
         })
 
         val username = view.findViewById<EditText>(R.id.email)
