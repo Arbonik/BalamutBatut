@@ -79,7 +79,7 @@ class DataUserFirebase: DataUserApi {
     }
     fun updateNodeStudent(studentID: String, nodes:List<Node>){
         if (User.student != null){
-            val diff = nodes.filter { !User.student?.nodes?.contains(it)!! }
+            val diff = nodes.filter { !User.student!!.nodes.contains(it)}
             printLog(diff.toString())
         }
     }
