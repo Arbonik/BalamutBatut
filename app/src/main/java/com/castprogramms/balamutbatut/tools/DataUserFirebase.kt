@@ -21,7 +21,13 @@ class DataUserFirebase: DataUserApi {
     }
 
     override fun updateStudent(student: Student, studentID: String) {
-        
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .update("nameGroup", student.nameGroup)
+
+        fireStore.collection(groupTag)
+            .document(student.nameGroup)
+            .update("students", FieldValue.arrayUnion(studentID))
     }
 
     override fun deleteStudent(student: Student) {
