@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation.xml"
-    tools:ignore="InvalidNavigation">
+    android:id="@+id/mobile_navigation.xml">
 
-    <navigation android:id="@+id/navigation"
-        app:startDestination="@id/profileFragment">
         <fragment
             android:id="@+id/profileFragment"
             android:name="com.castprogramms.balamutbatut.ui.profile.ProfileFragment"
@@ -17,6 +15,5 @@
             android:name="com.castprogramms.balamutbatut.ui.progress.ProgressFragment"
             android:label="@string/item_progress"
             tools:layout="@layout/progress_fragment" />
-    </navigation>
 
 </navigation>
