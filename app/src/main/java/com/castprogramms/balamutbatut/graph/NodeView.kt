@@ -1,4 +1,4 @@
-package com.example.graphguilibrary
+package com.castprogramms.balamutbatut.graph
 
 import android.content.Context
 import android.graphics.*
@@ -38,9 +38,5 @@ class NodeView(val radius: Float,context: Context, var node: Node)
     override fun onTouchEvent(event: MotionEvent): Boolean {
         gestureDetector.onTouchEvent(event)
         return true
-    }
-
-    override fun performClick(): Boolean {
-        return super.performClick()
     }
 }

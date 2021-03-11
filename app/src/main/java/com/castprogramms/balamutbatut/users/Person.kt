@@ -6,4 +6,7 @@ open class Person(
     var date : String,
     var sex : String,
 ) {
+    companion object{
+        val notGroup = "НетГруппы"
+    }
 }

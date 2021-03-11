@@ -1,9 +1,7 @@
 package com.castprogramms.balamutbatut.graph
 
 import android.app.AlertDialog
-import android.content.Context
 import com.castprogramms.balamutbatut.R
-import com.example.graphguilibrary.NodeView
 
 class NodeInfoAlertDialog {
     fun createDialog(nodeView: NodeView) : AlertDialog.Builder {
