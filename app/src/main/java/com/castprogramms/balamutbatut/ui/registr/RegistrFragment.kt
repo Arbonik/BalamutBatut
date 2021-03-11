@@ -50,7 +50,7 @@ class RegistrFragment: Fragment() {
                 }
             }
             else{
-                if (it == false){
+                if (it == false && User.id != ""){
                     findNavController()
                         .navigate(R.id.action_registrFragment2_to_insertDataUserFragment2)
                 }

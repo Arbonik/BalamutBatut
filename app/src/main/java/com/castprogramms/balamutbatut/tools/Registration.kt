@@ -70,7 +70,7 @@ class Registration {
             DataUserFirebase().getStudent(User.id).addOnCompleteListener {
                 if (it.isSuccessful) {
                     val data = it.result
-                    if (data != null) {
+                    if (data != null && data.data != null) {
                         User.typeUser = data.getString("type").toString()
                         Log.e("Data", "Type: ${User.typeUser}")
                         Log.e("Data", data.data.toString())
@@ -89,6 +89,10 @@ class Registration {
                         }
                         Log.e("Data", User.student.toString())
                         Log.e("Data", User.trainer.toString())
+                    }
+                    else{
+                        Log.e("Data", it.exception?.message.toString())
+                        User.mutableLiveDataSuccess.postValue(false)
                     }
                 }
                 else{
