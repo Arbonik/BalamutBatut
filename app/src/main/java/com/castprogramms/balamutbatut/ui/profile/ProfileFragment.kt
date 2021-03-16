@@ -18,6 +18,7 @@ import com.castprogramms.balamutbatut.tools.ViewPager2FragmentAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileFragment : Fragment() {
 
@@ -35,7 +36,7 @@ class ProfileFragment : Fragment() {
         val dateUser : TextView = view.findViewById(R.id.bitrh)
         val tabs : TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2 : ViewPager2 = view.findViewById(R.id.view_pager2)
-        val img: ImageView = view.findViewById(R.id.icon)
+        val img: CircleImageView = view.findViewById(R.id.icon)
         viewPager2.adapter = ViewPager2FragmentAdapter(this)
         TabLayoutMediator(tabs, viewPager2){ tab: TabLayout.Tab, i: Int ->
             when(i){

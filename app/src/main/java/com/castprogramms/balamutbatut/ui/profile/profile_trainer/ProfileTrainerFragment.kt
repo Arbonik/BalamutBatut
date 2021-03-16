@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.User
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileTrainerFragment: Fragment() {
     override fun onCreateView(
@@ -25,7 +26,7 @@ class ProfileTrainerFragment: Fragment() {
         val sexTextView : TextView = view.findViewById(R.id.sex_trainer)
         val groupTextView : TextView = view.findViewById(R.id.group_trainer)
         val bitrhdayTextView : TextView = view.findViewById(R.id.bitrhday_trainer)
-        val img: ImageView = view.findViewById(R.id.icon_trainer)
+        val img: CircleImageView = view.findViewById(R.id.icon_trainer)
 
         User.mutableLiveDataTrainer.observe(viewLifecycleOwner, Observer {
             if (it != null){
