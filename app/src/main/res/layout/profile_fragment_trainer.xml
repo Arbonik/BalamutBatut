@@ -26,6 +26,12 @@
 <!--            android:layout_width="80dp"-->
 <!--            android:layout_height="80dp"-->
 <!--            android:src="@drawable/male_user" />-->
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:id="@+id/icon_trainer"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:src="@drawable/male_user" />-->
 
 <!--        <LinearLayout-->
 <!--            android:layout_marginTop="2dp"-->

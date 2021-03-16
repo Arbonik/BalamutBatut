@@ -17,6 +17,7 @@ import com.castprogramms.balamutbatut.tools.User
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileTrainerFragment: Fragment() {
     override fun onCreateView(
