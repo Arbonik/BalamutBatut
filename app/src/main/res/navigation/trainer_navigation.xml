@@ -25,10 +25,17 @@
         <action
             android:id="@+id/action_studentsFragment_to_addStudentFragment"
             app:destination="@id/addStudentFragment" />
+        <action
+            android:id="@+id/action_studentsFragment_to_infoStudentFragment"
+            app:destination="@id/infoStudentFragment" />
     </fragment>
     <fragment
         android:id="@+id/addStudentFragment"
         android:name="com.castprogramms.balamutbatut.ui.addstudents.AddStudentFragment"
         android:label="AddStudentFragment" />
+    <fragment
+        android:id="@+id/infoStudentFragment"
+        android:name="com.castprogramms.balamutbatut.ui.infostudent.InfoStudentFragment"
+        android:label="InfoStudentFragment" />
 
 </navigation>

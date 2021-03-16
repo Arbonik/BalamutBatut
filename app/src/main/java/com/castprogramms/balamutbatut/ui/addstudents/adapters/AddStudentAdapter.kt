@@ -71,7 +71,7 @@ class AddStudentAdapter(_query: Query)
             studentSexTextView.text = student.sex
             cardViewStudent.setOnClickListener {
                 if (User.trainer != null)
-                    student.nameGroup = User.trainer!!.groupID
+                    student.groupID = User.trainer!!.groupID
                 DataUserFirebase().updateStudent(student, id)
             }
         }

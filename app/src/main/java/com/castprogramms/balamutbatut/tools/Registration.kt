@@ -56,7 +56,7 @@ class Registration {
                     DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
                         Log.e("Data", it.documents.first().data.toString())
                         User.setValueStudent(User.student?.apply {
-                            nameGroup = it.documents.first().getString("name").toString()
+                            groupID = it.documents.first().getString("name").toString()
                         }!!)
                     }
                 }catch (e:Exception){
@@ -107,7 +107,7 @@ class Registration {
                     DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
                         Log.e("Data", it.documents.first().data.toString())
                         User.setValueStudent(User.student?.apply {
-                            nameGroup = it.documents.first().getString("name").toString()
+                            groupID = it.documents.first().getString("name").toString()
                         }!!)
                     }
                 }
@@ -134,7 +134,7 @@ class Registration {
             DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
                 Log.e("Data", it.documents.first().data.toString())
                 User.setValueStudent(User.student?.apply {
-                    nameGroup = it.documents.first().getString("name").toString()
+                    groupID = it.documents.first().getString("name").toString()
                 }!!)
             }
         }

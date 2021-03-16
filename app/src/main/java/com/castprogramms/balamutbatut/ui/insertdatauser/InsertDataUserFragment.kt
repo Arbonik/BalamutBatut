@@ -43,7 +43,7 @@ class InsertDataUserFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.insertdatauser_fragment, container, false)
-        editDate = view.findViewById(R.id.date)
+        editDate = view.findViewById(R.id.insert_date)
         val editFirstName: TextInputEditText = view.findViewById(R.id.name)
         val editLastName: TextInputEditText = view.findViewById(R.id.last_name)
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)

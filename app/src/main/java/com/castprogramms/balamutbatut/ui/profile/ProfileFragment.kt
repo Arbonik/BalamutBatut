@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.ViewPager2FragmentAdapter
 import com.google.android.material.tabs.TabLayout
@@ -29,14 +30,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.profile_fragment_student, container, false)
-        val second_nameUser: TextView = view.findViewById(R.id.full_name)
-        val groupNameUser : TextView = view.findViewById(R.id.group)
-        val nameUser: TextView = view.findViewById(R.id.name)
-        val sexUser: TextView = view.findViewById(R.id.sex)
-        val dateUser : TextView = view.findViewById(R.id.bitrh)
         val tabs : TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2 : ViewPager2 = view.findViewById(R.id.view_pager2)
-        val img: CircleImageView = view.findViewById(R.id.icon)
         viewPager2.adapter = ViewPager2FragmentAdapter(this)
         TabLayoutMediator(tabs, viewPager2){ tab: TabLayout.Tab, i: Int ->
             when(i){
@@ -47,14 +42,14 @@ class ProfileFragment : Fragment() {
         }.attach()
         viewPager2.currentItem = 0
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer{
-            second_nameUser.text = it?.second_name
-            nameUser.text = it?.first_name
-            dateUser.text = it?.date
-            groupNameUser.text = it?.nameGroup
-            sexUser.text = it?.sex
-            Glide.with(this)
-                .load(User.img)
-                .into(img)
+            if (it != null) {
+                val bing = ProfileBinding.bind(view.findViewById(R.id.profile_student))
+                    bing.person = it
+                if (User.img != "null")
+                Glide.with(this)
+                    .load(User.img)
+                    .into(bing.icon)
+            }
         })
         return view
     }
