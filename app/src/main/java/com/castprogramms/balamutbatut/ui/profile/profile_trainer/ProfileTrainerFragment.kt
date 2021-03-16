@@ -26,6 +26,10 @@ class ProfileTrainerFragment: Fragment() {
             if (it != null){
                 val binging = ProfileBinding.bind(view.findViewById(R.id.profile_trainer))
                 binging.person = it
+                if (User.img != "null")
+                    Glide.with(this)
+                        .load(User.img)
+                        .into(binging.icon)
             }
         })
         return view
