@@ -45,12 +45,12 @@ class ProfileFragment : Fragment() {
         viewPager2.currentItem = 0
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer{
             if (it != null) {
-                val bing = ProfileBinding.bind(view.findViewById(R.id.profile_student))
-                    bing.person = it
+                val binging = ProfileBinding.bind(view.findViewById(R.id.profile_student))
+                    binging.person = it
                 if (User.img != "null")
-                Glide.with(this)
-                    .load(User.img)
-                    .into(bing.icon)
+                    Glide.with(this)
+                        .load(User.img)
+                        .into(binging.icon)
             }
         })
         return view
