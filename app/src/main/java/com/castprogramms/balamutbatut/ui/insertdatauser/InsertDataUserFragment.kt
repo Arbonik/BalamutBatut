@@ -6,13 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.Constraints
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.castprogramms.balamutbatut.MainActivity
-import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -46,7 +42,7 @@ class InsertDataUserFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.insertdatauser_fragment, container, false)
-        editDate = view.findViewById(R.id.date)
+        editDate = view.findViewById(R.id.insert_date)
         val editFirstName: TextInputEditText = view.findViewById(R.id.name)
         val editLastName: TextInputEditText = view.findViewById(R.id.last_name)
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)

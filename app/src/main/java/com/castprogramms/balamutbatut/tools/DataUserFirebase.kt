@@ -23,10 +23,10 @@ class DataUserFirebase: DataUserApi {
     override fun updateStudent(student: Student, studentID: String) {
         fireStore.collection(studentTag)
             .document(studentID)
-            .update("nameGroup", student.nameGroup)
+            .update("nameGroup", student.groupID)
 
         fireStore.collection(groupTag)
-            .document(student.nameGroup)
+            .document(student.groupID)
             .update("students", FieldValue.arrayUnion(studentID))
     }
 

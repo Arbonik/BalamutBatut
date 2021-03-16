@@ -93,7 +93,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/date"
+        android:id="@+id/insert_date"
         style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:showDividers="middle"
-        app:layout_constraintTop_toBottomOf="@id/date"
+        app:layout_constraintTop_toBottomOf="@id/insert_date"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
