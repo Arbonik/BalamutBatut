@@ -13,6 +13,7 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.User
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileTrainerFragment: Fragment() {
     override fun onCreateView(

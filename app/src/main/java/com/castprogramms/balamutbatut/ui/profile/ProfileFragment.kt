@@ -19,6 +19,7 @@ import com.castprogramms.balamutbatut.tools.ViewPager2FragmentAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileFragment : Fragment() {
 
