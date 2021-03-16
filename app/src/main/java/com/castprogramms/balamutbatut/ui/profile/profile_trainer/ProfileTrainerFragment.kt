@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.User
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import com.squareup.picasso.Picasso
 
 class ProfileTrainerFragment: Fragment() {
     override fun onCreateView(
