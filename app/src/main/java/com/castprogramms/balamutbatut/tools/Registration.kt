@@ -36,12 +36,14 @@ class Registration {
 
     fun auth(account : GoogleSignInAccount?): Boolean {
         Log.e("Data",account?.id.toString())
+        Log.e("Data",account?.photoUrl.toString())
         return updateUI(account)
     }
 
     fun auth(user : FirebaseUser?){
         if (user != null){
             User.id = user.uid
+            User.img = user.photoUrl.toString()
             DataUserFirebase().getStudent(User.id).addOnCompleteListener {
                 if (it.isSuccessful && it.result != null) {
                     User.setValueStudent(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
@@ -67,6 +69,7 @@ class Registration {
     fun updateUI(isSignedIn: GoogleSignInAccount?): Boolean {
         if (isSignedIn != null) {
             User.id = isSignedIn.id.toString()
+            User.img = isSignedIn.photoUrl.toString()
             DataUserFirebase().getStudent(User.id).addOnCompleteListener {
                 if (it.isSuccessful) {
                     val data = it.result

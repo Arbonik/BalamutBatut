@@ -32,6 +32,7 @@ class InsertDataUserFragment: Fragment() {
         }
     }
     var sex = ""
+    var img = ""
 
     val dateAndTime = Calendar.getInstance()
     lateinit var parentConstraintLayout : ConstraintLayout

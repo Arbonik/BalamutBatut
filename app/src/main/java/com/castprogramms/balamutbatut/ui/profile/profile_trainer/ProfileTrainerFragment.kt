@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.User
+import com.squareup.picasso.Picasso
 
 class ProfileTrainerFragment: Fragment() {
     override fun onCreateView(
