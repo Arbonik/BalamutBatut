@@ -1,5 +1,7 @@
 package com.castprogramms.balamutbatut.users
 
+import java.net.URL
+
 class Trainer(
     first_name: String,
     second_name: String,

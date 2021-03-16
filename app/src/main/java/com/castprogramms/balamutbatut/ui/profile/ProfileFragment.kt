@@ -1,19 +1,23 @@
 package com.castprogramms.balamutbatut.ui.profile
 
+import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.ViewPager2FragmentAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
 
@@ -31,6 +35,7 @@ class ProfileFragment : Fragment() {
         val dateUser : TextView = view.findViewById(R.id.bitrh)
         val tabs : TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2 : ViewPager2 = view.findViewById(R.id.view_pager2)
+        val img: ImageView = view.findViewById(R.id.icon)
         viewPager2.adapter = ViewPager2FragmentAdapter(this)
         TabLayoutMediator(tabs, viewPager2){ tab: TabLayout.Tab, i: Int ->
             when(i){
@@ -46,6 +51,9 @@ class ProfileFragment : Fragment() {
             dateUser.text = it?.date
             groupNameUser.text = it?.nameGroup
             sexUser.text = it?.sex
+            Glide.with(this)
+                .load(User.img)
+                .into(img)
         })
         return view
     }

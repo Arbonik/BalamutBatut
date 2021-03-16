@@ -7,6 +7,7 @@ import com.castprogramms.balamutbatut.users.Trainer
 
 object User {
     var id = ""
+    var img = ""
     val testID = "UwsuyZ4DB4J8b1AbRbE9a"
     var typeUser = ""
 
