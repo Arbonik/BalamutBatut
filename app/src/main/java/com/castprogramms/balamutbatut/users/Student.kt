@@ -9,9 +9,7 @@ class Student(
     sex: String,
     img: String,
     var nodes: List<Node>
-):Person(first_name, second_name, date, sex, img){
-    var nameGroup : String? = null
-    val type = "student"
+):Person(first_name, second_name, date, sex, groupID = notGroup, type = "student", img){
     fun setNodesList(nodes: List<Node>){
         this.nodes = nodes
     }

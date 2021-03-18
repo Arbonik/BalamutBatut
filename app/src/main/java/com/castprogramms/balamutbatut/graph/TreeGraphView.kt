@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.NodeData
 import com.castprogramms.balamutbatut.tools.User
-import com.example.graphguilibrary.Line
-import com.example.graphguilibrary.NodeView
 
 // класс для отрисовки графа
 class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(context,attributeSet){

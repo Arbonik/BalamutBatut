@@ -19,13 +19,13 @@ import com.google.firebase.firestore.QuerySnapshot
 
 class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>() {
     var groups = mutableListOf<Group>()
+    var groupsId = mutableListOf<String>()
 
     var query = _query
     set(value) {
         notifyDataSetChanged()
         field = value
     }
-//    val gsonConverter = Gson()
     init {
 
         query.addSnapshotListener(object : EventListener<QuerySnapshot>{
@@ -40,8 +40,8 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
                             it.getString("numberTrainer").toString(),
                             it.get("students") as List<String>
                         )
-//                        gsonConverter.fromJson<Group>(it.data.toString(), Group::class.java)
                     )
+                    groupsId.add(it.id)
                     notifyDataSetChanged()
                 }
             }
@@ -50,6 +50,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
 
     fun update(){
         groups.clear()
+        groupsId.clear()
         notifyDataSetChanged()
     }
 
@@ -63,7 +64,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: GroupsViewHolder, position: Int) {
-        holder.bind(groups[position])
+        holder.bind(groups[position], groupsId[position])
     }
 
     override fun getItemCount() = groups.size
@@ -73,7 +74,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
         val groupDesc : TextView = view.findViewById(R.id.group_desc)
         val groupTrainerNumber : TextView = view.findViewById(R.id.group_trainerNumber)
         val cardView : CardView = view.findViewById(R.id.cardView)
-        fun bind(group: Group){
+        fun bind(group: Group, id: String){
             groupName.text = group.name
             groupDesc.text = group.description
             groupTrainerNumber.text = "${group.numberTrainer} ${group.students.size}"
@@ -83,6 +84,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
                 bundle.putString("description", group.description)
                 bundle.putString("numberTrainer", group.numberTrainer)
                 bundle.putStringArray("students",group.students.toTypedArray())
+                bundle.putString("id", id)
                 fragment.findNavController()
                     .navigate(R.id.action_group_Fragment_to_studentsFragment, bundle)
             }

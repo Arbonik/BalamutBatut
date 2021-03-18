@@ -76,7 +76,7 @@ class RegistrViewModel: ViewModel() {
 //                List(4) { Node(if (it != 4 - 1) mutableListOf(it + 1) else mutableListOf(),
 //                NodeData(mutableListOf("qwerty"))) }, ),
 //                User.id)
-            DataUserFirebase().getStudent(User.testID).addOnCompleteListener {
+            DataUserFirebase().getStudent(User.testID).get().addOnCompleteListener {
                 if (it.isSuccessful) {
                     User.setValueStudent(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
                     Log.e("Data", User.student.toString())

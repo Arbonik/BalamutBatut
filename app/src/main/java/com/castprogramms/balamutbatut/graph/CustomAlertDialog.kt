@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.NodeData
-import com.example.graphguilibrary.NodeView
 import kotlin.math.min
 
 // класс для вызова AlertDialog

@@ -20,7 +20,13 @@ class DataUserFirebase: DataUserApi {
     }
 
     override fun updateStudent(student: Student, studentID: String) {
-        
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .update("nameGroup", student.groupID)
+
+        fireStore.collection(groupTag)
+            .document(student.groupID)
+            .update("students", FieldValue.arrayUnion(studentID))
     }
 
     override fun deleteStudent(student: Student) {
@@ -59,10 +65,9 @@ class DataUserFirebase: DataUserApi {
             .whereEqualTo("numberTrainer", User.id)
     }
 
-    fun getStudent(studentID: String): Task<DocumentSnapshot> {
+    fun getStudent(studentID: String): DocumentReference {
         return fireStore.collection(studentTag)
             .document(studentID)
-            .get()
     }
 
     fun getStudentsGroup(studentID: String): Task<QuerySnapshot> {
