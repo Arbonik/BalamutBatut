@@ -27,7 +27,6 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
         field = value
     }
     init {
-
         query.addSnapshotListener(object : EventListener<QuerySnapshot>{
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 update()

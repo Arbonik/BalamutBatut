@@ -42,8 +42,4 @@ class MainActivityTrainer : AppCompatActivity() {
 //
 //    }
     override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment_trainer).navigateUp()
-
-    override fun onBackPressed() {
-
-    }
 }

@@ -17,6 +17,7 @@ import com.castprogramms.balamutbatut.tools.Registration
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.users.Person
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
 import java.util.*
@@ -88,7 +89,9 @@ class InsertDataUserFragment: Fragment() {
             }
             if (!listEmptyEditText.contains(false)) {
                 addDataStudent(Student(editFirstName.text.toString(), editLastName.text.toString(),
-                    date, sex, User.img, listOf(Node(mutableListOf()))))
+                    date, sex, User.img, listOf(Node(mutableListOf()))).apply {
+                        groupID = Person.notGroup
+                })
                 Registration().loadDate()
                 (requireActivity() as MainActivity).toStudent()
             }

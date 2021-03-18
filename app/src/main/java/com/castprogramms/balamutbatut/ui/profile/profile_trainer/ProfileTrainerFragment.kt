@@ -23,19 +23,19 @@ class ProfileTrainerFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.profile_fragment_trainer, container, false)
-        val binging = ProfileBinding.bind(view.findViewById(R.id.profile_trainer))
+        val binding = ProfileBinding.bind(view.findViewById(R.id.profile_trainer))
         User.mutableLiveDataTrainer.observe(viewLifecycleOwner, Observer {
             if (it != null){
-                binging.person = it
+                binding.person = it
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
                         if (value != null)
-                            binging.groupID.text = value.getString("name")
+                            binding.groupID.text = value.getString("name")
                     }
                 if (User.img != "null")
                     Glide.with(this)
                         .load(User.img)
-                        .into(binging.icon)
+                        .into(binding.icon)
             }
         })
         return view
