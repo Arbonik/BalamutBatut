@@ -44,7 +44,7 @@ class Registration {
         if (user != null){
             User.id = user.uid
             User.img = user.photoUrl.toString()
-            DataUserFirebase().getStudent(User.id).addOnCompleteListener {
+            DataUserFirebase().getStudent(User.id).get().addOnCompleteListener {
                 if (it.isSuccessful && it.result != null) {
                     User.setValueStudent(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
                     Log.e("Data", User.student.toString())
@@ -70,7 +70,7 @@ class Registration {
         if (isSignedIn != null) {
             User.id = isSignedIn.id.toString()
             User.img = isSignedIn.photoUrl.toString()
-            DataUserFirebase().getStudent(User.id).addOnCompleteListener {
+            DataUserFirebase().getStudent(User.id).get().addOnCompleteListener {
                 if (it.isSuccessful) {
                     val data = it.result
                     if (data != null && data.data != null) {
@@ -122,7 +122,7 @@ class Registration {
     }
 
     fun loadDate(){
-        DataUserFirebase().getStudent(User.id).addOnSuccessListener {
+        DataUserFirebase().getStudent(User.id).get().addOnSuccessListener {
             if (it.data != null) {
                 User.setValueStudent(
                     GsonBuilder().create().fromJson(it.data.toString(), Student::class.java)
