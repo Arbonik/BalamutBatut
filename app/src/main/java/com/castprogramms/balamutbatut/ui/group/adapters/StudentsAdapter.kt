@@ -1,7 +1,7 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
-import android.os.Bundle
 import android.util.Log
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,8 +34,19 @@ class StudentsAdapter(_query: Query, group: Group) :
         query.addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                 update()
-                if (value != null)
+//                value?.documents?.forEach {
+//                    if (group.students.contains(it.id)) {
+////                        students.add(
+////                            Gson().fromJson(it.data.toString(), Student::class.java)
+////                        )
+//                        studentsID.add(it.id)
+////                        notifyDataSetChanged()
+//                    }
+//                }
+                if (value != null) {
                     students = value.toObjects(Student::class.java)
+                    notifyDataSetChanged()
+                }
 //                value?.documents?.forEach {
 //                    if (group.students.contains(it.id)) {
 //                        Log.e("log", it.toString())
@@ -45,15 +56,15 @@ class StudentsAdapter(_query: Query, group: Group) :
 //                        notifyDataSetChanged()
 //                    }
 //                }
-                value?.documents?.forEach {
-                    if (group.students.contains(it.id)) {
-                        students.add(
-                            Gson().fromJson(it.data.toString(), Student::class.java)
-                        )
-                        studentsID.add(it.id)
-                        notifyDataSetChanged()
-                    }
-                }
+//                value?.documents?.forEach {
+//                    if (group.students.contains(it.id)) {
+//                        students.add(
+//                            Gson().fromJson(it.data.toString(), Student::class.java)
+//                        )
+//                        studentsID.add(it.id)
+//                        notifyDataSetChanged()
+//                    }
+//                }
             }
         })
     }
@@ -72,7 +83,7 @@ class StudentsAdapter(_query: Query, group: Group) :
     }
 
     override fun onBindViewHolder(holder: StudentsViewHolder, position: Int) {
-        holder.bind(students[position], studentsID[position])
+        holder.bind(students[position])
     }
 
     override fun getItemCount(): Int = students.size
@@ -83,7 +94,7 @@ class StudentsAdapter(_query: Query, group: Group) :
         val studentDateTextView : TextView = view.findViewById(R.id.student_date)
         val studentSexTextView : TextView = view.findViewById(R.id.student_sex)
         val studentImage : CircleImageView = view.findViewById(R.id.icon_student)
-        fun bind(student: Student, id: String){
+        fun bind(student: Student){
             studentNameTextView.text = student.first_name + " " + student.second_name
             studentDateTextView.text = student.date
             studentSexTextView.text = student.sex
@@ -92,7 +103,7 @@ class StudentsAdapter(_query: Query, group: Group) :
                 .into(studentImage)*/
             cardViewStudent.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("id", id)
+//                bundle.putString("id", id)
                 it.findNavController()
                     .navigate(R.id.action_studentsFragment_to_infoStudentFragment, bundle)
             }
