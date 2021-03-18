@@ -7,11 +7,13 @@ class Student(
     second_name: String,
     date: String,
     sex: String,
+    img: String,
     var nodes: List<Node>
-):Person(first_name, second_name, date, sex){
+):Person(first_name, second_name, date, sex, img){
     var nameGroup : String? = null
     val type = "student"
     fun setNodesList(nodes: List<Node>){
         this.nodes = nodes
     }
+    constructor() :this("","","","","", listOf())
 }

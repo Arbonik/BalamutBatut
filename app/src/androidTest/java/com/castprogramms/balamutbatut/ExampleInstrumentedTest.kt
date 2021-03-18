@@ -25,9 +25,9 @@ class ExampleInstrumentedTest {
         assertEquals("com.castprogramms.balamutbatut", appContext.packageName)
     }
 
-    @Test
-    fun getGroups(){
-        val firebaseMock = Mockito.mock(DataUserFirebase::class.java)
-        assertEquals(firebaseMock.getAllGroup().value, mutableListOf<Group>())
-    }
+//    @Test
+//    fun getGroups(){
+//        val firebaseMock = Mockito.mock(DataUserFirebase::class.java)
+//        assertEquals(firebaseMock.getAllGroup().value, mutableListOf<Group>())
+//    }
 }

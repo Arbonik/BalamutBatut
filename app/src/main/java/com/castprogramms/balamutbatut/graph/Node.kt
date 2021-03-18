@@ -6,7 +6,9 @@ import com.castprogramms.balamutbatut.tools.NodeData
 var dataNode = NodeData(mutableListOf(), "Сед - Живот - Сед", "Пргаешь, падаешь, " +
         "отскакиваешь, снова падаешь, но уже на животик, снова отскакиваешь, падаешь, отскакиваешь, встаешь на ноги, готово.", R.drawable.lock_24)
 
-open class Node(var childNodeID: MutableList<Int>){
+open class Node(var childNodeID: MutableList<Int>)
+{
+    constructor():this(mutableListOf())
     var dataNode = NodeData(mutableListOf(), "Сед - Живот - Сед", "Пргаешь, падаешь, " +
             "отскакиваешь, снова падаешь, но уже на животик, снова отскакиваешь, падаешь, отскакиваешь, встаешь на ноги, готово.", R.drawable.lock_24)
     constructor(
@@ -28,4 +30,5 @@ open class Node(var childNodeID: MutableList<Int>){
         else
             return false
     }
+
 }

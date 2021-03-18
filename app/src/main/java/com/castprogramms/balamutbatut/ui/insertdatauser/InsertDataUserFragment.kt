@@ -88,7 +88,7 @@ class InsertDataUserFragment: Fragment() {
             }
             if (!listEmptyEditText.contains(false)) {
                 addDataStudent(Student(editFirstName.text.toString(), editLastName.text.toString(),
-                    date, sex, listOf(Node(mutableListOf()))))
+                    date, sex, User.img, listOf(Node(mutableListOf()))))
                 Registration().loadDate()
                 (requireActivity() as MainActivity).toStudent()
             }

@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_student"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="@dimen/cardview_compat_inset_shadow"
-    android:elevation="10dp"
-    android:clickable="true"
-    android:focusable="true"
+    android:layout_marginStart="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
     android:checkable="true"
-    android:id="@+id/card_view_student">
+    android:clickable="true"
+    android:elevation="10dp"
+    android:focusable="true"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="@dimen/cardview_compat_inset_shadow">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:paddingLeft="12dp"
-        android:paddingRight="8dp"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:paddingRight="8dp"
+        android:paddingBottom="8dp">
 
         <!--<TextView
             android:id="@+id/number_stud"
@@ -32,31 +34,32 @@
             tools:text="1"
             android:text="1"/>-->
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_gravity="center_vertical"
             android:id="@+id/icon_student"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/male_user" />
 
         <TextView
+            android:id="@+id/student_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/student_name"
             android:textSize="18sp"
-            tools:text="Петров Кирилл"/>
+            tools:text="Петров Кирилл" />
 
         <TextView
-            android:visibility="gone"
+            android:id="@+id/student_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/student_date" />
+            android:visibility="gone" />
+
         <TextView
-            android:visibility="gone"
+            android:id="@+id/student_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/student_sex" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

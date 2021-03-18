@@ -7,5 +7,6 @@ open class Person(
     var second_name : String,
     var date : String,
     var sex : String,
+    var img: String
 ) {
 }
