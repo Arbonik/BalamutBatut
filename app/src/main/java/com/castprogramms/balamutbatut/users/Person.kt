@@ -7,7 +7,7 @@ open class Person(
     var sex : String,
     var groupID: String,
     var type: String,
-    var img: String
+    var img: String = ""
 ) {
     companion object{
         val notGroup = "НетГруппы"

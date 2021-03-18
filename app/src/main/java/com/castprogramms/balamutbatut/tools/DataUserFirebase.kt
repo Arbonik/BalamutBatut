@@ -11,7 +11,12 @@ import com.google.gson.GsonBuilder
 class DataUserFirebase: DataUserApi {
 
     private val gsonConverter = GsonBuilder().create()
-    val fireStore = FirebaseFirestore.getInstance()
+    val settings = FirebaseFirestoreSettings.Builder()
+        .setPersistenceEnabled(true)
+        .build()
+    val fireStore = FirebaseFirestore.getInstance().apply {
+        firestoreSettings = settings
+    }
 
     override fun addStudent(student: Student, studentID: String) {
         fireStore.collection(studentTag)
@@ -81,7 +86,10 @@ class DataUserFirebase: DataUserApi {
             printLog(diff.toString())
         }
     }
-
+    fun getNameGroup(groupID: String): DocumentReference {
+        return fireStore.collection(groupTag)
+            .document(groupID)
+    }
     fun getGroupStudents(group: Group){
 //        return fireStore.collection(groupTag)
 //            .where
