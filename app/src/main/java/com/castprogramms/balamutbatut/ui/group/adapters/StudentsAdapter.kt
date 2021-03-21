@@ -20,7 +20,7 @@ import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
-class StudentsAdapter(_query: Query, group: Group) :
+class StudentsAdapter(_query: Query) :
     RecyclerView.Adapter<StudentsAdapter.StudentsViewHolder>() {
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()

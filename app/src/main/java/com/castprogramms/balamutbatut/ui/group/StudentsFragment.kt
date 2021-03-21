@@ -25,38 +25,11 @@ import com.google.gson.Gson
 import java.lang.Exception
 
 class StudentsFragment: Fragment() {
-    var group : Group? = null
     var id = ""
-    val mutableLiveDataGroup = MutableLiveData(group)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null){
+        if (arguments != null)
             id = arguments?.getString("id").toString()
-                DataUserFirebase().fireStore.collection(DataUserFirebase.groupTag)
-                    .document(id)
-                    .addSnapshotListener(object : EventListener<DocumentSnapshot> {
-                        override fun onEvent(
-                            value: DocumentSnapshot?,
-                            error: FirebaseFirestoreException?
-                        ) {
-                            if (value != null) {
-                                group = Group(
-                                    value.getString("name").toString(),
-                                    value.getString("description").toString(),
-                                    value.getString("numberTrainer").toString(),
-                                    value.get("students") as List<String>
-                                )
-                                mutableLiveDataGroup.postValue(group)
-                            }
-                        }
-                    })
-        }
-//        val name = requireArguments().getString("name").toString()
-//        val desc = requireArguments().get("description").toString()
-//        val number = requireArguments().getString("numberTrainer").toString()
-//        val students = requireArguments().getStringArray("students")?.toList()!!
-//
-//        group = Group(name, desc, number, students)
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,16 +42,12 @@ class StudentsFragment: Fragment() {
             findNavController().navigate(R.id.action_studentsFragment_to_addStudentFragment)
         }
         val recyclerView : RecyclerView = view.findViewById(R.id.students_list)
-        mutableLiveDataGroup.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                val query = DataUserFirebase().fireStore.collection(DataUserFirebase.studentTag)
-                    .whereEqualTo("type", "student")
-                    .whereEqualTo("groupID", id)
-                val studentsAdapter = StudentsAdapter(query, group!!)
-                recyclerView.adapter = studentsAdapter
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            }
-        })
+        val query = DataUserFirebase().fireStore.collection(DataUserFirebase.studentTag)
+            .whereEqualTo("type", "student")
+            .whereEqualTo("groupID", id)
+        val studentsAdapter = StudentsAdapter(query)
+        recyclerView.adapter = studentsAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         return view
     }
 
