@@ -1,6 +1,7 @@
 package com.castprogramms.balamutbatut.ui.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +26,8 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.profile_fragment_student, container, false)
+    ): View {
+        val view = inflater.inflate(R.layout.profile_fragment_student, null)
         val tabs: TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2: ViewPager2 = view.findViewById(R.id.view_pager2)
         viewPager2.adapter = ViewPager2FragmentAdapter(this)
@@ -40,12 +41,21 @@ class ProfileFragment : Fragment() {
         viewPager2.currentItem = 0
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                val binging = ProfileBinding.bind(view.findViewById(R.id.profile_student))
-                binging.person = it
-                if (User.img != "null")
-                    Glide.with(this)
-                        .load(User.img)
-                        .into(binging.icon)
+                try {
+                    val binging = ProfileBinding.bind(view.findViewById(R.id.profileFragment))
+                    binging.person = it
+                    if (User.img != "null")
+                        Glide.with(this)
+                            .load(User.img)
+                            .into(binging.icon)
+                }catch (e: Exception){
+                    try {
+                        Log.e("data", view.tag.toString())
+                    }catch (e1:Exception){
+                        Log.e("data", e1.message.toString())
+                    }
+                    Log.e("data", e.message.toString())
+                }
             }
         })
         return view
