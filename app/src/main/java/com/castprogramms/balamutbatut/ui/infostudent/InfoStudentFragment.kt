@@ -47,10 +47,8 @@ class InfoStudentFragment: Fragment() {
                 binding.person = it
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
-                        Log.e("Photo", value?.data.toString())
                         if (value != null) {
                             binding.groupID.text = value.getString("name")
-                            Log.e("Photo", value.getString("name").toString())
                         }
                     }
                 if (it.img != "")
