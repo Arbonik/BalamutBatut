@@ -15,10 +15,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class NodeViewFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = NodeViewFragment()
-    }
-
     private lateinit var viewModel: NodeViewViewModel
 
     override fun onCreateView(
@@ -26,10 +22,8 @@ class NodeViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.node_view_fragment, container, false)
-
         val tab : TabLayout = view.findViewById(R.id.node_tab_layout)
         val viewPager : ViewPager2 = view.findViewById(R.id.nodePager)
-
         viewPager.adapter = NodeViewPager2Adapter(this)
         TabLayoutMediator(tab, viewPager){ tab : TabLayout.Tab, i: Int ->
             when(i) {
@@ -39,7 +33,6 @@ class NodeViewFragment : Fragment() {
             viewPager.currentItem = i
         }.attach()
         viewPager.currentItem = 0
-
         return view
     }
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
+import com.castprogramms.balamutbatut.graph.TreeGraphView
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.users.Student
 import com.google.gson.Gson
@@ -19,13 +20,13 @@ import com.squareup.picasso.Picasso
 class InfoStudentFragment: Fragment() {
     var student : Student? = null
     val mutableLiveDataStudent = MutableLiveData(student)
-
+    var idStudent = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null){
-            val id = arguments?.getString("id", null)
-            if (id != null){
-                DataUserFirebase().getStudent(id).addSnapshotListener { value, error ->
+            idStudent = arguments?.getString("id", "").toString()
+            if (idStudent != "null" && idStudent != ""){
+                DataUserFirebase().getStudent(idStudent).addSnapshotListener { value, error ->
                     if (value != null){
                         student = value.toObject(Student::class.java)
                         mutableLiveDataStudent.postValue(student)
@@ -41,10 +42,13 @@ class InfoStudentFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_info_fragment, container, false)
+        val treeGraphView : TreeGraphView = view.findViewById(R.id.model)
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_info))
         mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.person = it
+                treeGraphView.idStudent = idStudent
+                treeGraphView.setNodesWithInfo(it.nodes.toMutableList())
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
                         if (value != null) {

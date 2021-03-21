@@ -81,10 +81,9 @@ class DataUserFirebase: DataUserApi {
             .get()
     }
     fun updateNodeStudent(studentID: String, nodes:List<Node>){
-        if (User.student != null){
-            val diff = nodes.filter { !User.student!!.nodes.contains(it)}
-            printLog(diff.toString())
-        }
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .update("nodes", nodes)
     }
     fun getNameGroup(groupID: String): DocumentReference {
         return fireStore.collection(groupTag)

@@ -36,9 +36,4 @@ class ProgressFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ProgressViewModel::class.java)
     }
 
-    override fun onStop() {
-        super.onStop()
-        if (User.student != null)
-            DataUserFirebase().updateNodeStudent(User.id, User.student?.nodes ?: mutableListOf())
-    }
 }

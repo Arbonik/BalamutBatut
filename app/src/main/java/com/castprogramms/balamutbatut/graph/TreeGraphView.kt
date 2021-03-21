@@ -3,14 +3,19 @@ package com.castprogramms.balamutbatut.graph
 import android.content.Context
 import android.graphics.PointF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.ViewGroup
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.tools.DataUserApi
+import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.NodeData
 import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.users.Student
 
 // класс для отрисовки графа
 class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(context,attributeSet){
 
+    var idStudent = ""
     var quantity = 1
     var nodes1 = MutableList(quantity) { Node(if (it != quantity - 1) mutableListOf(it + 1) else mutableListOf(), NodeData(
         mutableListOf("qwerty"), "Сед - Живот - Сед", "Пргаешь, падаешь, " +
@@ -46,8 +51,9 @@ class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(cont
     fun addNodeView(parentNodeView: NodeView, nodeView: NodeView){ // функция для добавления узла
         nodes.add(nodeView)
         nodes1.add(nodeView.node)
-        User.student?.setNodesList(nodes1)
         parentNodeView.node.childNodeID.add(nodes.size-1)
+        if (idStudent != "")
+            DataUserFirebase().updateNodeStudent(idStudent, nodes1.toList())
         setNodesAndLines(nodes)
     }
 
@@ -55,6 +61,13 @@ class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(cont
         nodes = mutableList
         lines.clear()
         this.removeAllViews()
+        nodes.forEachIndexed { index, node ->
+            if (index == 0)
+                node.center = PointF((context.resources.displayMetrics.widthPixels / (2 * (index + 1))).toFloat(), node.radius + (height / nodes.size) * index)
+            node.node.childNodeID.forEachIndexed { i, it ->
+                nodes[it].center = PointF(((node.center.x*2 / (node.node.childNodeID.size+1)) * (i+1)), ((height / nodes.size) * (index + 1)).toFloat())
+            }
+        }
         for (i in 0 until nodes.size-1){
             nodes[i].node.childNodeID.forEach {
                 lines.add(
@@ -66,34 +79,28 @@ class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(cont
                 )
             }
         }
-        nodes.forEachIndexed { index, node ->
-            if (index == 0)
-                node.center = PointF((context.resources.displayMetrics.widthPixels / (2 * (index + 1))).toFloat(), node.radius + (height / nodes.size) * index)
-            node.node.childNodeID.forEachIndexed { i, it ->
-                nodes[it].center = PointF(((node.center.x*2 / (node.node.childNodeID.size+1)) * (i+1)), ((height / nodes.size) * (index + 1)).toFloat())
-            }
-        }
+
         lines.forEach {
-            addView(it)
+            addView(it, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
         }
 
 
         nodes.forEach {
-            addView(it,LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
+            addView(it, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT))
         }
     //        Log.e("Test",DataUserFirebase().getStudent("UwsuyZ4DB4J8b1AbRbE9").toString())
 
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) { // размещение на фрагменте детей
-
         val count = childCount
-
+        Log.e("TEst", count.toString())
         for (index in 0 until count) {
             val view = getChildAt(index)
             var indexNode: Int
             if (view is NodeView) {
                 indexNode = index - lines.size
+                Log.e("TEst", view.center.toString())
                 if (indexNode == 0) {
                     view.center = PointF(
                         (width / (2 * (indexNode + 1))).toFloat(),
@@ -101,12 +108,13 @@ class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(cont
                     )
                 }
                 view.node.childNodeID.forEachIndexed { i, it ->
-                    nodes[it].center.set(PointF(
+                    val point = PointF(
                         ((view.center.x * 2 / (view.node.childNodeID.size + 1)) * (i + 1)),
                         ((height / calculateLevels()) * (
                                 if (indexNode == 0) 1 else
                                     getLevelNodeView(view))).toFloat()
-                    ))
+                    )
+                    nodes[it].center.set(point)
                 }
                 view.layout(
                     (view.center.x - view.radius).toInt(),
@@ -117,7 +125,7 @@ class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(cont
                 view.invalidate()
 
             } else {
-                view.layout(l, t, r, b)
+                view.layout(l, 0, r, b)
                 view.invalidateOutline()
             }
         }

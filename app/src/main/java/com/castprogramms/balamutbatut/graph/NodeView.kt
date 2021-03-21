@@ -12,6 +12,7 @@ import com.castprogramms.balamutbatut.graph.CustomAlertDialog
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.graph.NodeInfoAlertDialog
 import com.castprogramms.balamutbatut.graph.SetDataNodeAlertDialog
+import com.castprogramms.balamutbatut.tools.User
 
 // класс для отображения узла
 class NodeView(val radius: Float,context: Context, var node: Node)
@@ -20,13 +21,15 @@ class NodeView(val radius: Float,context: Context, var node: Node)
     val gestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
 
         override fun onLongPress(e: MotionEvent) { // длинный ТЫК
-            Log.e("Test", "Longpress detected")
-            CustomAlertDialog().createAlertDialog(this@NodeView)!!.create().show()
+            if (User.trainer != null) {
+                Log.e("Test", "Longpress detected")
+                CustomAlertDialog().createAlertDialog(this@NodeView)!!.create().show()
+            }
         }
 
         override fun onSingleTapUp(e: MotionEvent): Boolean { // одиночный ТЫК
 //            Log.d("Test", this@NodeView.node.)
-            findNavController().navigate(R.id.nodeViewFragment)
+            findNavController().navigate(R.id.action_infoStudentFragment_to_nodeViewFragment2)
             //NodeInfoAlertDialog().createDialog(this@NodeView).create()?.show()
             return true
         }
