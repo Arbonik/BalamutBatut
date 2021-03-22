@@ -13,7 +13,7 @@ import com.castprogramms.balamutbatut.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.castprogramms.balamutbatut.users.Student
-import com.castprogramms.balamutbatut.tools.Registration
+import com.castprogramms.balamutbatut.tools.DataLoader
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
@@ -92,7 +92,7 @@ class InsertDataUserFragment: Fragment() {
                     date, sex, User.img, listOf(Node(mutableListOf()))).apply {
                         groupID = Person.notGroup
                 })
-                Registration().loadDate()
+                DataLoader().loadDate()
                 (requireActivity() as MainActivity).toStudent()
             }
         }
