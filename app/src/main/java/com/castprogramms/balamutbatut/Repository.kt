@@ -10,6 +10,7 @@ import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 class Repository {
@@ -19,7 +20,6 @@ class Repository {
 
     fun loadUserData(account: GoogleSignInAccount?) {
         _userData.postValue(Resource.Loading())
-
         if (account != null) {
             var person = Person()
             val id = account.id.toString()
@@ -30,17 +30,20 @@ class Repository {
                     val data = it.result
                     if (data != null && data.data != null) {
                         person.type = data.getString("type").toString()
-
+                        DataUserFirebase.printLog(data.data.toString())
                         User.mutableLiveDataSuccess.postValue(true)
-                        when (User.typeUser) {
-                            TypesUser.STUDENT ->
+                        when (person.type) {
+                            TypesUser.STUDENT.desc ->{
                                 person = data.toObject(Student::class.java)!!
-
-                            TypesUser.TRAINER ->
-                                person = data.toObject(Trainer::class.java)!!
+                                User.setValueStudent(person as Student)
+                            }
+                            TypesUser.TRAINER.desc ->{
+                                person = Gson().fromJson(data.data.toString(),Trainer::class.java)
+                                User.setValueTrainer(person as Trainer)
+                            }
                         }
-
                         person.img = account.photoUrl.toString()
+                        DataUserFirebase.printLog(person.first_name)
                         _userData.postValue(Resource.Success(person))
 
                     }

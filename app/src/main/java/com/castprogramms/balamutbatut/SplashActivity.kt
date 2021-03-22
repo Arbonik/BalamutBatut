@@ -21,17 +21,19 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
-
-
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
-
         if (googleAuth != null) {
-            DataLoader().loadUserData(googleAuth)
+//            DataLoader().loadUserData(googleAuth)
             repository.loadUserData(googleAuth)
-        } else
+        } else{
+            startActivity( Intent(
+                this,
+                MainActivity::class.java
+            )
+            )
+            finish()
             User.mutableLiveDataSuccess.postValue(false)
-
-
+        }
         repository.user.observe(this) {
             when (it) {
                 is Resource.Error -> {  startActivity( Intent(
@@ -43,8 +45,8 @@ class SplashActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     MainScope().launch {
                         while (true) {
-                            findViewById<ImageView>(R.id.screensplashbackground).rotation +=1
-                            delay(10)
+                            findViewById<ImageView>(R.id.screensplashbackground).rotation +=5
+                            delay(1)
                         }
                     }
 
