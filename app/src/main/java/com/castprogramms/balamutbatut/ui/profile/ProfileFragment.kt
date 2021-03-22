@@ -42,7 +42,7 @@ class ProfileFragment : Fragment() {
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 try {
-                    val binging = ProfileBinding.bind(view.findViewById(R.id.profileFragment))
+                    val binging = ProfileBinding.bind(view.findViewById(R.id.profile_student))
                     binging.person = it
                     if (User.img != "null")
                         Glide.with(this)

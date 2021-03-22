@@ -19,12 +19,12 @@ object User {
 
     fun setValueStudent(student: Student){
         this.student = student
-        mutableLiveDataStudent.value = student
+        mutableLiveDataStudent.postValue(student)
     }
     fun setValueTrainer(trainer: Trainer){
         this.trainer = trainer
-        mutableLiveDataTrainer.value = trainer
+        mutableLiveDataTrainer.postValue(trainer)
     }
-    val boolean : Boolean? = null
-    val mutableLiveDataSuccess = MutableLiveData(boolean)
+
+    val mutableLiveDataSuccess = MutableLiveData<Boolean?>(null)
 }

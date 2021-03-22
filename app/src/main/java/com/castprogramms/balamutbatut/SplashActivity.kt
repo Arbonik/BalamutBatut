@@ -22,6 +22,9 @@ class SplashActivity : AppCompatActivity() {
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
 //        if (googleAuth != null)
         Registration().auth(googleAuth)
+
+
+
         User.mutableLiveDataSuccess.observe(this, Observer{
             if (it != null) {
                 if (it == true) {

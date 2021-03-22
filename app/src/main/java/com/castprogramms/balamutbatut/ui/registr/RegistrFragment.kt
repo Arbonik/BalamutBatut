@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -26,8 +27,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseUser
 
 class RegistrFragment: Fragment() {
-
-    lateinit var registrViewModel: RegistrViewModel
+    val registrViewModel: RegistrViewModel by viewModels()
     var sussesRegistr = false
 
     override fun onCreateView(
@@ -35,7 +35,6 @@ class RegistrFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        registrViewModel = RegistrViewModel()
         val view = inflater.inflate(R.layout.fragment_regist, container, false)
         registrViewModel.initGoogleSign(requireContext())
         val button: SignInButton = view.findViewById(R.id.sign_in_button)
