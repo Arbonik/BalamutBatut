@@ -45,8 +45,12 @@ class SplashActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     MainScope().launch {
                         while (true) {
-                            findViewById<ImageView>(R.id.screensplashbackground).rotation +=5
-                            delay(1)
+                            findViewById<ImageView>(R.id.screensplashbackground).apply {
+                                rotation += 10
+                                rotationY += 10
+                                rotationX -= 10
+                            }
+                            delay(15)
                         }
                     }
 
