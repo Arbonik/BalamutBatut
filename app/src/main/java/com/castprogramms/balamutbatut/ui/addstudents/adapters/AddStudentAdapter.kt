@@ -41,9 +41,11 @@ class AddStudentAdapter(_query: Query)
                 }
             }
         })
+
     }
     fun update(){
         students.clear()
+        studentsID.clear()
         notifyDataSetChanged()
     }
 
