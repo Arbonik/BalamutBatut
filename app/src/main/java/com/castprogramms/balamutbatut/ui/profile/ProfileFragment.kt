@@ -44,9 +44,9 @@ class ProfileFragment : Fragment() {
                 try {
                     val binging = ProfileBinding.bind(view.findViewById(R.id.profile_student))
                     binging.person = it
-                    if (User.img != "null")
+                    if (it.img != "null")
                         Glide.with(this)
-                            .load(User.img)
+                            .load(it.img)
                             .into(binging.icon)
                 }catch (e: Exception){
                     Log.e("data", e.message.toString())

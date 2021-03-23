@@ -16,7 +16,11 @@
             android:id="@+id/progressFragment"
             android:name="com.castprogramms.balamutbatut.ui.progress.ProgressFragment"
             android:label="@string/item_progress"
-            tools:layout="@layout/progress_fragment" />
+            tools:layout="@layout/progress_fragment" >
+                <action
+                    android:id="@+id/action_progressFragment_to_nodeViewFragment"
+                    app:destination="@id/nodeViewFragment" />
+        </fragment>
         <fragment
             android:id="@+id/nodeViewFragment"
             android:name="com.castprogramms.balamutbatut.ui.node.NodeViewFragment"

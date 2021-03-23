@@ -34,10 +34,12 @@ class Repository {
                         User.mutableLiveDataSuccess.postValue(true)
                         when (person.type) {
                             TypesUser.STUDENT.desc ->{
+                                User.typeUser = TypesUser.STUDENT
                                 person = data.toObject(Student::class.java)!!
                                 User.setValueStudent(person as Student)
                             }
                             TypesUser.TRAINER.desc ->{
+                                User.typeUser = TypesUser.TRAINER
                                 person = Gson().fromJson(data.data.toString(),Trainer::class.java)
                                 User.setValueTrainer(person as Trainer)
                             }
