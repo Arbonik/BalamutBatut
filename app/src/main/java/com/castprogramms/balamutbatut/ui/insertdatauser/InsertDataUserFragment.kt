@@ -13,13 +13,16 @@ import com.castprogramms.balamutbatut.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.castprogramms.balamutbatut.users.Student
-import com.castprogramms.balamutbatut.tools.Registration
+import com.castprogramms.balamutbatut.tools.DataLoader
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.users.Person
+import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
+import com.google.gson.GsonBuilder
 import java.util.*
 
 class InsertDataUserFragment: Fragment() {
@@ -92,7 +95,7 @@ class InsertDataUserFragment: Fragment() {
                     date, sex, User.img, listOf(Node(mutableListOf()))).apply {
                         groupID = Person.notGroup
                 })
-                Registration().loadDate()
+                loadDateStudnet()
                 (requireActivity() as MainActivity).toStudent()
             }
         }
@@ -122,4 +125,31 @@ class InsertDataUserFragment: Fragment() {
         DataUserFirebase().addStudent(student, User.id)
     }
 
+    private fun loadDateStudnet(){
+        DataUserFirebase().getUser(User.id)
+            .get().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val data = it.result
+                    if (data != null && data.data != null) {
+                        User.mutableLiveDataSuccess.postValue(true)
+                        User.setValueStudent(data.toObject(Student::class.java)!!)
+                    } else {
+                        User.mutableLiveDataSuccess.postValue(false)
+                    }
+                } else {
+                    User.mutableLiveDataSuccess.postValue(false)
+                }
+            }.continueWith {
+                if (User.student != null) {
+                    DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
+                        if (it.documents.isNotEmpty()) {
+                            User.setValueStudent(User.student?.apply {
+                                groupID = it.documents.first().getString("name").toString()
+                            }!!
+                        )
+                    }
+                }
+            }
+        }
+    }
 }

@@ -2,50 +2,74 @@ package com.castprogramms.balamutbatut
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.castprogramms.balamutbatut.tools.Registration
+import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.tools.DataLoader
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
+    private val repository = BalamutApplication.repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
-
-
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
-        Registration().auth(googleAuth)
-
-        User.mutableLiveDataSuccess.observe(this, Observer{
-            if (it != null) {
-                if (it == true) {
-                    when(User.typeUser){
-                        TypesUser.TRAINER -> {
-                            val intent = Intent(this, MainActivityTrainer::class.java)
-                            startActivity(intent)
-                        }
-                        TypesUser.STUDENT ->{
-                        val intent = Intent(this@SplashActivity, MainActivityStudent::class.java)
-                        intent.putExtra("susses", it)
-                        startActivity(intent)
-                        finish()
-                        }
-                    }
-                }
-                else{
-                    startActivity(
-                        Intent(
+        if (googleAuth != null) {
+//            DataLoader().loadUserData(googleAuth)
+            repository.loadUserData(googleAuth)
+        } else{
+            startActivity( Intent(
+                this,
+                MainActivity::class.java
+            )
+            )
+            finish()
+            User.mutableLiveDataSuccess.postValue(false)
+        }
+        repository.user.observe(this) {
+            when (it) {
+                is Resource.Error -> {  startActivity( Intent(
                             this,
                             MainActivity::class.java
                         )
                     )
                 }
-            }
-        })
+                is Resource.Loading -> {
+                    MainScope().launch {
+                        while (true) {
+                            findViewById<ImageView>(R.id.screensplashbackground).apply {
+                                rotation += 10
+                                rotationY += 10
+                                rotationX -= 10
+                            }
+                            delay(15)
+                        }
+                    }
 
+                }
+                is Resource.Success -> {
+                    when (it.data!!.type) {
+                        TypesUser.TRAINER.desc -> {
+                            val intent = Intent(this, MainActivityTrainer::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        TypesUser.STUDENT.desc -> {
+                            val intent = Intent(this, MainActivityStudent::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+                }
+            }
+        }
     }
 }

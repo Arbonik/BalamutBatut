@@ -32,9 +32,9 @@ class ProfileTrainerFragment: Fragment() {
                         if (value != null)
                             binding.groupID.text = value.getString("name")
                     }
-                if (User.img != "null")
+                if (it.img != "")
                     Glide.with(this)
-                        .load(User.img)
+                        .load(it.img)
                         .into(binding.icon)
             }
         })
