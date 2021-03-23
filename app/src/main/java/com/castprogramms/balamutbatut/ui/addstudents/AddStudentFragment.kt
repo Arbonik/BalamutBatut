@@ -19,8 +19,11 @@ class AddStudentFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val query = DataUserFirebase().fireStore.collection("students")
             .whereEqualTo("groupID", Person.notGroup)
+
+
         val view = inflater.inflate(R.layout.fragment_add_student, container, false)
         val studentsAdapter = AddStudentAdapter(query)
         val recycler : RecyclerView = view.findViewById(R.id.recycler)
