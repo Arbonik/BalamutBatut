@@ -49,11 +49,6 @@ class ProfileFragment : Fragment() {
                             .load(User.img)
                             .into(binging.icon)
                 }catch (e: Exception){
-                    try {
-                        Log.e("data", view.tag.toString())
-                    }catch (e1:Exception){
-                        Log.e("data", e1.message.toString())
-                    }
                     Log.e("data", e.message.toString())
                 }
             }
@@ -66,5 +61,4 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
     }
-
 }
