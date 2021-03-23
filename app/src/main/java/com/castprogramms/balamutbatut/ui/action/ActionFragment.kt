@@ -10,10 +10,6 @@ import com.castprogramms.balamutbatut.R
 
 class ActionFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ActionFragment()
-    }
-
     private lateinit var viewModel: ActionViewModel
 
     override fun onCreateView(

@@ -70,7 +70,7 @@ class DataUserFirebase: DataUserApi {
             .whereEqualTo("numberTrainer", User.id)
     }
 
-    fun getStudent(studentID: String): DocumentReference {
+    fun getUser(studentID: String): DocumentReference {
         return fireStore.collection(studentTag)
             .document(studentID)
     }

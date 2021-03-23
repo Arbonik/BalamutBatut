@@ -1,11 +1,9 @@
 package com.castprogramms.balamutbatut.ui.infostudent
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -14,7 +12,6 @@ import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.graph.TreeGraphView
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.users.Student
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
 class InfoStudentFragment: Fragment() {
@@ -26,7 +23,7 @@ class InfoStudentFragment: Fragment() {
         if (arguments != null){
             idStudent = arguments?.getString("id", "").toString()
             if (idStudent != "null" && idStudent != ""){
-                DataUserFirebase().getStudent(idStudent).addSnapshotListener { value, error ->
+                DataUserFirebase().getUser(idStudent).addSnapshotListener { value, error ->
                     if (value != null){
                         student = value.toObject(Student::class.java)
                         mutableLiveDataStudent.postValue(student)

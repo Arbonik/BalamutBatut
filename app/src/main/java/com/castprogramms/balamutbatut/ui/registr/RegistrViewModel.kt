@@ -61,10 +61,10 @@ class RegistrViewModel: ViewModel() {
         DataUserFirebase.printLog("handle: "+ task.isSuccessful)
         try {
             account = task.getResult(ApiException::class.java)
-            return registration.updateUI(account)
+            return registration.loadUserData(account)
         }catch (e:ApiException){
             DataUserFirebase.printLog("signInResult:failed code=" + e.statusCode)
-            return registration.updateUI(null)
+            return registration.loadUserData(null)
         }
     }
 
@@ -76,7 +76,7 @@ class RegistrViewModel: ViewModel() {
 //                List(4) { Node(if (it != 4 - 1) mutableListOf(it + 1) else mutableListOf(),
 //                NodeData(mutableListOf("qwerty"))) }, ),
 //                User.id)
-            DataUserFirebase().getStudent(User.testID).get().addOnCompleteListener {
+            DataUserFirebase().getUser(User.testID).get().addOnCompleteListener {
                 if (it.isSuccessful) {
                     User.setValueStudent(GsonBuilder().create().fromJson(it.result?.data.toString(), Student::class.java))
                     Log.e("Data", User.student.toString())

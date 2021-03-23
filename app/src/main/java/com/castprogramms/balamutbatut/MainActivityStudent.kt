@@ -30,17 +30,6 @@ class MainActivityStudent : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-//    fun toMainGraph(registration: Boolean = false){
-//        if (registration)
-//            navController.navigate(R.id.action_insertDataUserFragment_to_navigation)
-//        else
-//            navController.navigate(R.id.action_registrFragment_to_navigation)
-//        navView.visibility = View.VISIBLE
-//
-//
-//
-//
-//    }
     override fun onSupportNavigateUp() = navController.navigateUp()
 
     override fun onBackPressed() {

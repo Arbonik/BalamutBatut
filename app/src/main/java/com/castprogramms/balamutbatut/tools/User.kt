@@ -8,7 +8,7 @@ object User {
     var id = ""
     var img = ""
     val testID = "UwsuyZ4DB4J8b1AbRbE9a"
-    var typeUser = ""
+    var typeUser = TypesUser.NOTHING
 
     var student : Student? = null
     var trainer : Trainer? = null
