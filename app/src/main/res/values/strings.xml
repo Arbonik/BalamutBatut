@@ -6,6 +6,7 @@
     <string name="item_groups">Группы</string>
     <string name="item_group">Группа</string>
     <string name="item_element">Элемент</string>
+    <string name="item_settings">Настройки</string>
     <string name="students_fragment">Состав группы</string>
 
     <string name="password">Пароль</string>
@@ -20,9 +21,12 @@
     <string name="success_register">Вы успешно зарегестрированы!</string>
 
     <string name="min_length">6 символов</string>
+    <string name="message_settings">Нажмите на поле, чтобы изменить свои личные данные</string>
+    <string name="default_data_birthday">01.01.2000</string>
 
     <string name="title_dialog_info">Информация о достижении</string>
     <string name="title_set_data">Установка данных о достижении</string>
+    <string name="all_person_data">Личные данные</string>
     <string name="last_name">Фамилия</string>
     <string name="name">Имя</string>
     <string name="sex">Пол</string>
@@ -42,4 +46,18 @@
 
     <string name="message_register">Введите информацию о себе, чтобы тренер мог добавить вас в группу</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
