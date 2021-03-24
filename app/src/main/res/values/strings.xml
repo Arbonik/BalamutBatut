@@ -14,6 +14,7 @@
     <string name="or">Или</string>
     <string name="google_sign_up">Войти с помощью Google</string>
     <string name="sign_up">Войти</string>
+    <string name="edit">Изменить</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="invalid_password">Пароль должен содержать >5 символов</string>
     <string name="invalid_username">Неверно введён логин</string>

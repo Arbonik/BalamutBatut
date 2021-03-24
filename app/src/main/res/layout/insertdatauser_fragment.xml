@@ -53,7 +53,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/last_name_container"
+        android:id="@+id/last_name_user_container"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
         app:startIconContentDescription="@string/last_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/last_name"
+            android:id="@+id/last_name_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -83,11 +83,11 @@
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/last_name_container"
+        app:layout_constraintTop_toBottomOf="@id/last_name_user_container"
         app:startIconContentDescription="@string/name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name"
+            android:id="@+id/name_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
