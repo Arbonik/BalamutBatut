@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.castprogramms.balamutbatut.BalamutApplication.Companion.repository
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.graph.Node
@@ -27,10 +26,10 @@ import com.castprogramms.balamutbatut.users.Student
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import de.hdodenhof.circleimageview.CircleImageView
-import java.lang.ref.Reference
+import org.koin.android.ext.android.inject
 
 class EditProfileFragment : Fragment() {
-
+    private val repository: Repository by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,36 +91,37 @@ class EditProfileFragment : Fragment() {
                 } else
                     listEmptyEditText.add(true)
                 if (!listEmptyEditText.contains(false)) {
-                    if (User.typeUser == TypesUser.STUDENT) {
-                        updateStudent(
-                            Student(
-                                userName.text.toString(),
-                                userLastName.text.toString(),
-                                student?.date.toString(),
-                                student?.sex.toString(),
-                                userIcon.toString(),
-                                listOf(Node(mutableListOf())).apply {
-                                    student?.groupID = Person.notGroup
-                                }), User.id
-                        )
-                        loadDateStudnet()
-                        findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
-                    }
-                    if (User.typeUser == TypesUser.TRAINER) {
-                        updateStudent(
-                            Student(
-                                userName.text.toString(),
-                                userLastName.text.toString(),
-                                trainer?.date.toString(),
-                                trainer?.sex.toString(),
-                                userIcon.toString(),
-                                listOf(Node(mutableListOf())).apply {
-                                    trainer?.groupID = Person.notGroup
-                                }), User.id
-                        )
-                        loadDateStudnet()
-                        findNavController().navigate(R.id.action_editProfileFragment2_to_profile_Fragment)
-                    }
+//                    if (User.typeUser == TypesUser.STUDENT) {
+//                        updateStudent(
+//                            Student(
+//                                userName.text.toString(),
+//                                userLastName.text.toString(),
+//                                student?.date.toString(),
+//                                student?.sex.toString(),
+//                                userIcon.toString(),
+//                                listOf(),
+//                                listOf(Node(mutableListOf())).apply {
+//                                    student?.groupID = Person.notGroup
+//                                }), User.id
+//                        )
+//                        loadDateStudnet()
+//                        findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
+//                    }
+//                    if (User.typeUser == TypesUser.TRAINER) {
+//                        updateStudent(
+//                            Student(
+//                                userName.text.toString(),
+//                                userLastName.text.toString(),
+//                                trainer?.date.toString(),
+//                                trainer?.sex.toString(),
+//                                userIcon.toString(),
+//                                listOf(Node(mutableListOf())).apply {
+//                                    trainer?.groupID = Person.notGroup
+//                                }), User.id
+//                        )
+//                        loadDateStudnet()
+//                        findNavController().navigate(R.id.action_editProfileFragment2_to_profile_Fragment)
+//                    }
                     //(requireActivity() as MainActivity).toStudent()
                 }
 
