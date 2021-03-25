@@ -10,7 +10,8 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 
-class ElementsAdapter: RecyclerView.Adapter<ElementsAdapter.ElementsViewHolder>() {
+class ElementsAdapter(val isProfile: Boolean):
+    RecyclerView.Adapter<ElementsAdapter.ElementsViewHolder>() {
     var elements = mutableListOf<Element>()
     var checkedElements = mutableListOf<Element>()
 
@@ -44,6 +45,9 @@ class ElementsAdapter: RecyclerView.Adapter<ElementsAdapter.ElementsViewHolder>(
         val textElement : MaterialTextView = view.findViewById(R.id.text_element)
         val checkbox : MaterialCheckBox = view.findViewById(R.id.checkbox)
         fun bind(element: Element){
+            if (isProfile) {
+                checkbox.visibility = View.GONE
+            }
             textElement.text = element.name
             cardView.setOnClickListener {
                 checkbox.isChecked = !checkbox.isChecked

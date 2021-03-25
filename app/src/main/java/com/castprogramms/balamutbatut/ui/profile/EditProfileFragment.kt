@@ -10,18 +10,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
-import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.TypesUser
-import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.User.student
 import com.castprogramms.balamutbatut.tools.User.trainer
-import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -142,34 +138,5 @@ class EditProfileFragment : Fragment() {
             val imageView = view?.findViewById<ImageView>(R.id.user_icon)
             imageView?.setImageURI(uri)
         }
-    }
-
-    private fun loadDateStudnet() {
-        DataUserFirebase().getUser(User.id)
-            .get().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val data = it.result
-                    if (data != null && data.data != null) {
-                        User.mutableLiveDataSuccess.postValue(true)
-                        User.setValueStudent(data.toObject(Student::class.java)!!)
-                    } else {
-                        User.mutableLiveDataSuccess.postValue(false)
-                    }
-                } else {
-                    User.mutableLiveDataSuccess.postValue(false)
-                }
-            }.continueWith {
-                if (student != null) {
-                    DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
-                        if (it.documents.isNotEmpty()) {
-                            User.setValueStudent(
-                                student?.apply {
-                                    groupID = it.documents.first().getString("name").toString()
-                                }!!
-                            )
-                        }
-                    }
-                }
-            }
     }
 }
