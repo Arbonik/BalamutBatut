@@ -38,13 +38,10 @@ class InfoStudentFragment: Fragment() {
     ): View? {
         this.setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.fragment_info_fragment, container, false)
-//        val treeGraphView : TreeGraphView = view.findViewById(R.id.model)
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_info))
         mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.person = it
-//                treeGraphView.idStudent = idStudent
-//                treeGraphView.setNodesWithInfo(it.nodes.toMutableList())
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
                         if (value != null) {
