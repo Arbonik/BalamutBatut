@@ -1,35 +1,30 @@
 package com.castprogramms.balamutbatut.ui.group
 
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.castprogramms.balamutbatut.Group
+import com.castprogramms.balamutbatut.MainActivityTrainer
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
-import com.castprogramms.balamutbatut.users.Student
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.gson.Gson
-import java.lang.Exception
+import org.koin.android.ext.android.inject
 
 class StudentsFragment: Fragment() {
     var id = ""
+    var nameGroup = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null)
+        if (arguments != null) {
             id = arguments?.getString("id").toString()
+            nameGroup = if (arguments?.getString("name") != null)
+                arguments?.getString("name")!! else ""
+        }
     }
     override fun onCreateView(
         inflater: LayoutInflater,

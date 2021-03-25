@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Person
@@ -73,4 +74,8 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
 
 
     }
+
+    fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
+    fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
+    fun getElement(elements: List<Element>) = dataUserFirebase.getElement(elements)
 }

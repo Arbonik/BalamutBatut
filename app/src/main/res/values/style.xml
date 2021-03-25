@@ -11,4 +11,11 @@
         <item name="strokeColor">#00FFFFFF</item>
     </style>
 
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <!-- <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item> -->
+        <item name="android:background">@color/purple_200</item>
+    </style>
+
 </resources>

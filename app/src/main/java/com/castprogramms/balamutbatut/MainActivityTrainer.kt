@@ -28,4 +28,8 @@ class MainActivityTrainer : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()
+
+    fun setTitleAppBar(string: String){
+        title = string
+    }
 }

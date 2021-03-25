@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     style="@style/BackgroundRecyclerView"
     tools:context=".ui.group.GroupsFragment">
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groups_list"
         android:layout_marginRight="8dp"

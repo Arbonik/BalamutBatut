@@ -1,15 +1,13 @@
 package com.castprogramms.balamutbatut.ui.infostudent
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
-import com.castprogramms.balamutbatut.graph.TreeGraphView
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.users.Student
 import com.squareup.picasso.Picasso
@@ -38,14 +36,15 @@ class InfoStudentFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        this.setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.fragment_info_fragment, container, false)
-        val treeGraphView : TreeGraphView = view.findViewById(R.id.model)
+//        val treeGraphView : TreeGraphView = view.findViewById(R.id.model)
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_info))
         mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.person = it
-                treeGraphView.idStudent = idStudent
-                treeGraphView.setNodesWithInfo(it.nodes.toMutableList())
+//                treeGraphView.idStudent = idStudent
+//                treeGraphView.setNodesWithInfo(it.nodes.toMutableList())
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
                         if (value != null) {
@@ -59,5 +58,22 @@ class InfoStudentFragment: Fragment() {
             }
         })
         return view
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.change_group_programm, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.change_program ->{
+                val bundle = Bundle()
+                bundle.putString("id", idStudent)
+                findNavController()
+                    .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
+            }
+        }
+        return true
     }
 }

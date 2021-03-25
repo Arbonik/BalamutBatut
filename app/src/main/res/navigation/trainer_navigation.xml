@@ -40,11 +40,18 @@
         <action
             android:id="@+id/action_infoStudentFragment_to_nodeViewFragment2"
             app:destination="@id/nodeViewFragment2" />
+        <action
+            android:id="@+id/action_infoStudentFragment_to_changeProgramFragment"
+            app:destination="@id/changeProgramFragment" />
     </fragment>
     <fragment
         android:id="@+id/nodeViewFragment2"
         android:name="com.castprogramms.balamutbatut.ui.node.NodeViewFragment"
         android:label="node_view_fragment"
         tools:layout="@layout/node_view_fragment" />
+    <fragment
+        android:id="@+id/changeProgramFragment"
+        android:name="com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsStudentFragment"
+        android:label="ChangeProgramFragment" />
 
 </navigation>
