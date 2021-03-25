@@ -13,16 +13,12 @@ import com.castprogramms.balamutbatut.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.castprogramms.balamutbatut.users.Student
-import com.castprogramms.balamutbatut.tools.DataLoader
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
-import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.users.Person
-import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
-import com.google.gson.GsonBuilder
 import java.util.*
 
 class InsertDataUserFragment: Fragment() {
@@ -48,8 +44,8 @@ class InsertDataUserFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.insertdatauser_fragment, container, false)
         editDate = view.findViewById(R.id.insert_date)
-        val editFirstName: TextInputEditText = view.findViewById(R.id.name)
-        val editLastName: TextInputEditText = view.findViewById(R.id.last_name)
+        val editFirstName: TextInputEditText = view.findViewById(R.id.name_user)
+        val editLastName: TextInputEditText = view.findViewById(R.id.last_name_user)
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)
         val maleRadioButton : MaterialRadioButton = view.findViewById(R.id.male)
         val femaleRadioButton : MaterialRadioButton = view.findViewById(R.id.female)

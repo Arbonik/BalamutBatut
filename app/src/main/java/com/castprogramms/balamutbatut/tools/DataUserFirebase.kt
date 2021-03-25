@@ -24,6 +24,23 @@ class DataUserFirebase: DataUserApi {
             .document(studentID)
             .set(student)
     }
+    override fun editNameStudent(student: Student, studentID: String){
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .update(EditProfile.nameUser.desc, student.first_name)
+    }
+
+    override fun editLastNameStudent(student: Student, studentID: String) {
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .update(EditProfile.lastnameUser.desc, student.second_name)
+    }
+
+    override fun editIconStudent(student: Student, studentID: String) {
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .update(EditProfile.userImage.desc, student.img)
+    }
 
     override fun updateStudent(student: Student, studentID: String) {
         fireStore.collection(studentTag)

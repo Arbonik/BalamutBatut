@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_profile_Fragment_to_settingsFragment2"
             app:destination="@id/settingsFragment2" />
+        <action
+            android:id="@+id/action_profile_Fragment_to_editProfileFragment2"
+            app:destination="@id/editProfileFragment2" />
     </fragment>
     <fragment
         android:id="@+id/group_Fragment"
@@ -62,5 +65,14 @@
         android:name="com.castprogramms.balamutbatut.ui.settings.SettingsFragment"
         android:label="@string/item_settings"
         tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/editProfileFragment2"
+        android:name="com.castprogramms.balamutbatut.ui.profile.EditProfileFragment"
+        android:label="@string/all_person_data"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment2_to_profile_Fragment"
+            app:destination="@id/profile_Fragment" />
+    </fragment>
 
 </navigation>

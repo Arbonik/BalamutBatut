@@ -3,6 +3,7 @@ package com.castprogramms.balamutbatut.ui.profile
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -43,6 +44,7 @@ class ProfileFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.profile_fragment_student, container, false)
         this.setHasOptionsMenu(true)
+        val editProfile_but : ImageButton = view.findViewById(R.id.editProfile)
         val tabs: TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2: ViewPager2 = view.findViewById(R.id.view_pager2)
         viewPager2.adapter = ViewPager2FragmentAdapter(this)
@@ -54,6 +56,9 @@ class ProfileFragment : Fragment() {
             viewPager2.currentItem = i
         }.attach()
         viewPager2.currentItem = 0
+        editProfile_but.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+        }
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 try {

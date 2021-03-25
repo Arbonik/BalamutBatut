@@ -18,4 +18,10 @@ interface DataUserApi {
     fun addGroup(group: Group)
 
     fun getGroups(): Query
+
+    fun editNameStudent(student: Student, studentID: String)
+
+    fun editLastNameStudent(student: Student, studentID: String)
+
+    fun editIconStudent(student: Student, studentID: String)
 }
