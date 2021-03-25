@@ -1,13 +1,12 @@
 package com.castprogramms.balamutbatut.ui.profile.profile_trainer
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
@@ -22,6 +21,7 @@ class ProfileTrainerFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        this.setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.profile_fragment_trainer, container, false)
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_trainer))
         User.mutableLiveDataTrainer.observe(viewLifecycleOwner, Observer {
@@ -39,5 +39,18 @@ class ProfileTrainerFragment: Fragment() {
             }
         })
         return view
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item__bar_settings -> {
+                findNavController().navigate(R.id.action_profile_Fragment_to_settingsFragment2)
+            }
+        }
+        return true
     }
 }

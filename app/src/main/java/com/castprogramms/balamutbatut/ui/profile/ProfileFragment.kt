@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.MainActivity
@@ -23,18 +24,25 @@ class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        return inflater.inflate(R.menu.app_bar_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_bar_menu, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item__bar_settings -> {
+                findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
+            }
+        }
+        return true
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.profile_fragment_student, null)
-
-        (requireActivity() as MainActivityStudent).hideOptionsMenu()
-
+        val view = inflater.inflate(R.layout.profile_fragment_student, container, false)
+        this.setHasOptionsMenu(true)
         val tabs: TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2: ViewPager2 = view.findViewById(R.id.view_pager2)
         viewPager2.adapter = ViewPager2FragmentAdapter(this)

@@ -16,21 +16,6 @@ class MainActivityTrainer : AppCompatActivity() {
     lateinit var navView: BottomNavigationView
     lateinit var navController: NavController
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.app_bar_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item__bar_settings -> {
-                navController.navigate(R.id.action_profile_Fragment_to_settingsFragment2)
-            }
-        }
-        return true
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_trainer)
