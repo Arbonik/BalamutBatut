@@ -40,8 +40,12 @@
             tools:layout="@layout/settings_fragment" />
         <fragment
             android:id="@+id/editProfileFragment"
-            android:name="com.castprogramms.balamutbatut.EditProfileFragment"
+            android:name="com.castprogramms.balamutbatut.ui.profile.EditProfileFragment"
             android:label="@string/all_person_data"
-            tools:layout="@layout/fragment_edit_profile" />
+            tools:layout="@layout/fragment_edit_profile" >
+                <action
+                    android:id="@+id/action_editProfileFragment_to_profileFragment"
+                    app:destination="@id/profileFragment" />
+        </fragment>
 
 </navigation>

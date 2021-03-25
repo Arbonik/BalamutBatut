@@ -21,14 +21,14 @@ class MainActivityStudent : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item__bar_settings -> {
-                navController.navigate(R.id.action_profileFragment_to_settingsFragment)
-            }
-        }
-        return true
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.item__bar_settings -> {
+//                navController.navigate(R.id.action_profileFragment_to_settingsFragment)
+//            }
+//        }
+//        return true
+//    }
 
     fun hideOptionsMenu() {
         //menuInflater.inflate(R.menu.app_bar_menu, menu)
