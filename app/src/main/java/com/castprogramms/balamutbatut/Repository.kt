@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Person
@@ -13,9 +14,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
-class Repository {
+class Repository(private val dataUserFirebase: DataUserFirebase) {
 
     private val _userData = MutableLiveData<Resource<out Person>>(null)
+
     val user: LiveData<Resource<out Person>> = _userData
 
     fun loadUserData(account: GoogleSignInAccount?) {
@@ -25,7 +27,8 @@ class Repository {
             val id = account.id.toString()
             User.id = id
 
-            DataUserFirebase().getUser(id).get().addOnCompleteListener {
+
+            dataUserFirebase.getUser(id).get().addOnCompleteListener {
                 if (it.isSuccessful) {
                     val data = it.result
                     if (data != null && data.data != null) {
@@ -33,14 +36,14 @@ class Repository {
                         DataUserFirebase.printLog(data.data.toString())
                         User.mutableLiveDataSuccess.postValue(true)
                         when (person.type) {
-                            TypesUser.STUDENT.desc ->{
+                            TypesUser.STUDENT.desc -> {
                                 User.typeUser = TypesUser.STUDENT
                                 person = data.toObject(Student::class.java)!!
                                 User.setValueStudent(person as Student)
                             }
-                            TypesUser.TRAINER.desc ->{
+                            TypesUser.TRAINER.desc -> {
                                 User.typeUser = TypesUser.TRAINER
-                                person = Gson().fromJson(data.data.toString(),Trainer::class.java)
+                                person = Gson().fromJson(data.data.toString(), Trainer::class.java)
                                 User.setValueTrainer(person as Trainer)
                             }
                         }
@@ -54,7 +57,7 @@ class Repository {
                 }
             }.continueWith {
                 if (User.student != null) {
-                    DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
+                    dataUserFirebase.getStudentsGroup(User.id).addOnSuccessListener {
                         if (it.documents.isNotEmpty()) {
                             User.setValueStudent(User.student?.apply {
                                 groupID = it.documents.first().getString("name").toString()
@@ -71,4 +74,8 @@ class Repository {
 
 
     }
+
+    fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
+    fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
+    fun getElement(elements: List<Element>) = dataUserFirebase.getElement(elements)
 }

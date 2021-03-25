@@ -13,9 +13,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
-    private val repository = BalamutApplication.repository
+    private val repository : Repository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

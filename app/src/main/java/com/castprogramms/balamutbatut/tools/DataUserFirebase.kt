@@ -1,6 +1,7 @@
 package com.castprogramms.balamutbatut.tools
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.users.Student
@@ -89,12 +90,28 @@ class DataUserFirebase: DataUserApi {
         return fireStore.collection(groupTag)
             .document(groupID)
     }
-    fun getGroupStudents(group: Group){
-//        return fireStore.collection(groupTag)
-//            .where
+
+    fun getGroup(groupID: String): DocumentReference {
+        return fireStore.collection(groupTag)
+            .document(groupID)
+    }
+    fun getElement(elements: List<Element>): MutableLiveData<MutableList<Element>> {
+        val listElements = mutableListOf<Element>()
+        val mutableLiveDataElements = MutableLiveData(listElements)
+        elements.forEach {
+            fireStore.collection(elementTag)
+                .document(it.name)
+                .get()
+                .addOnSuccessListener {
+                    it.toObject(Element::class.java)?.let { it1 -> listElements.add(it1) }
+                    mutableLiveDataElements.postValue(listElements)
+                }
+        }
+        return mutableLiveDataElements
     }
 
     companion object{
+        const val elementTag = "elements"
         const val studentTag = "students"
         const val groupTag = "groups"
         fun printLog(message: String){

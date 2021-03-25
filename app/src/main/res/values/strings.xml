@@ -8,6 +8,7 @@
     <string name="item_element">Элемент</string>
     <string name="item_settings">Настройки</string>
     <string name="students_fragment">Состав группы</string>
+    <string name="change_group_program">Изменить программу тренировок группы</string>
 
     <string name="password">Пароль</string>
     <string name="email">Электронная почта</string>
@@ -44,7 +45,8 @@
     <string name="male">Мужской</string>
     <string name="female">Женский</string>
 
-    <string name="message_register">Введите информацию о себе, чтобы тренер мог добавить вас в группу</string>
+    <string name="message_register">Введите информацию о себе,
+        чтобы тренер мог добавить вас в группу</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

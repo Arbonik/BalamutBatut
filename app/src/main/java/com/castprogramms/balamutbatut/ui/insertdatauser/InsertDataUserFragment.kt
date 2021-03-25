@@ -92,7 +92,7 @@ class InsertDataUserFragment: Fragment() {
             }
             if (!listEmptyEditText.contains(false)) {
                 addDataStudent(Student(editFirstName.text.toString(), editLastName.text.toString(),
-                    date, sex, User.img, listOf(Node(mutableListOf()))).apply {
+                    date, sex, User.img, listOf(), listOf(Node(mutableListOf()))).apply {
                         groupID = Person.notGroup
                 })
                 loadDateStudnet()
