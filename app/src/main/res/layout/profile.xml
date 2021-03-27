@@ -35,29 +35,22 @@
 
             <TextView
                 android:id="@+id/but_text_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical"
                 android:text="@string/edit"
                 android:textColor="@color/black"
                 android:background="#00000000"
                 android:textSize="12sp"
                 android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="@+id/icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageButton
-            android:id="@+id/editProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/edit_24"/>
 
         <LinearLayout
             android:layout_marginTop="2dp"

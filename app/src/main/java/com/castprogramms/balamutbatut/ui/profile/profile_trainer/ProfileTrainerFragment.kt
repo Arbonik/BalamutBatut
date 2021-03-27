@@ -1,11 +1,14 @@
 package com.castprogramms.balamutbatut.ui.profile.profile_trainer
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.view.*
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -27,10 +30,6 @@ class ProfileTrainerFragment: Fragment() {
     ): View? {
         this.setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.profile_fragment_trainer, container, false)
-        val editProfile_but : ImageButton = view.findViewById(R.id.editProfile)
-        editProfile_but.setOnClickListener {
-            findNavController().navigate(R.id.action_profile_Fragment_to_editProfileFragment2)
-        }
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_trainer))
         User.mutableLiveDataTrainer.observe(viewLifecycleOwner, Observer {
             if (it != null){
@@ -46,6 +45,29 @@ class ProfileTrainerFragment: Fragment() {
                         .into(binding.icon)
             }
         })
+        val icon: CircleImageView = view.findViewById(R.id.icon)
+        val edit_but_text: TextView = view.findViewById(R.id.but_text_edit)
+        val animImg: Animation = AlphaAnimation(0.3f, 1.0f)
+        animImg.duration = 3100
+
+
+        val countDownTimer = object : CountDownTimer(2900, 3000) {
+            override fun onTick(millisUntilFinished: Long) {
+                icon.startAnimation(animImg)
+            }
+
+            override fun onFinish() {
+                edit_but_text.visibility = View.GONE
+            }
+        }
+        icon.setOnClickListener {
+            countDownTimer.start()
+            edit_but_text.visibility = View.VISIBLE
+        }
+        edit_but_text.setOnClickListener {
+            findNavController().navigate(R.id.action_profile_Fragment_to_editProfileFragment2)
+        }
+
         return view
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
@@ -38,10 +39,10 @@ class EditProfileFragment : Fragment() {
         val userLastName: TextInputEditText = view.findViewById(R.id.last_name_user)
         val userIcon: CircleImageView = view.findViewById(R.id.user_icon)
 
-        repository.user.observe(viewLifecycleOwner) {
-            when (it) {
+        repository.user.observe(viewLifecycleOwner) { ittt ->
+            when (ittt) {
                 is Resource.Success -> {
-                    when (it.data!!.type) {
+                    when (ittt.data!!.type) {
                         TypesUser.TRAINER.desc -> {
                             userName.setText(trainer?.first_name, TextView.BufferType.EDITABLE)
                             userLastName.setText(
@@ -97,6 +98,18 @@ class EditProfileFragment : Fragment() {
                     repository.updateUserFirstName(userName.text.toString(), User.id)
                     repository.updateUserSecondName(userLastName.text.toString(), User.id)
                     //repository.updateUserIcon(userIcon.toString(), User.id)
+                }
+                when (ittt) {
+                    is Resource.Success -> {
+                        when (ittt.data!!.type) {
+                            TypesUser.TRAINER.desc -> {
+                                findNavController().navigate(R.id.action_editProfileFragment2_to_profile_Fragment)
+                            }
+                            TypesUser.STUDENT.desc -> {
+                                findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
+                            }
+                        }
+                    }
                 }
             }
         }
