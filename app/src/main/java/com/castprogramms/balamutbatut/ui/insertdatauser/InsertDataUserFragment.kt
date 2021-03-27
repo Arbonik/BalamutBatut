@@ -40,7 +40,6 @@ class InsertDataUserFragment: Fragment() {
     var img = ""
     var typeU = TypesUser.STUDENT.desc
 
-    private val CODE_LENGTH = 6
     private val CODE = "569820"
 
     lateinit var code_for_trainer : TextInputEditText
@@ -63,8 +62,6 @@ class InsertDataUserFragment: Fragment() {
         val messageCard : MaterialCardView = view.findViewById(R.id.info)
         code_for_trainer = view.findViewById(R.id.code_for_trainer)
         parentConstraintLayout = view.findViewById(R.id.container_const)
-
-        code_for_trainer
 
         finishRegistration.setOnClickListener {
             val listEmptyEditText = mutableListOf<Boolean>()
@@ -139,17 +136,6 @@ class InsertDataUserFragment: Fragment() {
 
 
         return view
-    }
-    private fun shouldShowError(): Boolean {
-        val kodLength: Int = code_for_trainer.text?.length ?: 0
-        return kodLength == CODE_LENGTH
-    }
-    private fun showError() {
-        code_for_trainer.error = getString(R.string.error_kod_trainer)
-    }
-
-    private fun hideError() {
-        code_for_trainer.error = ""
     }
 
     fun onDeleteView(view: View){
