@@ -48,7 +48,7 @@ class ChangeElementsStudentFragment: Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_change_program, container, false)
         val recyclerView : RecyclerView = view.findViewById(R.id.recyclerElements)
-        val adapter = ElementsAdapter()
+        val adapter = ElementsAdapter(false )
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
         mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {

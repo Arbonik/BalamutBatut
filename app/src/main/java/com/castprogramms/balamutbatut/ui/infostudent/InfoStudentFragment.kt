@@ -6,13 +6,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.ui.changeprogram.adapters.ElementsAdapter
 import com.castprogramms.balamutbatut.users.Student
 import com.squareup.picasso.Picasso
+import org.koin.android.ext.android.inject
 
 class InfoStudentFragment: Fragment() {
+    private val repository : Repository by inject()
     var student : Student? = null
     val mutableLiveDataStudent = MutableLiveData(student)
     var idStudent = ""
@@ -39,9 +45,16 @@ class InfoStudentFragment: Fragment() {
         this.setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.fragment_info_fragment, container, false)
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_info))
+        val recyclerView : RecyclerView = view.findViewById(R.id.recycler_achi)
+        val adapter = ElementsAdapter(true)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.person = it
+                repository.getElement(it.elements).observe(viewLifecycleOwner, Observer {
+                    adapter.setElement(it)
+                })
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
                         if (value != null) {
