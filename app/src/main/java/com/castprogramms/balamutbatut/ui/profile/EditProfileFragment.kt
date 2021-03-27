@@ -17,6 +17,7 @@ import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.TypesUser
+import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.User.student
 import com.castprogramms.balamutbatut.tools.User.trainer
 import com.castprogramms.balamutbatut.users.Student
@@ -49,6 +50,7 @@ class EditProfileFragment : Fragment() {
                             )
                             Glide.with(this)
                                 .load(trainer?.img)
+                                .error(R.drawable.male_user)
                                 .into(userIcon)
                         }
                         TypesUser.STUDENT.desc -> {
@@ -57,9 +59,12 @@ class EditProfileFragment : Fragment() {
                                 student?.second_name,
                                 TextView.BufferType.EDITABLE
                             )
-                            Glide.with(this)
-                                .load(student?.img)
-                                .into(userIcon)
+                            if (student?.img != null){
+                                Glide.with(this)
+                                    .load(student?.img)
+                                    .error(R.drawable.male_user)
+                                    .into(userIcon)
+                            }
                         }
                     }
                 }

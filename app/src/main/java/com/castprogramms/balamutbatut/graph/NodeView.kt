@@ -44,7 +44,7 @@ class NodeView(val radius: Float,context: Context, var node: Node)
             return true
         }
 
-        override fun onDoubleTap(e: MotionEvent?): Boolean {
+        override fun onDoubleTap(e: MotionEvent?): Boolean { // двойной ТЫК
             SetDataNodeAlertDialog().createDialog(this@NodeView.context).create().show()
             return true
         }

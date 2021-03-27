@@ -1,20 +1,25 @@
 package com.castprogramms.balamutbatut.ui.profile
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.*
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.ImageButton
-import androidx.fragment.app.Fragment
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.castprogramms.balamutbatut.MainActivity
-import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
+import com.castprogramms.balamutbatut.graph.CustomAlertDialog
+import com.castprogramms.balamutbatut.graph.SetDataNodeAlertDialog
+import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.ViewPager2FragmentAdapter
 import com.google.android.material.tabs.TabLayout
@@ -25,7 +30,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.app_bar_menu, menu)
     }
@@ -38,13 +43,14 @@ class ProfileFragment : Fragment() {
         }
         return true
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.profile_fragment_student, container, false)
         this.setHasOptionsMenu(true)
-        val editProfile_but : ImageButton = view.findViewById(R.id.editProfile)
+        val editProfile_but: ImageButton = view.findViewById(R.id.editProfile)
         val tabs: TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2: ViewPager2 = view.findViewById(R.id.view_pager2)
         viewPager2.adapter = ViewPager2FragmentAdapter(this)
@@ -68,11 +74,31 @@ class ProfileFragment : Fragment() {
                         Glide.with(this)
                             .load(it.img)
                             .into(binging.icon)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     Log.e("data", e.message.toString())
                 }
             }
         })
+
+        val icon: CircleImageView = view.findViewById(R.id.icon)
+        val edit_but_text: TextView = view.findViewById(R.id.but_text_edit)
+        val animImg: Animation = AlphaAnimation(0.3f, 1.0f)
+        animImg.duration = 3100
+
+        val countDownTimer = object : CountDownTimer(2900, 3000) {
+            override fun onTick(millisUntilFinished: Long) {
+                icon.startAnimation(animImg)
+            }
+
+            override fun onFinish() {
+                edit_but_text.visibility = View.GONE
+            }
+        }
+
+        icon.setOnClickListener {
+            countDownTimer.start()
+            edit_but_text.visibility = View.VISIBLE
+        }
         return view
     }
 
