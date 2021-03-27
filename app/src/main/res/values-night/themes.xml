@@ -18,6 +18,10 @@
         <item name="android:backgroundTint">@color/purple_200</item>
     </style>
 
+    <style name="normalText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Message">
         <item name="android:backgroundTint">#C1FFE4</item>
         <item name="android:background">#C1FFE4</item>

@@ -12,7 +12,6 @@ import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 
 class Repository(private val dataUserFirebase: DataUserFirebase) {
 
@@ -43,6 +42,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                             }
                             TypesUser.TRAINER.desc -> {
                                 User.typeUser = TypesUser.TRAINER
+                                //person = data.toObject(Trainer::class.java)!!
                                 person = Gson().fromJson(data.data.toString(), Trainer::class.java)
                                 User.setValueTrainer(person as Trainer)
                             }
@@ -67,12 +67,9 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                 }
             }
                 .addOnFailureListener {
-
                     _userData.postValue(Resource.Error("Вы не зарегестрированы"))
                 }
         }
-
-
     }
 
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
@@ -80,8 +77,10 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun getElement(elements: List<Element>) = dataUserFirebase.getElement(elements)
     fun updateUserFirstName(first_name: String, studentID: String) =
         dataUserFirebase.editNameStudent(first_name, studentID)
+
     fun updateUserSecondName(second_name: String, studentID: String) =
         dataUserFirebase.editLastNameStudent(second_name, studentID)
+
     fun updateUserIcon(img: String, studentID: String) =
         dataUserFirebase.editIconStudent(img, studentID)
 }

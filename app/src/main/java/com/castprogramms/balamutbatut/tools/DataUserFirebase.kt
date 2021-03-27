@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.users.Student
+import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import com.google.gson.GsonBuilder
@@ -24,6 +25,13 @@ class DataUserFirebase: DataUserApi {
             .document(studentID)
             .set(student)
     }
+
+    override fun addTrainer(trainer: Trainer, studentID: String) {
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .set(trainer)
+    }
+
     override fun editNameStudent(first_name: String, studentID: String){
         fireStore.collection(studentTag)
             .document(studentID)

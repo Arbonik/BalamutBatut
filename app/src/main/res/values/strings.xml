@@ -24,6 +24,8 @@
 
     <string name="min_length">6 символов</string>
     <string name="message_settings">Нажмите на поле, чтобы изменить свои личные данные</string>
+    <string name="message_trainer">Введите код, если вы тренер</string>
+    <string name="error_kod_trainer">Код должен состоять из 6 символов</string>
     <string name="default_data_birthday">01.01.2000</string>
 
     <string name="title_dialog_info">Информация о достижении</string>
@@ -31,6 +33,8 @@
     <string name="all_person_data">Личные данные</string>
     <string name="last_name">Фамилия</string>
     <string name="name">Имя</string>
+    <string name="trainer_kod">Код</string>
+    <string name="all_number">0123456789</string>
     <string name="sex">Пол</string>
     <string name="group">Группа</string>
     <string name="birthday">Дата рождения</string>

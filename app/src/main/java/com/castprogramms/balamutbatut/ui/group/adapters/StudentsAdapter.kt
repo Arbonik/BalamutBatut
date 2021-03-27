@@ -32,18 +32,16 @@ class StudentsAdapter(_query: Query) :
         }
 
     init {
-        query.addSnapshotListener(object : EventListener<QuerySnapshot> {
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                update()
-                if (value != null) {
-                    students = value.toObjects(Student::class.java)
-                    value.documents.forEach {
-                        studentsID.add(it.id)
-                    }
-                    notifyDataSetChanged()
+        query.addSnapshotListener { value, error ->
+            update()
+            if (value != null) {
+                students = value.toObjects(Student::class.java)
+                value.documents.forEach {
+                    studentsID.add(it.id)
                 }
+                notifyDataSetChanged()
             }
-        })
+        }
     }
 
     fun update() {
