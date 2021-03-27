@@ -78,4 +78,10 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
     fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
     fun getElement(elements: List<Element>) = dataUserFirebase.getElement(elements)
+    fun updateUserFirstName(first_name: String, studentID: String) =
+        dataUserFirebase.editNameStudent(first_name, studentID)
+    fun updateUserSecondName(second_name: String, studentID: String) =
+        dataUserFirebase.editLastNameStudent(second_name, studentID)
+    fun updateUserIcon(img: String, studentID: String) =
+        dataUserFirebase.editIconStudent(img, studentID)
 }

@@ -19,9 +19,9 @@ interface DataUserApi {
 
     fun getGroups(): Query
 
-    fun editNameStudent(student: Student, studentID: String)
+    fun editNameStudent(first_name: String, studentID: String)
 
-    fun editLastNameStudent(student: Student, studentID: String)
+    fun editLastNameStudent(second_name: String, studentID: String)
 
-    fun editIconStudent(student: Student, studentID: String)
+    fun editIconStudent(icon: String, studentID: String)
 }

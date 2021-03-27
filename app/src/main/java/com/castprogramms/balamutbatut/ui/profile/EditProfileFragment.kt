@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,7 @@ class EditProfileFragment : Fragment() {
             acceptEditButton.setOnClickListener {
 
                 val listEmptyEditText = mutableListOf<Boolean>()
+
                 if (userName.text.isNullOrBlank()) {
                     userName.error = requireContext().getString(R.string.add_first_name)
                     listEmptyEditText.add(false)
@@ -91,48 +93,13 @@ class EditProfileFragment : Fragment() {
                 } else
                     listEmptyEditText.add(true)
                 if (!listEmptyEditText.contains(false)) {
-//                    if (User.typeUser == TypesUser.STUDENT) {
-//                        updateStudent(
-//                            Student(
-//                                userName.text.toString(),
-//                                userLastName.text.toString(),
-//                                student?.date.toString(),
-//                                student?.sex.toString(),
-//                                userIcon.toString(),
-//                                listOf(),
-//                                listOf(Node(mutableListOf())).apply {
-//                                    student?.groupID = Person.notGroup
-//                                }), User.id
-//                        )
-//                        loadDateStudnet()
-//                        findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
-//                    }
-//                    if (User.typeUser == TypesUser.TRAINER) {
-//                        updateStudent(
-//                            Student(
-//                                userName.text.toString(),
-//                                userLastName.text.toString(),
-//                                trainer?.date.toString(),
-//                                trainer?.sex.toString(),
-//                                userIcon.toString(),
-//                                listOf(Node(mutableListOf())).apply {
-//                                    trainer?.groupID = Person.notGroup
-//                                }), User.id
-//                        )
-//                        loadDateStudnet()
-//                        findNavController().navigate(R.id.action_editProfileFragment2_to_profile_Fragment)
-//                    }
-                    //(requireActivity() as MainActivity).toStudent()
+                    repository.updateUserFirstName(userName.text.toString(), User.id)
+                    repository.updateUserSecondName(userLastName.text.toString(), User.id)
+                    //repository.updateUserIcon(userIcon.toString(), User.id)
                 }
-
-
             }
         }
         return view
-    }
-
-    fun updateStudent(student: Student, studentID: String) {
-        DataUserFirebase().updateStudent(student, studentID)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, dataImg: Intent?) {
@@ -142,34 +109,5 @@ class EditProfileFragment : Fragment() {
             val imageView = view?.findViewById<ImageView>(R.id.user_icon)
             imageView?.setImageURI(uri)
         }
-    }
-
-    private fun loadDateStudnet() {
-        DataUserFirebase().getUser(User.id)
-            .get().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val data = it.result
-                    if (data != null && data.data != null) {
-                        User.mutableLiveDataSuccess.postValue(true)
-                        User.setValueStudent(data.toObject(Student::class.java)!!)
-                    } else {
-                        User.mutableLiveDataSuccess.postValue(false)
-                    }
-                } else {
-                    User.mutableLiveDataSuccess.postValue(false)
-                }
-            }.continueWith {
-                if (student != null) {
-                    DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
-                        if (it.documents.isNotEmpty()) {
-                            User.setValueStudent(
-                                student?.apply {
-                                    groupID = it.documents.first().getString("name").toString()
-                                }!!
-                            )
-                        }
-                    }
-                }
-            }
     }
 }
