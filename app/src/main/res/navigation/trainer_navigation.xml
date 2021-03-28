@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/infoStudentFragment"
         android:name="com.castprogramms.balamutbatut.ui.infostudent.InfoStudentFragment"
-        android:label="InfoStudentFragment" >
+        android:label="@string/item_student">
         <action
             android:id="@+id/action_infoStudentFragment_to_nodeViewFragment2"
             app:destination="@id/nodeViewFragment2" />
@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/changeProgramFragment"
         android:name="com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsStudentFragment"
-        android:label="ChangeProgramFragment" >
+        android:label="@string/item_elements">
         <action
             android:id="@+id/action_changeProgramFragment_to_infoStudentFragment2"
             app:destination="@id/infoStudentFragment"
