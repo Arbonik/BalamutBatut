@@ -37,7 +37,8 @@ class SplashActivity : AppCompatActivity() {
         }
         repository.user.observe(this) {
             when (it) {
-                is Resource.Error -> {  startActivity( Intent(
+                is Resource.Error -> {
+                    startActivity( Intent(
                             this,
                             MainActivity::class.java
                         )

@@ -42,8 +42,8 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                             }
                             TypesUser.TRAINER.desc -> {
                                 User.typeUser = TypesUser.TRAINER
-                                //person = data.toObject(Trainer::class.java)!!
-                                person = Gson().fromJson(data.data.toString(), Trainer::class.java)
+                                person = data.toObject(Trainer::class.java)!!
+//                                person = Gson().fromJson(data.data.toString(), Trainer::class.java)
                                 User.setValueTrainer(person as Trainer)
                             }
                         }

@@ -79,12 +79,12 @@ class InsertDataUserFragment: Fragment() {
             else
                 listEmptyEditText.add(true)
 
-            /*if (editDate.text == requireContext().getString(R.string.date)){
+            if (editDate.text == requireContext().getString(R.string.date)){
                 editDate.error = requireContext().getString(R.string.add_date)
                 listEmptyEditText.add(false)
             }
             else
-                listEmptyEditText.add(true)*/
+                listEmptyEditText.add(true)
             if (!maleRadioButton.isChecked && !femaleRadioButton.isChecked){
                 maleRadioButton.error = requireContext().resources.getString(R.string.add_sex)
                 listEmptyEditText.add(false)
