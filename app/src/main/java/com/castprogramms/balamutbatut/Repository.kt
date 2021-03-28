@@ -71,6 +71,43 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                 }
         }
     }
+    fun loadUserData(id: String){
+        dataUserFirebase.getUser(id).addSnapshotListener { value, error ->
+            var person = Person()
+            if (value != null) {
+                val data = value
+                if ( data.data != null) {
+                    person.type = data.getString("type").toString()
+                    DataUserFirebase.printLog(data.data.toString())
+                    User.mutableLiveDataSuccess.postValue(true)
+                    when (person.type) {
+                        TypesUser.STUDENT.desc -> {
+                            User.typeUser = TypesUser.STUDENT
+                            person = data.toObject(Student::class.java)!!
+                            User.setValueStudent(person as Student)
+                            if (User.student != null) {
+                                dataUserFirebase.getStudentsGroup(User.id).addOnSuccessListener {
+                                    if (it.documents.isNotEmpty()) {
+                                        User.setValueStudent(User.student?.apply {
+                                            groupID = it.documents.first().getString("name").toString()
+                                        }!!)
+                                    }
+                                }
+                            }
+                        }
+                        TypesUser.TRAINER.desc -> {
+                            User.typeUser = TypesUser.TRAINER
+                            person = data.toObject(Trainer::class.java)!!
+                            User.setValueTrainer(person as Trainer)
+                        }
+                    }
+                }
+            } else {
+                _userData.postValue(Resource.Error(""))
+            }
+        }
+    }
+
 
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
     fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
