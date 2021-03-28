@@ -24,13 +24,11 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
         if (googleAuth != null) {
-//            DataLoader().loadUserData(googleAuth)
             repository.loadUserData(googleAuth)
         } else{
             startActivity( Intent(
                 this,
-                MainActivity::class.java
-            )
+                MainActivity::class.java)
             )
             finish()
             User.mutableLiveDataSuccess.postValue(false)
