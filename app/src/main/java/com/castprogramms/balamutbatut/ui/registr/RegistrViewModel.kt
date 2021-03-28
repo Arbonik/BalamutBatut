@@ -1,6 +1,7 @@
 package com.castprogramms.balamutbatut.ui.registr
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.castprogramms.balamutbatut.tools.DataLoader
 import com.google.android.gms.auth.api.signin.*
@@ -20,6 +21,12 @@ class RegistrViewModel: ViewModel() {
 
     fun initGoogleSign(context: Context){
         googleSignInClient = GoogleSignIn.getClient(context, gso)
+    }
+
+    fun signOut(){
+        googleSignInClient.signOut().addOnSuccessListener {
+            Log.d("as", "asas")
+        }
     }
 
     fun handleSignInResult(task: Task<GoogleSignInAccount>): Boolean {

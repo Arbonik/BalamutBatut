@@ -8,8 +8,7 @@
     tools:context=".ui.group.GroupsFragment">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groups_list"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
