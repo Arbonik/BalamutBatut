@@ -2,6 +2,8 @@ package com.castprogramms.balamutbatut.ui.infostudent
 
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AnimationUtils
+import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -12,6 +14,7 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.ElementsAdapter
 import com.castprogramms.balamutbatut.users.Student
 import com.squareup.picasso.Picasso
@@ -46,14 +49,18 @@ class InfoStudentFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_info_fragment, container, false)
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_info))
         val recyclerView : RecyclerView = view.findViewById(R.id.recycler_achi)
-        val adapter = ElementsAdapter(true)
+        val adapter = ElementsAdapter(requireContext(), true)
         recyclerView.adapter = adapter
+        val controller = AnimationUtils
+            .loadLayoutAnimation(context, R.anim.recycler_anim_right_to_left)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.person = it
                 repository.getElement(it.elements).observe(viewLifecycleOwner, Observer {
+                    recyclerView.layoutAnimation = controller
                     adapter.setElement(it)
+                    recyclerView.scheduleLayoutAnimation()
                 })
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
@@ -61,7 +68,7 @@ class InfoStudentFragment: Fragment() {
                             binding.groupID.text = value.getString("name")
                         }
                     }
-                if (it.img != "")
+                if (it.img != "" && it.img != "null")
                 Picasso.get()
                     .load(it.img)
                     .into(binding.icon)
@@ -80,10 +87,19 @@ class InfoStudentFragment: Fragment() {
             R.id.change_program ->{
                 val bundle = Bundle()
                 bundle.putString("id", idStudent)
+                bundle.putStringArray("idElements", student?.elements?.let { convertToIDsList(it) })
                 findNavController()
                     .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
             }
         }
         return true
+    }
+
+    fun convertToIDsList(elements: List<Element>): Array<String> {
+        val mutableListElements = mutableListOf<String>()
+        elements.forEach {
+            mutableListElements.add(it.name)
+        }
+        return mutableListElements.toTypedArray()
     }
 }

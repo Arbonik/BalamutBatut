@@ -49,6 +49,26 @@ class DataUserFirebase: DataUserApi {
             .document(studentID)
             .update(EditProfile.userImage.desc, icon)
     }
+    fun addStudentElement(element: Element, studentID: String) {
+        var id = ""
+        Log.e("id", element.name)
+        fireStore.collection(elementTag)
+            .whereEqualTo("name", element.name)
+            .get()
+            .addOnSuccessListener {
+                Log.e("id", it.documents.size.toString())
+                if (it.documents.isNotEmpty()) {
+                    id = it.documents.first().id
+                }
+            }.continueWith {
+                Log.e("id", id)
+                if (id != "") {
+                    fireStore.collection(studentTag)
+                        .document(studentID)
+                        .update(EditProfile.ELEMENTS.desc, FieldValue.arrayUnion(Element(id)))
+                }
+            }
+    }
 
     override fun updateStudent(student: Student, studentID: String) {
         fireStore.collection(studentTag)
@@ -111,6 +131,7 @@ class DataUserFirebase: DataUserApi {
             .document(studentID)
             .update("nodes", nodes)
     }
+
     fun getNameGroup(groupID: String): DocumentReference {
         return fireStore.collection(groupTag)
             .document(groupID)
@@ -120,6 +141,8 @@ class DataUserFirebase: DataUserApi {
         return fireStore.collection(groupTag)
             .document(groupID)
     }
+
+
     fun getElement(elements: List<Element>): MutableLiveData<MutableList<Element>> {
         val listElements = mutableListOf<Element>()
         val mutableLiveDataElements = MutableLiveData(listElements)
@@ -133,6 +156,23 @@ class DataUserFirebase: DataUserApi {
                 }
         }
         return mutableLiveDataElements
+    }
+
+    fun getElements(idElements: Array<String>): MutableLiveData<MutableList<Element>>{
+        val allElements = mutableListOf<Element>()
+        val mutableLiveDataAllElements = MutableLiveData(allElements)
+        fireStore.collection(elementTag)
+            .get()
+            .addOnSuccessListener {
+                it.documents.forEach {
+                    if (!idElements.contains(it.id)) {
+                        it.toObject(Element::class.java)
+                            ?.let { element -> allElements.add(element) }
+                        mutableLiveDataAllElements.postValue(allElements)
+                    }
+                }
+            }
+        return mutableLiveDataAllElements
     }
 
     companion object{

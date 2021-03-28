@@ -57,8 +57,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
         return GroupsViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.group_adapter, parent, false
-            ),
-            fragment
+            )
         )
     }
 
@@ -68,7 +67,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
 
     override fun getItemCount() = groups.size
 
-    inner class GroupsViewHolder(view: View, fragment: Fragment): RecyclerView.ViewHolder(view){
+    inner class GroupsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val groupName : TextView = view.findViewById(R.id.group_name)
         val groupDesc : TextView = view.findViewById(R.id.group_desc)
         val groupTrainerNumber : TextView = view.findViewById(R.id.group_trainerNumber)

@@ -59,7 +59,12 @@
     <fragment
         android:id="@+id/changeProgramFragment"
         android:name="com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsStudentFragment"
-        android:label="ChangeProgramFragment" />
+        android:label="ChangeProgramFragment" >
+        <action
+            android:id="@+id/action_changeProgramFragment_to_infoStudentFragment2"
+            app:destination="@id/infoStudentFragment"
+            app:popUpTo="@id/studentsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment2"
         android:name="com.castprogramms.balamutbatut.ui.settings.SettingsFragment"

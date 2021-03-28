@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
+    android:background="@color/white"
     android:id="@+id/cardView_element"
     android:layout_margin="10dp"
     android:layout_width="match_parent"
@@ -11,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.google.android.material.textview.MaterialTextView
+            android:layout_marginStart="8dp"
+            android:textSize="18sp"
             android:layout_margin="5dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
