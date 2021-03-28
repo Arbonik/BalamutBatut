@@ -1,8 +1,10 @@
 package com.castprogramms.balamutbatut.ui.changeprogram.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.Element
@@ -10,8 +12,9 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 
-class ElementsAdapter(val isProfile: Boolean):
+class ElementsAdapter(val context: Context, val isProfile: Boolean):
     RecyclerView.Adapter<ElementsAdapter.ElementsViewHolder>() {
+    private var lastPosition = -1
     var elements = mutableListOf<Element>()
     var checkedElements = mutableListOf<Element>()
 
@@ -19,12 +22,17 @@ class ElementsAdapter(val isProfile: Boolean):
         elements.add(element)
         notifyDataSetChanged()
     }
-    fun addElement(elements:List<Element>){
+    fun addElement(elements: List<Element>){
         this.elements.addAll(elements)
         notifyDataSetChanged()
     }
     fun setElement(element: List<Element>){
         elements = element.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun deleteElement(elements: List<Element>){
+        elements.minus(elements)
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementsViewHolder {
@@ -36,6 +44,15 @@ class ElementsAdapter(val isProfile: Boolean):
 
     override fun onBindViewHolder(holder: ElementsViewHolder, position: Int) {
         holder.bind(elements[position])
+//        setAnimation(holder.itemView, position)
+    }
+
+    private fun setAnimation(itemView: View, position: Int) {
+        if (position > lastPosition){
+            val animation = AnimationUtils.loadAnimation(context, R.anim.recycler_anim)
+            itemView.startAnimation(animation)
+            lastPosition = position
+        }
     }
 
     override fun getItemCount() = elements.size
@@ -57,7 +74,6 @@ class ElementsAdapter(val isProfile: Boolean):
                     checkedElements.remove(element)
             }
             checkbox.setOnClickListener {
-                checkbox.isChecked = !checkbox.isChecked
                 if (checkbox.isChecked)
                     checkedElements.add(element)
                 else

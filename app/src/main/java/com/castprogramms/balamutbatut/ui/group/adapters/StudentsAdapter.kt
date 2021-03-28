@@ -75,7 +75,7 @@ class StudentsAdapter(_query: Query) :
             studentNameTextView.text = student.first_name + " " + student.second_name
             studentDateTextView.text = student.date
             studentSexTextView.text = student.sex
-            if (student.img != "") {
+            if (student.img != "" && student.img != "null") {
                 Picasso.get()
                     .load(student.img)
                     .into(studentImage)

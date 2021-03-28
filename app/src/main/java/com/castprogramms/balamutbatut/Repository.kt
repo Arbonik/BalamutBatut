@@ -12,7 +12,6 @@ import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 
 class Repository(private val dataUserFirebase: DataUserFirebase) {
 
@@ -78,6 +77,9 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
     fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
     fun getElement(elements: List<Element>) = dataUserFirebase.getElement(elements)
+    fun getAllElements(idElements: Array<String>) = dataUserFirebase.getElements(idElements)
+    fun updateElementsStudent(element: Element, studentID: String) =
+        dataUserFirebase.addStudentElement(element, studentID)
     fun updateUserFirstName(first_name: String, studentID: String) =
         dataUserFirebase.editNameStudent(first_name, studentID)
     fun updateUserSecondName(second_name: String, studentID: String) =
