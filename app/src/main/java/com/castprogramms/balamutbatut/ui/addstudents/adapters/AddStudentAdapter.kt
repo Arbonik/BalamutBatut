@@ -3,7 +3,6 @@ package com.castprogramms.balamutbatut.ui.addstudents.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowId
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +14,8 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.gson.Gson
 
-class AddStudentAdapter(_query: Query)
+class AddStudentAdapter(_query: Query, var idGroup: String)
     : RecyclerView.Adapter<AddStudentAdapter.AddStudentsViewHolder>() {
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()
@@ -73,7 +71,7 @@ class AddStudentAdapter(_query: Query)
             studentSexTextView.text = student.sex
             cardViewStudent.setOnClickListener {
                 if (User.trainer != null)
-                    student.groupID = User.trainer!!.groupID
+                    student.groupID = idGroup
                 DataUserFirebase().updateStudent(student, id)
             }
         }

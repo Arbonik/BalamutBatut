@@ -14,6 +14,13 @@ import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
 import com.castprogramms.balamutbatut.users.Person
 
 class AddStudentFragment: Fragment() {
+    var id = ""
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments != null){
+            id = arguments?.getString("id").toString()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,7 +31,7 @@ class AddStudentFragment: Fragment() {
             .whereEqualTo("type", "student")
 
         val view = inflater.inflate(R.layout.fragment_add_student, container, false)
-        val studentsAdapter = AddStudentAdapter(query)
+        val studentsAdapter = AddStudentAdapter(query, id)
         val recycler : RecyclerView = view.findViewById(R.id.recycler)
         recycler.layoutManager = LinearLayoutManager(requireContext())
         recycler.adapter = studentsAdapter

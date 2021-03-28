@@ -5,11 +5,9 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,7 +17,6 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.User
-import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileTrainerFragment: Fragment() {

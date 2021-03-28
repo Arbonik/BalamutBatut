@@ -1,7 +1,6 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +8,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.users.Student
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 

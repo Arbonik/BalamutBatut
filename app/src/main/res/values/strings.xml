@@ -68,4 +68,7 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="addElements">Добавить элементы</string>
+    <string name="name_group">Имя группы</string>
+    <string name="desc_group">Описание группы</string>
+    <string name="add_group">Добавить группу</string>
 </resources>

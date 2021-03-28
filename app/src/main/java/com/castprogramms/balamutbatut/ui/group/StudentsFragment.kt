@@ -34,7 +34,9 @@ class StudentsFragment: Fragment() {
         val view = inflater.inflate(R.layout.students_fragment, container, false)
         val fab = view.findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            findNavController().navigate(R.id.action_studentsFragment_to_addStudentFragment)
+            val bundle = Bundle()
+            bundle.putString("id", id)
+            findNavController().navigate(R.id.action_studentsFragment_to_addStudentFragment, bundle)
         }
         val recyclerView : RecyclerView = view.findViewById(R.id.students_list)
         val query = DataUserFirebase().fireStore.collection(DataUserFirebase.studentTag)

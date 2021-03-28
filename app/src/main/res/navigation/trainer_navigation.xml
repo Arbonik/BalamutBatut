@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_group_Fragment_to_studentsFragment"
             app:destination="@id/studentsFragment" />
+        <action
+            android:id="@+id/action_group_Fragment_to_addGroupFragment"
+            app:destination="@id/addGroupFragment" />
     </fragment>
     <fragment
         android:id="@+id/studentsFragment"
@@ -78,6 +81,14 @@
         <action
             android:id="@+id/action_editProfileFragment2_to_profile_Fragment"
             app:destination="@id/profile_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addGroupFragment"
+        android:name="com.castprogramms.balamutbatut.ui.addgroup.AddGroupFragment"
+        android:label="AddGroupFragment" >
+        <action
+            android:id="@+id/action_addGroupFragment_to_group_Fragment"
+            app:destination="@id/group_Fragment" />
     </fragment>
 
 </navigation>
