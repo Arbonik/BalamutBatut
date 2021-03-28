@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.TypesUser
@@ -22,12 +23,12 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textfield.TextInputEditText
-import java.lang.reflect.Type
+import org.koin.android.ext.android.inject
 import java.util.*
 
 
 class InsertDataUserFragment: Fragment() {
-
+    private val repository : Repository by inject()
     lateinit var editDate: MaterialButton
     var date = ""
     val dateSetListener = object : DatePickerDialog.OnDateSetListener{
@@ -109,19 +110,17 @@ class InsertDataUserFragment: Fragment() {
                         ).apply {
                             groupID = Person.notGroup
                         })
-                        loadDateStudnet()
+                        repository.loadUserData(User.id)
                         (requireActivity() as MainActivity).toStudent()
                     }
                     TypesUser.TRAINER.desc -> {
                         addDataTrainer(
                             Trainer(
                                 editFirstName.text.toString(), editLastName.text.toString(),
-                                date, sex, User.img, ""
-                            ).apply {
-                                groupID = Person.notGroup
-                            })
-                        loadDateStudnet()
-                        (requireActivity() as MainActivity).toTrainer()
+                                date, sex, User.img, Person.notGroup)
+                        )
+                        repository.loadUserData(User.id)
+                            (requireActivity() as MainActivity).toTrainer()
                     }
                 }
             }
@@ -159,32 +158,4 @@ class InsertDataUserFragment: Fragment() {
         DataUserFirebase().addTrainer(trainer, User.id)
     }
 
-    private fun loadDateStudnet(){
-        DataUserFirebase().getUser(User.id)
-            .get().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val data = it.result
-                    if (data != null && data.data != null) {
-                        User.mutableLiveDataSuccess.postValue(true)
-                        User.setValueStudent(data.toObject(Student::class.java)!!)
-                    } else {
-                        User.mutableLiveDataSuccess.postValue(false)
-                    }
-                } else {
-                    User.mutableLiveDataSuccess.postValue(false)
-                }
-            }.continueWith {
-                if (User.student != null) {
-                    DataUserFirebase().getStudentsGroup(User.id).addOnSuccessListener {
-                        if (it.documents.isNotEmpty()) {
-                            User.setValueStudent(
-                                User.student?.apply {
-                                    groupID = it.documents.first().getString("name").toString()
-                                }!!
-                            )
-                    }
-                }
-            }
-        }
-    }
 }
