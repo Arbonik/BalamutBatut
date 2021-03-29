@@ -16,19 +16,21 @@ import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.network.Resource
-import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.User.student
 import com.castprogramms.balamutbatut.tools.User.trainer
-import com.castprogramms.balamutbatut.users.Student
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.storage.FirebaseStorage
 import de.hdodenhof.circleimageview.CircleImageView
 import org.koin.android.ext.android.inject
 
 class EditProfileFragment : Fragment() {
+    val storage = FirebaseStorage.getInstance("gs://balamut-4af92.appspot.com")
+    val ref = storage.reference
     private val repository: Repository by inject()
+    lateinit var userIcon: CircleImageView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +39,7 @@ class EditProfileFragment : Fragment() {
         val acceptEditButton: MaterialButton = view.findViewById(R.id.accept_edit)
         val userName: TextInputEditText = view.findViewById(R.id.name_user)
         val userLastName: TextInputEditText = view.findViewById(R.id.last_name_user)
-        val userIcon: CircleImageView = view.findViewById(R.id.user_icon)
+        userIcon = view.findViewById(R.id.user_icon)
 
         repository.user.observe(viewLifecycleOwner) { ittt ->
             when (ittt) {
@@ -120,8 +122,51 @@ class EditProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, dataImg)
         if (requestCode == 1 && dataImg != null) {
             val uri: Uri? = dataImg.data
-            val imageView = view?.findViewById<ImageView>(R.id.user_icon)
-            imageView?.setImageURI(uri)
+            userIcon.setImageURI(uri)
+            if (uri != null)
+                load(uri)
         }
+    }
+    fun load(uri: Uri){
+        ref.child(imagesTag + uri.lastPathSegment).putFile(uri)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Log.e("data", uri.toString())
+                    download(uri)
+                }
+                else
+                    Log.e("data", it.exception?.message.toString())
+            }
+    }
+    fun download(uri: Uri){
+        ref.child(imagesTag + uri.lastPathSegment).downloadUrl
+            .addOnCompleteListener {
+            if (it.isSuccessful) {
+                Log.e("data", it.result.toString())
+                repository.updateUserIcon(it.result.toString(), User.id)
+                when(User.typeUser){
+                    TypesUser.STUDENT ->{
+                        User.setValueStudent(
+                            student!!.apply {
+                                img = it.result.toString()
+                            }
+                        )
+                    }
+                    TypesUser.TRAINER ->{
+                        User.setValueTrainer(
+                            trainer!!.apply {
+                                img = it.result.toString()
+                            }
+                        )
+                    }
+                    TypesUser.NOTHING -> {}
+                }
+            }
+            else
+                Log.e("data", it.exception?.message.toString())
+        }
+    }
+    companion object{
+        const val imagesTag = "images/"
     }
 }
