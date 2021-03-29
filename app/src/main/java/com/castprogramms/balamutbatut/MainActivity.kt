@@ -10,6 +10,7 @@ class MainActivity : AppCompatActivity(){
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
         navController = findNavController(R.id.nav_host_fragment_registr)
     }
