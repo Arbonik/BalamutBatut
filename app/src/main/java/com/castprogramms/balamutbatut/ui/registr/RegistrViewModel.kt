@@ -3,6 +3,7 @@ package com.castprogramms.balamutbatut.ui.registr
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.tools.DataLoader
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
@@ -13,8 +14,11 @@ class RegistrViewModel: ViewModel() {
 
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail().build()
-
-    val registration = DataLoader()
+    lateinit var repository: Repository
+    fun init(repository: Repository){
+        this.repository = repository
+    }
+    val registration = DataLoader(repository)
 
     lateinit var googleSignInClient : GoogleSignInClient
     var account : GoogleSignInAccount? = null
