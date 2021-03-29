@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/addGroupFragment"
         android:name="com.castprogramms.balamutbatut.ui.addgroup.AddGroupFragment"
-        android:label="AddGroupFragment" >
+        android:label="@string/item_new_group">
         <action
             android:id="@+id/action_addGroupFragment_to_group_Fragment"
             app:destination="@id/group_Fragment" />
