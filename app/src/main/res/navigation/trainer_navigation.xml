@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/nodeViewFragment2"
         android:name="com.castprogramms.balamutbatut.ui.node.NodeViewFragment"
-        android:label="node_view_fragment"
+        android:label="@string/item_element"
         tools:layout="@layout/node_view_fragment" />
     <fragment
         android:id="@+id/changeProgramFragment"

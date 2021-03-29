@@ -53,7 +53,6 @@ class SplashActivity : AppCompatActivity() {
                             delay(15)
                         }
                     }
-
                 }
                 is Resource.Success -> {
                     when (it.data!!.type) {

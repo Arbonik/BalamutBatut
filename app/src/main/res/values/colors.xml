@@ -4,12 +4,12 @@
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
 
-    <color name="purple_800">#5E39CF</color><!--state bar-->
-    <color name="purple_600">#8E6DF4</color><!--action bar light-->
+    <color name="purple_800">#6A8ACD</color><!--state bar-->
+    <color name="purple_600">#94ADDF</color><!--action bar light-->
 
-    <color name="teal_200">#FF00DF88</color>
-    <color name="teal_300">#01CA7C</color><!--dark theme but-->
-    <color name="teal_700">#FF018786</color>
+    <color name="teal_200">@color/t</color>
+    <color name="teal_300">@color/purple_200</color><!--dark theme but-->
+    <color name="teal_700">@color/v</color>
     <color name="black">#FF000000</color>
     <color name="light_grey">#F3F5F6</color>
     <color name="white">#FFFFFFFF</color>
@@ -17,6 +17,22 @@
     <color name="tx_grey">#212121</color>
     <color name="google_dark_color">#4285F4</color>
     <color name="red">#FF3D00</color>
+
+
+
+    <color name="s">#FFFDE4</color>
+    <color name="d">#c53736</color>
+    <color name="f">#eb5659</color>
+    <color name="v">#0c4c7a</color>
+    <color name="g">#0084cf</color>
+    <color name="c">#75A8FD</color>
+    <color name="k">#94ADDF</color>
+    <color name="b">#6A8ACD</color>
+    <color name="l">#005AA7</color>
+
+    <color name="q">#FFBB86FC</color>
+    <color name="p">#8E6DF4</color>
+    <color name="t">#FF00DF88</color>
 
     <color name="message_color">#D8F3E8</color>
 </resources>
