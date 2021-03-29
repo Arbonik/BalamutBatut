@@ -42,11 +42,11 @@
     <fragment
         android:id="@+id/addStudentFragment"
         android:name="com.castprogramms.balamutbatut.ui.addstudents.AddStudentFragment"
-        android:label="AddStudentFragment" />
+        android:label="@string/item_not_group" />
     <fragment
         android:id="@+id/infoStudentFragment"
         android:name="com.castprogramms.balamutbatut.ui.infostudent.InfoStudentFragment"
-        android:label="InfoStudentFragment" >
+        android:label="@string/item_student">
         <action
             android:id="@+id/action_infoStudentFragment_to_nodeViewFragment2"
             app:destination="@id/nodeViewFragment2" />
@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/changeProgramFragment"
         android:name="com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsStudentFragment"
-        android:label="ChangeProgramFragment" >
+        android:label="@string/item_elements">
         <action
             android:id="@+id/action_changeProgramFragment_to_infoStudentFragment2"
             app:destination="@id/infoStudentFragment"
@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/addGroupFragment"
         android:name="com.castprogramms.balamutbatut.ui.addgroup.AddGroupFragment"
-        android:label="AddGroupFragment" >
+        android:label="@string/item_new_group">
         <action
             android:id="@+id/action_addGroupFragment_to_group_Fragment"
             app:destination="@id/group_Fragment" />

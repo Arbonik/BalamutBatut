@@ -9,8 +9,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/exit_but"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/red"
         android:text="@string/sign_out"

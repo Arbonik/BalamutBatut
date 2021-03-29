@@ -5,7 +5,11 @@
     <string name="item_profile">Профиль</string>
     <string name="item_groups">Группы</string>
     <string name="item_group">Группа</string>
+    <string name="item_student">Ученик</string>
     <string name="item_element">Элемент</string>
+    <string name="item_elements">Элементы</string>
+    <string name="item_new_group">Новая группа</string>
+    <string name="item_not_group">Ученики без группы</string>
     <string name="item_settings">Настройки</string>
     <string name="students_fragment">Состав группы</string>
     <string name="change_group_program">Изменить программу тренировок группы</string>
