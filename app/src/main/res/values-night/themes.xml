@@ -27,6 +27,10 @@
         <item name="android:background">#C1FFE4</item>
     </style>
 
+    <style name="start_gradient">
+        <item name="android:background">@drawable/gradient_night</item>
+    </style>
+
     <style name="BackgroundRecyclerView">
         <item name="android:background">@color/black</item>
     </style>
