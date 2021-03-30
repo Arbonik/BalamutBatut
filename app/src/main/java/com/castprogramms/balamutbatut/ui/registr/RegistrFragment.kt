@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
@@ -19,9 +20,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.Task
+import org.koin.android.ext.android.inject
 
 class RegistrFragment: Fragment() {
-
+    private val repository : Repository by inject()
     val registrViewModel: RegistrViewModel by viewModels()
     var sussesRegistr = false
 
@@ -31,6 +33,7 @@ class RegistrFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_regist, container, false)
+        registrViewModel.init(repository)
         registrViewModel.initGoogleSign(requireContext())
         val button: SignInButton = view.findViewById(R.id.sign_in_button)
         button.setOnClickListener {

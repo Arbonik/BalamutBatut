@@ -11,7 +11,6 @@ import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.gson.Gson
 
 class Repository(private val dataUserFirebase: DataUserFirebase) {
 
@@ -25,14 +24,11 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
             var person = Person()
             val id = account.id.toString()
             User.id = id
-
-
             dataUserFirebase.getUser(id).get().addOnCompleteListener {
                 if (it.isSuccessful) {
                     val data = it.result
                     if (data != null && data.data != null) {
                         person.type = data.getString("type").toString()
-                        DataUserFirebase.printLog(data.data.toString())
                         User.mutableLiveDataSuccess.postValue(true)
                         when (person.type) {
                             TypesUser.STUDENT.desc -> {
@@ -43,12 +39,9 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                             TypesUser.TRAINER.desc -> {
                                 User.typeUser = TypesUser.TRAINER
                                 person = data.toObject(Trainer::class.java)!!
-//                                person = Gson().fromJson(data.data.toString(), Trainer::class.java)
                                 User.setValueTrainer(person as Trainer)
                             }
                         }
-                        person.img = account.photoUrl.toString()
-                        DataUserFirebase.printLog(person.first_name)
                         _userData.postValue(Resource.Success(person))
 
                     }
@@ -78,7 +71,6 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                 val data = value
                 if ( data.data != null) {
                     person.type = data.getString("type").toString()
-                    DataUserFirebase.printLog(data.data.toString())
                     User.mutableLiveDataSuccess.postValue(true)
                     when (person.type) {
                         TypesUser.STUDENT.desc -> {
@@ -109,6 +101,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     }
 
     fun addGroup(group: Group) = dataUserFirebase.addGroup(group)
+    fun getStudentGroup(id: String) = dataUserFirebase.getStudentsGroup(id)
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
     fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
     fun getElement(elements: List<Element>) = dataUserFirebase.getElement(elements)
@@ -123,5 +116,4 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
 
     fun updateUserIcon(img: String, studentID: String) =
         dataUserFirebase.editIconStudent(img, studentID)
-
 }
