@@ -30,6 +30,7 @@ class MainActivityTrainer : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+
     override fun onSupportNavigateUp() = navController.navigateUp()
 
     fun setTitleAppBar(string: String){

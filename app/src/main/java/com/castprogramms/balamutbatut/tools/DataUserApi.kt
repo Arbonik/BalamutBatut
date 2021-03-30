@@ -27,4 +27,6 @@ interface DataUserApi {
     fun editLastNameStudent(second_name: String, studentID: String)
 
     fun editIconStudent(icon: String, studentID: String)
+
+    fun deleteStudentFromGroup(studentID: String, groupID: String)
 }

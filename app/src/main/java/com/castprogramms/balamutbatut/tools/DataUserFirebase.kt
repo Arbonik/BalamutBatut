@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.graph.Node
+import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.tasks.Task
@@ -30,6 +31,15 @@ class DataUserFirebase: DataUserApi {
         fireStore.collection(studentTag)
             .document(studentID)
             .set(trainer)
+    }
+
+    override fun deleteStudentFromGroup(studentID: String, groupID: String){
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .update(EditProfile.GROUP.desc, Person.notGroup)
+        fireStore.collection(groupTag)
+            .document(groupID)
+            .update("students", FieldValue.arrayRemove(studentID))
     }
 
     override fun editNameStudent(first_name: String, studentID: String){
