@@ -9,13 +9,15 @@ import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.tools.ItemTouchHelperAdapter
 import com.castprogramms.balamutbatut.users.Student
 import com.google.firebase.firestore.Query
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
-class StudentsAdapter(_query: Query) :
-    RecyclerView.Adapter<StudentsAdapter.StudentsViewHolder>() {
+class StudentsAdapter(_query: Query, private val repository: Repository, var idGroup: String) :
+    RecyclerView.Adapter<StudentsAdapter.StudentsViewHolder>(), ItemTouchHelperAdapter {
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()
 
@@ -79,5 +81,43 @@ class StudentsAdapter(_query: Query) :
                     .navigate(R.id.action_studentsFragment_to_infoStudentFragment, bundle)
             }
         }
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        if (fromPosition < toPosition) {
+            for (i in fromPosition until toPosition) {
+                students = replace(students, i, i+1)
+                studentsID = replaceID(studentsID, i, i +1)
+            }
+        }
+        else{
+            for (i in toPosition downTo fromPosition step 1){
+                students = replace(students, i, i+1)
+                studentsID = replaceID(studentsID, i, i +1)
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int) {
+        repository.deleteStudentFromGroup(studentsID[position], idGroup)
+        students.removeAt(position)
+        studentsID.removeAt(position)
+        notifyItemRemoved(position)
+    }
+    fun replace(list: MutableList<Student>, fromPosition: Int, toPosition: Int):MutableList<Student>{
+        val firstPair = list[fromPosition]
+        val secondPair = list[toPosition]
+        list[fromPosition] = secondPair
+        list[toPosition] = firstPair
+        return list
+    }
+
+    fun replaceID(list: MutableList<String>, fromPosition: Int, toPosition: Int):MutableList<String>{
+        val firstPair = list[fromPosition]
+        val secondPair = list[toPosition]
+        list[fromPosition] = secondPair
+        list[toPosition] = firstPair
+        return list
     }
 }

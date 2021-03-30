@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.MainActivityTrainer
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.SimpleItemTouchHelperCallback
 import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 
 class StudentsFragment: Fragment() {
+    private val repository : Repository by inject()
     var id = ""
     var nameGroup = ""
 
@@ -42,9 +45,12 @@ class StudentsFragment: Fragment() {
         val query = DataUserFirebase().fireStore.collection(DataUserFirebase.studentTag)
             .whereEqualTo("type", "student")
             .whereEqualTo("groupID", id)
-        val studentsAdapter = StudentsAdapter(query)
+        val studentsAdapter = StudentsAdapter(query, repository, id)
         recyclerView.adapter = studentsAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        val callback = SimpleItemTouchHelperCallback(studentsAdapter)
+        ItemTouchHelper(callback).attachToRecyclerView(recyclerView)
         return view
     }
 
