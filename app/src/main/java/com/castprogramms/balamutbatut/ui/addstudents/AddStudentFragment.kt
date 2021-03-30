@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.ui.addstudents.adapters.AddStudentAdapter
-import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
 import com.castprogramms.balamutbatut.users.Person
 
 class AddStudentFragment: Fragment() {
@@ -35,7 +34,6 @@ class AddStudentFragment: Fragment() {
         val recycler : RecyclerView = view.findViewById(R.id.recycler)
         recycler.layoutManager = LinearLayoutManager(requireContext())
         recycler.adapter = studentsAdapter
-
         return view
     }
 }
