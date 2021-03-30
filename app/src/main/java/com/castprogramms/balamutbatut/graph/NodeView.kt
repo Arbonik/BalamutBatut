@@ -39,8 +39,6 @@ class NodeView(val radius: Float,context: Context, var node: Node)
                 }
                 TypesUser.NOTHING -> { }
             }
-
-            //NodeInfoAlertDialog().createDialog(this@NodeView).create()?.show()
             return true
         }
 

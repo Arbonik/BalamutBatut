@@ -33,7 +33,6 @@ class RegistrFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_regist, container, false)
-        registrViewModel.init(repository)
         registrViewModel.initGoogleSign(requireContext())
         val button: SignInButton = view.findViewById(R.id.sign_in_button)
         button.setOnClickListener {

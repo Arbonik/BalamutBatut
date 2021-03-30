@@ -44,15 +44,6 @@ class ElementsAdapter(val context: Context, val isProfile: Boolean):
 
     override fun onBindViewHolder(holder: ElementsViewHolder, position: Int) {
         holder.bind(elements[position])
-//        setAnimation(holder.itemView, position)
-    }
-
-    private fun setAnimation(itemView: View, position: Int) {
-        if (position > lastPosition){
-            val animation = AnimationUtils.loadAnimation(context, R.anim.recycler_anim)
-            itemView.startAnimation(animation)
-            lastPosition = position
-        }
     }
 
     override fun getItemCount() = elements.size

@@ -14,11 +14,7 @@ class RegistrViewModel: ViewModel() {
 
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail().build()
-    lateinit var repository: Repository
-    fun init(repository: Repository){
-        this.repository = repository
-    }
-    val registration = DataLoader(repository)
+    val registration = DataLoader()
 
     lateinit var googleSignInClient : GoogleSignInClient
     var account : GoogleSignInAccount? = null

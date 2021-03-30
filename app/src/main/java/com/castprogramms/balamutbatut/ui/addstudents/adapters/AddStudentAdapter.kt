@@ -39,7 +39,6 @@ class AddStudentAdapter(_query: Query, var idGroup: String)
                 }
             }
         })
-
     }
     fun update(){
         students.clear()

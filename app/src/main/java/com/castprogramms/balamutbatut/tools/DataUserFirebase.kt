@@ -35,19 +35,19 @@ class DataUserFirebase: DataUserApi {
     override fun editNameStudent(first_name: String, studentID: String){
         fireStore.collection(studentTag)
             .document(studentID)
-            .update(EditProfile.nameUser.desc, first_name)
+            .update(EditProfile.FIRST_NAME.desc, first_name)
     }
 
     override fun editLastNameStudent(second_name: String, studentID: String) {
         fireStore.collection(studentTag)
             .document(studentID)
-            .update(EditProfile.lastnameUser.desc, second_name)
+            .update(EditProfile.SECOND_NAME.desc, second_name)
     }
 
     override fun editIconStudent(icon: String, studentID: String) {
         fireStore.collection(studentTag)
             .document(studentID)
-            .update(EditProfile.userImage.desc, icon)
+            .update(EditProfile.IMG.desc, icon)
     }
     fun addStudentElement(element: Element, studentID: String) {
         var id = ""

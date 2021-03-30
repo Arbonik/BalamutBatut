@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivityTrainer" />
-        <activity android:name=".MainActivityStudent"></activity>
+        <activity android:name=".MainActivityStudent" />
     </application>
 
 </manifest>

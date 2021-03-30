@@ -16,4 +16,6 @@ class Student(
         this.nodes = nodes
     }
     constructor() :this("","","","","", listOf(), listOf())
+
+    fun getFullName() = "$first_name $second_name"
 }

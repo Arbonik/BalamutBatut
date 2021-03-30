@@ -1,8 +1,8 @@
 package com.castprogramms.balamutbatut.tools
 
 enum class EditProfile(var desc : String) {
-    nameUser("first_name"),
-    lastnameUser("second_name"),
-    userImage("img"),
+    FIRST_NAME("first_name"),
+    SECOND_NAME("second_name"),
+    IMG("img"),
     ELEMENTS("elements")
 }

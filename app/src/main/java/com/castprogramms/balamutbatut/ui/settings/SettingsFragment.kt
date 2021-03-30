@@ -13,6 +13,7 @@ import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.SplashActivity
+import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
 import com.google.android.gms.auth.api.Auth
@@ -40,8 +41,7 @@ class SettingsFragment : Fragment() {
             GoogleApiManager.reportSignOut()
             registerViewModel.initGoogleSign(requireContext())
             registerViewModel.signOut()
-            User.id = ""
-
+            User.clearAll()
             startActivity(Intent(context, SplashActivity::class.java))
         }
 

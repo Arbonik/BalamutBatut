@@ -7,7 +7,6 @@ import com.castprogramms.balamutbatut.users.Trainer
 object User {
     var id = ""
     var img = ""
-    val testID = "UwsuyZ4DB4J8b1AbRbE9a"
     var typeUser = TypesUser.NOTHING
 
     var student : Student? = null
@@ -16,14 +15,26 @@ object User {
     val mutableLiveDataStudent = MutableLiveData(student)
     val mutableLiveDataTrainer = MutableLiveData(trainer)
 
-    fun setValueStudent(student: Student){
+    fun setValueStudent(student: Student?){
         this.student = student
         mutableLiveDataStudent.postValue(student)
     }
-    fun setValueTrainer(trainer: Trainer){
+    fun setValueTrainer(trainer: Trainer?){
         this.trainer = trainer
         mutableLiveDataTrainer.postValue(trainer)
     }
 
     val mutableLiveDataSuccess = MutableLiveData<Boolean?>(null)
+
+    fun clearAll(){
+        when(typeUser){
+            TypesUser.STUDENT -> setValueStudent(null)
+            TypesUser.TRAINER -> setValueTrainer(null)
+            TypesUser.NOTHING -> {}
+        }
+        mutableLiveDataStudent.postValue(null)
+        typeUser = TypesUser.NOTHING
+        id = ""
+        img = ""
+    }
 }
