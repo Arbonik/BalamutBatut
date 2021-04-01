@@ -118,4 +118,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
         dataUserFirebase.editIconStudent(img, studentID)
 
     fun deleteStudentFromGroup(studentID: String, groupID: String) = dataUserFirebase.deleteStudentFromGroup(studentID, groupID)
+    fun getCollectionAllStudent(groupID: String) = dataUserFirebase.getCollectionAllStudents(groupID)
+    fun getCollectionAllStudentsWithoutGroup() = dataUserFirebase.getCollectionAllStudentsWithoutGroup()
+    fun updateStudentGroup(studentID: String, groupID: String) = dataUserFirebase.updateStudent(studentID, groupID)
 }

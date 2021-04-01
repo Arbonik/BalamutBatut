@@ -80,13 +80,13 @@ class DataUserFirebase: DataUserApi {
             }
     }
 
-    override fun updateStudent(student: Student, studentID: String) {
+    override fun updateStudent(studentID: String, groupID: String) {
         fireStore.collection(studentTag)
             .document(studentID)
-            .update("groupID", student.groupID)
+            .update("groupID", groupID)
 
         fireStore.collection(groupTag)
-            .document(student.groupID)
+            .document(groupID)
             .update("students", FieldValue.arrayUnion(studentID))
     }
 
@@ -96,6 +96,17 @@ class DataUserFirebase: DataUserApi {
                 .delete()
     }
 
+    fun getCollectionAllStudents(groupID: String): Query {
+        return fireStore.collection(studentTag)
+            .whereEqualTo("type", "student")
+            .whereEqualTo("groupID", groupID)
+    }
+
+    fun getCollectionAllStudentsWithoutGroup(): Query {
+        return fireStore.collection(studentTag)
+            .whereEqualTo("groupID", Person.notGroup)
+            .whereEqualTo("type", "student")
+    }
     override fun readAllStudent(group: Group): MutableList<Student> {
         val mutableListStudents = mutableListOf<Student>()
         fireStore.collection(groupTag)
@@ -194,3 +205,4 @@ class DataUserFirebase: DataUserApi {
         }
     }
 }
+
