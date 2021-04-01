@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.databinding.FragmentAddGroupBinding
 import com.castprogramms.balamutbatut.tools.User
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -22,30 +24,26 @@ class AddGroupFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_add_group, container, false)
-        val nameGroup : TextInputEditText = view.findViewById(R.id.name_group)
-        val descGroup : TextInputEditText = view.findViewById(R.id.desc_group)
-        val addGroup : MaterialButton = view.findViewById(R.id.add_group)
-        addGroup.setOnClickListener {
+        val binding = FragmentAddGroupBinding.inflate(inflater)
+        binding.addGroup.setOnClickListener {
             listCheck.clear()
-            if (nameGroup.text?.isNotBlank() != true && nameGroup.text?.isNotEmpty() != true){
-                nameGroup.error = ""
-                listCheck.add(false)
-            }
-            if (descGroup.text?.isNotBlank() != true && descGroup.text?.isNotEmpty() != true){
-                descGroup.error = ""
-                listCheck.add(false)
-            }
+            isValid(binding.nameGroup)
+            isValid(binding.descGroup)
             if (!listCheck.contains(false)){
                 repository.addGroup(
-                    Group(nameGroup.text.toString(),
-                        descGroup.text.toString(),
+                    Group(binding.nameGroup.text.toString(),
+                        binding.descGroup.text.toString(),
                         User.id)
                 )
                 findNavController().navigate(R.id.action_addGroupFragment_to_group_Fragment)
             }
         }
-
-        return view
+        return binding.root
+    }
+    private fun isValid(plainText : EditText) {
+        if (plainText.text.isNullOrEmpty() && plainText.text.isNullOrBlank()) {
+            plainText.error = ""
+            listCheck.add(false)
+        }
     }
 }
