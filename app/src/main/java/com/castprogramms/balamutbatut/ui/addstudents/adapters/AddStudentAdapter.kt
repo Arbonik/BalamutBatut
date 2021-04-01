@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
@@ -15,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
-class AddStudentAdapter(_query: Query, var idGroup: String)
+class AddStudentAdapter(_query: Query, var idGroup: String, private val repository: Repository)
     : RecyclerView.Adapter<AddStudentAdapter.AddStudentsViewHolder>() {
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()
@@ -71,7 +72,7 @@ class AddStudentAdapter(_query: Query, var idGroup: String)
             cardViewStudent.setOnClickListener {
                 if (User.trainer != null)
                     student.groupID = idGroup
-                DataUserFirebase().updateStudent(student, id)
+                repository.updateStudentGroup(id, student.groupID)
             }
         }
     }

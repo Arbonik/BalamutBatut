@@ -12,7 +12,7 @@ interface DataUserApi {
 
     fun addTrainer(trainer: Trainer, studentID: String)
 
-    fun updateStudent(student: Student, studentID: String)
+    fun updateStudent(studentID: String, groupID: String)
 
     fun deleteStudent(student: Student)
 

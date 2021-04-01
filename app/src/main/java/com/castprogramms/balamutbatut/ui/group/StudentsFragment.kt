@@ -42,9 +42,7 @@ class StudentsFragment: Fragment() {
             findNavController().navigate(R.id.action_studentsFragment_to_addStudentFragment, bundle)
         }
         val recyclerView : RecyclerView = view.findViewById(R.id.students_list)
-        val query = DataUserFirebase().fireStore.collection(DataUserFirebase.studentTag)
-            .whereEqualTo("type", "student")
-            .whereEqualTo("groupID", id)
+        val query = repository.getCollectionAllStudent(id)
         val studentsAdapter = StudentsAdapter(query, repository, id)
         recyclerView.adapter = studentsAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
