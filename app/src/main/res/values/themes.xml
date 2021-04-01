@@ -19,7 +19,7 @@
     </style>
 
     <style name="normalText">
-        <item name="android:textColor">#686868</item>
+        <item name="android:textColor">#616161</item>
     </style>
 
     <style name="Message">

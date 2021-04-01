@@ -99,7 +99,6 @@ class EditProfileFragment : Fragment() {
                 if (!listEmptyEditText.contains(false)) {
                     repository.updateUserFirstName(userName.text.toString(), User.id)
                     repository.updateUserSecondName(userLastName.text.toString(), User.id)
-                    //repository.updateUserIcon(userIcon.toString(), User.id)
                 }
                 when (ittt) {
                     is Resource.Success -> {

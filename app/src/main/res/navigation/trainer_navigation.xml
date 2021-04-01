@@ -23,7 +23,8 @@
         tools:layout="@layout/groups_fragment">
         <action
             android:id="@+id/action_group_Fragment_to_studentsFragment"
-            app:destination="@id/studentsFragment" />
+            app:destination="@id/studentsFragment"
+            app:popUpTo="@id/group_Fragment" />
         <action
             android:id="@+id/action_group_Fragment_to_addGroupFragment"
             app:destination="@id/addGroupFragment" />
