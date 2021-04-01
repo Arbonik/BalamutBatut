@@ -1,7 +1,9 @@
 package com.castprogramms.balamutbatut.ui.addstudents
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,10 +17,13 @@ import org.koin.android.ext.android.inject
 class AddStudentFragment: Fragment() {
     private val repository : Repository by inject()
     var id = ""
+    val query = repository.getCollectionAllStudentsWithoutGroup()
+    val studentsAdapter = AddStudentAdapter(query, id, repository)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null){
             id = arguments?.getString("id").toString()
+            studentsAdapter.idGroup = id
         }
     }
     override fun onCreateView(
@@ -26,12 +31,9 @@ class AddStudentFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val query = repository.getCollectionAllStudentsWithoutGroup()
+
         val view = inflater.inflate(R.layout.fragment_add_student, container, false)
         this.setHasOptionsMenu(true)
-        val editTextSearchStudent : TextInputEditText = view.findViewById(R.id.text_search)
-        editTextSearchStudent.visibility = View.GONE
-        val studentsAdapter = AddStudentAdapter(query, id, repository)
         val recycler : RecyclerView = view.findViewById(R.id.recycler)
         recycler.layoutManager = LinearLayoutManager(requireContext())
         recycler.adapter = studentsAdapter
@@ -39,16 +41,21 @@ class AddStudentFragment: Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.search_student, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.search_student ->{
-                
+        val search = menu.findItem(R.id.search_student)
+        val searchView = search.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
             }
-        }
-        return true
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.e("data", newText.toString())
+                if (newText != null)
+                    studentsAdapter.filter.filter(newText)
+                return false
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

@@ -1,14 +1,17 @@
 package com.castprogramms.balamutbatut.ui.addstudents.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
-import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.Levenshtein
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
 import com.google.firebase.firestore.EventListener
@@ -17,15 +20,18 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
 class AddStudentAdapter(_query: Query, var idGroup: String, private val repository: Repository)
-    : RecyclerView.Adapter<AddStudentAdapter.AddStudentsViewHolder>() {
+    : RecyclerView.Adapter<AddStudentAdapter.AddStudentsViewHolder>(), Filterable {
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()
-
+    var sortedStudent = mutableListOf<Student>()
+    var sortedStudentsID = mutableListOf<String>()
+    var filterWord = ""
     var query = _query
         set(value) {
             notifyDataSetChanged()
             field = value
         }
+
 
     init {
         query.addSnapshotListener(object : EventListener<QuerySnapshot> {
@@ -36,6 +42,9 @@ class AddStudentAdapter(_query: Query, var idGroup: String, private val reposito
                     value.documents.forEach {
                         studentsID.add(it.id)
                     }
+                    sortedStudent = students
+                    sortedStudentsID = studentsID
+                    filter.filter(filterWord)
                     notifyDataSetChanged()
                 }
             }
@@ -55,10 +64,10 @@ class AddStudentAdapter(_query: Query, var idGroup: String, private val reposito
     }
 
     override fun onBindViewHolder(holder: AddStudentsViewHolder, position: Int) {
-        holder.bind(students[position], studentsID[position])
+        holder.bind(sortedStudent[position], sortedStudentsID[position])
     }
 
-    override fun getItemCount(): Int = students.size
+    override fun getItemCount(): Int = sortedStudent.size
 
     inner class AddStudentsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val cardViewStudent : CardView = view.findViewById(R.id.card_view_student)
@@ -73,6 +82,38 @@ class AddStudentAdapter(_query: Query, var idGroup: String, private val reposito
                 if (User.trainer != null)
                     student.groupID = idGroup
                 repository.updateStudentGroup(id, student.groupID)
+
+            }
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                filterWord = constraint.toString()
+                sortedStudent = mutableListOf()
+                sortedStudentsID = mutableListOf()
+                val names = mutableListOf<String>()
+                val isContains = mutableListOf<Boolean>()
+                students.forEach {
+                    names.add(it.getFullName())
+                }
+                names.forEach {
+                    if (it.contains(constraint.toString(), true))
+                        isContains.add(true)
+                    else
+                        isContains.add(false)
+                }
+                for (i in students.indices)
+                    if (isContains[i]) {
+                        sortedStudent.add(students[i])
+                        sortedStudentsID.add(studentsID[i])
+                    }
+                return FilterResults().apply { values = sortedStudent }
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                notifyDataSetChanged()
             }
         }
     }
