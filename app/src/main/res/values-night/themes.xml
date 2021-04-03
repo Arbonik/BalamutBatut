@@ -27,6 +27,14 @@
         <item name="android:background">#C1FFE4</item>
     </style>
 
+    <style name="CheckItem">
+        <item name="android:background">@color/purple_800</item>
+    </style>
+
+    <style name="NotCheckItem">
+        <item name="android:background">#888888</item>
+    </style>
+
     <style name="start_gradient">
         <item name="android:background">@drawable/gradient_night</item>
     </style>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_200">@color/message_color</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
 
@@ -8,7 +8,7 @@
     <color name="purple_600">#94ADDF</color><!--action bar light-->
 
     <color name="teal_200">@color/t</color>
-    <color name="teal_300">@color/purple_200</color><!--dark theme but-->
+    <color name="teal_300">@color/k</color><!--dark theme but-->
     <color name="teal_700">@color/v</color>
     <color name="black">#FF000000</color>
     <color name="light_grey">#F3F5F6</color>

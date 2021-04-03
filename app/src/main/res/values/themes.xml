@@ -27,6 +27,14 @@
         <item name="android:background">@color/message_color</item>
     </style>
 
+    <style name="CheckItem">
+        <item name="android:background">@color/message_color</item>
+    </style>
+
+    <style name="NotCheckItem">
+        <item name="android:background">@color/white</item>
+    </style>
+
     <style name="start_gradient">
         <item name="android:background">@drawable/gradient</item>
     </style>

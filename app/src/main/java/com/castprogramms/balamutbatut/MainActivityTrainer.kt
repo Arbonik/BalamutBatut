@@ -1,5 +1,6 @@
 package com.castprogramms.balamutbatut
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +13,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivityTrainer : AppCompatActivity() {
+
+    var theme : Boolean = false
 
     lateinit var navView: BottomNavigationView
     lateinit var navController: NavController
@@ -36,4 +39,17 @@ class MainActivityTrainer : AppCompatActivity() {
     fun setTitleAppBar(string: String){
         title = string
     }
+
+    /*override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                theme = false
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                theme = true
+            }
+        }
+    }*/
 }
