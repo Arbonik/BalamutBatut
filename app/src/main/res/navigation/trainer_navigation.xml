@@ -11,7 +11,9 @@
         tools:layout="@layout/profile_fragment_trainer">
         <action
             android:id="@+id/action_profile_Fragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment2" />
+            app:destination="@id/settingsFragment2"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
         <action
             android:id="@+id/action_profile_Fragment_to_editProfileFragment2"
             app:destination="@id/editProfileFragment2" />
@@ -23,6 +25,8 @@
         tools:layout="@layout/groups_fragment">
         <action
             android:id="@+id/action_group_Fragment_to_studentsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
             app:destination="@id/studentsFragment" />
         <action
             android:id="@+id/action_group_Fragment_to_addGroupFragment"

@@ -73,7 +73,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
         fun bind(group: Group, id: String){
             groupName.text = group.name
             groupDesc.text = group.description
-            groupTrainerNumber.text = "${group.numberTrainer} ${group.students.size}"
+            groupTrainerNumber.text = "Количество учеников в группе: ${group.students.size}"
             cardView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("name", group.name)
