@@ -19,7 +19,9 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     val user: LiveData<Resource<out Person>> = _userData
 
     fun loadUserData(account: GoogleSignInAccount?) {
+
         _userData.postValue(Resource.Loading())
+
         if (account != null) {
             var person = Person()
             val id = account.id.toString()
