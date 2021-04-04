@@ -44,31 +44,43 @@ class EditProfileFragment : Fragment() {
         repository.user.observe(viewLifecycleOwner) { ittt ->
             when (ittt) {
                 is Resource.Success -> {
-                    when (ittt.data!!.type) {
-                        TypesUser.TRAINER.desc -> {
-                            userName.setText(trainer?.first_name, TextView.BufferType.EDITABLE)
+//                    when (ittt.data!!.type) {
+//                        TypesUser.TRAINER.desc -> {
+//                            userName.setText(trainer?.first_name, TextView.BufferType.EDITABLE)
+//                            userLastName.setText(
+//                                trainer?.second_name,
+//                                TextView.BufferType.EDITABLE
+//                            )
+//                            Glide.with(this)
+//                                .load(trainer?.img)
+//                                .error(R.drawable.male_user)
+//                                .into(userIcon)
+//                        }
+//                        TypesUser.STUDENT.desc -> {
+//                            userName.setText(student?.first_name, TextView.BufferType.EDITABLE)
+//                            userLastName.setText(
+//                                student?.second_name,
+//                                TextView.BufferType.EDITABLE
+//                            )
+//                            if (student?.img != null){
+//                                Glide.with(this)
+//                                    .load(student?.img)
+//                                    .error(R.drawable.male_user)
+//                                    .into(userIcon)
+//                            }
+//                        }
+//                    }
+                    val person = ittt.data
+                    if (person != null){
+                        userName.setText(person.first_name, TextView.BufferType.EDITABLE)
                             userLastName.setText(
-                                trainer?.second_name,
+                                person.second_name,
                                 TextView.BufferType.EDITABLE
                             )
                             Glide.with(this)
-                                .load(trainer?.img)
+                                .load(person.img)
                                 .error(R.drawable.male_user)
                                 .into(userIcon)
-                        }
-                        TypesUser.STUDENT.desc -> {
-                            userName.setText(student?.first_name, TextView.BufferType.EDITABLE)
-                            userLastName.setText(
-                                student?.second_name,
-                                TextView.BufferType.EDITABLE
-                            )
-                            if (student?.img != null){
-                                Glide.with(this)
-                                    .load(student?.img)
-                                    .error(R.drawable.male_user)
-                                    .into(userIcon)
-                            }
-                        }
                     }
                 }
             }

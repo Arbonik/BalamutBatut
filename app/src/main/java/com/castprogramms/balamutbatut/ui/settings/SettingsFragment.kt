@@ -23,11 +23,12 @@ import com.google.android.gms.common.api.*
 import com.google.android.gms.common.api.internal.GoogleApiManager
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class SettingsFragment : Fragment() {
 
-    val registerViewModel : RegistrViewModel by viewModels()
+    val registerViewModel : RegistrViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

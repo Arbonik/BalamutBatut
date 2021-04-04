@@ -18,7 +18,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
 
     val user: LiveData<Resource<out Person>> = _userData
 
-    fun loadUserData(account: GoogleSignInAccount?) {
+    fun loadUserData(account: GoogleSignInAccount?): Boolean {
 
         _userData.postValue(Resource.Loading())
 
@@ -60,7 +60,10 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                     _userData.postValue(Resource.Error(error?.message.toString()))
                 }
             }
+            return true
         }
+        else
+            return false
     }
     fun loadUserData(id: String){
         dataUserFirebase.getUser(id).addSnapshotListener { value, error ->
