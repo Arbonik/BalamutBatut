@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,9 +21,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class InfoStudentFragment: Fragment() {
 
     private val repository : Repository by inject()
-
     var idStudent = ""
-
     private val viewModel : InfoStudentViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
