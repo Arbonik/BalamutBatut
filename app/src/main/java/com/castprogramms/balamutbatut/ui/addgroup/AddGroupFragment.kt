@@ -12,8 +12,6 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.databinding.FragmentAddGroupBinding
 import com.castprogramms.balamutbatut.tools.User
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import org.koin.android.ext.android.inject
 
 class AddGroupFragment: Fragment() {
@@ -23,7 +21,7 @@ class AddGroupFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentAddGroupBinding.inflate(inflater)
         binding.addGroup.setOnClickListener {
             listCheck.clear()

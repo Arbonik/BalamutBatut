@@ -11,7 +11,9 @@
         tools:layout="@layout/profile_fragment_trainer">
         <action
             android:id="@+id/action_profile_Fragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment2" />
+            app:destination="@id/settingsFragment2"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
         <action
             android:id="@+id/action_profile_Fragment_to_editProfileFragment2"
             app:destination="@id/editProfileFragment2" />
@@ -23,8 +25,9 @@
         tools:layout="@layout/groups_fragment">
         <action
             android:id="@+id/action_group_Fragment_to_studentsFragment"
-            app:destination="@id/studentsFragment"
-            app:popUpTo="@id/group_Fragment" />
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:destination="@id/studentsFragment" />
         <action
             android:id="@+id/action_group_Fragment_to_addGroupFragment"
             app:destination="@id/addGroupFragment" />
@@ -49,17 +52,9 @@
         android:name="com.castprogramms.balamutbatut.ui.infostudent.InfoStudentFragment"
         android:label="@string/item_student">
         <action
-            android:id="@+id/action_infoStudentFragment_to_nodeViewFragment2"
-            app:destination="@id/nodeViewFragment2" />
-        <action
             android:id="@+id/action_infoStudentFragment_to_changeProgramFragment"
             app:destination="@id/changeProgramFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/nodeViewFragment2"
-        android:name="com.castprogramms.balamutbatut.ui.node.NodeViewFragment"
-        android:label="@string/item_element"
-        tools:layout="@layout/node_view_fragment" />
     <fragment
         android:id="@+id/changeProgramFragment"
         android:name="com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsStudentFragment"

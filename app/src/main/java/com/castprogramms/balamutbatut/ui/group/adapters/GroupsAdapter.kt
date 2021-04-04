@@ -1,7 +1,6 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.tools.Element
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
@@ -56,7 +54,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupsViewHolder {
         return GroupsViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.group_adapter, parent, false
+                R.layout.item_group, parent, false
             )
         )
     }
@@ -75,7 +73,7 @@ class GroupsAdapter(_query:Query, var fragment: Fragment): RecyclerView.Adapter<
         fun bind(group: Group, id: String){
             groupName.text = group.name
             groupDesc.text = group.description
-            groupTrainerNumber.text = "${group.numberTrainer} ${group.students.size}"
+            groupTrainerNumber.text = "Количество учеников в группе: ${group.students.size}"
             cardView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("name", group.name)

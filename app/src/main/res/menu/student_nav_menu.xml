@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/progressFragment"
-        android:icon="@drawable/done_all_24"
-        android:title="@string/item_progress" />
-
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/person_24"

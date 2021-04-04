@@ -43,7 +43,7 @@ class StudentsFragment: Fragment() {
         }
         val recyclerView : RecyclerView = view.findViewById(R.id.students_list)
         val query = repository.getCollectionAllStudent(id)
-        val studentsAdapter = StudentsAdapter(query, repository, id)
+        val studentsAdapter = StudentsAdapter(query, repository, id, this)
         recyclerView.adapter = studentsAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

@@ -12,9 +12,9 @@
         android:name=".BalamutApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@drawable/blmtlogo_130"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/blmtlogo_130"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BalamutBatut"
         tools:replace="icon, label">

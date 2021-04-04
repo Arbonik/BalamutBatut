@@ -27,7 +27,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/male_user" />
+            android:src="@drawable/male_user"
+            android:transitionName="@string/icon"/>
 
         <TextView
             android:id="@+id/student_name"

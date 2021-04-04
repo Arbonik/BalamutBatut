@@ -77,4 +77,5 @@
     <string name="desc_group">Описание группы</string>
     <string name="add_group">Добавить группу</string>
     <string name="search">Поиск ученика</string>
+    <string name="icon">icon</string>
 </resources>

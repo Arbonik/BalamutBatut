@@ -12,7 +12,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="48dp"
-        android:background="@drawable/blmtlogo_828_t"
+        android:background="@drawable/blmtlogo_t"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,83 +28,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:id="@+id/or"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/activity_vertical_margin"-->
-<!--        android:text="@string/or"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />-->
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/email_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="@string/email"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--        android:layout_marginTop="@dimen/activity_vertical_margin"-->
-<!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-<!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-<!--        app:startIconDrawable="@drawable/email_24"-->
-<!--        app:startIconContentDescription="@string/email"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/or">-->
-
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/email"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/password_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="@string/password"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--        android:layout_marginTop="@dimen/activity_vertical_margin"-->
-<!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-<!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-<!--        app:endIconMode="password_toggle"-->
-<!--        app:startIconDrawable="@drawable/lock_24"-->
-<!--        app:startIconContentDescription="@string/password"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/email_container">-->
-
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/password"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:inputType="textPassword"/>-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/forgot_pas"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-<!--        android:text="@string/forgot_password"-->
-<!--        style="@style/Widget.MaterialComponents.Button.TextButton"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/password_container" />-->
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/login"-->
-<!--        style="@style/MainButton"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-<!--        android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-<!--        android:layout_marginTop="@dimen/activity_vertical_margin"-->
-<!--        android:text="@string/sign_up"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/forgot_pas" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

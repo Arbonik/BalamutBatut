@@ -31,7 +31,6 @@ class AddStudentFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_add_student, container, false)
         this.setHasOptionsMenu(true)
         val recycler : RecyclerView = view.findViewById(R.id.recycler)
