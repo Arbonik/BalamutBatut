@@ -1,11 +1,16 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
+import android.app.ActivityOptions
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigator
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
@@ -16,7 +21,7 @@ import com.google.firebase.firestore.Query
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
-class StudentsAdapter(_query: Query, private val repository: Repository, var idGroup: String) :
+class StudentsAdapter(_query: Query, private val repository: Repository, var idGroup: String, val fragment: Fragment) :
     RecyclerView.Adapter<StudentsAdapter.StudentsViewHolder>(), ItemTouchHelperAdapter {
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()
@@ -75,7 +80,12 @@ class StudentsAdapter(_query: Query, private val repository: Repository, var idG
                     .into(studentImage)
             }
             cardViewStudent.setOnClickListener {
+                val sharedView = studentImage
+                val transName = itemView.context.resources.getString(R.string.icon)
+                val options = ActivityOptions.makeSceneTransitionAnimation(fragment.requireActivity(), sharedView, transName)
+                val changeBounds = TransitionInflater.from(fragment.requireContext()).inflateTransition(R.transition.changebounds_with_arcmotion)
                 val bundle = Bundle()
+                bundle.putBundle("anim", options.toBundle())
                 bundle.putString("id", id)
                 it.findNavController()
                     .navigate(R.id.action_studentsFragment_to_infoStudentFragment, bundle)
