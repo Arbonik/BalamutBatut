@@ -32,10 +32,6 @@ class NodeView(val radius: Float,context: Context, var node: Node)
             Log.e("Test", this@NodeView.node.dataNode.toString())
             when (User.typeUser) {
                 TypesUser.TRAINER -> {
-                    findNavController().navigate(R.id.action_infoStudentFragment_to_nodeViewFragment2)
-                }
-                TypesUser.STUDENT -> {
-                    findNavController().navigate(R.id.action_progressFragment_to_nodeViewFragment)
                 }
                 TypesUser.NOTHING -> { }
             }

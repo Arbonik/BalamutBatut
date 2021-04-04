@@ -3,7 +3,6 @@ package com.castprogramms.balamutbatut.ui.infostudent
 import android.os.Bundle
 import android.view.*
 import android.view.animation.AnimationUtils
-import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -16,26 +15,24 @@ import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.ElementsAdapter
-import com.castprogramms.balamutbatut.users.Student
 import com.squareup.picasso.Picasso
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class InfoStudentFragment: Fragment() {
+
     private val repository : Repository by inject()
-    var student : Student? = null
-    val mutableLiveDataStudent = MutableLiveData(student)
+
     var idStudent = ""
+
+    private val viewModel : InfoStudentViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null){
             idStudent = arguments?.getString("id", "").toString()
             if (idStudent != "null" && idStudent != ""){
-                DataUserFirebase().getUser(idStudent).addSnapshotListener { value, error ->
-                    if (value != null){
-                        student = value.toObject(Student::class.java)
-                        mutableLiveDataStudent.postValue(student)
-                    }
-                }
+                viewModel.loadData(idStudent)
             }
         }
     }
@@ -54,7 +51,7 @@ class InfoStudentFragment: Fragment() {
         val controller = AnimationUtils
             .loadLayoutAnimation(context, R.anim.recycler_anim_right_to_left)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
+        viewModel.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.person = it
                 repository.getElement(it.elements).observe(viewLifecycleOwner, Observer {
@@ -87,7 +84,7 @@ class InfoStudentFragment: Fragment() {
             R.id.change_program ->{
                 val bundle = Bundle()
                 bundle.putString("id", idStudent)
-                bundle.putStringArray("idElements", student?.elements?.let { convertToIDsList(it) })
+                bundle.putStringArray("idElements", viewModel.mutableLiveDataStudent.value?.elements?.let { convertToIDsList(it) })
                 findNavController()
                     .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
             }

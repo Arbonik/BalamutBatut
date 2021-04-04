@@ -1,6 +1,5 @@
 package com.castprogramms.balamutbatut.ui.addstudents.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
-import com.castprogramms.balamutbatut.tools.Levenshtein
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
 import com.google.firebase.firestore.EventListener
@@ -59,7 +57,7 @@ class AddStudentAdapter(_query: Query, var idGroup: String, private val reposito
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddStudentsViewHolder {
         return AddStudentsViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.student_adapter, parent, false)
+                .inflate(R.layout.item_student, parent, false)
         )
     }
 

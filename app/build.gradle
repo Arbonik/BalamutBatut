@@ -82,5 +82,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'org.mockito:mockito-core:3.7.7'
 
+    //koin
     implementation "org.koin:koin-android:2.0.1"
+    implementation "org.koin:koin-android-viewmodel:2.0.1"
 }

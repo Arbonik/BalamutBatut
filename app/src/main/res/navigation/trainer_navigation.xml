@@ -48,17 +48,9 @@
         android:name="com.castprogramms.balamutbatut.ui.infostudent.InfoStudentFragment"
         android:label="@string/item_student">
         <action
-            android:id="@+id/action_infoStudentFragment_to_nodeViewFragment2"
-            app:destination="@id/nodeViewFragment2" />
-        <action
             android:id="@+id/action_infoStudentFragment_to_changeProgramFragment"
             app:destination="@id/changeProgramFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/nodeViewFragment2"
-        android:name="com.castprogramms.balamutbatut.ui.node.NodeViewFragment"
-        android:label="@string/item_element"
-        tools:layout="@layout/node_view_fragment" />
     <fragment
         android:id="@+id/changeProgramFragment"
         android:name="com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsStudentFragment"

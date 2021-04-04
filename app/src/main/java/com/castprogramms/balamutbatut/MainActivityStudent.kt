@@ -1,8 +1,6 @@
 package com.castprogramms.balamutbatut
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -21,9 +19,7 @@ class MainActivityStudent : AppCompatActivity() {
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.progressFragment, R.id.profileFragment
-            )
+            setOf(R.id.profileFragment)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

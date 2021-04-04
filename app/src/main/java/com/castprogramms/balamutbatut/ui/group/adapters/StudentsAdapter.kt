@@ -49,7 +49,7 @@ class StudentsAdapter(_query: Query, private val repository: Repository, var idG
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentsViewHolder {
         return StudentsViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.student_adapter, parent, false)
+                .inflate(R.layout.item_student, parent, false)
         )
     }
 
