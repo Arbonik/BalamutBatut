@@ -5,5 +5,6 @@ enum class EditProfile(var desc : String) {
     SECOND_NAME("second_name"),
     IMG("img"),
     ELEMENTS("elements"),
-    GROUP("groupID")
+    GROUP("groupID"),
+    TYPE("type")
 }

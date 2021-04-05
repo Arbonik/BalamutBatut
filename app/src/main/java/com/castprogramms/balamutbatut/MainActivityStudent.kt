@@ -19,7 +19,7 @@ class MainActivityStudent : AppCompatActivity() {
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.profileFragment)
+            setOf(R.id.ratingFragment, R.id.profileFragment)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

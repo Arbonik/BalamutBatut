@@ -30,7 +30,9 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                 if (value != null) {
                     val data = value
                     if (data.data != null) {
+                        DataUserFirebase.printLog(data.data.toString())
                         person.type = data.getString("type").toString()
+                        DataUserFirebase.printLog(person.first_name)
                         User.mutableLiveDataSuccess.postValue(true)
                         when (person.type) {
                             TypesUser.STUDENT.desc -> {
@@ -55,8 +57,12 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                         }
                         _userData.postValue(Resource.Success(person))
 
+                    }else {
+                        User.mutableLiveDataSuccess.postValue(false)
+                        _userData.postValue(Resource.Error(error?.message.toString()))
                     }
                 } else {
+                    DataUserFirebase.printLog(error?.message.toString())
                     _userData.postValue(Resource.Error(error?.message.toString()))
                 }
             }
@@ -122,4 +128,5 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun getCollectionAllStudent(groupID: String) = dataUserFirebase.getCollectionAllStudents(groupID)
     fun getCollectionAllStudentsWithoutGroup() = dataUserFirebase.getCollectionAllStudentsWithoutGroup()
     fun updateStudentGroup(studentID: String, groupID: String) = dataUserFirebase.updateStudent(studentID, groupID)
+    fun getAllStudents() = dataUserFirebase.getAllStudents()
 }

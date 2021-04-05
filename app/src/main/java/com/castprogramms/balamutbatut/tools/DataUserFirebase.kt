@@ -59,6 +59,12 @@ class DataUserFirebase: DataUserApi {
             .document(studentID)
             .update(EditProfile.IMG.desc, icon)
     }
+    fun getAllStudents(): Query{
+        return fireStore.collection(studentTag)
+            .whereEqualTo(EditProfile.TYPE.desc, "student")
+
+    }
+
     fun addStudentElement(element: Element, studentID: String) {
         var id = ""
         Log.e("id", element.name)

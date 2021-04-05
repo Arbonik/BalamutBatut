@@ -4,6 +4,7 @@ import android.app.Application
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
+import com.castprogramms.balamutbatut.ui.rating.RatingViewModel
 import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -19,7 +20,8 @@ class BalamutApplication : Application() {
 
         viewModel {InfoStudentViewModel(get())}
         viewModel {StudentsViewModel(get())}
-        viewModel { RegistrViewModel(get()) }
+        viewModel {RegistrViewModel(get())}
+        viewModel {RatingViewModel(get())}
     }
 
     override fun onCreate() {

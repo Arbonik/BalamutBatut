@@ -30,6 +30,8 @@ class RegistrViewModel(private val repository: Repository) : ViewModel() {
         googleSignInClient.signOut()//.addOnSuccessListener {   }
     }
 
+    fun getUser() = repository.user
+
     fun handleSignInResult(task: Task<GoogleSignInAccount>): Boolean {
         try {
             account = task.getResult(ApiException::class.java)
