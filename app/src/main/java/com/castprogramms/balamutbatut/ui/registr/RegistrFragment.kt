@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.MainActivity
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
@@ -73,7 +74,19 @@ class RegistrFragment: Fragment() {
             = GoogleSignIn.getSignedInAccountFromIntent(data)
             task.addOnCompleteListener {
                 if (it.isSuccessful){
-                    sussesRegistr = registrViewModel.handleSignInResult(task)
+                    registrViewModel.handleSignInResult(task)
+                    registrViewModel.getUser().observe(viewLifecycleOwner, {
+                        when(it){
+                            is Resource.Error -> {
+                                sussesRegistr = false
+                            }
+                            is Resource.Loading -> {}
+
+                            is Resource.Success -> {
+                                sussesRegistr = true
+                            }
+                        }
+                    })
                 }
                 else{
                     DataUserFirebase.printLog(it.exception?.message.toString())

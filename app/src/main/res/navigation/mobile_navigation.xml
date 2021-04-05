@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation.xml"
@@ -33,5 +32,9 @@
                     android:id="@+id/action_editProfileFragment_to_profileFragment"
                     app:destination="@id/profileFragment" />
         </fragment>
+        <fragment
+            android:id="@+id/ratingFragment"
+            android:name="com.castprogramms.balamutbatut.ui.rating.RatingFragment"
+            android:label="RatingFragment" />
 
 </navigation>
