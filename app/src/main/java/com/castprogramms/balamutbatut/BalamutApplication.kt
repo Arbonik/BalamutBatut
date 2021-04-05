@@ -2,7 +2,9 @@ package com.castprogramms.balamutbatut
 
 import android.app.Application
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
+import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
@@ -15,7 +17,9 @@ class BalamutApplication : Application() {
         single<DataUserFirebase> {DataUserFirebase()}
         single<Repository> {Repository(get())}
 
-        viewModel<InfoStudentViewModel> {InfoStudentViewModel(get())}
+        viewModel {InfoStudentViewModel(get())}
+        viewModel {StudentsViewModel(get())}
+        viewModel { RegistrViewModel(get()) }
     }
 
     override fun onCreate() {

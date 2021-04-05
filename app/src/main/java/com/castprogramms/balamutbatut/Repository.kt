@@ -18,7 +18,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
 
     val user: LiveData<Resource<out Person>> = _userData
 
-    fun loadUserData(account: GoogleSignInAccount?) {
+    fun loadUserData(account: GoogleSignInAccount?): Boolean {
 
         _userData.postValue(Resource.Loading())
 
@@ -26,10 +26,10 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
             var person = Person()
             val id = account.id.toString()
             User.id = id
-            dataUserFirebase.getUser(id).get().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val data = it.result
-                    if (data != null && data.data != null) {
+            dataUserFirebase.getUser(id).addSnapshotListener { value, error ->
+                if (value != null) {
+                    val data = value
+                    if (data.data != null) {
                         person.type = data.getString("type").toString()
                         User.mutableLiveDataSuccess.postValue(true)
                         when (person.type) {
@@ -37,6 +37,15 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                                 User.typeUser = TypesUser.STUDENT
                                 person = data.toObject(Student::class.java)!!
                                 User.setValueStudent(person as Student)
+                                if (User.student != null) {
+                                    dataUserFirebase.getStudentsGroup(User.id).addOnSuccessListener {
+                                        if (it.documents.isNotEmpty()) {
+                                            User.setValueStudent(User.student?.apply {
+                                                groupID = it.documents.first().getString("name").toString()
+                                            }!!)
+                                        }
+                                    }
+                                }
                             }
                             TypesUser.TRAINER.desc -> {
                                 User.typeUser = TypesUser.TRAINER
@@ -48,23 +57,13 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
 
                     }
                 } else {
-                    _userData.postValue(Resource.Error(""))
-                }
-            }.continueWith {
-                if (User.student != null) {
-                    dataUserFirebase.getStudentsGroup(User.id).addOnSuccessListener {
-                        if (it.documents.isNotEmpty()) {
-                            User.setValueStudent(User.student?.apply {
-                                groupID = it.documents.first().getString("name").toString()
-                            }!!)
-                        }
-                    }
+                    _userData.postValue(Resource.Error(error?.message.toString()))
                 }
             }
-                .addOnFailureListener {
-                    _userData.postValue(Resource.Error(it.message))
-                }
+            return true
         }
+        else
+            return false
     }
     fun loadUserData(id: String){
         dataUserFirebase.getUser(id).addSnapshotListener { value, error ->

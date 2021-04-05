@@ -21,10 +21,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.Task
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class RegistrFragment: Fragment() {
-    private val repository : Repository by inject()
-    val registrViewModel: RegistrViewModel by viewModels()
+    val registrViewModel: RegistrViewModel by viewModel()
     var sussesRegistr = false
 
     override fun onCreateView(

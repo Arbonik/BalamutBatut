@@ -5,29 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.castprogramms.balamutbatut.MainActivity
-import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.SplashActivity
-import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
-import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.*
 import com.google.android.gms.common.api.internal.GoogleApiManager
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class SettingsFragment : Fragment() {
 
-    val registerViewModel : RegistrViewModel by viewModels()
+    val registerViewModel : RegistrViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

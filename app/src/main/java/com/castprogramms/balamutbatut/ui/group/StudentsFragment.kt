@@ -7,19 +7,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.castprogramms.balamutbatut.MainActivityTrainer
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
-import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.SimpleItemTouchHelperCallback
 import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class StudentsFragment: Fragment() {
     private val repository : Repository by inject()
     var id = ""
     var nameGroup = ""
+    val viewModel :StudentsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +42,7 @@ class StudentsFragment: Fragment() {
             findNavController().navigate(R.id.action_studentsFragment_to_addStudentFragment, bundle)
         }
         val recyclerView : RecyclerView = view.findViewById(R.id.students_list)
-        val query = repository.getCollectionAllStudent(id)
-        val studentsAdapter = StudentsAdapter(query, repository, id, this)
+        val studentsAdapter = StudentsAdapter(viewModel.getQuery(id), repository, id, this)
         recyclerView.adapter = studentsAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
