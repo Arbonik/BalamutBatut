@@ -76,11 +76,7 @@ class InsertDataUserFragment: Fragment() {
             when(switchMaterial.isChecked){
                 true -> {
                     code_for_trainer_container.visibility = View.VISIBLE
-                    /*if (code_for_trainer.text.toString() == CODE) {
-                        typeU = TypesUser.TRAINER.desc
-                    } else {
-                        code_for_trainer.error == requireContext().getString(R.string.invalid_code)
-                    }*/
+
                 }
                 false -> {
                     code_for_trainer_container.visibility = View.GONE
@@ -188,8 +184,6 @@ class InsertDataUserFragment: Fragment() {
         closeButton.setOnClickListener {
             onDeleteView(messageCard)
         }
-
-
 
         return view
     }
