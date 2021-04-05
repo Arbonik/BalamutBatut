@@ -21,15 +21,21 @@
     <string name="sign_up">Войти</string>
     <string name="sign_out">Выйти</string>
     <string name="edit">Изменить</string>
+    <string name="OK">OK</string>
+    <string name="no_trainer">Я не тренер</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="invalid_password">Пароль должен содержать >5 символов</string>
     <string name="invalid_username">Неверно введён логин</string>
+    <string name="invalid_code">Неверный код</string>
+    <string name="invalid_code_message">Веденный код неверный. Уточните код у администратора.</string>
     <string name="welcome">"Добро пожаловать!"</string>
     <string name="success_register">Вы успешно зарегестрированы!</string>
 
     <string name="min_length">6 символов</string>
     <string name="message_settings">Нажмите на поле, чтобы изменить свои личные данные</string>
     <string name="message_trainer">Введите код, если вы тренер</string>
+    <string name="are_you_trainer">Я - тренер</string>
+    <string name="yes">Да</string>
     <string name="error_kod_trainer">Код должен состоять из 6 символов</string>
     <string name="default_data_birthday">01.01.2000</string>
 

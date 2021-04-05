@@ -131,6 +131,20 @@
             android:text="@string/female" />
     </RadioGroup>
 
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_trainer"
+        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="@string/are_you_trainer"
+        android:textSize="18sp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rectangles" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next"
         style="@style/MainButton"
@@ -140,7 +154,8 @@
         android:text="@string/finish_registr"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <TextView
+    <!--<TextView
+        android:visibility="visible"
         android:id="@+id/forTrainerText"
         style="@style/normalText"
         android:layout_width="match_parent"
@@ -152,24 +167,25 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangles" />
+        app:layout_constraintTop_toBottomOf="@+id/rectangles" />-->
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/kod_for_trainer_container"
+        android:id="@+id/code_for_trainer_container"
+        android:visibility="gone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/trainer_kod"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forTrainerText"
+        app:layout_constraintTop_toBottomOf="@+id/switch_trainer"
         app:startIconContentDescription="@string/trainer_kod">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/code_for_trainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:autofillHints="000000"
             android:digits="@string/all_number"
             android:ems="6"
@@ -178,7 +194,12 @@
             android:textSize="18sp"
             app:errorEnabled="true"
             app:helperText="@string/error_kod_trainer"
-            app:helperTextEnabled="true" />
+            app:helperTextEnabled="true"
+             />
+
     </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

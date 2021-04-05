@@ -32,7 +32,7 @@ class InfoStudentFragment: Fragment() {
         if (arguments != null){
             idStudent = arguments?.getString("id", "").toString()
             if (idStudent != "null" && idStudent != ""){
-                viewModel.loadData(idStudent)
+                viewModel.loadUserData(idStudent)
             }
         }
     }
