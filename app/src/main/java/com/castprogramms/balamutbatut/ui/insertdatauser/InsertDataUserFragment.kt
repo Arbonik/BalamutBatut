@@ -30,7 +30,6 @@ import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.ext.android.inject
 import java.util.*
 
-
 class InsertDataUserFragment: Fragment() {
     private val repository : Repository by inject()
     lateinit var editDate: MaterialButton
@@ -134,7 +133,7 @@ class InsertDataUserFragment: Fragment() {
             }
             if (!listEmptyEditText.contains(false)) {
 
-                if (code_for_trainer.text.toString()  != CODE) {
+                if (switchMaterial.isChecked && code_for_trainer.text.toString()  != CODE) {
 
                     val alert = AlertDialog.Builder(requireContext())
                     alert.setTitle(requireContext().getString(R.string.invalid_code))
@@ -149,7 +148,7 @@ class InsertDataUserFragment: Fragment() {
                         switchMaterial.isChecked = false
                         code_for_trainer.setText("")
                         code_for_trainer_container.visibility = View.GONE
-                    }
+                    }.create()
                     alert.show()
 
                 } else{
