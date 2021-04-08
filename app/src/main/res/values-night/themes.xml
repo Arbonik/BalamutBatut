@@ -39,6 +39,11 @@
         <item name="android:background">@drawable/gradient_night</item>
     </style>
 
+    <style name="ExpandableList_style">
+        <item name="android:background">@color/tx_grey</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="BackgroundRecyclerView">
         <item name="android:background">@color/black</item>
     </style>
