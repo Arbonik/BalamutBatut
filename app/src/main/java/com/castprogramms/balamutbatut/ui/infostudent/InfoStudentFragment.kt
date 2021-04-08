@@ -46,7 +46,7 @@ class InfoStudentFragment: Fragment() {
         val adapter = ElementsAdapter(requireContext(), true)
         recyclerView.adapter = adapter
         val controller = AnimationUtils
-            .loadLayoutAnimation(context, R.anim.recycler_anim_right_to_left)
+            .loadLayoutAnimation(context, R.anim.layout_animation)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         viewModel.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
