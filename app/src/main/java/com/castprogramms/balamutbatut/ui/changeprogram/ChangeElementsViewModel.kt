@@ -5,6 +5,6 @@ import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.tools.Element
 
 class ChangeElementsViewModel: ViewModel() {
-    fun getNamesElements(repository: Repository, idElements: Array<String>) =
+    fun getNamesElements(repository: Repository, idElements: Map<String, List<Int>>) =
         repository.getAllElements(idElements)
 }

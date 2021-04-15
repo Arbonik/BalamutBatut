@@ -6,10 +6,9 @@
     style="@style/BackgroundRecyclerView"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layoutAnimation="@anim/recycler_anim_right_to_left"
         android:id="@+id/recycler_achi_student"/>
 </FrameLayout>

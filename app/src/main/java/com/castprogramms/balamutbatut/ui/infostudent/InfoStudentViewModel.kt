@@ -19,8 +19,8 @@ class InfoStudentViewModel(private val repository : Repository) : ViewModel() {
         }
     }
 
-    fun loadElementsData(elements : List<Element>){
-        mutableLiveElements = repository.getElement(elements)
+    fun loadElementsData(IDs : List<Int>, nameGroupElement: String){
+        mutableLiveElements = repository.getElement(IDs, nameGroupElement)
     }
 
 }

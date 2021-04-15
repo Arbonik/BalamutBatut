@@ -60,7 +60,7 @@ class ElementsAdapter(val context: Context, val isProfile: Boolean):
     inner class ElementsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val cardView : MaterialCardView = view.findViewById(R.id.cardView_element)
         val textElement : MaterialTextView = view.findViewById(R.id.text_element)
-        val checkbox : MaterialCheckBox by lazy { view.findViewById(R.id.checkbox)}
+        val checkbox : MaterialCheckBox = view.findViewById(R.id.checkbox)
         //val themee = MainActivityStudent().theme.resources.configuration.uiMode
         @SuppressLint("ResourceAsColor")
         fun bind(element: Element) {

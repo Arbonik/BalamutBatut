@@ -9,6 +9,7 @@ import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentRatingBinding
+import com.castprogramms.balamutbatut.tools.Element
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class RatingFragment: Fragment() {
@@ -20,7 +21,7 @@ class RatingFragment: Fragment() {
     val easy = "EasyElement"
     val midlle = "MiddleElement"
     val hard = "HardElement"
-    val dataMap: HashMap<String, List<String>>
+    val dataMap: HashMap<String, List<Element>>
     get() {
         val listData = HashMap<String, List<String>>()
 

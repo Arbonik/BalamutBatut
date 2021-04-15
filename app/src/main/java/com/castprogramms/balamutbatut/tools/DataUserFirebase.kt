@@ -170,34 +170,48 @@ class DataUserFirebase: DataUserApi {
     }
 
 
-    fun getElement(elements: List<Element>): MutableLiveData<MutableList<Element>> {
+    fun getElement(IDs: List<Int>, nameGroupElement: String): MutableLiveData<MutableList<Element>> {
         val listElements = mutableListOf<Element>()
         val mutableLiveDataElements = MutableLiveData(listElements)
-        elements.forEach {
-            fireStore.collection(elementTag)
-                .document(it.name)
-                .get()
-                .addOnSuccessListener {
-                    it.toObject(Element::class.java)?.let { it1 -> listElements.add(it1) }
-                    mutableLiveDataElements.postValue(listElements)
+        fireStore.collection(elementTag)
+            .document(nameGroupElement)
+            .get()
+            .addOnSuccessListener {
+                val names = it.get("name") as List<String>
+                for (i in names.indices){
+                    if (i in IDs){
+                        listElements.add(Element(names[i]))
+                    }
                 }
-        }
+                mutableLiveDataElements.postValue(listElements)
+            }
         return mutableLiveDataElements
     }
 
-    fun getElements(idElements: Array<String>): MutableLiveData<MutableList<Element>>{
-        val allElements = mutableListOf<Element>()
-        val mutableLiveDataAllElements = MutableLiveData(allElements)
+    fun getElements(IDS: Map<String, List<Int>>): MutableLiveData<Map<String, List<Element>>> {
+        val allElements = mutableMapOf<String, List<Element>>()
+        val mutableLiveDataAllElements = MutableLiveData(mapOf<String, List<Element>>())
         fireStore.collection(elementTag)
             .get()
             .addOnSuccessListener {
                 it.documents.forEach {
-                    if (!idElements.contains(it.id)) {
-                        it.toObject(Element::class.java)
-                            ?.let { element -> allElements.add(element) }
-                        mutableLiveDataAllElements.postValue(allElements)
+                    val elements = mutableListOf<Element>()
+                    val names = it.get("name") as List<String>
+                    for (i in names.indices) {
+                        if (IDS[it.id] != null) {
+                            if (i !in IDS[it.id]!!) {
+                                elements.add(Element(names[i]))
+                            }
+                        }
+                        else{
+                            elements.add(Element(names[i]))
+                        }
                     }
+                    val sendElements = elements.toList()
+                    allElements.put(it.id, sendElements)
+                    elements.clear()
                 }
+                mutableLiveDataAllElements.postValue(allElements.toMap())
             }
         return mutableLiveDataAllElements
     }
@@ -206,6 +220,12 @@ class DataUserFirebase: DataUserApi {
         const val elementTag = "elements"
         const val studentTag = "students"
         const val groupTag = "groups"
+        const val GIRLS = "GIRLS"
+        const val EASY_MAN = "EASY MAN"
+        const val MEDIUM = "MEDIUM"
+        const val JUMP_MAN = "JUMP MAN"
+        const val PRO = "PRO"
+        const val COACH = "COACH"
         fun printLog(message: String){
             Log.e("Test", message)
         }

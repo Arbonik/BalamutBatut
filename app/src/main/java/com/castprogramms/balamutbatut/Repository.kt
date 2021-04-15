@@ -102,7 +102,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                     }
                 }
             } else {
-                _userData.postValue(Resource.Error(""))
+                _userData.postValue(Resource.Error(error?.message.toString()))
             }
         }
     }
@@ -111,8 +111,9 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun getStudentGroup(id: String) = dataUserFirebase.getStudentsGroup(id)
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
     fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
-    fun getElement(elements: List<Element>) = dataUserFirebase.getElement(elements)
-    fun getAllElements(idElements: Array<String>) = dataUserFirebase.getElements(idElements)
+    fun getElement(IDs: List<Int>, nameGroupElement: String)
+            = dataUserFirebase.getElement(IDs, nameGroupElement)
+    fun getAllElements(idElements: Map<String, List<Int>>) = dataUserFirebase.getElements(idElements)
     fun updateElementsStudent(element: Element, studentID: String) =
         dataUserFirebase.addStudentElement(element, studentID)
     fun updateUserFirstName(first_name: String, studentID: String) =

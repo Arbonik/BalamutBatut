@@ -9,20 +9,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.databinding.FragmentChangeProgramBinding
+import com.castprogramms.balamutbatut.tools.Element
+import com.castprogramms.balamutbatut.tools.FragmentWithElement
+import com.castprogramms.balamutbatut.ui.changeprogram.adapters.AddElementsExpandableListAdapter
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.ElementsAdapter
+import com.castprogramms.balamutbatut.ui.rating.ExpandableList
 import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
 import com.castprogramms.balamutbatut.users.Student
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
 
-class ChangeElementsStudentFragment: Fragment() {
-    private val repository: Repository by inject()
+class ChangeElementsStudentFragment: FragmentWithElement() {
     var student : Student? = null
     var id = ""
     var idElements = arrayOf<String>()
@@ -51,31 +56,40 @@ class ChangeElementsStudentFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_change_program, container, false)
-        val recyclerView : RecyclerView = view.findViewById(R.id.recyclerElements)
-        val checkFab : FloatingActionButton = view.findViewById(R.id.check_fab)
-        val adapter = ElementsAdapter(requireContext(),false )
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        val binding = FragmentChangeProgramBinding.bind(view)
+        val expandableList = AddElementsExpandableListAdapter(requireContext(), listOf(), mapOf())
+        binding.recyclerElements.setAdapter(expandableList)
         mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null){
-                adapter.deleteElement(it.elements)
+                generateAdapter(it.element).observe(viewLifecycleOwner) {
+                    expandableList.setData(it.keys.toList(), it)
+                    Log.e("data", it.toString())
+                }
             }
         })
-        changeElementsViewModel.getNamesElements(repository, idElements)
-            .observe(viewLifecycleOwner, Observer {
-                adapter.setElement(it)
-            })
-        checkFab.setOnClickListener {
-            Log.e("data", adapter.checkedElements.toString())
-            adapter.checkedElements.forEach {
-                repository.updateElementsStudent(it, id)
-            }
-            val bundle = Bundle()
-            bundle.putString("id", id)
-            findNavController()
-                .navigate(R.id.action_changeProgramFragment_to_infoStudentFragment2, bundle)
+
+        binding.checkFab.setOnClickListener {
+//            expandableList.checkedElements.forEach {
+//                repository.updateElementsStudent(it, id)
+//            }
+//            val bundle = Bundle()
+//            bundle.putString("id", id)
+//            findNavController()
+//                .navigate(R.id.action_changeProgramFragment_to_infoStudentFragment2, bundle)
+            Log.e("data", expandableList.checkedElements.toString())
         }
         return view
+    }
+    override fun generateAdapter(map: Map<String, List<Int>>): MutableLiveData<MutableMap<String, List<Element>>> {
+        val maps = mutableMapOf<String, List<Element>>()
+        val mutableMap = MutableLiveData(maps)
+        map.forEach {
+            repository.getAllElements(mapOf(it.key to it.value)).observe(viewLifecycleOwner) { it1 ->
+                maps.putAll(it1 as Map<out String, List<Element>>)
+                mutableMap.postValue(maps)
+            }
+        }
+        return mutableMap
     }
 
 }

@@ -16,7 +16,9 @@
             app:exitAnim="@anim/fragment_open_exit" />
         <action
             android:id="@+id/action_profile_Fragment_to_editProfileFragment2"
-            app:destination="@id/editProfileFragment2" />
+            app:destination="@id/editProfileFragment2"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"/>
     </fragment>
     <fragment
         android:id="@+id/group_Fragment"
@@ -30,7 +32,9 @@
             app:destination="@id/studentsFragment" />
         <action
             android:id="@+id/action_group_Fragment_to_addGroupFragment"
-            app:destination="@id/addGroupFragment" />
+            app:destination="@id/addGroupFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"/>
     </fragment>
     <fragment
         android:id="@+id/studentsFragment"
@@ -41,7 +45,9 @@
             app:destination="@id/addStudentFragment" />
         <action
             android:id="@+id/action_studentsFragment_to_infoStudentFragment"
-            app:destination="@id/infoStudentFragment" />
+            app:destination="@id/infoStudentFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"/>
     </fragment>
     <fragment
         android:id="@+id/addStudentFragment"

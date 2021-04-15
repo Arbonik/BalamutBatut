@@ -8,9 +8,17 @@ import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.tools.Element
 import java.util.HashMap
 
-class ExpandableList internal constructor(private val context: Context, private val titleList: List<String>, private val dataList: HashMap<String, List<String>>) : BaseExpandableListAdapter() {
+class ExpandableList internal constructor(private val context: Context, private var titleList: List<String>, private var dataList: Map<String, List<Element>>) : BaseExpandableListAdapter() {
+
+    fun setData(titleList: List<String>, dataList: Map<String, List<Element>>){
+        this.titleList = titleList
+        this.dataList = dataList
+        notifyDataSetChanged()
+    }
+
     override fun getGroupCount(): Int {
         return this.titleList.size
     }
@@ -36,7 +44,7 @@ class ExpandableList internal constructor(private val context: Context, private 
     }
 
     override fun hasStableIds(): Boolean {
-        return false
+        return true
     }
 
     override fun getGroupView(listPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup): View {
@@ -55,13 +63,13 @@ class ExpandableList internal constructor(private val context: Context, private 
     override fun getChildView(
         listPosition: Int, expandedListPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
-        val expandedListText = getChild(listPosition, expandedListPosition) as String
+        val expandedListText = getChild(listPosition, expandedListPosition) as Element
         if (convertView == null) {
             val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = layoutInflater.inflate(R.layout.list_item, null)
         }
         val expandedListTextView = convertView!!.findViewById<TextView>(R.id.expandedListItem)
-        expandedListTextView.text = expandedListText
+        expandedListTextView.text = expandedListText.name
         return convertView
     }
 
