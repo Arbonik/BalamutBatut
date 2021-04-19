@@ -4,7 +4,7 @@
     style="@style/BackgroundRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ExpandableListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerElements"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

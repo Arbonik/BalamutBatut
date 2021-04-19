@@ -65,25 +65,23 @@ class DataUserFirebase: DataUserApi {
 
     }
 
-    fun addStudentElement(element: Element, studentID: String) {
-        var id = ""
-        Log.e("id", element.name)
-        fireStore.collection(elementTag)
-            .whereEqualTo("name", element.name)
-            .get()
-            .addOnSuccessListener {
-                Log.e("id", it.documents.size.toString())
-                if (it.documents.isNotEmpty()) {
-                    id = it.documents.first().id
+    fun addStudentElement(elements: Map<String,List<Element>>, studentID: String) {
+        elements.forEach {
+            fireStore.collection(elementTag)
+                .document(it.key)
+                .get()
+                .addOnSuccessListener { it1 ->
+                    val elements = it1["name"] as List<String>
+                    it.value.forEach { it2 ->
+                        val position = checkInArray(elements, it2)
+                        if (position >= 0) {
+                            fireStore.collection(studentTag)
+                                .document(studentID)
+                                .update("element.${it.key}", FieldValue.arrayUnion(position))
+                        }
+                    }
                 }
-            }.continueWith {
-                Log.e("id", id)
-                if (id != "") {
-                    fireStore.collection(studentTag)
-                        .document(studentID)
-                        .update(EditProfile.ELEMENTS.desc, FieldValue.arrayUnion(Element(id)))
-                }
-            }
+        }
     }
 
     override fun updateStudent(studentID: String, groupID: String) {
@@ -228,6 +226,16 @@ class DataUserFirebase: DataUserApi {
         const val COACH = "COACH"
         fun printLog(message: String){
             Log.e("Test", message)
+        }
+        fun checkInArray(list: List<String>, element: Element): Int{
+            var position = -1
+            for (i in list.indices){
+                if (list[i] == element.name) {
+                    position = i
+                    break
+                }
+            }
+            return position
         }
     }
 }

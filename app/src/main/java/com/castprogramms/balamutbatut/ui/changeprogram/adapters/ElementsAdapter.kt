@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
@@ -26,9 +27,18 @@ import com.google.android.material.textview.MaterialTextView
 
 class ElementsAdapter(val context: Context, val isProfile: Boolean):
     RecyclerView.Adapter<ElementsAdapter.ElementsViewHolder>() {
-    private var lastPosition = -1
     var elements = mutableListOf<Element>()
     var checkedElements = mutableListOf<Element>()
+    val mutableLiveDataElements = MutableLiveData(checkedElements)
+    fun addCheckedElements(element: Element){
+        checkedElements.add(element)
+        mutableLiveDataElements.postValue(checkedElements)
+    }
+
+    fun removeCheckedElements(element: Element){
+        checkedElements.remove(element)
+        mutableLiveDataElements.postValue(checkedElements)
+    }
 
     fun addElement(element: Element){
         elements.add(element)
@@ -78,7 +88,7 @@ class ElementsAdapter(val context: Context, val isProfile: Boolean):
 //                            }
                     }
 
-                    checkedElements.add(element)
+                    addCheckedElements(element)
                 }
                 else {
                 if (!isProfile) {
@@ -91,25 +101,20 @@ class ElementsAdapter(val context: Context, val isProfile: Boolean):
 //                            }
                 }
             }
-                checkedElements.remove(element)
+                removeCheckedElements(element)
             }
 
-            when(isProfile) {
-                false -> {
+            if (!isProfile){
                     checkbox.setOnClickListener {
                         if (checkbox.isChecked) {
                             cardView.setCardBackgroundColor(Color.rgb(216, 243, 232))//(R.color.message_color)//(R.style.CheckItem)//(Color.rgb(216, 243, 232))
-                            checkedElements.add(element)
+                            addCheckedElements(element)
                         }
                         else {
-                            checkedElements.remove(element)
+                            removeCheckedElements(element)
                             cardView.setCardBackgroundColor(Color.rgb(255, 255, 255))//(R.color.white)//(R.style.NotCheckItem)
                         }
                     }
-                }
-                true -> {
-
-                }
             }
         }
     }

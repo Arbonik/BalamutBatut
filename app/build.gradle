@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
     implementation 'com.google.firebase:firebase-storage-ktx:19.2.2'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0'
     def nav_version = "2.3.4"
     // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
@@ -69,8 +70,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-
-
+    implementation 'com.alespero:expandable-cardview:0.8'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.squareup.picasso:picasso:2.71828'

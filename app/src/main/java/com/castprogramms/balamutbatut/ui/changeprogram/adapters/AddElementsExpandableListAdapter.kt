@@ -1,9 +1,8 @@
 package com.castprogramms.balamutbatut.ui.changeprogram.adapters
 
 import android.content.Context
-import android.database.DataSetObserver
-import android.graphics.Color
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,14 @@ import android.widget.TextView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ListItemAddElementBinding
 import com.castprogramms.balamutbatut.tools.Element
+import kotlin.math.floor
+import kotlin.math.pow
 
-class AddElementsExpandableListAdapter(private val context: Context, private var titleList: List<String>, private var dataList: Map<String, List<Element>>) : BaseExpandableListAdapter() {
+class AddElementsExpandableListAdapter(
+    private val context: Context,
+    private var titleList: List<String>,
+    private var dataList: Map<String, List<Element>>
+) : BaseExpandableListAdapter() {
     fun setData(titleList: List<String>, dataList: Map<String, List<Element>>){
         if (this.titleList != titleList || this.dataList != dataList) {
             this.titleList = titleList
@@ -23,7 +28,11 @@ class AddElementsExpandableListAdapter(private val context: Context, private var
     }
     var checkedElements = mutableMapOf<String, List<Element>>()
     override fun getCombinedChildId(groupId: Long, childId: Long): Long {
-        return super.getCombinedChildId(groupId, childId)
+        val or = 0x7000000000000000L
+        val group = groupId and 0x7FFFFFFF shl 32
+        val child = childId and -0x1
+        return or or group or child
+//        return 0
     }
 
     override fun getGroupCount(): Int {
@@ -39,7 +48,9 @@ class AddElementsExpandableListAdapter(private val context: Context, private var
     }
 
     override fun getChild(listPosition: Int, expandedListPosition: Int): Any {
-        return this.dataList[this.titleList[listPosition]]!![expandedListPosition]
+        val positionGroup = if (listPosition != 0)floor(getChildId(listPosition, expandedListPosition) / (listPosition  * 10.0.pow(getChildrenCount(listPosition).toString().length))).toInt() else 0
+        val positionChild = if ((getChildId(listPosition, expandedListPosition) % (listPosition  * 10.0.pow(getChildrenCount(listPosition).toString().length))).isNaN()) 0 else getChildId(listPosition, expandedListPosition) % (listPosition  * 10.0.pow(getChildrenCount(listPosition).toString().length))
+        return this.dataList[this.titleList[listPosition]]!![getCombinedChildId(listPosition.toLong(), expandedListPosition.toLong()).toInt()]
     }
 
     override fun getGroupId(listPosition: Int): Long {
@@ -47,18 +58,25 @@ class AddElementsExpandableListAdapter(private val context: Context, private var
     }
 
     override fun getChildId(listPosition: Int, expandedListPosition: Int): Long {
-        return expandedListPosition.toLong()
+        Log.e("data", 10.0.pow(getChildrenCount(listPosition).toString().length.toDouble()).toString())
+        Log.e("data", (listPosition * (10.0.pow(getChildrenCount(listPosition).toString().length.toDouble())) + expandedListPosition).toString())
+        return (listPosition * (10.0.pow(getChildrenCount(listPosition).toString().length.toDouble())) + expandedListPosition).toLong()
     }
 
     override fun hasStableIds(): Boolean {
         return true
     }
 
-    override fun getGroupView(listPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup): View {
+    override fun getGroupView(
+        listPosition: Int,
+        isExpanded: Boolean,
+        convertView: View?,
+        parent: ViewGroup
+    ): View {
         var convertView = convertView
         val listTitle = getGroup(listPosition) as String
         if (convertView == null) {
-            val layoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater = LayoutInflater.from(context)
             convertView = layoutInflater.inflate(R.layout.list_group, parent, false)
         }
         val listTitleTextView = convertView!!.findViewById<TextView>(R.id.listTitle)
@@ -68,7 +86,11 @@ class AddElementsExpandableListAdapter(private val context: Context, private var
     }
 
     override fun getChildView(
-        listPosition: Int, expandedListPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup
+        listPosition: Int,
+        expandedListPosition: Int,
+        isLastChild: Boolean,
+        convertView: View?,
+        parent: ViewGroup
     ): View {
         var convertView = convertView
         val element = getChild(listPosition, expandedListPosition) as Element
@@ -78,6 +100,7 @@ class AddElementsExpandableListAdapter(private val context: Context, private var
             convertView = layoutInflater.inflate(R.layout.list_item_add_element, parent, false)
             val binding = ListItemAddElementBinding.bind(convertView)
             convertView!!.setOnClickListener{
+                Log.e("data", element.name)
                 binding.checkbox.isChecked = !binding.checkbox.isChecked
                 if (binding.checkbox.isChecked)
                     addElement(element, group)
