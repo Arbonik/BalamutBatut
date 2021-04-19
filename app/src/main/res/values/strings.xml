@@ -85,6 +85,6 @@
     <string name="search">Поиск ученика</string>
     <string name="icon">icon</string>
     <string name="rating">Рейтинг</string>
-    <string name="quantityElements">Количество изученных елементов:  </string>
+    <string name="quantityElements">Количество елементов:  </string>
     <string name="rating_name">Рейтинг</string>
 </resources>
