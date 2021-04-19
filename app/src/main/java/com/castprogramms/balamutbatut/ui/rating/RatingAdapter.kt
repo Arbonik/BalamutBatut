@@ -57,11 +57,19 @@ class RatingAdapter(_query: Query): RecyclerView.Adapter<RatingAdapter.RatingVie
                     .load(student.img)
                     .into(binding.imageRating)
             binding.textRating.text = student.getFullName()
-            binding.score.text = itemView.context.resources.getString(R.string.quantityElements)+student.elements.size
+            binding.score.text = itemView.context.resources.getString(R.string.quantityElements)+getAllSize(student).toString()
         }
     }
     private fun filterStudent(){
-        students.sortBy {it.elements.size}
+        students.sortBy {getAllSize(it)}
         students.reverse()
+    }
+
+    private fun getAllSize(student: Student): Int {
+        var size = 0
+        student.element.forEach {
+            size += it.value.size
+        }
+        return size
     }
 }
