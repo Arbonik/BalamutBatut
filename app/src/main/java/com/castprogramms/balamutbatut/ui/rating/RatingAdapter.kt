@@ -57,7 +57,7 @@ class RatingAdapter(_query: Query): RecyclerView.Adapter<RatingAdapter.RatingVie
                     .load(student.img)
                     .into(binding.imageRating)
             binding.textRating.text = student.getFullName()
-            binding.score.text = itemView.context.resources.getString(R.string.quantityElements)+getAllSize(student).toString()
+            binding.score.text = itemView.context.resources.getString(R.string.quantityElements)+" "+getAllSize(student).toString()
         }
     }
     private fun filterStudent(){
