@@ -14,7 +14,7 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemAddElementBinding
 import com.castprogramms.balamutbatut.tools.Element
 
-class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
+class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner, val isProfile: Boolean = false) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
     val elements = mutableListOf<Pair<String, List<Element>>>()
     val checkedElements = mutableMapOf<String, List<Element>>()
 
@@ -45,7 +45,7 @@ class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner) : Recycler
         fun onBind(elements: Pair<String, List<Element>>) {
             binding.titleElements.text = elements.first
             binding.groupElements.layoutManager = LinearLayoutManager(itemView.context)
-            val adapter = ElementsAdapter(itemView.context, false).apply {
+            val adapter = ElementsAdapter(itemView.context, isProfile).apply {
                 setElement(elements.second)
             }
             adapter.mutableLiveDataElements.observe(viewLifecycleOwner, {
@@ -90,41 +90,42 @@ class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner) : Recycler
                     })
                     binding.arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp)
                 }
-                binding.root.setOnClickListener {
-                    if (binding.expandableView.visibility == View.GONE) {
-                        val anim =
-                            AnimationUtils.loadAnimation(itemView.context, R.anim.show)
-                        binding.expandableView.startAnimation(anim)
-                        anim.setAnimationListener(object : Animation.AnimationListener {
-                            override fun onAnimationStart(animation: Animation?) {
-                                binding.expandableView.visibility = View.VISIBLE
-                            }
+            }
 
-                            override fun onAnimationEnd(animation: Animation?) {
-                            }
+            binding.root.setOnClickListener {
+                if (binding.expandableView.visibility == View.GONE) {
+                    val anim =
+                        AnimationUtils.loadAnimation(itemView.context, R.anim.show)
+                    binding.expandableView.startAnimation(anim)
+                    anim.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {
+                            binding.expandableView.visibility = View.VISIBLE
+                        }
 
-                            override fun onAnimationRepeat(animation: Animation?) {
-                            }
-                        })
-                        binding.arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp)
-                    } else {
-                        val anim =
-                            AnimationUtils.loadAnimation(itemView.context, R.anim.check_item_anim)
-                        binding.expandableView.startAnimation(anim)
-                        anim.setAnimationListener(object : Animation.AnimationListener {
-                            override fun onAnimationStart(animation: Animation?) {
-                                binding.expandableView.visibility = View.VISIBLE
-                            }
+                        override fun onAnimationEnd(animation: Animation?) {
+                        }
 
-                            override fun onAnimationEnd(animation: Animation?) {
-                                binding.expandableView.visibility = View.GONE
-                            }
+                        override fun onAnimationRepeat(animation: Animation?) {
+                        }
+                    })
+                    binding.arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp)
+                } else {
+                    val anim =
+                        AnimationUtils.loadAnimation(itemView.context, R.anim.check_item_anim)
+                    binding.expandableView.startAnimation(anim)
+                    anim.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {
+                            binding.expandableView.visibility = View.VISIBLE
+                        }
 
-                            override fun onAnimationRepeat(animation: Animation?) {
-                            }
-                        })
-                        binding.arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp)
-                    }
+                        override fun onAnimationEnd(animation: Animation?) {
+                            binding.expandableView.visibility = View.GONE
+                        }
+
+                        override fun onAnimationRepeat(animation: Animation?) {
+                        }
+                    })
+                    binding.arrowBtn.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp)
                 }
             }
         }

@@ -17,10 +17,12 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.databinding.FragmentInfoFragmentBinding
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
+import com.castprogramms.balamutbatut.graph.Line
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.ElementsAdapter
+import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
 import com.castprogramms.balamutbatut.ui.rating.ExpandableList
 import com.squareup.picasso.Picasso
 import org.koin.android.ext.android.inject
@@ -49,16 +51,16 @@ class InfoStudentFragment: FragmentWithElement() {
         this.setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.fragment_info_fragment, container, false)
         val binding = FragmentInfoFragmentBinding.bind(view)
-        val adapterList = ExpandableList(requireContext(), listOf(), mapOf())
+        val adapterList = IHopeThisAdapterCanWork(viewLifecycleOwner, true)
+        binding.listView.adapter = adapterList
+        binding.listView.layoutManager = LinearLayoutManager(requireContext())
         viewModel.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.profileInfo.person = it
                 Log.e("data", it.element.toString())
 
                 generateAdapter(it.element).observe(viewLifecycleOwner){
-                    adapterList.setData(it.keys.toList(), it)
-                    binding.listView.setAdapter(adapterList)
-                    Log.e("data", it.toString())
+                    adapterList.setElement(it)
                 }
                 DataUserFirebase().getNameGroup(it.groupID)
                     .addSnapshotListener { value, error ->
