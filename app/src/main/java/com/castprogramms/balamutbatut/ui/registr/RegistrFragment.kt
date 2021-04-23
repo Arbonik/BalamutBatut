@@ -84,6 +84,7 @@ class RegistrFragment: Fragment() {
 
                             is Resource.Success -> {
                                 sussesRegistr = true
+                                User.mutableLiveDataSuccess.postValue(User.mutableLiveDataSuccess.value)
                             }
                         }
                     })
