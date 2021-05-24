@@ -19,7 +19,7 @@ import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
 import de.hdodenhof.circleimageview.CircleImageView
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileTrainerFragment: Fragment() {
     val viewModel : InfoStudentViewModel by viewModel()

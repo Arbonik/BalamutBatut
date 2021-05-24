@@ -13,7 +13,7 @@ import com.castprogramms.balamutbatut.tools.SimpleItemTouchHelperCallback
 import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StudentsFragment: Fragment() {
     private val repository : Repository by inject()

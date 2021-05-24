@@ -13,7 +13,7 @@ import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
 import com.google.android.gms.common.api.internal.GoogleApiManager
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SettingsFragment : Fragment() {

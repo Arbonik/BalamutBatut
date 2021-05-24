@@ -22,19 +22,21 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     val settings = FirebaseFirestoreSettings.Builder()
         .setPersistenceEnabled(true)
         .build()
+
     //val file = FileInputStream("google-services-test.json")
     init {
-        if (BuildConfig.DEBUG){
-            val options = FirebaseOptions.Builder()
-                .setApplicationId("1:763812191636:android:980e70a174428e33fd0381")
-                .setApiKey("AIzaSyBKZw180EP0RhPvkoNPsgpbCNv9eNWugbs")
-                .setProjectId("testbalamutbatut")
-                .setStorageBucket("gs://testbalamutbatut.appspot.com")
-                .build()
-            FirebaseApp.initializeApp(applicationContext, options, "test")
-        }
-    }//TODO если надо запустить прод бд, то поставьте перед BuildConfig.DEBUG отрицание
-    val fireStore = FirebaseFirestore.getInstance(if (BuildConfig.DEBUG) FirebaseApp.getInstance("test") else FirebaseApp.getInstance()).apply {
+        val options = FirebaseOptions.Builder()
+            .setApplicationId(BuildConfig.APP_ID)
+            .setApiKey(BuildConfig.API_KEY)
+            .setProjectId(BuildConfig.PROJECT_ID)
+            .setStorageBucket(BuildConfig.STORAGE_BUCKET)
+            .build()
+        FirebaseApp.initializeApp(applicationContext, options, "test")
+    }
+
+    val fireStore = FirebaseFirestore.getInstance(
+        FirebaseApp.getInstance("test")
+    ).apply {
         firestoreSettings = settings
     }
 
@@ -50,7 +52,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .set(trainer)
     }
 
-    override fun deleteStudentFromGroup(studentID: String, groupID: String){
+    override fun deleteStudentFromGroup(studentID: String, groupID: String) {
         fireStore.collection(studentTag)
             .document(studentID)
             .update(EditProfile.GROUP.desc, Person.notGroup)
@@ -72,7 +74,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
-    override fun editNameStudent(first_name: String, studentID: String){
+    override fun editNameStudent(first_name: String, studentID: String) {
         fireStore.collection(studentTag)
             .document(studentID)
             .update(EditProfile.FIRST_NAME.desc, first_name)
@@ -89,13 +91,14 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .document(studentID)
             .update(EditProfile.IMG.desc, icon)
     }
-    fun getAllStudents(): Query{
+
+    fun getAllStudents(): Query {
         return fireStore.collection(studentTag)
             .whereEqualTo(EditProfile.TYPE.desc, "student")
 
     }
 
-    fun addStudentElement(elements: Map<String,List<Element>>, studentID: String) {
+    fun addStudentElement(elements: Map<String, List<Element>>, studentID: String) {
         elements.forEach {
             fireStore.collection(elementTag)
                 .document(it.key)
@@ -126,8 +129,8 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
 
     override fun deleteStudent(student: Student) {
         fireStore.collection(studentTag)
-                .document()
-                .delete()
+            .document()
+            .delete()
     }
 
     fun getCollectionAllStudents(groupID: String): Query {
@@ -141,6 +144,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .whereEqualTo("groupID", Person.notGroup)
             .whereEqualTo("type", "student")
     }
+
     override fun readAllStudent(group: Group): MutableList<Student> {
         val mutableListStudents = mutableListOf<Student>()
         fireStore.collection(groupTag)
@@ -148,14 +152,13 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .collection(studentTag)
             .get()
             .addOnCompleteListener { task ->
-                if (task.isSuccessful){
+                if (task.isSuccessful) {
                     task.result?.documents?.forEach {
                         mutableListStudents.add(
                             gsonConverter.fromJson(it.data.toString(), Student::class.java)
                         )
                     }
-                }
-                else
+                } else
                     printLog(task.exception?.message.toString())
             }
         return mutableListStudents
@@ -181,7 +184,8 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .whereArrayContains(studentTag, studentID)
             .get()
     }
-    fun updateNodeStudent(studentID: String, nodes:List<Node>){
+
+    fun updateNodeStudent(studentID: String, nodes: List<Node>) {
         fireStore.collection(studentTag)
             .document(studentID)
             .update("nodes", nodes)
@@ -198,7 +202,10 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     }
 
 
-    fun getElement(IDs: List<Int>, nameGroupElement: String): MutableLiveData<MutableList<Element>> {
+    fun getElement(
+        IDs: List<Int>,
+        nameGroupElement: String
+    ): MutableLiveData<MutableList<Element>> {
         var listElements = mutableListOf<Element>()
         val mutableLiveDataElements = MutableLiveData(listElements)
         fireStore.collection(elementTag)
@@ -206,8 +213,8 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .get()
             .addOnSuccessListener {
                 val names = it.get("name") as List<String>
-                for (i in names.indices){
-                    if (i in IDs){
+                for (i in names.indices) {
+                    if (i in IDs) {
                         listElements.add(Element(names[i]))
                     }
                 }
@@ -265,16 +272,22 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveDataAllElements
     }
 
-    fun addData(){
+    fun addData() {
         getElements(mapOf()).observeForever {
             val options = FirebaseOptions.Builder()
                 .setApplicationId("1:763812191636:android:980e70a174428e33fd0381")
                 .setApiKey("AIzaSyBKZw180EP0RhPvkoNPsgpbCNv9eNWugbs")
                 .setProjectId("testbalamutbatut")
                 .setStorageBucket("gs://testbalamutbatut.appspot.com")
-            .build()
+                .build()
 //            FirebaseApp.initializeApp(applicationContext, options, "test1")
-            val fire = FirebaseFirestore.getInstance(FirebaseApp.initializeApp(applicationContext, options, "dfjsk")).apply {
+            val fire = FirebaseFirestore.getInstance(
+                FirebaseApp.initializeApp(
+                    applicationContext,
+                    options,
+                    "dfjsk"
+                )
+            ).apply {
                 firestoreSettings = settings
             }
             it.forEach {
@@ -285,16 +298,17 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         }
     }
 
-    companion object{
+    companion object {
         const val elementTag = "elements"
         const val studentTag = "students"
         const val groupTag = "groups"
-        fun printLog(message: String){
+        fun printLog(message: String) {
             Log.e("Test", message)
         }
-        fun checkInArray(list: List<String>, element: Element): Int{
+
+        fun checkInArray(list: List<String>, element: Element): Int {
             var position = -1
-            for (i in list.indices){
+            for (i in list.indices) {
                 if (list[i] == element.name) {
                     position = i
                     break
@@ -302,6 +316,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             }
             return position
         }
+
         fun getListAndPosition(list: List<String>): MutableMap<String, Int> {
             val map = mutableMapOf<String, Int>()
             list.forEachIndexed { index, s ->
