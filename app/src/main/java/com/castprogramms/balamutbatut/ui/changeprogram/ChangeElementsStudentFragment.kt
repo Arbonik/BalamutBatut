@@ -73,11 +73,9 @@ class ChangeElementsStudentFragment: FragmentWithElement(R.layout.fragment_chang
     }
     override fun generateAdapter(map: Map<String, List<Int>>) {
         val maps = mutableMapOf<String, List<Element>>()
-        val mutableMap = MutableLiveData(maps)
         repository.getAllElements(map).observe(viewLifecycleOwner) { it1 ->
             maps.putAll(it1 as Map<out String, List<Element>>)
-            mutableMap.postValue(maps)
+            mutableLiveData.postValue(maps)
         }
-        mutableLiveData = mutableMap
     }
 }

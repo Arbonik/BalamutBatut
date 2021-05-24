@@ -54,14 +54,16 @@ class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Ada
                 setElement(elements.second)
             }
             adapter.mutableLiveDataElements.observeForever {
-                if (it.isNotEmpty())
-                    checkedElements[elements.first] = it
+                if (it.isNotEmpty()) {
+                    checkedElements.plusAssign(elements.first to it)
+                    Log.e("data", it.toString())
+                    Log.e("data", checkedElements.toString())
+                }
             }
             binding.groupElements.adapter = adapter
             binding.arrowBtn.setOnClickListener {
                 if (binding.expandableView.visibility == View.GONE) {
-                    val anim =
-                        AnimationUtils.loadAnimation(itemView.context, R.anim.show)
+                    val anim = AnimationUtils.loadAnimation(itemView.context, R.anim.show)
                     anim.interpolator = FastOutSlowInInterpolator()
                     binding.expandableView.startAnimation(anim)
                     anim.setAnimationListener(object : Animation.AnimationListener {

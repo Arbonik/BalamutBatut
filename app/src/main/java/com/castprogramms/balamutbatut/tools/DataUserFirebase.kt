@@ -34,7 +34,9 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             FirebaseApp.initializeApp(applicationContext, options, "test")
         }
     }//TODO если надо запустить прод бд, то поставьте перед BuildConfig.DEBUG отрицание
-    val fireStore = FirebaseFirestore.getInstance(if (BuildConfig.DEBUG) FirebaseApp.getInstance("test") else FirebaseApp.getInstance()).apply {
+    val fireStore = FirebaseFirestore.getInstance(
+        if (BuildConfig.DEBUG) FirebaseApp.getInstance("test")
+        else FirebaseApp.getInstance()).apply {
         firestoreSettings = settings
     }
 
@@ -242,7 +244,9 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         fireStore.collection(elementTag)
             .get()
             .addOnSuccessListener {
+                Log.e("size", it.documents.size.toString())
                 it.documents.forEach {
+                    Log.e("doc", it.data.toString())
                     if (it.id != "TRUEORDER") {
                         val elements = mutableListOf<Element>()
                         val names = it.get("name") as List<String>
