@@ -27,7 +27,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     init {
         val options = FirebaseOptions.Builder()
             .setApplicationId(BuildConfig.APP_ID)
-            .setApiKey(BuildConfig.API_KEY)
+            .setApiKey(BuildConfig.API_FIRE_KEY)
             .setProjectId(BuildConfig.PROJECT_ID)
             .setStorageBucket(BuildConfig.STORAGE_BUCKET)
             .build()
