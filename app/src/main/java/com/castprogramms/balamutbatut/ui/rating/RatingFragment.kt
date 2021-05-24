@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentRatingBinding
 import com.castprogramms.balamutbatut.tools.Element
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RatingFragment: Fragment() {
     val viewModel : RatingViewModel by viewModel()

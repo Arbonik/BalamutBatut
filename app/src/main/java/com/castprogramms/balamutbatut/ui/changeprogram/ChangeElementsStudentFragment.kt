@@ -16,7 +16,7 @@ import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
 import com.castprogramms.balamutbatut.users.Student
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChangeElementsStudentFragment: FragmentWithElement(R.layout.fragment_change_program) {
     var student : Student? = null

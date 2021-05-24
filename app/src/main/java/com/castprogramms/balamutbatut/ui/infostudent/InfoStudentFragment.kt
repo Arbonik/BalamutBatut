@@ -15,7 +15,7 @@ import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
 import com.squareup.picasso.Picasso
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InfoStudentFragment: FragmentWithElement(R.layout.fragment_info_fragment) {
     var idStudent = ""
