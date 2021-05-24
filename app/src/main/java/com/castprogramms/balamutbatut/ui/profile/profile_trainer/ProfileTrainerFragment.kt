@@ -17,9 +17,12 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
 import de.hdodenhof.circleimageview.CircleImageView
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ProfileTrainerFragment: Fragment() {
+    val viewModel : InfoStudentViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +34,7 @@ class ProfileTrainerFragment: Fragment() {
         User.mutableLiveDataTrainer.observe(viewLifecycleOwner, Observer {
             if (it != null){
                 binding.person = it
-                DataUserFirebase().getNameGroup(it.groupID)
+                viewModel.getGroupName(it.groupID)
                     .addSnapshotListener { value, error ->
                         if (value != null)
                             binding.groupID.text = value.getString("name")

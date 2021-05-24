@@ -2,6 +2,7 @@ package com.castprogramms.balamutbatut.users
 
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.Element
+import com.google.firebase.encoders.annotations.Encodable
 
 class Student(
     first_name: String,

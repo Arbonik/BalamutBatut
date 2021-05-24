@@ -17,31 +17,29 @@ import com.castprogramms.balamutbatut.databinding.FragmentAchievementBinding
 import com.castprogramms.balamutbatut.databinding.FragmentInfoFragmentBinding
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.ElementsAdapter
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
 import com.castprogramms.balamutbatut.ui.rating.ExpandableList
 import kotlinx.coroutines.newSingleThreadContext
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class AchievementFragment : FragmentWithElement() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view =  inflater.inflate(R.layout.fragment_achievement, container, false)
+class AchievementFragment(val id: String) : FragmentWithElement(R.layout.fragment_achievement) {
+    val viewModel : ChangeElementsViewModel by viewModel()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentAchievementBinding.bind(view)
-        val adapterList = IHopeThisAdapterCanWork(viewLifecycleOwner, true)
+        val adapterList = IHopeThisAdapterCanWork(true)
         binding.recyclerAchiStudent.adapter = adapterList
         binding.recyclerAchiStudent.layoutManager = LinearLayoutManager(requireContext())
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null){
-                generateAdapter(it.element).observe(viewLifecycleOwner){
-                    adapterList.setElement(it)
-                }
+                generateAdapter(it.element)
             }
         })
-
-        return view
+        this.mutableLiveData.observe(viewLifecycleOwner, Observer{
+            adapterList.setElement(it)
+            binding.recyclerAchiStudent.adapter = adapterList
+        })
     }
-
 }

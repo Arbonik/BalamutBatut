@@ -1,6 +1,5 @@
 package com.castprogramms.balamutbatut.ui.group
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,9 +12,10 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.ui.group.adapters.GroupsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class GroupsFragment : Fragment() {
-    private lateinit var viewModel: GroupViewModel
+    val viewModel: GroupViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class GroupsFragment : Fragment() {
         val recyclerView : RecyclerView = view.findViewById(R.id.groups_list)
         val addGroupFloatingActionButton: FloatingActionButton =
             view.findViewById(R.id.fab_add_group)
-        val groupAdapter = GroupsAdapter(DataUserFirebase().getGroups(), this)
+        val groupAdapter = GroupsAdapter(viewModel.getGroups(), this)
         recyclerView.adapter = groupAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         addGroupFloatingActionButton.setOnClickListener {
@@ -33,10 +33,4 @@ class GroupsFragment : Fragment() {
         }
         return view
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GroupViewModel::class.java)
-    }
-
 }

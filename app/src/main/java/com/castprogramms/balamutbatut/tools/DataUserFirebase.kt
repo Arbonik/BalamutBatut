@@ -1,23 +1,40 @@
 package com.castprogramms.balamutbatut.tools
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.castprogramms.balamutbatut.BuildConfig
 import com.castprogramms.balamutbatut.Group
 import com.castprogramms.balamutbatut.graph.Node
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import com.google.firebase.firestore.*
 import com.google.gson.GsonBuilder
 
-class DataUserFirebase: DataUserApi {
+class DataUserFirebase(val applicationContext: Context) : DataUserApi {
 
     private val gsonConverter = GsonBuilder().create()
     val settings = FirebaseFirestoreSettings.Builder()
         .setPersistenceEnabled(true)
         .build()
-    val fireStore = FirebaseFirestore.getInstance().apply {
+    //val file = FileInputStream("google-services-test.json")
+    init {
+        if (BuildConfig.DEBUG){
+            val options = FirebaseOptions.Builder()
+                .setApplicationId("1:763812191636:android:980e70a174428e33fd0381")
+                .setApiKey("AIzaSyBKZw180EP0RhPvkoNPsgpbCNv9eNWugbs")
+                .setProjectId("testbalamutbatut")
+                .setStorageBucket("gs://testbalamutbatut.appspot.com")
+                .build()
+            FirebaseApp.initializeApp(applicationContext, options, "test")
+        }
+    }//TODO если надо запустить прод бд, то поставьте перед BuildConfig.DEBUG отрицание
+    val fireStore = FirebaseFirestore.getInstance(if (BuildConfig.DEBUG) FirebaseApp.getInstance("test") else FirebaseApp.getInstance()).apply {
         firestoreSettings = settings
     }
 
@@ -40,6 +57,19 @@ class DataUserFirebase: DataUserApi {
         fireStore.collection(groupTag)
             .document(groupID)
             .update("students", FieldValue.arrayRemove(studentID))
+    }
+
+    override fun getTrueOrder(): MutableLiveData<Resource<List<String>>> {
+        val mutableLiveData = MutableLiveData<Resource<List<String>>>(Resource.Loading())
+        fireStore.collection(elementTag)
+            .document("TRUEORDER")
+            .addSnapshotListener { value, error ->
+                if (value?.get("names") != null)
+                    mutableLiveData.postValue(Resource.Success(value.get("names") as List<String>))
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
     }
 
     override fun editNameStudent(first_name: String, studentID: String){
@@ -169,7 +199,7 @@ class DataUserFirebase: DataUserApi {
 
 
     fun getElement(IDs: List<Int>, nameGroupElement: String): MutableLiveData<MutableList<Element>> {
-        val listElements = mutableListOf<Element>()
+        var listElements = mutableListOf<Element>()
         val mutableLiveDataElements = MutableLiveData(listElements)
         fireStore.collection(elementTag)
             .document(nameGroupElement)
@@ -183,6 +213,26 @@ class DataUserFirebase: DataUserApi {
                 }
                 mutableLiveDataElements.postValue(listElements)
             }
+            .continueWith {
+                fireStore.collection(elementTag)
+                    .document("TRUEORDER")
+                    .get()
+                    .addOnSuccessListener {
+                        if (it.get("name") != null) {
+                            val listNames = (it.get("names") as List<String>).toMutableList()
+                            val list = MutableList<Element>(listNames.size) { Element("") }
+                            val map = getListAndPosition(listNames)
+                            listElements.forEach {
+                                list[map[it.name]!!] = it
+                            }
+                            for (i in list.indices.reversed())
+                                if (list[i].name == "")
+                                    list.removeAt(i)
+                            listElements = list
+
+                        }
+                    }
+            }
         return mutableLiveDataElements
     }
 
@@ -193,37 +243,52 @@ class DataUserFirebase: DataUserApi {
             .get()
             .addOnSuccessListener {
                 it.documents.forEach {
-                    val elements = mutableListOf<Element>()
-                    val names = it.get("name") as List<String>
-                    for (i in names.indices) {
-                        if (IDS[it.id] != null) {
-                            if (i !in IDS[it.id]!!) {
+                    if (it.id != "TRUEORDER") {
+                        val elements = mutableListOf<Element>()
+                        val names = it.get("name") as List<String>
+                        for (i in names.indices) {
+                            if (IDS[it.id] != null) {
+                                if (i !in IDS[it.id]!!) {
+                                    elements.add(Element(names[i]))
+                                }
+                            } else {
                                 elements.add(Element(names[i]))
                             }
                         }
-                        else{
-                            elements.add(Element(names[i]))
-                        }
+                        val sendElements = elements.toList()
+                        allElements.put(it.id, sendElements)
+                        elements.clear()
                     }
-                    val sendElements = elements.toList()
-                    allElements.put(it.id, sendElements)
-                    elements.clear()
                 }
                 mutableLiveDataAllElements.postValue(allElements.toMap())
             }
         return mutableLiveDataAllElements
     }
 
+    fun addData(){
+        getElements(mapOf()).observeForever {
+            val options = FirebaseOptions.Builder()
+                .setApplicationId("1:763812191636:android:980e70a174428e33fd0381")
+                .setApiKey("AIzaSyBKZw180EP0RhPvkoNPsgpbCNv9eNWugbs")
+                .setProjectId("testbalamutbatut")
+                .setStorageBucket("gs://testbalamutbatut.appspot.com")
+            .build()
+//            FirebaseApp.initializeApp(applicationContext, options, "test1")
+            val fire = FirebaseFirestore.getInstance(FirebaseApp.initializeApp(applicationContext, options, "dfjsk")).apply {
+                firestoreSettings = settings
+            }
+            it.forEach {
+                fire.collection(elementTag)
+                    .document(it.key)
+                    .set(it.value)
+            }
+        }
+    }
+
     companion object{
         const val elementTag = "elements"
         const val studentTag = "students"
         const val groupTag = "groups"
-        const val GIRLS = "GIRLS"
-        const val EASY_MAN = "EASY MAN"
-        const val MEDIUM = "MEDIUM"
-        const val JUMP_MAN = "JUMP MAN"
-        const val PRO = "PRO"
-        const val COACH = "COACH"
         fun printLog(message: String){
             Log.e("Test", message)
         }
@@ -236,6 +301,13 @@ class DataUserFirebase: DataUserApi {
                 }
             }
             return position
+        }
+        fun getListAndPosition(list: List<String>): MutableMap<String, Int> {
+            val map = mutableMapOf<String, Int>()
+            list.forEachIndexed { index, s ->
+                map.put(s, index)
+            }
+            return map
         }
     }
 }

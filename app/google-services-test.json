@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "763812191636",
+    "project_id": "testbalamutbatut",
+    "storage_bucket": "testbalamutbatut.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763812191636:android:980e70a174428e33fd0381",
+        "android_client_info": {
+          "package_name": "com.castprogramms.balamutbatut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763812191636-dlo8hnh50dvapsmdmvntm2pmdso6f85n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKZw180EP0RhPvkoNPsgpbCNv9eNWugbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763812191636-dlo8hnh50dvapsmdmvntm2pmdso6f85n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

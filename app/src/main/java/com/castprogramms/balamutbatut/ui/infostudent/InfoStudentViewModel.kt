@@ -22,5 +22,7 @@ class InfoStudentViewModel(private val repository : Repository) : ViewModel() {
     fun loadElementsData(IDs : List<Int>, nameGroupElement: String){
         mutableLiveElements = repository.getElement(IDs, nameGroupElement)
     }
+    fun getTrueOrder() = repository.getTrueOrder()
 
+    fun getGroupName(groupID: String) = repository.getNameGroup(groupID)
 }

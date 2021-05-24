@@ -2,6 +2,8 @@ package com.castprogramms.balamutbatut
 
 import android.app.Application
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
+import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
 import com.castprogramms.balamutbatut.ui.rating.RatingViewModel
@@ -15,13 +17,14 @@ import org.koin.dsl.module
 class BalamutApplication : Application() {
 
     private val appModule = module {
-        single<DataUserFirebase> {DataUserFirebase()}
-        single<Repository> {Repository(get())}
-
+        single{DataUserFirebase(this@BalamutApplication.applicationContext)}
+        single{Repository(get())}
+        viewModel { ChangeElementsViewModel(get()) }
         viewModel {InfoStudentViewModel(get())}
         viewModel {StudentsViewModel(get())}
         viewModel {RegistrViewModel(get())}
         viewModel {RatingViewModel(get())}
+        viewModel {GroupViewModel(get())}
     }
 
     override fun onCreate() {

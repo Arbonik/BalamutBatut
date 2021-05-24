@@ -6,11 +6,8 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.tools.DataUserApi
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.NodeData
-import com.castprogramms.balamutbatut.tools.User
-import com.castprogramms.balamutbatut.users.Student
 
 // класс для отрисовки графа
 class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(context,attributeSet){
@@ -53,7 +50,7 @@ class TreeGraphView(context: Context, attributeSet: AttributeSet):ViewGroup(cont
         nodes1.add(nodeView.node)
         parentNodeView.node.childNodeID.add(nodes.size-1)
         if (idStudent != "")
-            DataUserFirebase().updateNodeStudent(idStudent, nodes1.toList())
+//            DataUserFirebase(this@BalamutApplication.applicationContext).updateNodeStudent(idStudent, nodes1.toList())
         setNodesAndLines(nodes)
     }
 

@@ -30,7 +30,6 @@ class AddStudentAdapter(_query: Query, var idGroup: String, private val reposito
             field = value
         }
 
-
     init {
         query.addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {

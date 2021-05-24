@@ -3,38 +3,27 @@ package com.castprogramms.balamutbatut.ui.infostudent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.animation.AnimationUtils
-import android.widget.ExpandableListAdapter
-import android.widget.ExpandableListView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.Repository
 import com.castprogramms.balamutbatut.databinding.FragmentInfoFragmentBinding
-import com.castprogramms.balamutbatut.databinding.ProfileBinding
-import com.castprogramms.balamutbatut.graph.Line
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
-import com.castprogramms.balamutbatut.ui.changeprogram.adapters.ElementsAdapter
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
-import com.castprogramms.balamutbatut.ui.rating.ExpandableList
 import com.squareup.picasso.Picasso
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class InfoStudentFragment: FragmentWithElement() {
+class InfoStudentFragment: FragmentWithElement(R.layout.fragment_info_fragment) {
     var idStudent = ""
     private val viewModel : InfoStudentViewModel by viewModel()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
         if (arguments != null){
             idStudent = arguments?.getString("id", "").toString()
             if (idStudent != "null" && idStudent != ""){
@@ -42,27 +31,26 @@ class InfoStudentFragment: FragmentWithElement() {
             }
         }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        this.setHasOptionsMenu(true)
-        val view = inflater.inflate(R.layout.fragment_info_fragment, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentInfoFragmentBinding.bind(view)
-        val adapterList = IHopeThisAdapterCanWork(viewLifecycleOwner, true)
+        val adapterList = IHopeThisAdapterCanWork(true)
         binding.listView.adapter = adapterList
         binding.listView.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.getTrueOrder().observe(viewLifecycleOwner, Observer{
+            when(it){
+                is Resource.Error -> {}
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+//                    adapterList.filters = it.data!!
+                }
+            }
+        })
         viewModel.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.profileInfo.person = it
                 Log.e("data", it.element.toString())
-
-                generateAdapter(it.element).observe(viewLifecycleOwner){
-                    adapterList.setElement(it)
-                }
-                DataUserFirebase().getNameGroup(it.groupID)
+                generateAdapter(it.element)
+                viewModel.getGroupName(it.groupID)
                     .addSnapshotListener { value, error ->
                         if (value != null) {
                             binding.profileInfo.groupID.text = value.getString("name")
@@ -74,25 +62,23 @@ class InfoStudentFragment: FragmentWithElement() {
                     .into(binding.profileInfo.icon)
             }
         })
-        return view
+        mutableLiveData.observe(viewLifecycleOwner){
+            adapterList.setElement(it)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.change_group_programm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.change_program ->{
-                val bundle = Bundle()
-                bundle.putString("id", idStudent)
-                bundle.putStringArray("idElements", viewModel.mutableLiveDataStudent.value?.elements?.let { convertToIDsList(it) })
-                findNavController()
-                    .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
-            }
+        val changeProgram = menu.findItem(R.id.change_program)
+        changeProgram.setOnMenuItemClickListener {
+            val bundle = Bundle()
+            bundle.putString("id", idStudent)
+            bundle.putStringArray("idElements", viewModel.mutableLiveDataStudent.value?.elements?.let { convertToIDsList(it) })
+            findNavController()
+                .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
+            true
         }
-        return true
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     fun convertToIDsList(elements: List<Element>): Array<String> {
@@ -102,4 +88,5 @@ class InfoStudentFragment: FragmentWithElement() {
         }
         return mutableListElements.toTypedArray()
     }
+
 }

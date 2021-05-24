@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -191,7 +190,7 @@ class InsertDataUserFragment: Fragment() {
         parentConstraintLayout.removeView(view)
     }
 
-    fun setDate() {
+    private fun setDate() {
         DatePickerDialog(
             requireContext(), dateSetListener,
             dateAndTime.get(Calendar.YEAR),
@@ -200,12 +199,12 @@ class InsertDataUserFragment: Fragment() {
         ).show()
     }
 
-    fun addDataStudent(student: Student){
-        DataUserFirebase().addStudent(student, User.id)
+    private fun addDataStudent(student: Student){
+        repository.addStudent(student, User.id)
     }
 
-    fun addDataTrainer(trainer: Trainer){
-        DataUserFirebase().addTrainer(trainer, User.id)
+    private fun addDataTrainer(trainer: Trainer){
+        repository.addTrainer(trainer, User.id)
     }
 
 }

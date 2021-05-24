@@ -1,29 +1,34 @@
 package com.castprogramms.balamutbatut.ui.changeprogram.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemAddElementBinding
 import com.castprogramms.balamutbatut.tools.Element
 
-class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner, val isProfile: Boolean = false) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
-    val elements = mutableListOf<Pair<String, List<Element>>>()
+class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
+    var elements = mutableListOf<Pair<String, List<Element>>>()
     val checkedElements = mutableMapOf<String, List<Element>>()
-
+    var filters = listOf<String>()
+    set(value) {
+        field = value
+        filter()
+    }
     fun setElement(map: Map<String, List<Element>>) {
         elements.clear()
         map.forEach {
             elements.add(it.key to it.value)
         }
-
+        Log.e("data", map.toString())
+        if (filters.isNotEmpty())
+            filter()
         notifyDataSetChanged()
     }
 
@@ -48,10 +53,10 @@ class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner, val isProf
             val adapter = ElementsAdapter(itemView.context, isProfile).apply {
                 setElement(elements.second)
             }
-            adapter.mutableLiveDataElements.observe(viewLifecycleOwner, {
+            adapter.mutableLiveDataElements.observeForever {
                 if (it.isNotEmpty())
                     checkedElements[elements.first] = it
-            })
+            }
             binding.groupElements.adapter = adapter
             binding.arrowBtn.setOnClickListener {
                 if (binding.expandableView.visibility == View.GONE) {
@@ -129,5 +134,25 @@ class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner, val isProf
                 }
             }
         }
+    }
+
+    private fun filter() {
+        val list = MutableList<Pair<String, List<Element>>>(filters.size) { Pair("", listOf()) }
+        val map = getListAndPosition(filters)
+        elements.forEach {
+            list[map[it.first]!!] = it
+        }
+        for (i in list.indices.reversed())
+            if (list[i].first == "" && list[i].second.isEmpty())
+                list.removeAt(i)
+        elements = list
+    }
+
+    fun getListAndPosition(list: List<String>): MutableMap<String, Int> {
+        val map = mutableMapOf<String, Int>()
+        list.forEachIndexed { index, s ->
+            map.put(s, index)
+        }
+        return map
     }
 }

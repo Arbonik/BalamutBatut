@@ -52,7 +52,7 @@ class ProfileFragment : Fragment() {
         this.setHasOptionsMenu(true)
         val tabs: TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager2: ViewPager2 = view.findViewById(R.id.view_pager2)
-        viewPager2.adapter = ViewPager2FragmentAdapter(this)
+        viewPager2.adapter = ViewPager2FragmentAdapter(this, "")
         TabLayoutMediator(tabs, viewPager2) { tab: TabLayout.Tab, i: Int ->
             when (i) {
                 0 -> tab.text = "Навыки"

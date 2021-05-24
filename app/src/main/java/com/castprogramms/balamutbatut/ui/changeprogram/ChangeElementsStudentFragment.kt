@@ -11,17 +11,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentChangeProgramBinding
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
 import com.castprogramms.balamutbatut.users.Student
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class ChangeElementsStudentFragment: FragmentWithElement() {
+class ChangeElementsStudentFragment: FragmentWithElement(R.layout.fragment_change_program) {
     var student : Student? = null
     var id = ""
     var idElements = arrayOf<String>()
     val mutableLiveDataStudent = MutableLiveData(student)
-    val changeElementsViewModel: ChangeElementsViewModel by viewModels()
+    val changeElementsViewModel: ChangeElementsViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,24 +40,28 @@ class ChangeElementsStudentFragment: FragmentWithElement() {
             }
         }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.fragment_change_program, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentChangeProgramBinding.bind(view)
-        val adapter = IHopeThisAdapterCanWork(viewLifecycleOwner)
+        val adapter = IHopeThisAdapterCanWork()
         binding.recyclerElements.adapter = adapter
         binding.recyclerElements.layoutManager = LinearLayoutManager(requireContext())
-        mutableLiveDataStudent.observe(viewLifecycleOwner, {
-            if (it != null){
-                generateAdapter(it.element).observe(viewLifecycleOwner) {
-                    adapter.setElement(it)
+        changeElementsViewModel.getTrueOrder().observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Error -> {}
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    adapter.filters = it.data!!
                 }
             }
         })
+        mutableLiveDataStudent.observe(viewLifecycleOwner, {
+            if (it != null){
+                generateAdapter(it.element)
+            }
+        })
+        mutableLiveData.observe(viewLifecycleOwner) {
+            adapter.setElement(it)
+        }
 
         binding.checkFab.setOnClickListener {
             repository.updateElementsStudent(adapter.checkedElements.toMap(), id)
@@ -64,16 +70,14 @@ class ChangeElementsStudentFragment: FragmentWithElement() {
             findNavController()
                 .navigate(R.id.action_changeProgramFragment_to_infoStudentFragment2, bundle)
         }
-        return view
     }
-    override fun generateAdapter(map: Map<String, List<Int>>): MutableLiveData<MutableMap<String, List<Element>>> {
+    override fun generateAdapter(map: Map<String, List<Int>>) {
         val maps = mutableMapOf<String, List<Element>>()
         val mutableMap = MutableLiveData(maps)
         repository.getAllElements(map).observe(viewLifecycleOwner) { it1 ->
             maps.putAll(it1 as Map<out String, List<Element>>)
             mutableMap.postValue(maps)
         }
-        return mutableMap
+        mutableLiveData = mutableMap
     }
-
 }

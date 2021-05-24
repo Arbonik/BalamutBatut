@@ -8,7 +8,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import org.mockito.Mockito
 
     /**
  * Instrumented test, which will execute on an Android device.
@@ -17,7 +16,7 @@ import org.mockito.Mockito
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
-    val dataUser = DataUserFirebase()
+    val dataUser = DataUserFirebase(this@BalamutApplication.applicationContext)
     @Test
     fun useAppContext() {
         // Context of the app under test.

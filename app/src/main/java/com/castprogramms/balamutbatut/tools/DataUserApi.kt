@@ -1,6 +1,8 @@
 package com.castprogramms.balamutbatut.tools
 
+import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.Group
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.tasks.Task
@@ -29,4 +31,5 @@ interface DataUserApi {
     fun editIconStudent(icon: String, studentID: String)
 
     fun deleteStudentFromGroup(studentID: String, groupID: String)
+    fun getTrueOrder(): MutableLiveData<Resource<List<String>>>
 }

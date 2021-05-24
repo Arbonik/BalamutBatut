@@ -130,4 +130,10 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun getCollectionAllStudentsWithoutGroup() = dataUserFirebase.getCollectionAllStudentsWithoutGroup()
     fun updateStudentGroup(studentID: String, groupID: String) = dataUserFirebase.updateStudent(studentID, groupID)
     fun getAllStudents() = dataUserFirebase.getAllStudents()
+    fun getTrueOrder() = dataUserFirebase.getTrueOrder()
+    fun getGroups() = dataUserFirebase.getGroups()
+    fun getNameGroup(groupID: String) = dataUserFirebase.getNameGroup(groupID)
+    fun addStudent(student: Student, id: String) = dataUserFirebase.addStudent(student, id)
+    fun addTrainer(trainer: Trainer, id: String) = dataUserFirebase.addTrainer(trainer, id)
+    fun addData() = dataUserFirebase.addData()
 }

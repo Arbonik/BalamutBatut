@@ -27,14 +27,18 @@
         tools:layout="@layout/groups_fragment">
         <action
             android:id="@+id/action_group_Fragment_to_studentsFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"
             app:destination="@id/studentsFragment" />
         <action
             android:id="@+id/action_group_Fragment_to_addGroupFragment"
             app:destination="@id/addGroupFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"/>
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
     </fragment>
     <fragment
         android:id="@+id/studentsFragment"
@@ -42,12 +46,18 @@
         android:label="@string/students_fragment" >
         <action
             android:id="@+id/action_studentsFragment_to_addStudentFragment"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"
             app:destination="@id/addStudentFragment" />
         <action
             android:id="@+id/action_studentsFragment_to_infoStudentFragment"
             app:destination="@id/infoStudentFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"/>
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
     </fragment>
     <fragment
         android:id="@+id/addStudentFragment"
@@ -92,5 +102,8 @@
             android:id="@+id/action_addGroupFragment_to_group_Fragment"
             app:destination="@id/group_Fragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/rating_Fragment"
+        android:name="com.castprogramms.balamutbatut.ui.rating.RatingFragment"
+        android:label="@string/rating" />
 </navigation>
