@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
@@ -15,6 +16,8 @@ import com.castprogramms.balamutbatut.tools.Element
 
 class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
     var elements = mutableListOf<Pair<String, List<Element>>>()
+class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
+    private val elements = mutableListOf<Pair<String, List<Element>>>()
     val checkedElements = mutableMapOf<String, List<Element>>()
     var filters = listOf<String>()
     set(value) {

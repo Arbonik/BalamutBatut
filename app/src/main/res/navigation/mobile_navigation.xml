@@ -17,6 +17,9 @@
                 <action
                     android:id="@+id/action_profileFragment_to_editProfileFragment"
                     app:destination="@id/editProfileFragment" />
+                <action
+                    android:id="@+id/action_profileFragment_to_allElementListFragment"
+                    app:destination="@id/allElementListFragment" />
         </fragment>
         <fragment
             android:id="@+id/settingsFragment"
@@ -44,5 +47,10 @@
             android:id="@+id/qrCodeFragment"
             android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeFragment"
             android:label="QrCodeFragment" />
+        <fragment
+            android:id="@+id/allElementListFragment"
+            android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"
+            android:label="@string/item_all_elements"
+            tools:layout="@layout/all_element_list_fragment" />
 
 </navigation>

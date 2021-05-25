@@ -35,6 +35,9 @@ class ProfileFragment : Fragment() {
             R.id.item__bar_settings -> {
                 findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
             }
+            R.id.item__bar_all_element -> {
+                findNavController().navigate(R.id.action_profileFragment_to_allElementListFragment)
+            }
         }
         return true
     }

@@ -4,15 +4,19 @@ import android.app.Application
 import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.group.GroupViewModel
+import com.castprogramms.balamutbatut.ui.allElements.AllElementListViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
 import com.castprogramms.balamutbatut.ui.qrcode.QrCodeViewModel
 import com.castprogramms.balamutbatut.ui.rating.RatingViewModel
 import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
+import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.GlobalContext.startKoin
+import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 class BalamutApplication : Application() {
@@ -27,6 +31,7 @@ class BalamutApplication : Application() {
         viewModel {RatingViewModel(get())}
         viewModel {GroupViewModel(get())}
         viewModel { QrCodeViewModel(get())}
+        viewModel {AllElementListViewModel(get())}
     }
 
     override fun onCreate() {

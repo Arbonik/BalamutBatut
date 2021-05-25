@@ -34,7 +34,6 @@ class RatingFragment: Fragment() {
 
         return dataMap
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
