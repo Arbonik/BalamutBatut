@@ -6,20 +6,15 @@ import android.util.Log
 import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
-import com.castprogramms.balamutbatut.graph.CustomAlertDialog
-import com.castprogramms.balamutbatut.graph.SetDataNodeAlertDialog
-import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.ViewPager2FragmentAdapter
 import com.google.android.material.tabs.TabLayout
@@ -64,12 +59,13 @@ class ProfileFragment : Fragment() {
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 try {
-                    val binging = ProfileBinding.bind(view.findViewById(R.id.profile_student))
-                    binging.person = it
-                    if (it.img != "null")
-                        Glide.with(this)
-                            .load(it.img)
-                            .into(binging.icon)
+                    val binding = ProfileBinding.bind(view.findViewById(R.id.profile_student))
+                    binding.person = it
+                    Glide.with(requireContext())
+                        .load(it.img)
+                        .error(R.drawable.male_user)
+                        .into(binding.icon)
+                    binding.batutCoin.text = it.batutcoin.toString()
                 } catch (e: Exception) {
                     Log.e("data", e.message.toString())
                 }

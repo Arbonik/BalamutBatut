@@ -86,4 +86,9 @@
     <string name="rating">Рейтинг</string>
     <string name="quantityElements">Количество изученных элементов:  </string>
     <string name="rating_name">Рейтинг</string>
+    <string name="batut_coin">Количетсво BAT:</string>
+    <string name="invite">Пригласить друга</string>
+    <string name="pay">Оплатить BatutCoin</string>
+    <string name="scan">Списать BatutCoin</string>
+    <string name="scan_qr">Сканировать</string>
 </resources>

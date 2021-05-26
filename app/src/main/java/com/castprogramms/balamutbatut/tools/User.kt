@@ -5,6 +5,7 @@ import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 
 object User {
+    var isScan: Boolean = false
     var id = ""
     var img = ""
     var typeUser = TypesUser.NOTHING

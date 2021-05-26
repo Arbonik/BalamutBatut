@@ -12,7 +12,8 @@ class Student(
     img: String,
     var elements: List<Element>,
     var nodes: List<Node>,
-    var element: Map<String, List<Int>> = mapOf()
+    var element: Map<String, List<Int>> = mapOf(),
+    var batutcoin: Int = 0
 ):Person(first_name, second_name, date, sex, groupID = notGroup, type = "student", img = img){
     fun setNodesList(nodes: List<Node>){
         this.nodes = nodes

@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentInfoFragmentBinding
 import com.castprogramms.balamutbatut.network.Resource
@@ -48,18 +49,18 @@ class InfoStudentFragment: FragmentWithElement(R.layout.fragment_info_fragment) 
         viewModel.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 binding.profileInfo.person = it
-                Log.e("data", it.element.toString())
+                Log.e("data", it.toString())
                 generateAdapter(it.element)
-                viewModel.getGroupName(it.groupID)
-                    .addSnapshotListener { value, error ->
+                viewModel.getGroupName(it.groupID).addSnapshotListener { value, error ->
                         if (value != null) {
                             binding.profileInfo.groupID.text = value.getString("name")
                         }
                     }
                 if (it.img != "" && it.img != "null")
-                Picasso.get()
-                    .load(it.img)
-                    .into(binding.profileInfo.icon)
+                    Glide.with(requireContext())
+                        .load(it.img)
+                        .error(R.drawable.male_user)
+                        .into(binding.profileInfo.icon)
             }
         })
         mutableLiveData.observe(viewLifecycleOwner){

@@ -46,6 +46,37 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .set(student)
     }
 
+    override fun addBatutCoin(quantity: Int, id: String) {
+        fireStore.collection(studentTag)
+            .document(id)
+            .update("batutcoin", FieldValue.increment(1*quantity.toDouble()))
+    }
+
+    override fun writeOffCoin(quantity: Int, id: String): MutableLiveData<Resource<Boolean>> {
+        val mutableLiveData = MutableLiveData<Resource<Boolean>>(null)
+        var isValidate = true
+        mutableLiveData.postValue(Resource.Loading())
+        fireStore.collection(studentTag)
+            .document(id)
+            .get()
+            .addOnSuccessListener {
+                if (it.getLong("batutCoin") != null){
+                    val quantityCoin = it.getLong("batutCoin")!!.toInt()
+                    isValidate = quantityCoin > quantity
+                }
+            }.continueWith {
+                if (isValidate){
+                    mutableLiveData.postValue(Resource.Success(true))
+                    fireStore.collection(studentTag)
+                        .document(id)
+                        .update("batutcoin", FieldValue.increment(-1*quantity.toDouble()))
+                }
+                else
+                    mutableLiveData.postValue(Resource.Error("У пользователя недостаточно средств"))
+            }
+        return mutableLiveData
+    }
+
     override fun addTrainer(trainer: Trainer, studentID: String) {
         fireStore.collection(studentTag)
             .document(studentID)

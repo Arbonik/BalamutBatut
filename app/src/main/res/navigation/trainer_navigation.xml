@@ -80,9 +80,13 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment2"
-        android:name="com.castprogramms.balamutbatut.ui.settings.SettingsFragment"
+        android:name="com.castprogramms.balamutbatut.ui.settings.TrainerSettingsFragment"
         android:label="@string/item_settings"
-        tools:layout="@layout/settings_fragment" />
+        tools:layout="@layout/fragment_trainer_settings" >
+        <action
+            android:id="@+id/action_settingsFragment2_to_qrCodeScannerFragment2"
+            app:destination="@id/qrCodeScannerFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/editProfileFragment2"
         android:name="com.castprogramms.balamutbatut.ui.profile.EditProfileFragment"
@@ -104,4 +108,8 @@
         android:id="@+id/rating_Fragment"
         android:name="com.castprogramms.balamutbatut.ui.rating.RatingFragment"
         android:label="@string/rating" />
+    <fragment
+        android:id="@+id/qrCodeScannerFragment2"
+        android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeScannerFragment"
+        android:label="QrCodeScannerFragment" />
 </navigation>

@@ -6,6 +6,7 @@ import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
+import com.castprogramms.balamutbatut.ui.qrcode.QrCodeViewModel
 import com.castprogramms.balamutbatut.ui.rating.RatingViewModel
 import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
 import org.koin.android.ext.koin.androidContext
@@ -25,6 +26,7 @@ class BalamutApplication : Application() {
         viewModel {RegistrViewModel(get())}
         viewModel {RatingViewModel(get())}
         viewModel {GroupViewModel(get())}
+        viewModel { QrCodeViewModel(get())}
     }
 
     override fun onCreate() {

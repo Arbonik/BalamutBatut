@@ -43,6 +43,7 @@ class SplashActivity : AppCompatActivity() {
                             MainActivity::class.java
                         )
                     )
+                    finish()
                 }
                 is Resource.Loading -> {
                     MainScope().launch {

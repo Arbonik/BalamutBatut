@@ -31,6 +31,7 @@ class ProfileTrainerFragment: Fragment() {
         this.setHasOptionsMenu(true)
         val view = inflater.inflate(R.layout.profile_fragment_trainer, container, false)
         val binding = ProfileBinding.bind(view.findViewById(R.id.profile_trainer))
+        binding.batutContainer.visibility = View.GONE
         User.mutableLiveDataTrainer.observe(viewLifecycleOwner, Observer {
             if (it != null){
                 binding.person = it
@@ -49,8 +50,6 @@ class ProfileTrainerFragment: Fragment() {
         val edit_but_text: TextView = view.findViewById(R.id.but_text_edit)
         val animImg: Animation = AlphaAnimation(0.3f, 1.0f)
         animImg.duration = 3100
-
-
         val countDownTimer = object : CountDownTimer(2900, 3000) {
             override fun onTick(millisUntilFinished: Long) {
                 icon.startAnimation(animImg)

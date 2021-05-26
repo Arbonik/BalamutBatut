@@ -19,9 +19,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     val user: LiveData<Resource<out Person>> = _userData
 
     fun loadUserData(account: GoogleSignInAccount?): Boolean {
-
         _userData.postValue(Resource.Loading())
-
         if (account != null) {
             var person = Person()
             val id = account.id.toString()
@@ -38,6 +36,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                             TypesUser.STUDENT.desc -> {
                                 User.typeUser = TypesUser.STUDENT
                                 person = data.toObject(Student::class.java)!!
+                                DataUserFirebase.printLog(person.toString())
                                 User.setValueStudent(person as Student)
                                 if (User.student != null) {
                                     dataUserFirebase.getStudentsGroup(User.id).addOnSuccessListener {
@@ -76,13 +75,15 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
             var person = Person()
             if (value != null) {
                 val data = value
-                if ( data.data != null) {
+                if (data.data != null) {
                     person.type = data.getString("type").toString()
                     User.mutableLiveDataSuccess.postValue(true)
+                    DataUserFirebase.printLog(data.data.toString())
                     when (person.type) {
                         TypesUser.STUDENT.desc -> {
                             User.typeUser = TypesUser.STUDENT
                             person = data.toObject(Student::class.java)!!
+                            DataUserFirebase.printLog(person.toString())
                             User.setValueStudent(person as Student)
                             if (User.student != null) {
                                 dataUserFirebase.getStudentsGroup(User.id).addOnSuccessListener {
@@ -135,5 +136,6 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun getNameGroup(groupID: String) = dataUserFirebase.getNameGroup(groupID)
     fun addStudent(student: Student, id: String) = dataUserFirebase.addStudent(student, id)
     fun addTrainer(trainer: Trainer, id: String) = dataUserFirebase.addTrainer(trainer, id)
-    fun addData() = dataUserFirebase.addData()
+    fun addBatutCoin(id: String, quantity: Int) = dataUserFirebase.addBatutCoin(quantity, id)
+    fun writeOffCoin(id: String, quantity: Int) = dataUserFirebase.writeOffCoin(quantity, id)
 }

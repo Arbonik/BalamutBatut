@@ -31,5 +31,10 @@ interface DataUserApi {
     fun editIconStudent(icon: String, studentID: String)
 
     fun deleteStudentFromGroup(studentID: String, groupID: String)
+
     fun getTrueOrder(): MutableLiveData<Resource<List<String>>>
+
+    fun addBatutCoin(quantity: Int, id: String)
+
+    fun writeOffCoin(quantity: Int, id: String): MutableLiveData<Resource<Boolean>>
 }

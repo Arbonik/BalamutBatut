@@ -4,7 +4,9 @@
     package="com.castprogramms.balamutbatut"
     android:versionCode="1"
     android:versionName="1.0">
-
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera2"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -22,6 +24,7 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait">
         </activity>
+
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
@@ -35,6 +38,10 @@
         <activity android:name=".MainActivityTrainer"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity android:name=".MainActivityStudent" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
+
+        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
     </application>
 
 </manifest>
