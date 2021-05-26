@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.AllElementListFragmentBinding
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllElementListFragment : Fragment() {
     val viewModel: AllElementListViewModel by viewModel()

@@ -79,6 +79,9 @@ class ProfileTrainerFragment: Fragment() {
             R.id.item__bar_settings -> {
                 findNavController().navigate(R.id.action_profile_Fragment_to_settingsFragment2)
             }
+            R.id.item__bar_all_element -> {
+                findNavController().navigate(R.id.action_profile_Fragment_to_allElementListFragment2)
+            }
         }
         return true
     }

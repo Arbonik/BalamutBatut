@@ -16,14 +16,12 @@ import com.castprogramms.balamutbatut.tools.Element
 
 class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
     var elements = mutableListOf<Pair<String, List<Element>>>()
-class IHopeThisAdapterCanWork(val viewLifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
-    private val elements = mutableListOf<Pair<String, List<Element>>>()
     val checkedElements = mutableMapOf<String, List<Element>>()
     var filters = listOf<String>()
-    set(value) {
-        field = value
-        filter()
-    }
+        set(value) {
+            field = value
+            filter()
+        }
     fun setElement(map: Map<String, List<Element>>) {
         elements.clear()
         map.forEach {

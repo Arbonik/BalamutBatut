@@ -17,6 +17,9 @@
             android:id="@+id/action_profile_Fragment_to_editProfileFragment2"
             app:destination="@id/editProfileFragment2"
        />
+        <action
+            android:id="@+id/action_profile_Fragment_to_allElementListFragment2"
+            app:destination="@id/allElementListFragment2" />
     </fragment>
     <fragment
         android:id="@+id/group_Fragment"
@@ -112,4 +115,8 @@
         android:id="@+id/qrCodeScannerFragment2"
         android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeScannerFragment"
         android:label="QrCodeScannerFragment" />
+    <fragment
+        android:id="@+id/allElementListFragment2"
+        android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"
+        android:label="@string/item_all_elements" />
 </navigation>
