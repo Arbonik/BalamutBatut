@@ -92,20 +92,20 @@ class InfoStudentFragment : FragmentWithElement(R.layout.fragment_info_fragment)
         }
     }
     //del?
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.change_program -> {
-                val bundle = Bundle()
-                bundle.putString("id", idStudent)
-                bundle.putStringArray(
-                    "idElements",
-                    viewModel.mutableLiveDataStudent.value?.elements?.let { convertToIDsList(it) })
-                findNavController()
-                    .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
-            }
-        }
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.change_program -> {
+//                val bundle = Bundle()
+//                bundle.putString("id", idStudent)
+//                bundle.putStringArray(
+//                    "idElements",
+//                    viewModel.mutableLiveDataStudent.value?.elements?.let { convertToIDsList(it) })
+//                findNavController()
+//                    .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
+//            }
+//        }
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
 
     fun convertToIDsList(elements: List<Element>): Array<String> {
         val mutableListElements = mutableListOf<String>()
