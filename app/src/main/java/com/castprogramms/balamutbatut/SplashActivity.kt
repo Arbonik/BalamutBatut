@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.DataLoader
 import com.castprogramms.balamutbatut.tools.TypesUser
@@ -46,7 +47,7 @@ class SplashActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                     MainScope().launch {
                         while (true) {
-                            findViewById<ImageView>(R.id.screensplashbackground).apply {
+                            findViewById<ImageView>(R.id.batut).apply {
                                 rotation += 10
                                 rotationY += 10
                                 rotationX -= 10
