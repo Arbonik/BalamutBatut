@@ -46,7 +46,9 @@
         <fragment
             android:id="@+id/qrCodeFragment"
             android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeFragment"
-            android:label="QrCodeFragment" />
+            tools:layout="@layout/fragment_qr_code"
+            android:label="QR-код для сканирования"
+            />
         <fragment
             android:id="@+id/allElementListFragment"
             android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"

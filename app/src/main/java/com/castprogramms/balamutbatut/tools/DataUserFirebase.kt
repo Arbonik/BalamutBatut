@@ -54,15 +54,16 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
 
     override fun writeOffCoin(quantity: Int, id: String): MutableLiveData<Resource<Boolean>> {
         val mutableLiveData = MutableLiveData<Resource<Boolean>>(null)
-        var isValidate = true
+        var isValidate = false
         mutableLiveData.postValue(Resource.Loading())
         fireStore.collection(studentTag)
             .document(id)
             .get()
             .addOnSuccessListener {
-                if (it.getLong("batutCoin") != null){
-                    val quantityCoin = it.getLong("batutCoin")!!.toInt()
-                    isValidate = quantityCoin > quantity
+                Log.e("data", it.getLong("batutcoin").toString())
+                if (it.getLong("batutcoin") != null){
+                    val quantityCoin = it.getLong("batutcoin")!!.toInt()
+                    isValidate = quantityCoin >= quantity
                 }
             }.continueWith {
                 if (isValidate){

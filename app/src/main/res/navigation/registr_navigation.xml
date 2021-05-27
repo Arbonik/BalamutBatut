@@ -33,5 +33,5 @@
         tools:layout="@layout/fragment_qr_code_scanner"
         android:id="@+id/qrCodeScannerFragment"
         android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeScannerFragment"
-        android:label="QrCodeScannerFragment" />
+        android:label="Сканирование QR-кода" />
 </navigation>

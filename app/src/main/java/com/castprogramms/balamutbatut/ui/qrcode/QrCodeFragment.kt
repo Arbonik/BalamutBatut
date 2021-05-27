@@ -6,6 +6,7 @@ import android.view.View
 import androidmads.library.qrgenearator.QRGContents
 import androidmads.library.qrgenearator.QRGEncoder
 import androidx.fragment.app.Fragment
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentQrCodeBinding
 import com.castprogramms.balamutbatut.tools.User

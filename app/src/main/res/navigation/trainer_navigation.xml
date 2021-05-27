@@ -114,7 +114,7 @@
     <fragment
         android:id="@+id/qrCodeScannerFragment2"
         android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeScannerFragment"
-        android:label="QrCodeScannerFragment" />
+        android:label="Сканирование QR-кода" />
     <fragment
         android:id="@+id/allElementListFragment2"
         android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"
