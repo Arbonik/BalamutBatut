@@ -23,7 +23,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
-//        repository.addData()
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
         if (googleAuth != null) {
             repository.loadUserData(googleAuth)
@@ -38,11 +37,7 @@ class SplashActivity : AppCompatActivity() {
         repository.user.observe(this) {
             when (it) {
                 is Resource.Error -> {
-                    startActivity( Intent(
-                            this,
-                            MainActivity::class.java
-                        )
-                    )
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
                 is Resource.Loading -> {

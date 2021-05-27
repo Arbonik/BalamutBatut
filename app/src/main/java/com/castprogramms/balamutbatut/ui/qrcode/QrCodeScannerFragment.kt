@@ -78,7 +78,7 @@ class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
                                            binding.camerapreview.visibility = View.INVISIBLE
                                            binding.progressScan.visibility = View.GONE
                                            Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
-                                           requireActivity().onBackPressed()
+                                           findNavController().popBackStack()
                                        }
                                        is Resource.Loading -> {
                                            binding.camerapreview.visibility = View.INVISIBLE
@@ -88,7 +88,7 @@ class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
                                            binding.camerapreview.visibility = View.INVISIBLE
                                            binding.progressScan.visibility = View.GONE
                                            Toast.makeText(requireContext(), "У ученика успешно списаны средства", Toast.LENGTH_LONG).show()
-                                           requireActivity().onBackPressed()
+                                           findNavController().popBackStack()
                                        }
                                    }
                                })

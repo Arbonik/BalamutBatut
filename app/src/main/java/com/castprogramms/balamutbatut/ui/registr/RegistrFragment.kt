@@ -47,7 +47,7 @@ class RegistrFragment: Fragment() {
                     TypesUser.NOTHING -> {}
                 }
             } else {
-                if (it == false && User.id != "") {
+                if (it == false && User.id != "" && !sussesRegistr) {
                     findNavController()
                         .navigate(R.id.action_registrFragment2_to_insertDataUserFragment2)
                 }
@@ -81,10 +81,11 @@ class RegistrFragment: Fragment() {
                                 sussesRegistr = false
                             }
                             is Resource.Loading -> {}
-
                             is Resource.Success -> {
-                                sussesRegistr = true
-                                User.mutableLiveDataSuccess.postValue(User.mutableLiveDataSuccess.value)
+                                if (!sussesRegistr) {
+                                    sussesRegistr = true
+                                    User.mutableLiveDataSuccess.postValue(User.mutableLiveDataSuccess.value)
+                                }
                             }
                         }
                     })

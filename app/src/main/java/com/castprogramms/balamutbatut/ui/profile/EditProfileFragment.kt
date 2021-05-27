@@ -18,9 +18,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.castprogramms.balamutbatut.BuildConfig
-import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.*
 import com.castprogramms.balamutbatut.databinding.FragmentEditProfileBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.TypesUser
@@ -48,36 +46,9 @@ class EditProfileFragment : Fragment() {
         val userName: TextInputEditText = view.findViewById(R.id.name_user)
         val userLastName: TextInputEditText = view.findViewById(R.id.last_name_user)
         userIcon = view.findViewById(R.id.user_icon)
-
         repository.user.observe(viewLifecycleOwner) { ittt ->
             when (ittt) {
                 is Resource.Success -> {
-//                    when (ittt.data!!.type) {
-//                        TypesUser.TRAINER.desc -> {
-//                            userName.setText(trainer?.first_name, TextView.BufferType.EDITABLE)
-//                            userLastName.setText(
-//                                trainer?.second_name,
-//                                TextView.BufferType.EDITABLE
-//                            )
-//                            Glide.with(this)
-//                                .load(trainer?.img)
-//                                .error(R.drawable.male_user)
-//                                .into(userIcon)
-//                        }
-//                        TypesUser.STUDENT.desc -> {
-//                            userName.setText(student?.first_name, TextView.BufferType.EDITABLE)
-//                            userLastName.setText(
-//                                student?.second_name,
-//                                TextView.BufferType.EDITABLE
-//                            )
-//                            if (student?.img != null){
-//                                Glide.with(this)
-//                                    .load(student?.img)
-//                                    .error(R.drawable.male_user)
-//                                    .into(userIcon)
-//                            }
-//                        }
-//                    }
                     val person = ittt.data
                     if (person != null){
                         userName.setText(person.first_name, TextView.BufferType.EDITABLE)
@@ -145,10 +116,14 @@ class EditProfileFragment : Fragment() {
                     is Resource.Success -> {
                         when (ittt.data!!.type) {
                             TypesUser.TRAINER.desc -> {
-                                findNavController().navigate(R.id.action_editProfileFragment2_to_profile_Fragment)
+                                findNavController().popBackStack()
+//                                (requireActivity() as MainActivityTrainer).onBackPressed()
+//                                findNavController().navigate(R.id.action_editProfileFragment2_to_profile_Fragment)
                             }
                             TypesUser.STUDENT.desc -> {
-                                findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
+                                findNavController().popBackStack()
+//                                (requireActivity() as MainActivityStudent).onBackPressed()
+//                                findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
                             }
                         }
                     }

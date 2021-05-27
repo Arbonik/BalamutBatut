@@ -26,16 +26,15 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
             User.id = id
             dataUserFirebase.getUser(id).addSnapshotListener { value, error ->
                 if (value != null) {
-                    val data = value
-                    if (data.data != null) {
-                        DataUserFirebase.printLog(data.data.toString())
-                        person.type = data.getString("type").toString()
+                    if (value.data != null) {
+                        DataUserFirebase.printLog(value.data.toString())
+                        person.type = value.getString("type").toString()
                         DataUserFirebase.printLog(person.first_name)
                         User.mutableLiveDataSuccess.postValue(true)
                         when (person.type) {
                             TypesUser.STUDENT.desc -> {
                                 User.typeUser = TypesUser.STUDENT
-                                person = data.toObject(Student::class.java)!!
+                                person = value.toObject(Student::class.java)!!
                                 DataUserFirebase.printLog(person.toString())
                                 User.setValueStudent(person as Student)
                                 if (User.student != null) {
@@ -50,7 +49,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
                             }
                             TypesUser.TRAINER.desc -> {
                                 User.typeUser = TypesUser.TRAINER
-                                person = data.toObject(Trainer::class.java)!!
+                                person = value.toObject(Trainer::class.java)!!
                                 User.setValueTrainer(person as Trainer)
                             }
                         }

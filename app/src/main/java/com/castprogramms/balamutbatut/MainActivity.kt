@@ -28,16 +28,15 @@ class MainActivity : AppCompatActivity(){
             }
     }
     override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
-    override fun onBackPressed() {
-        navController.popBackStack()
-    }
 
     fun toStudent(){
         startActivity(Intent(this, MainActivityStudent::class.java))
+        finish()
     }
 
     fun toTrainer(){
         startActivity(Intent(this, MainActivityTrainer::class.java))
+        finish()
     }
 
 }
