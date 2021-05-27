@@ -38,8 +38,10 @@ class RegistrFragment: Fragment() {
         val button: SignInButton = view.findViewById(R.id.sign_in_button)
         button.setOnClickListener {
             signIn()
+            Log.d("OPA", "HERE")
         }
         User.mutableLiveDataSuccess.observe(viewLifecycleOwner, Observer {
+            Log.d("OPA", it.toString())
             if (sussesRegistr && it == true) {
                 when (User.typeUser) {
                     TypesUser.STUDENT -> (requireActivity() as MainActivity).toStudent()
