@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
@@ -17,6 +16,7 @@ import com.castprogramms.balamutbatut.tools.Element
 class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Adapter<IHopeThisAdapterCanWork.AddElementsViewHolder>() {
     var elements = mutableListOf<Pair<String, List<Element>>>()
     val checkedElements = mutableMapOf<String, List<Element>>()
+    var haveThisElement = mutableListOf<Pair<String, List<Int>>>()
     var filters = listOf<String>()
         set(value) {
             field = value
@@ -24,12 +24,14 @@ class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Ada
         }
     fun setElement(map: Map<String, List<Element>>) {
         elements.clear()
+        haveThisElement.clear()
         map.forEach {
             elements.add(it.key to it.value)
+            haveThisElement.add(it.key to listOf())
         }
-        Log.e("data", map.toString())
         if (filters.isNotEmpty())
             filter()
+
         notifyDataSetChanged()
     }
 
@@ -41,14 +43,14 @@ class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: AddElementsViewHolder, position: Int) {
-        holder.onBind(elements[position])
+        holder.onBind(elements[position], haveThisElement[position])
     }
 
     override fun getItemCount() = elements.size
 
     inner class AddElementsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemAddElementBinding.bind(view)
-        fun onBind(elements: Pair<String, List<Element>>) {
+        fun onBind(elements: Pair<String, List<Element>>, pair: Pair<String, List<Int>>) {
             binding.titleElements.text = elements.first
             binding.groupElements.layoutManager = LinearLayoutManager(itemView.context)
             val adapter = ElementsAdapter(itemView.context, isProfile).apply {
@@ -151,7 +153,13 @@ class IHopeThisAdapterCanWork(val isProfile: Boolean = false) : RecyclerView.Ada
         elements = list
     }
 
-    fun getListAndPosition(list: List<String>): MutableMap<String, Int> {
+    private fun setHave(){
+        if (haveThisElement.isNotEmpty()){
+
+        }
+    }
+
+    private fun getListAndPosition(list: List<String>): MutableMap<String, Int> {
         val map = mutableMapOf<String, Int>()
         list.forEachIndexed { index, s ->
             map.put(s, index)

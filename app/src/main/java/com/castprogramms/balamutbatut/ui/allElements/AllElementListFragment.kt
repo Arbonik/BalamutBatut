@@ -12,7 +12,10 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.AllElementListFragmentBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
+import com.castprogramms.balamutbatut.tools.TypesUser
+import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
+import com.castprogramms.balamutbatut.users.Student
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AllElementListFragment : FragmentWithElement(R.layout.all_element_list_fragment) {
@@ -22,6 +25,13 @@ class AllElementListFragment : FragmentWithElement(R.layout.all_element_list_fra
         val binding = AllElementListFragmentBinding.bind(view)
         val adapter =  IHopeThisAdapterCanWork(true)
         binding.recyclerAllElementsList.adapter = adapter
+        if (User.typeUser == TypesUser.STUDENT){
+            repository.user.observe(viewLifecycleOwner, {
+                if (it is Resource.Success){
+                    adapter.haveThisElement = (it.data as Student).element.toList().toMutableList()
+                }
+            })
+        }
         generateAdapter(mapOf())
         getTrueOrder()
         mutableLiveDataOrder.observe(viewLifecycleOwner, {

@@ -36,9 +36,10 @@ class ProfileTrainerFragment: Fragment() {
             if (it != null){
                 binding.person = it
                 viewModel.getGroupName(it.groupID)
-                    .addSnapshotListener { value, error ->
-                        if (value != null)
-                            binding.groupID.text = value.getString("name")
+                    .addOnSuccessListener {
+                        if (it.getString("name") != null) {
+                            binding.groupID.text = it.getString("name")
+                        }
                     }
                 if (it.img != "")
                     Glide.with(this)

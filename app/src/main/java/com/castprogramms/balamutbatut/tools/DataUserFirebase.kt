@@ -223,9 +223,10 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .update("nodes", nodes)
     }
 
-    fun getNameGroup(groupID: String): DocumentReference {
+    fun getNameGroup(groupID: String): Task<DocumentSnapshot> {
         return fireStore.collection(groupTag)
             .document(groupID)
+            .get()
     }
 
     fun getGroup(groupID: String): DocumentReference {

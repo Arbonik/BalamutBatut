@@ -28,6 +28,7 @@ import com.google.android.material.textview.MaterialTextView
 class ElementsAdapter(val context: Context, val isProfile: Boolean):
     RecyclerView.Adapter<ElementsAdapter.ElementsViewHolder>() {
     var elements = mutableListOf<Element>()
+    var haveElement = mutableListOf<Int>()
     var checkedElements = mutableListOf<Element>()
     val mutableLiveDataElements = MutableLiveData(checkedElements)
     fun addCheckedElements(element: Element){
