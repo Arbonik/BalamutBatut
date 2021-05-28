@@ -3,7 +3,9 @@ package com.castprogramms.balamutbatut
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.castprogramms.balamutbatut.network.Resource
@@ -23,6 +25,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
+        val backgrounds = listOf(R.drawable.splactwp0, R.drawable.splactwp1, R.drawable.splactwp2, R.drawable.splactwp3, R.drawable.splactwp4, R.drawable.splactwp5, R.drawable.splactwp6, R.drawable.splactwp7, R.drawable.splactwp8, R.drawable.splactwp9, R.drawable.splactwp10)
+        var view = findViewById<ConstraintLayout>(R.id.layout)
+        view.setBackgroundResource(backgrounds.random())                  //рандомные фотографии на фон ставятся + значок баламута
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
         if (googleAuth != null) {
             repository.loadUserData(googleAuth)
