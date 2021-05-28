@@ -59,9 +59,9 @@ class InfoStudentFragment : FragmentWithElement(R.layout.fragment_info_fragment)
                 Log.e("data", it.toString())
                 generateAdapter(it.element)
                 viewModel.getGroupName(it.groupID)
-                    .addSnapshotListener { value, error ->
-                        if (value != null) {
-                            binding.profileInfo.groupID.text = value.getString("name")
+                    .addOnSuccessListener {
+                        if (it.getString("name") != null) {
+                            binding.profileInfo.groupID.text = it.getString("name")
                         }
                     }
                 if (it.img != "" && it.img != "null")

@@ -7,6 +7,7 @@ import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.allElements.AllElementListViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
+import com.castprogramms.balamutbatut.ui.profile.ProfileViewModel
 import com.castprogramms.balamutbatut.ui.qrcode.QrCodeViewModel
 import com.castprogramms.balamutbatut.ui.rating.RatingViewModel
 import com.castprogramms.balamutbatut.ui.registr.RegistrViewModel
@@ -21,14 +22,15 @@ class BalamutApplication : Application() {
     private val appModule = module {
         single{DataUserFirebase(this@BalamutApplication.applicationContext)}
         single{Repository(get())}
-        viewModel { ChangeElementsViewModel(get()) }
+        viewModel {ChangeElementsViewModel(get())}
         viewModel {InfoStudentViewModel(get())}
         viewModel {StudentsViewModel(get())}
         viewModel {RegistrViewModel(get())}
         viewModel {RatingViewModel(get())}
         viewModel {GroupViewModel(get())}
-        viewModel { QrCodeViewModel(get())}
+        viewModel {QrCodeViewModel(get())}
         viewModel {AllElementListViewModel(get())}
+        viewModel {ProfileViewModel(get())}
     }
 
     override fun onCreate() {

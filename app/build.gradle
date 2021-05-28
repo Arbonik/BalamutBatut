@@ -31,7 +31,8 @@ android {
         }
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'            buildConfigField "String", "APP_ID", testAppId
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "APP_ID", testAppId
             buildConfigField "String", "APP_ID", testAppId
             buildConfigField "String", "API_FIRE_KEY", testApiKey
             buildConfigField "String", "PROJECT_ID", testProjectId

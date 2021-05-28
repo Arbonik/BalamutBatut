@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentAchievementBinding
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
@@ -19,12 +20,17 @@ class AchievementFragment(val id: String) : FragmentWithElement(R.layout.fragmen
         val adapterList = IHopeThisAdapterCanWork(true)
         binding.recyclerAchiStudent.adapter = adapterList
         binding.recyclerAchiStudent.layoutManager = LinearLayoutManager(requireContext())
+        getTrueOrder()
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
             if (it != null){
                 generateAdapter(it.element)
             }
         })
-        this.mutableLiveData.observe(viewLifecycleOwner, Observer{
+        mutableLiveDataOrder.observe(viewLifecycleOwner, {
+            if (it is Resource.Success && it.data != null)
+                adapterList.filters = it.data
+        })
+        mutableLiveData.observe(viewLifecycleOwner, {
             adapterList.setElement(it)
             binding.recyclerAchiStudent.adapter = adapterList
         })

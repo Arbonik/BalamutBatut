@@ -2,12 +2,9 @@ package com.castprogramms.balamutbatut.ui.qrcode
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Vibrator
-import android.util.Log
+import android.os.Handler
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
@@ -19,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentQrCodeScannerBinding
 import com.castprogramms.balamutbatut.databinding.SetQuantityBinding
-import com.castprogramms.balamutbatut.graph.CustomAlertDialog
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.ActionsWithCoins
 import com.castprogramms.balamutbatut.tools.User
@@ -29,28 +25,37 @@ import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
-import java.lang.Thread.sleep
 
 class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
     val viewModel : QrCodeViewModel by viewModel()
     var quantity = 0
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val binding = FragmentQrCodeScannerBinding.bind(view)
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.set_quantity, null)
-        val dialogBinding = SetQuantityBinding.bind(dialogView)
-        val alertDialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .setPositiveButton("Подтверить") { dialog, which ->
-                quantity = dialogBinding.quantityBatutCoin.text.toString().toInt()
-            }
-            .setNegativeButton("Отмена"){ dialog, _ ->
-                dialog.cancel()
-            }
-            .setOnCancelListener {
-                findNavController().popBackStack()
-            }
-        alertDialog.create().show()
-        val binding = FragmentQrCodeScannerBinding.bind(view)
+        if (requireArguments().getString("type") == "trainer_scan") {
+            val dialogBinding = SetQuantityBinding.bind(dialogView)
+            val alertDialog = AlertDialog.Builder(requireContext())
+                .setView(dialogView)
+                .setPositiveButton("Подтверить") { dialog, which ->
+                    try {
+                        quantity = dialogBinding.quantityBatutCoin.text.toString().toInt()
+                        binding.camerapreview.visibility = View.VISIBLE
+                    } catch (e: Exception) {
+                        Toast.makeText(requireContext(), "Введите число", Toast.LENGTH_SHORT).show()
+                        findNavController().popBackStack()
+                    }
+                }
+                .setNegativeButton("Отмена") { dialog, _ ->
+                    dialog.cancel()
+                }
+                .setOnCancelListener {
+                    findNavController().popBackStack()
+                }
+            alertDialog.create().show()
+        }
+
+        binding.camerapreview.visibility = View.INVISIBLE
         val barcodeDetector = BarcodeDetector.Builder(requireContext())
             .setBarcodeFormats(Barcode.QR_CODE)
             .build()
@@ -69,7 +74,10 @@ class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
                     return
                 }
                 try{
-                    cameraSource.start(holder)
+                    val handler = Handler()
+                    handler.postDelayed(
+                        Runnable { cameraSource.start(holder) },
+                        300)
                 } catch (e : IOException){
                     e.printStackTrace()
                 }
@@ -114,7 +122,7 @@ class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
                             ActionsWithCoins.GET.desc -> {
                                 User.isScan = true
                                 viewModel.addBatutCoin(id, 50)
-                                requireActivity().onBackPressed()
+                                findNavController().popBackStack()
                             }
                         }
 
