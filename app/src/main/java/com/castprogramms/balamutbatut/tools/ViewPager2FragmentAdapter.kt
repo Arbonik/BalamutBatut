@@ -2,7 +2,7 @@ package com.castprogramms.balamutbatut.tools
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.castprogramms.balamutbatut.ui.AchievementFragment
+import com.castprogramms.balamutbatut.ui.achievement.AchievementFragment
 
 class ViewPager2FragmentAdapter(fragment: Fragment, val id: String): FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 1

@@ -63,6 +63,19 @@ android {
         enabled = true
     }
     useLibrary 'android.test.mock'
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+//                            '../app/src/main/res/layouts/fragment',
+//                            '../app/src/main/res/layouts/recycler_item',
+//                            '../app/src/main/res/layouts/other',
+//                            '../app/src/main/res/layouts',
+                            '../app/src/main/res'
+                    ]
+        }
+    }
 }
 
 dependencies {
@@ -115,4 +128,10 @@ dependencies {
 
     implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.14.1'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.14.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.14.1'
+
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:2.0.7'
 }

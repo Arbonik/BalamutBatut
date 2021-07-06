@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding
 import com.castprogramms.balamutbatut.databinding.ProfileFragmentStudentBinding
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.tools.ViewPager2FragmentAdapter
 import com.google.android.material.tabs.TabLayout
@@ -26,23 +27,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ProfileFragment : Fragment(R.layout.profile_fragment_student) {
 
     val viewModel: ProfileViewModel by viewModel()
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.app_bar_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item__bar_settings -> {
-                findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
-            }
-            R.id.item__bar_all_element -> {
-                findNavController().navigate(R.id.action_profileFragment_to_allElementListFragment)
-            }
-        }
-        return true
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = ProfileFragmentStudentBinding.bind(view)
@@ -56,7 +40,18 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_student) {
             binding.viewPager2.currentItem = i
         }.attach()
         binding.viewPager2.currentItem = 0
-        User.mutableLiveDataStudent.observe(viewLifecycleOwner, Observer {
+        viewModel.getRang(User.id)
+        binding.profileStudent.rangContainer.visibility = View.VISIBLE
+        viewModel.liveDataRang.observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Error -> {}
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    binding.profileStudent.rang.text = it.data
+                }
+            }
+        })
+        User.mutableLiveDataStudent.observe(viewLifecycleOwner,  {
             if (it != null) {
                 try {
                     binding.profileStudent.person = it
@@ -90,5 +85,22 @@ class ProfileFragment : Fragment(R.layout.profile_fragment_student) {
         binding.profileStudent.butTextEdit.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item__bar_settings -> {
+                findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
+            }
+            R.id.item__bar_all_element -> {
+                findNavController().navigate(R.id.action_profileFragment_to_allElementListFragment)
+            }
+        }
+        return true
     }
 }

@@ -1,12 +1,14 @@
-package com.castprogramms.balamutbatut.tools
+package com.castprogramms.balamutbatut.network
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.BuildConfig
-import com.castprogramms.balamutbatut.Group
+import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.graph.Node
-import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.tools.EditProfile
+import com.castprogramms.balamutbatut.tools.Element
+import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
@@ -23,7 +25,6 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         .setPersistenceEnabled(true)
         .build()
 
-    //val file = FileInputStream("google-services-test.json")
     init {
         val options = FirebaseOptions.Builder()
             .setApplicationId(BuildConfig.APP_ID)
@@ -124,10 +125,22 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .update(EditProfile.IMG.desc, icon)
     }
 
-    fun getAllStudents(): Query {
-        return fireStore.collection(studentTag)
+    fun getAllStudents(): MutableLiveData<Resource<List<Pair<String, Student>>>> {
+        val mutableLiveData = MutableLiveData<Resource<List<Pair<String, Student>>>>(Resource.Loading())
+        fireStore.collection(studentTag)
             .whereEqualTo(EditProfile.TYPE.desc, "student")
-
+            .addSnapshotListener { value, error ->
+                if (value != null) {
+                    val pairs = mutableListOf<Pair<String, Student>>()
+                    value.documents.forEach {
+                        pairs.add(it.id to it.toObject(Student::class.java)!!)
+                    }
+                    mutableLiveData.postValue(Resource.Success(pairs))
+                }
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
     }
 
     fun addStudentElement(elements: Map<String, List<Element>>, studentID: String) {
@@ -285,7 +298,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
                 Log.e("size", it.documents.size.toString())
                 it.documents.forEach {
                     Log.e("doc", it.data.toString())
-                    if (it.id != "TRUEORDER") {
+                    if (it.id != trueOrder) {
                         val elements = mutableListOf<Element>()
                         val names = it.get("name") as List<String>
                         for (i in names.indices) {
@@ -307,36 +320,46 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveDataAllElements
     }
 
-    fun addData() {
-        getElements(mapOf()).observeForever {
-            val options = FirebaseOptions.Builder()
-                .setApplicationId("1:763812191636:android:980e70a174428e33fd0381")
-                .setApiKey("AIzaSyBKZw180EP0RhPvkoNPsgpbCNv9eNWugbs")
-                .setProjectId("testbalamutbatut")
-                .setStorageBucket("gs://testbalamutbatut.appspot.com")
-                .build()
-//            FirebaseApp.initializeApp(applicationContext, options, "test1")
-            val fire = FirebaseFirestore.getInstance(
-                FirebaseApp.initializeApp(
-                    applicationContext,
-                    options,
-                    "dfjsk"
-                )
-            ).apply {
-                firestoreSettings = settings
+    fun getRang(id: String): MutableLiveData<Resource<String>> {
+        val mutableLiveData = MutableLiveData<Resource<String>>(Resource.Loading())
+        val elements = mutableMapOf<String, List<Element>>()
+        var trueOrderList = listOf<String>()
+        fireStore.collection(elementTag)
+            .get()
+            .addOnSuccessListener {
+                it.documents.forEach {
+                    if (it.id != trueOrder){
+                        val names = it.get("name") as List<String>
+                        val currentElements = mutableListOf<Element>()
+                        names.forEach { currentElements.add(Element(it)) }
+                        elements.put(it.id, currentElements)
+                    }
+                    else
+                        trueOrderList = it.get("names") as List<String>
+                }
+            }.continueWith {
+                fireStore.collection(studentTag)
+                    .document(id)
+                    .addSnapshotListener { value, error ->
+                        if (value != null && value.getString("type") == "student"){
+                            val student = value.toObject(Student::class.java)
+                            if (student != null)
+                                mutableLiveData.postValue(
+                                    Resource.Success(checkRang(filter(trueOrderList, elements).toMap().toMutableMap(), student.element))
+                                )
+                        }
+                        else
+                            mutableLiveData.postValue(Resource.Error(error?.message))
+                    }
             }
-            it.forEach {
-                fire.collection(elementTag)
-                    .document(it.key)
-                    .set(it.value)
-            }
-        }
+        return mutableLiveData
     }
 
     companion object {
         const val elementTag = "elements"
         const val studentTag = "students"
         const val groupTag = "groups"
+        const val trueOrder = "TRUEORDER"
         fun printLog(message: String) {
             Log.e("Test", message)
         }
@@ -359,6 +382,26 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             }
             return map
         }
+        fun checkRang(allElements: MutableMap<String, List<Element>>, studentElements: Map<String, List<Int>>): String {
+            var rang = "Нет ранга"
+            for (i in studentElements){
+                if (allElements.containsKey(i.key)){
+                    if (allElements[i.key]?.size == studentElements[i.key]?.size)
+                        rang = i.key
+                }
+            }
+            return rang
+        }
+        private fun filter(trueOrderList: List<String>, elements: Map<String, List<Element>>): MutableList<Pair<String, List<Element>>> {
+            val list = MutableList<Pair<String, List<Element>>>(trueOrderList.size) { Pair("", listOf()) }
+            val map = getListAndPosition(trueOrderList)
+            elements.forEach {
+                list[map[it.key]!!] = it.toPair()
+            }
+            for (i in list.indices.reversed())
+                if (list[i].first == "" && list[i].second.isEmpty())
+                    list.removeAt(i)
+            return list
+        }
     }
 }
-

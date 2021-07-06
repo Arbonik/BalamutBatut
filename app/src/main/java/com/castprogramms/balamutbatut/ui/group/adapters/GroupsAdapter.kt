@@ -9,7 +9,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.castprogramms.balamutbatut.Group
+import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.R
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestoreException

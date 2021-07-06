@@ -1,56 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
-    android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp">
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:background="@drawable/rating_rectangle_gold">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:id="@+id/image_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/male_user"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@drawable/male_user"
-            android:id="@+id/image_rating"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"/>
-        <com.google.android.material.textview.MaterialTextView
-            android:text="1234"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:id="@+id/text_rating"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <ProgressBar
+        app:layout_constraintTop_toTopOf="@id/image_user"
+        app:layout_constraintBottom_toBottomOf="@id/image_user"
+        app:layout_constraintStart_toStartOf="@id/image_user"
+        app:layout_constraintEnd_toEndOf="@id/image_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:id="@+id/progress_rating_photo_item"/>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="12345"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_rating"
-            app:layout_constraintTop_toBottomOf="@id/text_rating" />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/image_user"
+        app:layout_constraintTop_toTopOf="@id/image_user"
+        android:layout_marginStart="13dp"
+        android:text="Максим Петров"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        android:textColor="#353535"
+        android:id="@+id/name_user"
+        android:layout_marginTop="9dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/name_user"
+        app:layout_constraintTop_toTopOf="@id/name_user"
+        app:layout_constraintStart_toEndOf="@id/name_user"
+        android:src="@drawable/cron_gold"
+        android:layout_marginStart="14dp"
+        android:id="@+id/cron"
+        android:contentDescription="Корона" />
 
-        <ExpandableListView
-            android:id="@+id/expandableListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="1dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/score" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/image_user"
+        app:layout_constraintTop_toBottomOf="@id/name_user"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="3dp"
+        android:text="Элементы: 30"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:textColor="#353535"/>
 
-</androidx.cardview.widget.CardView>
+<!--    <View-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/name_user"-->
+<!--        android:layout_marginTop="9dp"/>-->
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="19dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="1"
+        android:textSize="22sp"
+        android:textStyle="normal"
+        android:textColor="#818181"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

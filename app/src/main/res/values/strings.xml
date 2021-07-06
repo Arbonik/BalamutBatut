@@ -92,4 +92,12 @@
     <string name="pay">Оплатить BatutCoin</string>
     <string name="scan">Списать BatutCoin</string>
     <string name="scan_qr">Сканировать</string>
+    <string name="rang">Ранг:</string>
+    <string name="load_video">Загрузить видео</string>
+    <string name="text_video">Предпросмотр видео</string>
+    <string name="load_video_in_cloud">Загрузить видео в облако</string>
+    <string name="error_load">Загрузите видео</string>
+    <string name="desc_element">Описание элемента</string>
+    <string name="desc">Описание:</string>
+    <string name="error_desc">Введите описание элемента</string>
 </resources>

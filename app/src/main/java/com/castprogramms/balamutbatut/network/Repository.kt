@@ -1,9 +1,9 @@
-package com.castprogramms.balamutbatut
+package com.castprogramms.balamutbatut.network
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.castprogramms.balamutbatut.network.Resource
-import com.castprogramms.balamutbatut.tools.DataUserFirebase
+import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
@@ -12,7 +12,8 @@ import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
-class Repository(private val dataUserFirebase: DataUserFirebase) {
+class Repository(private val dataUserFirebase: DataUserFirebase,
+                 private val videoAndDescFirebaseStorage: VideoAndDescFirebaseStorage) {
 
     private val _userData = MutableLiveData<Resource<out Person>>(null)
 
@@ -137,4 +138,13 @@ class Repository(private val dataUserFirebase: DataUserFirebase) {
     fun addTrainer(trainer: Trainer, id: String) = dataUserFirebase.addTrainer(trainer, id)
     fun addBatutCoin(id: String, quantity: Int) = dataUserFirebase.addBatutCoin(quantity, id)
     fun writeOffCoin(id: String, quantity: Int) = dataUserFirebase.writeOffCoin(quantity, id)
+    fun getRang(id: String) = dataUserFirebase.getRang(id)
+
+    //video
+    fun loadVideo(video: Uri, idVideo: String) = videoAndDescFirebaseStorage.loadVideo(video, idVideo)
+    fun downloadVideo(idVideo: String) = videoAndDescFirebaseStorage.downloadVideo(idVideo)
+
+    //desc
+    fun loadDesc(desc: String, idVideo: String) = videoAndDescFirebaseStorage.loadDesc(desc, idVideo)
+    fun downloadDesc(idVideo: String) = videoAndDescFirebaseStorage.downloadDesc(idVideo)
 }

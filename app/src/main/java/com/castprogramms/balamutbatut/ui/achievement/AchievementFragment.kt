@@ -1,4 +1,4 @@
-package com.castprogramms.balamutbatut.ui
+package com.castprogramms.balamutbatut.ui.achievement
 
 import android.os.Bundle
 import android.view.View
@@ -13,7 +13,7 @@ import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AchievementFragment(val id: String) : FragmentWithElement(R.layout.fragment_achievement) {
+class AchievementFragment(val id: String = "") : FragmentWithElement(R.layout.fragment_achievement) {
     val viewModel : ChangeElementsViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentAchievementBinding.bind(view)

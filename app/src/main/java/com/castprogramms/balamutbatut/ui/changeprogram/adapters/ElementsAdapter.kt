@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
+import android.os.Bundle
 import android.provider.Settings.System.getConfiguration
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,12 +15,15 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ProfileBinding.getColorFromResource
 import com.castprogramms.balamutbatut.databinding.ProfileBinding.inflate
 import com.castprogramms.balamutbatut.tools.Element
+import com.castprogramms.balamutbatut.tools.TypesUser
+import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsStudentFragment
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -116,6 +120,18 @@ class ElementsAdapter(val context: Context, val isProfile: Boolean):
                             cardView.setCardBackgroundColor(Color.rgb(255, 255, 255))//(R.color.white)//(R.style.NotCheckItem)
                         }
                     }
+            }
+            cardView.setOnClickListener {
+                when(User.typeUser){
+                    TypesUser.STUDENT -> TODO()
+                    TypesUser.TRAINER -> {
+                        val bundle = Bundle()
+                        bundle.putString("element", element.name)
+                        itemView.findNavController()
+                            .navigate(R.id.action_allElementListFragment2_to_editElementFragment, bundle)
+                    }
+                    TypesUser.NOTHING -> {}
+                }
             }
         }
     }

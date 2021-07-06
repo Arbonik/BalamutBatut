@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.navigation.NavController
@@ -41,6 +42,17 @@ class MainActivityTrainer : AppCompatActivity() {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), 101)
             }
         }
+
+        if (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Log.e("test", checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE).toString())
+                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+            } else {
+                TODO("VERSION.SDK_INT < M")
+            }
+        ) // проверка на наличие разрешений
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 101)
+            }
     }
 
 

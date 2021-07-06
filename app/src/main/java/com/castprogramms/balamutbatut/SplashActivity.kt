@@ -3,13 +3,11 @@ package com.castprogramms.balamutbatut
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.network.Resource
-import com.castprogramms.balamutbatut.tools.DataLoader
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn

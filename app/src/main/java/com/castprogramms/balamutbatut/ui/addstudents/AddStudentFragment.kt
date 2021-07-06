@@ -5,13 +5,11 @@ import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.ui.addstudents.adapters.AddStudentAdapter
-import com.google.android.material.textfield.TextInputEditText
 import org.koin.android.ext.android.inject
 
 class AddStudentFragment: Fragment() {

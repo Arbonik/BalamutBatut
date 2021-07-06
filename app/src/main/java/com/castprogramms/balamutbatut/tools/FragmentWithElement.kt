@@ -1,12 +1,10 @@
 package com.castprogramms.balamutbatut.tools
 
 import android.util.Log
-import android.widget.ExpandableListAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
-import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.network.Resource
 import org.koin.android.ext.android.inject
 
@@ -19,7 +17,7 @@ open class FragmentWithElement(layoutID: Int): Fragment(layoutID) {
         if (map.isNotEmpty()) {
             map.forEach {
                 repository.getElement(it.value.toList(), it.key)
-                    .observe(viewLifecycleOwner, Observer { it1 ->
+                    .observe(viewLifecycleOwner, { it1 ->
                         maps.put(it.key, it1)
                         Log.e("data", maps.toString())
                         mutableLiveData.postValue(maps)

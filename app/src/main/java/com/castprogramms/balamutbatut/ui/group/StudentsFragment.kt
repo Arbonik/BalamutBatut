@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.tools.SimpleItemTouchHelperCallback
 import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton

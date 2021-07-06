@@ -1,12 +1,8 @@
 package com.castprogramms.balamutbatut.ui.group
 
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.castprogramms.balamutbatut.Repository
-import com.castprogramms.balamutbatut.model.Group
-import com.castprogramms.balamutbatut.model.GroupRepository
-import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.network.Repository
 
 class GroupViewModel(private val repository: Repository) : ViewModel() {
     fun getGroups() = repository.getGroups()

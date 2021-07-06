@@ -1,10 +1,8 @@
 package com.castprogramms.balamutbatut.ui.registr
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.castprogramms.balamutbatut.Repository
-import com.castprogramms.balamutbatut.tools.DataLoader
+import com.castprogramms.balamutbatut.network.Repository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -17,7 +15,6 @@ class RegistrViewModel(private val repository: Repository) : ViewModel() {
 
     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail().build()
-    val registration = DataLoader()
 
     lateinit var googleSignInClient: GoogleSignInClient
     var account: GoogleSignInAccount? = null

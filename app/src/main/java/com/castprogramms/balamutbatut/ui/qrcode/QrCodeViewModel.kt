@@ -1,7 +1,7 @@
 package com.castprogramms.balamutbatut.ui.qrcode
 
 import androidx.lifecycle.ViewModel
-import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.network.Repository
 
 class QrCodeViewModel(private val repository: Repository): ViewModel() {
     fun addBatutCoin(id:String, quantity: Int) = repository.addBatutCoin(id, quantity)

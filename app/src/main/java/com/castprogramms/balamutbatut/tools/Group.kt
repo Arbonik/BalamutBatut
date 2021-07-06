@@ -1,4 +1,4 @@
-package com.castprogramms.balamutbatut
+package com.castprogramms.balamutbatut.tools
 
 data class Group(
     var name: String = "",

@@ -12,14 +12,20 @@
         <action
             android:id="@+id/action_profile_Fragment_to_settingsFragment2"
             app:destination="@id/settingsFragment2"
-   />
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in" />
         <action
             android:id="@+id/action_profile_Fragment_to_editProfileFragment2"
-            app:destination="@id/editProfileFragment2"
-       />
+            app:destination="@id/editProfileFragment2" />
         <action
             android:id="@+id/action_profile_Fragment_to_allElementListFragment2"
-            app:destination="@id/allElementListFragment2" />
+            app:destination="@id/allElementListFragment2"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
     </fragment>
     <fragment
         android:id="@+id/group_Fragment"
@@ -118,5 +124,17 @@
     <fragment
         android:id="@+id/allElementListFragment2"
         android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"
-        android:label="@string/item_all_elements" />
+        android:label="@string/item_all_elements" >
+        <action
+            android:id="@+id/action_allElementListFragment2_to_editElementFragment"
+            app:destination="@id/editElementFragment"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
+    </fragment>
+    <fragment
+        android:id="@+id/editElementFragment"
+        android:name="com.castprogramms.balamutbatut.ui.editelement.EditElementFragment"
+        android:label="EditElementFragment" />
 </navigation>

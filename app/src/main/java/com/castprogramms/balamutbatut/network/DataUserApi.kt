@@ -1,13 +1,10 @@
-package com.castprogramms.balamutbatut.tools
+package com.castprogramms.balamutbatut.network
 
 import androidx.lifecycle.MutableLiveData
-import com.castprogramms.balamutbatut.Group
-import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 
 interface DataUserApi {
     fun addStudent(student: Student, studentID: String)

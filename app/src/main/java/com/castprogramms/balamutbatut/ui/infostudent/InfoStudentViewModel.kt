@@ -2,7 +2,7 @@ package com.castprogramms.balamutbatut.ui.infostudent
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.users.Student
 

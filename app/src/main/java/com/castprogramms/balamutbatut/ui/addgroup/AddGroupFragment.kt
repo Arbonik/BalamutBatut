@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.castprogramms.balamutbatut.Group
+import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.Repository
+import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.databinding.FragmentAddGroupBinding
 import com.castprogramms.balamutbatut.tools.User
 import org.koin.android.ext.android.inject

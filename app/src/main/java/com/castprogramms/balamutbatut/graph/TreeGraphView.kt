@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.ViewGroup
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.tools.DataUserFirebase
 import com.castprogramms.balamutbatut.tools.NodeData
 
 // класс для отрисовки графа

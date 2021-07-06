@@ -52,4 +52,14 @@
         <item name="android:background">@color/black</item>
     </style>
 
+    <style name="headers">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="line">
+        <item name="background">@color/c</item>
+    </style>
 </resources>
