@@ -68,8 +68,32 @@ class VideoAndDescFirebaseStorage: VideoAndDescApi {
         return mutableLiveData
     }
 
-    companion object{
-        const val elementsDescTag = "elementsDesc"
+    override fun loadVideoAndDecs(
+        video: Uri,
+        desc: String,
+        idVideo: String
+    ): MutableLiveData<Resource<String>> {
+        val mutableLiveData = MutableLiveData<Resource<String>>(Resource.Loading())
+        fireStore.collection(elementsDescTag)
+            .document("idVideo")
+            .set(hashMapOf("desc" to desc))
+            .continueWith {
+                if (it.isSuccessful) {
+                    storage.reference.child(videoTag + idVideo).putFile(video)
+                        .addOnSuccessListener {
+                            mutableLiveData.postValue(Resource.Success("Данные успешно загружены"))
+                        }.addOnFailureListener {
+                            mutableLiveData.postValue(Resource.Error(it.message))
+                        }
+                }
+                else
+                    mutableLiveData.postValue(Resource.Error(it.exception?.message))
+            }
+        return mutableLiveData
+    }
+
+    companion object {
+        const val elementsDescTag = "elements_desc"
         const val descTag = "desc"
         const val videoTag = "video/"
     }

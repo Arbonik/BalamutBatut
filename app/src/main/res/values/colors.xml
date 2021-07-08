@@ -36,4 +36,11 @@
 
     <color name="message_color">#D8F3E8</color>
     <color name="gold">#FEFAE7</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSuccess">#4BB543</color>
+    <color name="colorWarning">#FFCC00</color>
+    <color name="colorNeutral">#434343</color>
+    <color name="colorError">#CC0000</color>
+    <color name="colorText">#212121</color>
 </resources>

@@ -6,6 +6,7 @@
     android:layout_marginTop="10dp"
     android:layout_height="wrap_content"
     android:padding="5dp"
+    android:layout_marginEnd="5dp"
     android:background="@drawable/rating_rectangle_gold">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -28,35 +29,41 @@
         android:visibility="visible"
         android:id="@+id/progress_rating_photo_item"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/image_user"
         app:layout_constraintTop_toTopOf="@id/image_user"
-        android:layout_marginStart="13dp"
-        android:text="Максим Петров"
-        android:textSize="18sp"
-        android:textStyle="normal"
-        android:textColor="#353535"
-        android:id="@+id/name_user"
-        android:layout_marginTop="9dp"/>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/name_user"
-        app:layout_constraintTop_toTopOf="@id/name_user"
-        app:layout_constraintStart_toEndOf="@id/name_user"
-        android:src="@drawable/cron_gold"
-        android:layout_marginStart="14dp"
-        android:id="@+id/cron"
-        android:contentDescription="Корона" />
+        app:layout_constraintEnd_toStartOf="@id/position"
+        android:id="@+id/name_and_cron"
+        android:layout_marginTop="9dp"
+        android:layout_marginStart="13dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Максим Петров"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="#353535"
+            android:id="@+id/name_user"/>
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cron_gold"
+            android:layout_marginStart="14dp"
+            android:id="@+id/cron"
+            android:contentDescription="Корона" />
+
+    </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/image_user"
-        app:layout_constraintTop_toBottomOf="@id/name_user"
+        app:layout_constraintTop_toBottomOf="@id/name_and_cron"
         android:layout_marginStart="13dp"
         android:layout_marginTop="3dp"
         android:text="Элементы: 30"

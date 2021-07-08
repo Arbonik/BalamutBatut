@@ -10,28 +10,30 @@ object User {
     var img = ""
     var typeUser = TypesUser.NOTHING
 
-    var student : Student? = null
-    var trainer : Trainer? = null
+    var student: Student? = null
+    var trainer: Trainer? = null
 
     val mutableLiveDataStudent = MutableLiveData(student)
     val mutableLiveDataTrainer = MutableLiveData(trainer)
 
-    fun setValueStudent(student: Student?){
+    fun setValueStudent(student: Student?) {
         this.student = student
         mutableLiveDataStudent.postValue(student)
     }
-    fun setValueTrainer(trainer: Trainer?){
+
+    fun setValueTrainer(trainer: Trainer?) {
         this.trainer = trainer
         mutableLiveDataTrainer.postValue(trainer)
     }
 
     val mutableLiveDataSuccess = MutableLiveData<Boolean?>(null)
 
-    fun clearAll(){
-        when(typeUser){
+    fun clearAll() {
+        when (typeUser) {
             TypesUser.STUDENT -> setValueStudent(null)
             TypesUser.TRAINER -> setValueTrainer(null)
-            TypesUser.NOTHING -> {}
+            TypesUser.NOTHING -> {
+            }
         }
         mutableLiveDataStudent.postValue(null)
         typeUser = TypesUser.NOTHING

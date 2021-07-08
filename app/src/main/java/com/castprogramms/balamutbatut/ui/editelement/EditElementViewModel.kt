@@ -10,4 +10,7 @@ class EditElementViewModel(private val repository: Repository): ViewModel() {
 
     fun downloadVideo(idVideo: String) = repository.downloadVideo(idVideo)
     fun downloadDesc(idVideo: String) = repository.downloadDesc(idVideo)
+
+    fun loadVideoAndDesc(desc: String, video: Uri, idVideo: String) =
+        repository.loadVideoAndDesc(desc, video, idVideo)
 }

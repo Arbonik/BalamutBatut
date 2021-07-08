@@ -23,17 +23,20 @@ import com.castprogramms.balamutbatut.users.Student
 import com.google.firebase.firestore.Query
 import com.squareup.picasso.Picasso
 
-class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String>>): RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
+class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String>>) :
+    RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
 
     var students = mutableListOf<Pair<String, Student>>()
-    set(value) {
-        field = value
-        filterStudent()
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            filterStudent()
+            notifyDataSetChanged()
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatingViewHolder {
         return RatingViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_rating, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycler_item_rating, parent, false)
         )
     }
 
@@ -43,14 +46,14 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
 
     override fun getItemCount() = students.size
 
-    inner class RatingViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class RatingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = RecyclerItemRatingBinding.bind(view)
         fun onBind(pair: Pair<String, Student>, position: Int) {
             setBackground(binding, position)
             binding.progressRatingPhotoItem.visibility = View.VISIBLE
             Glide.with(itemView)
                 .load(pair.second.img)
-                .addListener(object : RequestListener<Drawable>{
+                .addListener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
@@ -79,12 +82,17 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                 })
                 .into(binding.imageUser)
             binding.nameUser.text = pair.second.getFullName()
-            binding.score.text = itemView.context.resources.getString(R.string.quantityElements)  +" " + getAllSize(pair.second).toString()
+            binding.score.text =
+                itemView.context.resources.getString(R.string.quantityElements) + " " + getAllSize(
+                    pair.second
+                ).toString()
             binding.position.text = (position + 1).toString()
-            getRang(pair.first).observeForever{
-                when(it){
-                    is Resource.Error -> {}
-                    is Resource.Loading -> {}
+            getRang(pair.first).observeForever {
+                when (it) {
+                    is Resource.Error -> {
+                    }
+                    is Resource.Loading -> {
+                    }
                     is Resource.Success -> {
 //                        binding.rang.text = itemView.context.resources.getString(R.string.rang) + " " + it.data
                     }
@@ -92,8 +100,9 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
             }
         }
     }
-    private fun filterStudent(){
-        students.sortBy {getAllSize(it.second)}
+
+    private fun filterStudent() {
+        students.sortBy { getAllSize(it.second) }
         students.reverse()
     }
 
@@ -104,9 +113,11 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
         }
         return size
     }
-    private fun setBackground(binding: RecyclerItemRatingBinding, position: Int){
-        when(position){
-            0-> {}
+
+    private fun setBackground(binding: RecyclerItemRatingBinding, position: Int) {
+        when (position) {
+            0 -> {
+            }
             1 -> {
                 binding.root.background =
                     binding.root.context.resources.getDrawable(R.drawable.rating_rectangle_silver)

@@ -4,10 +4,10 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.BuildConfig
-import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.EditProfile
 import com.castprogramms.balamutbatut.tools.Element
+import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
@@ -50,7 +50,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     override fun addBatutCoin(quantity: Int, id: String) {
         fireStore.collection(studentTag)
             .document(id)
-            .update("batutcoin", FieldValue.increment(1*quantity.toDouble()))
+            .update("batutcoin", FieldValue.increment(1 * quantity.toDouble()))
     }
 
     override fun writeOffCoin(quantity: Int, id: String): MutableLiveData<Resource<Boolean>> {
@@ -62,18 +62,17 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .get()
             .addOnSuccessListener {
                 Log.e("data", it.getLong("batutcoin").toString())
-                if (it.getLong("batutcoin") != null){
+                if (it.getLong("batutcoin") != null) {
                     val quantityCoin = it.getLong("batutcoin")!!.toInt()
                     isValidate = quantityCoin >= quantity
                 }
             }.continueWith {
-                if (isValidate){
+                if (isValidate) {
                     mutableLiveData.postValue(Resource.Success(true))
                     fireStore.collection(studentTag)
                         .document(id)
-                        .update("batutcoin", FieldValue.increment(-1*quantity.toDouble()))
-                }
-                else
+                        .update("batutcoin", FieldValue.increment(-1 * quantity.toDouble()))
+                } else
                     mutableLiveData.postValue(Resource.Error("У пользователя недостаточно средств"))
             }
         return mutableLiveData
@@ -126,7 +125,8 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     }
 
     fun getAllStudents(): MutableLiveData<Resource<List<Pair<String, Student>>>> {
-        val mutableLiveData = MutableLiveData<Resource<List<Pair<String, Student>>>>(Resource.Loading())
+        val mutableLiveData =
+            MutableLiveData<Resource<List<Pair<String, Student>>>>(Resource.Loading())
         fireStore.collection(studentTag)
             .whereEqualTo(EditProfile.TYPE.desc, "student")
             .addSnapshotListener { value, error ->
@@ -136,8 +136,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
                         pairs.add(it.id to it.toObject(Student::class.java)!!)
                     }
                     mutableLiveData.postValue(Resource.Success(pairs))
-                }
-                else
+                } else
                     mutableLiveData.postValue(Resource.Error(error?.message))
             }
         return mutableLiveData
@@ -242,9 +241,27 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .get()
     }
 
-    fun getGroup(groupID: String): DocumentReference {
-        return fireStore.collection(groupTag)
-            .document(groupID)
+    fun getGroup(groupID: String): MutableLiveData<Resource<Group>> {
+        val mutableLiveData = MutableLiveData<Resource<Group>>(Resource.Loading())
+        var name = ""
+        fireStore.collection(groupTag)
+            .whereEqualTo("name", groupID)
+            .get()
+            .addOnSuccessListener {
+                name = it.documents.first().id
+            }.continueWith {
+                fireStore.collection(groupTag)
+                    .document(name)
+                    .addSnapshotListener { value, error ->
+                        if (value?.toObject(Group::class.java) != null)
+                            mutableLiveData.postValue(
+                                Resource.Success(value.toObject(Group::class.java)!!)
+                            )
+                        else
+                            mutableLiveData.postValue(Resource.Error(error?.message))
+                    }
+            }
+        return mutableLiveData
     }
 
 
@@ -328,27 +345,63 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .get()
             .addOnSuccessListener {
                 it.documents.forEach {
-                    if (it.id != trueOrder){
+                    if (it.id != trueOrder) {
                         val names = it.get("name") as List<String>
                         val currentElements = mutableListOf<Element>()
                         names.forEach { currentElements.add(Element(it)) }
                         elements.put(it.id, currentElements)
-                    }
-                    else
+                    } else
                         trueOrderList = it.get("names") as List<String>
                 }
             }.continueWith {
                 fireStore.collection(studentTag)
                     .document(id)
                     .addSnapshotListener { value, error ->
-                        if (value != null && value.getString("type") == "student"){
+                        if (value != null && value.getString("type") == "student") {
                             val student = value.toObject(Student::class.java)
                             if (student != null)
                                 mutableLiveData.postValue(
-                                    Resource.Success(checkRang(filter(trueOrderList, elements).toMap().toMutableMap(), student.element))
+                                    Resource.Success(
+                                        checkRang(
+                                            filter(
+                                                trueOrderList,
+                                                elements
+                                            ).toMap().toMutableMap(), student.element
+                                        )
+                                    )
                                 )
-                        }
-                        else
+                        } else
+                            mutableLiveData.postValue(Resource.Error(error?.message))
+                    }
+            }
+        return mutableLiveData
+    }
+
+    fun getStudentsOfGroup(groupID: String): MutableLiveData<Resource<List<Pair<String, Student>>>> {
+        val mutableLiveData =
+            MutableLiveData<Resource<List<Pair<String, Student>>>>(Resource.Loading())
+        var name = ""
+        fireStore.collection(groupTag)
+            .whereEqualTo("name", groupID)
+            .get()
+            .addOnSuccessListener {
+                name = it.documents.first().id
+            }.continueWith {
+                fireStore.collection(studentTag)
+                    .whereEqualTo("groupID", name)
+                    .whereEqualTo("type", "student")
+                    .addSnapshotListener { value, error ->
+                        if (value != null) {
+                            val studentAndId = mutableListOf<Pair<String, Student>>()
+                            value.documents.forEach {
+                                studentAndId.add(it.id to it.toObject(Student::class.java)!!)
+                            }
+                            mutableLiveData.postValue(
+                                Resource.Success(
+                                    studentAndId
+                                )
+                            )
+                        } else
                             mutableLiveData.postValue(Resource.Error(error?.message))
                     }
             }
@@ -382,18 +435,27 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             }
             return map
         }
-        fun checkRang(allElements: MutableMap<String, List<Element>>, studentElements: Map<String, List<Int>>): String {
+
+        fun checkRang(
+            allElements: MutableMap<String, List<Element>>,
+            studentElements: Map<String, List<Int>>
+        ): String {
             var rang = "Нет ранга"
-            for (i in studentElements){
-                if (allElements.containsKey(i.key)){
+            for (i in studentElements) {
+                if (allElements.containsKey(i.key)) {
                     if (allElements[i.key]?.size == studentElements[i.key]?.size)
                         rang = i.key
                 }
             }
             return rang
         }
-        private fun filter(trueOrderList: List<String>, elements: Map<String, List<Element>>): MutableList<Pair<String, List<Element>>> {
-            val list = MutableList<Pair<String, List<Element>>>(trueOrderList.size) { Pair("", listOf()) }
+
+        private fun filter(
+            trueOrderList: List<String>,
+            elements: Map<String, List<Element>>
+        ): MutableList<Pair<String, List<Element>>> {
+            val list =
+                MutableList<Pair<String, List<Element>>>(trueOrderList.size) { Pair("", listOf()) }
             val map = getListAndPosition(trueOrderList)
             elements.forEach {
                 list[map[it.key]!!] = it.toPair()

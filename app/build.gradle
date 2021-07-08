@@ -112,6 +112,7 @@ dependencies {
     //implementation 'com.github.TutorialsAndroid:GButton:v1.0.19'
     //test
     implementation "com.squareup.moshi:moshi-kotlin:1.11.0"
+    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.1'
 //    implementation 'com.google.firebase:firebase-ml-vision:24.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

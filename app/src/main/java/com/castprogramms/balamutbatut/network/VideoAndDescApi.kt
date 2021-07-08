@@ -8,4 +8,6 @@ interface VideoAndDescApi {
     fun downloadDesc(idVideo: String): MutableLiveData<Resource<String>>
     fun loadVideo(video: Uri, idVideo: String): MutableLiveData<Resource<String>>
     fun loadDesc(desc: String, idVideo: String): MutableLiveData<Resource<String>>
+
+    fun loadVideoAndDecs(video: Uri, desc: String, idVideo: String): MutableLiveData<Resource<String>>
 }

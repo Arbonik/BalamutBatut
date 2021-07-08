@@ -123,7 +123,9 @@ class ElementsAdapter(val context: Context, val isProfile: Boolean):
             }
             cardView.setOnClickListener {
                 when(User.typeUser){
-                    TypesUser.STUDENT -> TODO()
+                    TypesUser.STUDENT -> {
+
+                    }
                     TypesUser.TRAINER -> {
                         val bundle = Bundle()
                         bundle.putString("element", element.name)
