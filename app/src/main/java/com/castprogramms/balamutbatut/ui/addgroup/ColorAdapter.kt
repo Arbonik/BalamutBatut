@@ -29,7 +29,6 @@ class ColorAdapter(groupsId: MutableList<String>) : RecyclerView.Adapter<ColorAd
     inner class ColorViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemColorBinding.bind(view)
         fun bind(color: Int, position: Int) {
-            Log.e("data", color.toString())
             binding.color.setImageDrawable(ColorDrawable(itemView.context.resources.getColor(color)))
             if (position == positionChosenColor)
                 binding.selectColor.visibility = View.VISIBLE

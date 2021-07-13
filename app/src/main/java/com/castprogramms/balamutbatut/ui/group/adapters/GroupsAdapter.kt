@@ -24,16 +24,12 @@ class GroupsAdapter(val updateData: (Group, String) -> MutableLiveData<Resource<
     fun setData(data: MutableList<Pair<Group, String>>){
         groups.clear()
         groupsId.clear()
-        var curGroups = mutableListOf<Group>()
-        var curGroupIds = mutableListOf<String>()
+        val curGroups = mutableListOf<Group>()
+        val curGroupIds = mutableListOf<String>()
         data.forEach {
             curGroups.add(it.first)
             curGroupIds.add(it.second)
         }
-        curGroups = curGroups.toMutableSet().toMutableList()
-        curGroupIds = curGroupIds.toMutableSet().toMutableList()
-        Log.e("Data", curGroups.toString())
-        Log.e("data", curGroupIds.toString())
         groups = curGroups
         groupsId = curGroupIds
         notifyDataSetChanged()
@@ -69,7 +65,6 @@ class GroupsAdapter(val updateData: (Group, String) -> MutableLiveData<Resource<
                     .navigate(R.id.action_group_Fragment_to_studentsFragment, bundle)
             }
             binding.edit.setOnClickListener {
-                //TODO сделать изменение данных группы
                 createEditAlertDialog(group, id)
             }
 
@@ -106,6 +101,7 @@ class GroupsAdapter(val updateData: (Group, String) -> MutableLiveData<Resource<
                         this.color = itemView.context.resources.getColor(adapter.colors[adapter.positionChosenColor])
                 }
                 updateData(newGroup, groupId)
+                ad.dismiss()
             }
         }
     }
