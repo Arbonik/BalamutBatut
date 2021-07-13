@@ -9,7 +9,7 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\Admin\\Downloads\\kvantorium.jks')
+//            storeFile file('C:\\Users\\Admin\\Downloads\\kvantorium.jks')
             storePassword property('password')
             keyAlias property('keyA')
             keyPassword property('password')

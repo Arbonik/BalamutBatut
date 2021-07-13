@@ -19,7 +19,7 @@ interface DataUserApi {
 
     fun addGroup(group: Group)
 
-    fun getGroups(): Query
+    fun getGroups(): MutableLiveData<Resource<MutableList<Pair<Group, String>>>>
 
     fun editNameStudent(first_name: String, studentID: String)
 
@@ -34,4 +34,6 @@ interface DataUserApi {
     fun addBatutCoin(quantity: Int, id: String)
 
     fun writeOffCoin(quantity: Int, id: String): MutableLiveData<Resource<Boolean>>
+
+    fun updateDataGroup(group: Group, groupID: String): MutableLiveData<Resource<String>>
 }

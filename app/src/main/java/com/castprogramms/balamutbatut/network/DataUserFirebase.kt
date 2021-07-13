@@ -213,9 +213,22 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .add(group)
     }
 
-    override fun getGroups(): Query {
-        return fireStore.collection(groupTag)
+    override fun getGroups(): MutableLiveData<Resource<MutableList<Pair<Group, String>>>> {
+        val mutableLiveData = MutableLiveData<Resource<MutableList<Pair<Group, String>>>>(Resource.Loading())
+        val groupAndId = mutableListOf<Pair<Group, String>>()
+        fireStore.collection(groupTag)
             .whereEqualTo("numberTrainer", User.id)
+            .addSnapshotListener { value, error ->
+                if (value != null){
+                    value.documents.forEach {
+                        groupAndId.add((it.toObject(Group::class.java) to it.id) as Pair<Group, String>)
+                    }
+                    mutableLiveData.postValue(Resource.Success(groupAndId))
+                }
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
     }
 
     fun getUser(studentID: String): DocumentReference {
@@ -248,7 +261,8 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .whereEqualTo("name", groupID)
             .get()
             .addOnSuccessListener {
-                name = it.documents.first().id
+                if (it.documents.isNotEmpty())
+                    name = it.documents.first().id
             }.continueWith {
                 fireStore.collection(groupTag)
                     .document(name)
@@ -385,7 +399,8 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .whereEqualTo("name", groupID)
             .get()
             .addOnSuccessListener {
-                name = it.documents.first().id
+                if (it.documents.isNotEmpty())
+                    name = it.documents.first().id
             }.continueWith {
                 fireStore.collection(studentTag)
                     .whereEqualTo("groupID", name)
@@ -404,6 +419,20 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
                         } else
                             mutableLiveData.postValue(Resource.Error(error?.message))
                     }
+            }
+        return mutableLiveData
+    }
+
+    override fun updateDataGroup(group: Group, groupID: String): MutableLiveData<Resource<String>> {
+        val mutableLiveData = MutableLiveData<Resource<String>>(Resource.Loading())
+        fireStore.collection(groupTag)
+            .document(groupID)
+            .set(group).addOnCompleteListener {
+                if (it.isSuccessful)
+                    mutableLiveData.postValue(Resource.Success("Данные успешно обновлены"))
+                else
+                    if (it.isCanceled)
+                        mutableLiveData.postValue(Resource.Error(it.exception?.message))
             }
         return mutableLiveData
     }

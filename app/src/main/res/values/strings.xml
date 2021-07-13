@@ -100,4 +100,5 @@
     <string name="desc_element">Описание элемента</string>
     <string name="desc">Описание:</string>
     <string name="error_desc">Введите описание элемента</string>
+    <string name="change">Изменить</string>
 </resources>

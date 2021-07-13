@@ -123,9 +123,9 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
     fun getStudentsOfGroup(groupID: String) = dataUserFirebase.getStudentsOfGroup(groupID)
     fun updateUserIcon(img: String, studentID: String) =
         dataUserFirebase.editIconStudent(img, studentID)
+    fun updateDataGroup(group: Group, groupID: String) = dataUserFirebase.updateDataGroup(group, groupID)
 
     fun deleteStudentFromGroup(studentID: String, groupID: String) = dataUserFirebase.deleteStudentFromGroup(studentID, groupID)
-
     fun getCollectionAllStudent(groupID: String) = dataUserFirebase.getCollectionAllStudents(groupID)
     fun getCollectionAllStudentsWithoutGroup() = dataUserFirebase.getCollectionAllStudentsWithoutGroup()
     fun updateStudentGroup(studentID: String, groupID: String) = dataUserFirebase.updateStudent(studentID, groupID)
@@ -137,14 +137,15 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
     fun addTrainer(trainer: Trainer, id: String) = dataUserFirebase.addTrainer(trainer, id)
     fun addBatutCoin(id: String, quantity: Int) = dataUserFirebase.addBatutCoin(quantity, id)
     fun writeOffCoin(id: String, quantity: Int) = dataUserFirebase.writeOffCoin(quantity, id)
-    fun getRang(id: String) = dataUserFirebase.getRang(id)
 
+    fun getRang(id: String) = dataUserFirebase.getRang(id)
     //video
     fun loadVideo(video: Uri, idVideo: String) = videoAndDescFirebaseStorage.loadVideo(video, idVideo)
-    fun downloadVideo(idVideo: String) = videoAndDescFirebaseStorage.downloadVideo(idVideo)
 
+    fun downloadVideo(idVideo: String) = videoAndDescFirebaseStorage.downloadVideo(idVideo)
     //desc
     fun loadDesc(desc: String, idVideo: String) = videoAndDescFirebaseStorage.loadDesc(desc, idVideo)
+
     fun downloadDesc(idVideo: String) = videoAndDescFirebaseStorage.downloadDesc(idVideo)
 
     fun loadVideoAndDesc(desc: String, video: Uri, idVideo: String) =

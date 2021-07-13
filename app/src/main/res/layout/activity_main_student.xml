@@ -16,7 +16,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/student_nav_menu" />
 
+
     <fragment
+        android:tag="@string/add_date"
         android:id="@+id/nav_host_fragment"
         class="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"

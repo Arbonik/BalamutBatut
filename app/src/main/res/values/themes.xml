@@ -64,4 +64,10 @@
     <style name="line">
         <item name="background">@color/c</item>
     </style>
+
+    <style name="group_card">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>
