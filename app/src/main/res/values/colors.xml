@@ -11,6 +11,7 @@
     <color name="teal_300">@color/k</color><!--dark theme but-->
     <color name="teal_700">@color/v</color>
     <color name="black">#FF000000</color>
+    <color name="grey_but">#949494</color>
     <color name="light_grey">#F3F5F6</color>
     <color name="white">#FFFFFFFF</color>
 
