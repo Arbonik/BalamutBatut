@@ -43,7 +43,7 @@ class EditProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
         val binding = FragmentEditProfileBinding.bind(view)
         val acceptEditButton: MaterialButton = view.findViewById(R.id.accept_edit)
-        val userName: TextInputEditText = view.findViewById(R.id.name_user)
+        val userName: TextInputEditText = view.findViewById(R.id.student_name)
         val userLastName: TextInputEditText = view.findViewById(R.id.last_name_user)
         userIcon = view.findViewById(R.id.user_icon)
         repository.user.observe(viewLifecycleOwner) { ittt ->

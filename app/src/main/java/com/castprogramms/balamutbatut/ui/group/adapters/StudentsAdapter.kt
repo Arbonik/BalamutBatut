@@ -1,23 +1,32 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
 import android.app.ActivityOptions
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.databinding.ItemStudentBinding
 import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.tools.ItemTouchHelperAdapter
 import com.castprogramms.balamutbatut.users.Student
 import com.google.firebase.firestore.Query
-import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 
 class StudentsAdapter(_query: Query, private val repository: Repository, var idGroup: String, val fragment: Fragment) :
     RecyclerView.Adapter<StudentsAdapter.StudentsViewHolder>(), ItemTouchHelperAdapter {
@@ -57,36 +66,84 @@ class StudentsAdapter(_query: Query, private val repository: Repository, var idG
     }
 
     override fun onBindViewHolder(holder: StudentsViewHolder, position: Int) {
-        holder.bind(students[position], studentsID[position])
+        holder.bind(students[position], studentsID[position], position)
     }
 
     override fun getItemCount(): Int = students.size
 
     inner class StudentsViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val cardViewStudent : CardView = view.findViewById(R.id.card_view_student)
-        val studentNameTextView : TextView = view.findViewById(R.id.student_name)
-        val studentDateTextView : TextView = view.findViewById(R.id.student_date)
-        val studentSexTextView : TextView = view.findViewById(R.id.student_sex)
-        val studentImage : CircleImageView = view.findViewById(R.id.icon_student)
-        fun bind(student: Student, id: String){
-            studentNameTextView.text = student.first_name + " " + student.second_name
-            studentDateTextView.text = student.date
-            studentSexTextView.text = student.sex
-            if (student.img != "" && student.img != "null") {
-                Picasso.get()
-                    .load(student.img)
-                    .into(studentImage)
-            }
-            cardViewStudent.setOnClickListener {
-                val sharedView = studentImage
-                val transName = itemView.context.resources.getString(R.string.icon)
-                val options = ActivityOptions.makeSceneTransitionAnimation(fragment.requireActivity(), sharedView, transName)
-                val changeBounds = TransitionInflater.from(fragment.requireContext()).inflateTransition(R.transition.changebounds_with_arcmotion)
-                val bundle = Bundle()
-                bundle.putBundle("anim", options.toBundle())
-                bundle.putString("id", id)
-                it.findNavController()
-                    .navigate(R.id.action_studentsFragment_to_infoStudentFragment, bundle)
+        val binding = ItemStudentBinding.bind(view)
+        fun bind(student: Student, id: String, position: Int){
+            binding.studentName.text = student.first_name + " " + student.second_name
+            binding.position.text = (position + 1).toString()
+            Glide.with(itemView)
+                .load(student.img)
+                .addListener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.progressRatingPhotoItem.visibility = View.GONE
+                        binding.iconStudent.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
+                        return true
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.progressRatingPhotoItem.visibility = View.GONE
+                        val size = binding.dataUser.height * 0.56
+                        val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
+                        val resizeBitmap = bitmap
+                        binding.iconStudent.setImageDrawable(resizeBitmap?.toDrawable(itemView.resources))
+                        return true
+                    }
+                })
+                .into(binding.iconStudent)
+            binding.groupElements.adapter = ElementsStudentAdapter()
+            binding.groupElements.layoutManager = LinearLayoutManager(itemView.context)
+            binding.root.setOnClickListener {
+                if (binding.expandableView.visibility == View.GONE) {
+                    binding.expandableView.visibility = View.VISIBLE
+                    binding.dataUser.background = itemView.context.getDrawable(R.drawable.background_group_student)
+                    val anim = AnimationUtils.loadAnimation(itemView.context, R.anim.show)
+                    anim.interpolator = FastOutSlowInInterpolator()
+                    binding.expandableView.startAnimation(anim)
+                    anim.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {
+                            binding.expandableView.visibility = View.VISIBLE
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {}
+
+                        override fun onAnimationRepeat(animation: Animation?) {}
+                    })
+                }
+                else {
+                    val anim =
+                        AnimationUtils.loadAnimation(itemView.context, R.anim.check_item_anim)
+                    anim.interpolator = FastOutSlowInInterpolator()
+                    binding.expandableView.startAnimation(anim)
+                    anim.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {
+                            binding.expandableView.visibility = View.VISIBLE
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            binding.expandableView.visibility = View.GONE
+                            binding.dataUser.background = itemView.context.getDrawable(R.drawable.rating_rectangle)
+                        }
+
+                        override fun onAnimationRepeat(animation: Animation?) {
+                        }
+                    })
+                }
             }
         }
     }

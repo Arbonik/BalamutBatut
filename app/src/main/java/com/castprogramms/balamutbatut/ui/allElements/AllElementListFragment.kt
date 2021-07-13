@@ -23,7 +23,7 @@ class AllElementListFragment : FragmentWithElement(R.layout.all_element_list_fra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = AllElementListFragmentBinding.bind(view)
-        val adapter =  IHopeThisAdapterCanWork(true)
+        val adapter = IHopeThisAdapterCanWork(true)
         binding.recyclerAllElementsList.adapter = adapter
         if (User.typeUser == TypesUser.STUDENT){
             repository.user.observe(viewLifecycleOwner, {

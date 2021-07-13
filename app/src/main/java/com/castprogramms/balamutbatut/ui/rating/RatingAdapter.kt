@@ -61,7 +61,7 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                         isFirstResource: Boolean
                     ): Boolean {
                         binding.progressRatingPhotoItem.visibility = View.GONE
-                        binding.imageUser.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
+                        binding.iconStudent.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
                         return true
                     }
 
@@ -76,16 +76,13 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                         val size = binding.root.height * 0.56
                         val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
                         val resizeBitmap = bitmap
-                        binding.imageUser.setImageDrawable(resizeBitmap?.toDrawable(itemView.resources))
+                        binding.iconStudent.setImageDrawable(resizeBitmap?.toDrawable(itemView.resources))
                         return true
                     }
                 })
-                .into(binding.imageUser)
-            binding.nameUser.text = pair.second.getFullName()
-            binding.score.text =
-                itemView.context.resources.getString(R.string.quantityElements) + " " + getAllSize(
-                    pair.second
-                ).toString()
+                .into(binding.iconStudent)
+            binding.studentName.text = pair.second.getFullName()
+            binding.score.text = itemView.context.resources.getString(R.string.quantityElements) + " " + getAllSize(pair.second).toString()
             binding.position.text = (position + 1).toString()
             getRang(pair.first).observeForever {
                 when (it) {

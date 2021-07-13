@@ -82,7 +82,7 @@ class InsertDataUserFragment: Fragment() {
         editDate = view.findViewById(R.id.insert_date)
         if (viewModel.date.isNotEmpty())
             editDate.text = requireContext().getString(R.string.your_date) + viewModel.date
-        val editFirstName: TextInputEditText = view.findViewById(R.id.name_user)
+        val editFirstName: TextInputEditText = view.findViewById(R.id.student_name)
         val editLastName: TextInputEditText = view.findViewById(R.id.last_name_user)
         val finishRegistration : MaterialButton = view.findViewById(R.id.next)
         val maleRadioButton : MaterialRadioButton = view.findViewById(R.id.male)

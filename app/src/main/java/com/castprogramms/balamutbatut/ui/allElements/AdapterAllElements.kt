@@ -10,7 +10,7 @@ import com.castprogramms.balamutbatut.tools.Element
 
 class AdapterAllElements(allElement: MutableList<Int>):
     RecyclerView.Adapter<AdapterAllElements.AllElementsViewHolder>(){
-    var listE = listOf<Element>()
+    var list = listOf<Element>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllElementsViewHolder {
         return AllElementsViewHolder(
@@ -18,9 +18,9 @@ class AdapterAllElements(allElement: MutableList<Int>):
         )
     }
     override fun onBindViewHolder(holder: AllElementsViewHolder, position: Int) {
-        holder.onBind(listE[position])
+        holder.onBind(list[position])
     }
-    override fun getItemCount(): Int = listE.size
+    override fun getItemCount(): Int = list.size
 
     inner class AllElementsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ListItemBinding.bind(view)
