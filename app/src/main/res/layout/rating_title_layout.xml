@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    style="@style/CardView.Light"
-    android:background="@color/white">
+    style="@style/FAB">
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"
@@ -34,11 +33,11 @@
         android:padding="8dp"
         android:textSize="18sp"
         android:textStyle="normal"
-        android:textColor="@color/black"
         android:id="@+id/rectangle_2"
         android:layout_width="0dp"
         android:layout_height="72dp"
         android:layout_marginTop="45dp"
+        style="@style/AccentBack"
         android:background="@drawable/rating_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/centerVertical"

@@ -13,8 +13,14 @@
         <item name="android:background">@drawable/background_recycler_rating</item>
     </style>
 
-    <style name="FAB">
+    <style name="FAB" parent="Widget.Design.CollapsingToolbar">
         <item name="tint">@color/white</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="AccentBack">
+        <item name="android:backgroundTint">@color/thirdColor</item>
+        <item name="android:color">@color/colorText</item>
     </style>
 
     <style name="MiddleBackground">
@@ -28,6 +34,13 @@
 
     <style name="GreyButton_in_cardGroup">
         <item name="backgroundTint">@color/grey_but</item>
+    </style>
+
+    <style name="TabLayoutRating">
+        <item name="tabTextColor">@color/black</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="android:nextFocusUp">@color/white</item>
+        <item name="android:backgroundTint">@color/grey_indicator</item>
     </style>
 
     <!-- old   -->

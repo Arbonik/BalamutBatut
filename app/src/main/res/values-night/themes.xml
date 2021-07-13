@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.BalamutBatut" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/purple_600</item>
-        <item name="colorPrimaryVariant">@color/norm_black</item> <!--status bar-->
+        <item name="colorPrimaryVariant">@color/tx_grey</item> <!--status bar-->
         <item name="colorOnPrimary">@color/black</item>
         <item name="colorAccent">@color/purple_600</item>
         <item name="colorSecondary">@color/teal_200</item>
@@ -14,8 +14,14 @@
         <item name="android:background">@color/black</item>
     </style>
 
-    <style name="FAB">
+    <style name="FAB" parent="Widget.Design.CollapsingToolbar">
         <item name="tint">@color/black</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="AccentBack">
+        <item name="android:backgroundTint">@color/purple_600</item>
+        <item name="android:color">@color/white</item>
     </style>
 
     <style name="MiddleBackground">
@@ -29,6 +35,13 @@
 
     <style name="Back_in_color">
         <item name="android:backgroundTint">@color/grey_but</item>
+    </style>
+
+    <style name="TabLayoutRating">
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/purple_600</item>
+        <item name="android:nextFocusUp">@color/norm_black</item>
+        <item name="android:backgroundTint">@color/norm_black</item>
     </style>
 
 <!-- old   -->

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:background="@color/white"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    style="@style/FAB"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +22,6 @@
             app:expandedTitleMarginEnd="64dp">
 
             <include
-
                 app:layout_collapseMode="parallax"
                 android:id="@+id/title"
                 layout="@layout/rating_title_layout"
@@ -39,10 +39,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/back_tabs"
+                style="@style/TabLayoutRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center"
@@ -53,20 +54,18 @@
                 app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.tabs.TabLayout
                     android:background="@drawable/back"
-                    android:nextFocusUp="@color/gold"
                     android:id="@+id/tabLayout_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     app:layout_collapseMode="pin"
+                    style="@style/TabLayoutRating"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:tabMode="scrollable"
                     app:tabGravity="fill"
                     app:tabIndicator="@drawable/rating_tab_layout_item"
                     app:tabIndicatorAnimationMode="elastic"
-                    app:tabIndicatorGravity="stretch"
-                    app:tabIndicatorColor="@color/white"
-                    app:tabTextColor="@color/black">
+                    app:tabIndicatorGravity="stretch">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"

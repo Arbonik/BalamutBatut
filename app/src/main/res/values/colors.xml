@@ -13,6 +13,7 @@
 
     <color name="tx_grey">#212121</color>
     <color name="grey_but">#808080</color>
+    <color name="grey_indicator">#F0F0F0F0</color>
     <color name="dark_blue">#293D7C</color>
 
     <color name="light_grey">#F3F5F6</color> <!--????-->
