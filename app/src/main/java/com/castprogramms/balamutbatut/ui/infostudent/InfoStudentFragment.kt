@@ -16,7 +16,6 @@ import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class InfoStudentFragment : FragmentWithElement(R.layout.fragment_info_fragment) {
     private var idStudent = ""
     private val viewModel: InfoStudentViewModel by viewModel()

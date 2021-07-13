@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintGuide_percent="0.45"
         android:id="@+id/centerVertical"/>
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,13 +31,13 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:gravity="center"
-        android:padding="5dp"
+        android:padding="8dp"
         android:textSize="18sp"
         android:textStyle="normal"
         android:textColor="@color/black"
         android:id="@+id/rectangle_2"
         android:layout_width="0dp"
-        android:layout_height="67dp"
+        android:layout_height="72dp"
         android:layout_marginTop="45dp"
         android:background="@drawable/rating_title"
         app:layout_constraintEnd_toEndOf="parent"
