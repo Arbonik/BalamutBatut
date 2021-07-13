@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/title_success"
             android:padding="10dp"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="@id/text_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_title"
-            app:tint="@color/colorWhite"
+            app:tint="@color/white"
             android:src="@drawable/done"/>
 
         <com.google.android.material.textview.MaterialTextView
@@ -64,7 +64,7 @@
         android:text="do sth"
         android:layout_marginEnd="40dp"
         android:background="@drawable/button_success"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/success_dialog"
         app:layout_constraintTop_toBottomOf="@id/success_dialog"/>

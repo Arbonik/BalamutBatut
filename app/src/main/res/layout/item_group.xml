@@ -127,16 +127,16 @@
                 android:checkable="true"
                 android:focusable="true"
                 android:background="@drawable/edit_group"
-                android:backgroundTint="@color/grey_but"
+                style="@style/GreyButton_in_cardGroup"
                 android:gravity="center_horizontal"
-                android:contentDescription="Изменить" />
+                android:contentDescription="@string/edit" />
 
             <ImageButton
                 android:id="@+id/add"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:background="@drawable/person_add"
-                android:backgroundTint="@color/grey_but"
+                style="@style/GreyButton_in_cardGroup"
                 android:clickable="true"
                 android:checkable="true"
                 android:focusable="true"
@@ -145,7 +145,7 @@
                 app:layout_constraintEnd_toEndOf="@id/second_line_vertical"
                 app:layout_constraintTop_toTopOf="@id/second_line"
                 app:layout_constraintBottom_toBottomOf="@+id/second_line"
-                android:contentDescription="Изменить" />
+                android:contentDescription="@string/add" />
 
             <ImageButton
                 android:id="@+id/delete"
@@ -153,7 +153,7 @@
                 android:layout_height="28dp"
                 app:layout_constraintDimensionRatio="1:1"
                 android:background="@drawable/delete"
-                android:backgroundTint="@color/grey_but"
+                style="@style/GreyButton_in_cardGroup"
                 android:clickable="true"
                 android:checkable="true"
                 android:focusable="true"
@@ -161,7 +161,7 @@
                 app:layout_constraintEnd_toEndOf="@id/second_line_vertical"
                 app:layout_constraintTop_toTopOf="@id/third_line"
                 app:layout_constraintBottom_toBottomOf="@+id/third_line"
-                android:contentDescription="Удалить" />
+                android:contentDescription="@string/delete" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

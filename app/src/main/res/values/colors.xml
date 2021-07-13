@@ -1,44 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="purple_200">@color/message_color</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-
-    <color name="purple_800">#6A8ACD</color><!--state bar-->
-    <color name="purple_600">#94ADDF</color><!--action bar light-->
-
-    <color name="teal_200">@color/t</color>
-    <color name="teal_300">@color/k</color><!--dark theme but-->
+    <color name="purple_800">#84A3E5</color><!--state bar-->
+    <color name="purple_600">#8DAEF6</color><!--action bar light-->
+    <color name="teal_200">#3BD278</color>
     <color name="teal_700">@color/v</color>
+
     <color name="black">#FF000000</color>
-    <color name="grey_but">#949494</color>
-    <color name="light_grey">#F3F5F6</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="norm_black">#353535</color>
+    <color name="light_black">#D9D9D9</color>
+    <color name="very_light_black">#F9F9F9</color>
 
     <color name="tx_grey">#212121</color>
-    <color name="google_dark_color">#4285F4</color>
-    <color name="red">#FF3D00</color>
+    <color name="grey_but">#808080</color>
+    <color name="dark_blue">#293D7C</color>
 
-
+    <color name="light_grey">#F3F5F6</color> <!--????-->
+    <color name="white">#FFFFFFFF</color>
 
     <color name="s">#FFFDE4</color>
-    <color name="d">#c53736</color>
-    <color name="f">#eb5659</color>
-    <color name="v">#0c4c7a</color>
+    <color name="v">#0C4C7A</color>
     <color name="g">#0084cf</color>
     <color name="c">#75A8FD</color>
-    <color name="k">#94ADDF</color>
-    <color name="b">#6A8ACD</color>
-    <color name="l">#005AA7</color>
-
-    <color name="q">#FFBB86FC</color>
-    <color name="p">#8E6DF4</color>
-    <color name="t">#FF00DF88</color>
-
     <color name="message_color">#D8F3E8</color>
     <color name="gold">#FEFAE7</color>
 
-    <color name="colorWhite">#FFFFFF</color>
     <color name="colorSuccess">#4BB543</color>
     <color name="colorWarning">#FFCC00</color>
     <color name="colorNeutral">#434343</color>

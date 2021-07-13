@@ -21,7 +21,6 @@
     <string name="google_sign_up">Войти с помощью Google</string>
     <string name="sign_up">Войти</string>
     <string name="sign_out">Выйти</string>
-    <string name="edit">Изменить</string>
     <string name="OK">OK</string>
     <string name="no_trainer">Я не тренер</string>
     <string name="forgot_password">Забыли пароль?</string>
@@ -101,4 +100,8 @@
     <string name="desc">Описание:</string>
     <string name="error_desc">Введите описание элемента</string>
     <string name="change">Изменить</string>
+    <string name="edit">Изменить</string>
+    <string name="add">Добавить</string>
+    <string name="delete">Удалить</string>
+    <string name="color">Цвет</string>
 </resources>
