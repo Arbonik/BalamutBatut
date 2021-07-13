@@ -10,7 +10,8 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemColorBinding
 
 class ColorAdapter(groupsId: MutableList<String>) : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
-    val colors = listOf(R.color.firstColor, R.color.secondColor, R.color.thirdColor, R.color.fourthColor, R.color.fifthColor, R.color.sixthColor, R.color.aqua, R.color.blue, R.color.colorSuccess)
+    val colors = listOf(R.color.firstColor, R.color.secondColor, R.color.thirdColor,
+        R.color.fourthColor, R.color.fifthColor, R.color.sixthColor)
     var positionChosenColor = -1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder {
         return ColorViewHolder(

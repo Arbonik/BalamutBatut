@@ -3,6 +3,7 @@ package com.castprogramms.balamutbatut.ui.group.adapters
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,12 +24,16 @@ class GroupsAdapter(val updateData: (Group, String) -> MutableLiveData<Resource<
     fun setData(data: MutableList<Pair<Group, String>>){
         groups.clear()
         groupsId.clear()
-        val curGroups = mutableListOf<Group>()
-        val curGroupIds = mutableListOf<String>()
+        var curGroups = mutableListOf<Group>()
+        var curGroupIds = mutableListOf<String>()
         data.forEach {
             curGroups.add(it.first)
             curGroupIds.add(it.second)
         }
+        curGroups = curGroups.toMutableSet().toMutableList()
+        curGroupIds = curGroupIds.toMutableSet().toMutableList()
+        Log.e("Data", curGroups.toString())
+        Log.e("data", curGroupIds.toString())
         groups = curGroups
         groupsId = curGroupIds
         notifyDataSetChanged()

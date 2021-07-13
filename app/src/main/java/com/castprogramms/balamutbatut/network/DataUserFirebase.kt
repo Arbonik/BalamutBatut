@@ -215,10 +215,10 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
 
     override fun getGroups(): MutableLiveData<Resource<MutableList<Pair<Group, String>>>> {
         val mutableLiveData = MutableLiveData<Resource<MutableList<Pair<Group, String>>>>(Resource.Loading())
-        val groupAndId = mutableListOf<Pair<Group, String>>()
         fireStore.collection(groupTag)
             .whereEqualTo("numberTrainer", User.id)
             .addSnapshotListener { value, error ->
+                val groupAndId = mutableListOf<Pair<Group, String>>()
                 if (value != null){
                     value.documents.forEach {
                         groupAndId.add((it.toObject(Group::class.java) to it.id) as Pair<Group, String>)
