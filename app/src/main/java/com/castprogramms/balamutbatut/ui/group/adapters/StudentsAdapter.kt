@@ -36,6 +36,10 @@ class StudentsAdapter(
     fun setData(data: MutableList<Pair<String, Student>>){
         val curStudents = mutableListOf<Student>()
         val curStudentsID = mutableListOf<String>()
+        data.sortBy {
+            countElements(it.second)
+        }
+        data.reverse()
         data.forEach {
             curStudents.add(it.second)
             curStudentsID.add(it.first)
@@ -63,6 +67,7 @@ class StudentsAdapter(
         fun bind(student: Student, id: String, position: Int){
             binding.studentName.text = student.first_name + " " + student.second_name
             binding.position.text = (position + 1).toString()
+            binding.score.text = countElements(student)
             Glide.with(itemView)
                 .load(student.img)
                 .addListener(object : RequestListener<Drawable> {
@@ -204,6 +209,16 @@ class StudentsAdapter(
                 }
             }
         }
+
+
+    }
+
+    private fun countElements(student: Student): String {
+        var score = 0
+        student.element.forEach {
+            score += it.value.size
+        }
+        return "Элементы: $score"
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
@@ -228,7 +243,8 @@ class StudentsAdapter(
         studentsID.removeAt(position)
         notifyItemRemoved(position)
     }
-    fun replace(list: MutableList<Student>, fromPosition: Int, toPosition: Int):MutableList<Student>{
+
+    private fun replace(list: MutableList<Student>, fromPosition: Int, toPosition: Int):MutableList<Student>{
         val firstPair = list[fromPosition]
         val secondPair = list[toPosition]
         list[fromPosition] = secondPair
@@ -236,13 +252,11 @@ class StudentsAdapter(
         return list
     }
 
-    fun replaceID(list: MutableList<String>, fromPosition: Int, toPosition: Int):MutableList<String>{
+    private fun replaceID(list: MutableList<String>, fromPosition: Int, toPosition: Int):MutableList<String>{
         val firstPair = list[fromPosition]
         val secondPair = list[toPosition]
         list[fromPosition] = secondPair
         list[toPosition] = firstPair
         return list
     }
-
-
 }
