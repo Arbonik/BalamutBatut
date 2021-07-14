@@ -1,6 +1,7 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.view.animation.Transformation
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -101,6 +103,12 @@ class StudentsAdapter(
             setDataAdapter(adapter, id)
             binding.groupElements.adapter = adapter
             binding.groupElements.layoutManager = LinearLayoutManager(itemView.context)
+            binding.addElement.setOnClickListener {
+                val bundle = Bundle()
+                itemView.findNavController()
+//                    .navigate( )
+            }
+
             binding.root.setOnClickListener {
                 if (binding.expandableView.visibility == View.GONE) {
                     expand(binding.expandableView)

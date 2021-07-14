@@ -32,18 +32,19 @@
     <color name="colorError">#CC0000</color>
     <color name="colorText">#212121</color>
 
-    <array name="color_for_group">
-        <item>C9F5FF</item>
-        <item>CFF9BB</item>
-        <item>E9EFFD</item>
-        <item>F9F9F9</item>
-        <item>FDEDDF</item>
-        <item>FFC9C9</item>
-    </array>
     <color name="firstColor">#C9F5FF</color>
     <color name="secondColor">#CFF9BB</color>
     <color name="thirdColor" tools:ignore="DuplicateDefinition">#E9EFFD</color>
     <color name="fourthColor">#F9F9F9</color>
     <color name="fifthColor">#FDEDDF</color>
     <color name="sixthColor">#FFC9C9</color>
+
+    <string-array name="bg_color">
+        <item>#CFF9BB</item>
+        <item>#C8D8FF</item>
+        <item>#FDEDDF</item>
+        <item>#C9F5FF</item>
+        <item>#E5E5E5</item>
+        <item>#FEFAE7</item>
+    </string-array>
 </resources>

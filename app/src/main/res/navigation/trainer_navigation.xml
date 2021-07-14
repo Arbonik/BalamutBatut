@@ -50,7 +50,8 @@
     <fragment
         android:id="@+id/studentsFragment"
         android:name="com.castprogramms.balamutbatut.ui.group.StudentsFragment"
-        android:label="@string/students_fragment" >
+        android:label="@string/students_fragment"
+        tools:layout="@layout/students_fragment">
         <action
             android:id="@+id/action_studentsFragment_to_addStudentFragment"
             app:enterAnim="@anim/left_out"
