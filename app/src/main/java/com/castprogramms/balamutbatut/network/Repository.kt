@@ -114,6 +114,8 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
     fun getElement(IDs: List<Int>, nameGroupElement: String)
             = dataUserFirebase.getElement(IDs, nameGroupElement)
     fun getAllElements(idElements: Map<String, List<Int>>) = dataUserFirebase.getElements(idElements)
+    fun getAllSortedElements(idElements: Map<String, List<Int>>) = dataUserFirebase.getSortedElements(idElements)
+    fun getStudentElements(studentID: String) = dataUserFirebase.getElementStudent(studentID)
     fun updateElementsStudent(elements: Map<String,List<Element>>, studentID: String) =
         dataUserFirebase.addStudentElement(elements, studentID)
     fun updateUserFirstName(first_name: String, studentID: String) =

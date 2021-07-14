@@ -96,7 +96,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     override fun getTrueOrder(): MutableLiveData<Resource<List<String>>> {
         val mutableLiveData = MutableLiveData<Resource<List<String>>>(Resource.Loading())
         fireStore.collection(elementTag)
-            .document("TRUEORDER")
+            .document(trueOrder)
             .addSnapshotListener { value, error ->
                 if (value?.get("names") != null)
                     mutableLiveData.postValue(Resource.Success(value.get("names") as List<String>))
@@ -177,10 +177,27 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .delete()
     }
 
-    fun getCollectionAllStudents(groupID: String): Query {
-        return fireStore.collection(studentTag)
+    fun getCollectionAllStudents(groupID: String):
+            MutableLiveData<Resource<MutableList<Pair<String, Student>>>> {
+        val mutableLiveData =
+            MutableLiveData<Resource<MutableList<Pair<String, Student>>>>(Resource.Loading())
+        fireStore.collection(studentTag)
             .whereEqualTo("type", "student")
             .whereEqualTo("groupID", groupID)
+            .addSnapshotListener { value, error ->
+                if (value != null){
+                    val idsAndStudents = mutableListOf<Pair<String, Student>>()
+                    value.documents.forEach {
+                        if (it.toObject(Student::class.java) != null){
+                            idsAndStudents.add(it.id to it.toObject(Student::class.java)!!)
+                        }
+                    }
+                    mutableLiveData.postValue(Resource.Success(idsAndStudents))
+                }
+                else 
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
     }
 
     fun getCollectionAllStudentsWithoutGroup(): Query {
@@ -349,6 +366,65 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
                 mutableLiveDataAllElements.postValue(allElements.toMap())
             }
         return mutableLiveDataAllElements
+    }
+
+    fun getSortedElements(IDS: Map<String, List<Int>>): MutableLiveData<MutableList<Pair<String, List<Element>>>> {
+        val allElements = mutableMapOf<String, List<Element>>()
+        val mutableLiveDataAllElements = MutableLiveData<MutableList<Pair<String, List<Element>>>>()
+        fireStore.collection(elementTag)
+            .get()
+            .addOnSuccessListener {
+                Log.e("size", it.documents.size.toString())
+                it.documents.forEach {
+                    Log.e("doc", it.data.toString())
+                    if (it.id != trueOrder) {
+                        val elements = mutableListOf<Element>()
+                        val names = it.get("name") as List<String>
+                        for (i in names.indices) {
+                            if (IDS[it.id] != null) {
+                                if (i !in IDS[it.id]!!) {
+                                    elements.add(Element(names[i]))
+                                }
+                            } else {
+                                elements.add(Element(names[i]))
+                            }
+                        }
+                        val sendElements = elements.toList()
+                        allElements.put(it.id, sendElements)
+                        elements.clear()
+                    }
+                }
+            }.continueWith {
+                var trueOrderList = listOf<String>()
+                fireStore.collection(elementTag)
+                    .document(trueOrder)
+                    .get()
+                    .addOnSuccessListener {
+                        trueOrderList = it["names"] as List<String>
+                        mutableLiveDataAllElements.postValue(
+                            filter(trueOrderList, allElements)
+                        )
+                    }
+
+            }
+        return mutableLiveDataAllElements
+    }
+
+    fun getElementStudent(studentID: String): MutableLiveData<Resource<MutableList<Pair<String, List<Int>>>>> {
+        val mutableLiveData = MutableLiveData<Resource<MutableList<Pair<String, List<Int>>>>>(Resource.Loading())
+        fireStore.collection(studentTag)
+            .document(studentID)
+            .addSnapshotListener { value, error ->
+                if (value != null)
+                    mutableLiveData.postValue(
+                        Resource.Success(
+                            (value.get("element") as Map<String, List<Int>>).toList().toMutableList()
+                        )
+                    )
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
     }
 
     fun getRang(id: String): MutableLiveData<Resource<String>> {

@@ -1,19 +1,14 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
-import android.app.ActivityOptions
 import android.graphics.drawable.Drawable
-import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
+import android.view.animation.Transformation
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
-import androidx.fragment.app.Fragment
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.navigation.findNavController
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,38 +18,30 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemStudentBinding
-import com.castprogramms.balamutbatut.network.Repository
+import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.ItemTouchHelperAdapter
 import com.castprogramms.balamutbatut.users.Student
-import com.google.firebase.firestore.Query
 
-class StudentsAdapter(_query: Query, private val repository: Repository, var idGroup: String, val fragment: Fragment) :
+class StudentsAdapter(
+    var idGroup: String,
+    val deleteStudent: (String, String) -> Unit,
+    val getSortedElements: () -> MutableLiveData<MutableList<Pair<String, List<Element>>>>,
+    val getStudentElements: (String) -> MutableLiveData<Resource<MutableList<Pair<String, List<Int>>>>>
+) :
     RecyclerView.Adapter<StudentsAdapter.StudentsViewHolder>(), ItemTouchHelperAdapter {
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()
 
-    var query = _query
-        set(value) {
-            notifyDataSetChanged()
-            field = value
+    fun setData(data: MutableList<Pair<String, Student>>){
+        val curStudents = mutableListOf<Student>()
+        val curStudentsID = mutableListOf<String>()
+        data.forEach {
+            curStudents.add(it.second)
+            curStudentsID.add(it.first)
         }
-
-    init {
-        query.addSnapshotListener { value, error ->
-            update()
-            if (value != null) {
-                students = value.toObjects(Student::class.java)
-                value.documents.forEach {
-                    studentsID.add(it.id)
-                }
-                notifyDataSetChanged()
-            }
-        }
-    }
-
-    fun update() {
-        students.clear()
-        studentsID.clear()
+        students = curStudents
+        studentsID = curStudentsID
         notifyDataSetChanged()
     }
 
@@ -86,7 +73,7 @@ class StudentsAdapter(_query: Query, private val repository: Repository, var idG
                         isFirstResource: Boolean
                     ): Boolean {
                         binding.progressRatingPhotoItem.visibility = View.GONE
-                        binding.iconStudent.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
+                        binding.iconStudent.setImageResource(R.drawable.male_user)
                         return true
                     }
 
@@ -100,49 +87,120 @@ class StudentsAdapter(_query: Query, private val repository: Repository, var idG
                         binding.progressRatingPhotoItem.visibility = View.GONE
                         val size = binding.dataUser.height * 0.56
                         val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
-                        val resizeBitmap = bitmap
-                        binding.iconStudent.setImageDrawable(resizeBitmap?.toDrawable(itemView.resources))
+                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
                         return true
                     }
                 })
                 .into(binding.iconStudent)
-            binding.groupElements.adapter = ElementsStudentAdapter()
+            val adapter = ElementsStudentAdapter()
+            setDataAdapter(adapter, id)
+            binding.groupElements.adapter = adapter
             binding.groupElements.layoutManager = LinearLayoutManager(itemView.context)
             binding.root.setOnClickListener {
                 if (binding.expandableView.visibility == View.GONE) {
-                    binding.expandableView.visibility = View.VISIBLE
-                    binding.dataUser.background = itemView.context.getDrawable(R.drawable.background_group_student)
-                    val anim = AnimationUtils.loadAnimation(itemView.context, R.anim.show)
-                    anim.interpolator = FastOutSlowInInterpolator()
-                    binding.expandableView.startAnimation(anim)
-                    anim.setAnimationListener(object : Animation.AnimationListener {
-                        override fun onAnimationStart(animation: Animation?) {
-                            binding.expandableView.visibility = View.VISIBLE
-                        }
-
-                        override fun onAnimationEnd(animation: Animation?) {}
-
-                        override fun onAnimationRepeat(animation: Animation?) {}
-                    })
+                    expand(binding.expandableView)
+                    binding.dataUser.setBackgroundResource(R.drawable.background_group_student)
                 }
-                else {
-                    val anim =
-                        AnimationUtils.loadAnimation(itemView.context, R.anim.check_item_anim)
-                    anim.interpolator = FastOutSlowInInterpolator()
-                    binding.expandableView.startAnimation(anim)
-                    anim.setAnimationListener(object : Animation.AnimationListener {
-                        override fun onAnimationStart(animation: Animation?) {
-                            binding.expandableView.visibility = View.VISIBLE
-                        }
+                else
+                    collapse(binding.expandableView)
+            }
+        }
 
-                        override fun onAnimationEnd(animation: Animation?) {
-                            binding.expandableView.visibility = View.GONE
-                            binding.dataUser.background = itemView.context.getDrawable(R.drawable.rating_rectangle)
-                        }
+        private fun expand(v: View) {
+            val matchParentMeasureSpec: Int = View.MeasureSpec.makeMeasureSpec(
+                (v.parent as View).width,
+                View.MeasureSpec.EXACTLY
+            )
+            val wrapContentMeasureSpec: Int =
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            v.measure(matchParentMeasureSpec, wrapContentMeasureSpec)
+            val targetHeight: Int = v.measuredHeight
 
-                        override fun onAnimationRepeat(animation: Animation?) {
-                        }
-                    })
+            val a: Animation = object : Animation() {
+                override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                    v.layoutParams.height =
+                        if (interpolatedTime == 1f) ViewGroup.LayoutParams.WRAP_CONTENT
+                        else (targetHeight * interpolatedTime).toInt()
+                    v.requestLayout()
+                }
+
+                override fun willChangeBounds(): Boolean {
+                    return true
+                }
+            }
+            a.setAnimationListener(object :Animation.AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+                    v.layoutParams.height = 1
+                    v.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+            })
+
+            // Expansion speed of 1dp/ms
+            a.duration = (targetHeight / v.context.resources.displayMetrics.density).toLong()
+            v.startAnimation(a)
+        }
+
+        private fun collapse(v: View) {
+            val initialHeight: Int = v.measuredHeight
+            val a: Animation = object : Animation() {
+                override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                    if (interpolatedTime == 1f) {
+                        v.visibility = View.GONE
+                    } else {
+                        v.layoutParams.height =
+                            initialHeight - (initialHeight * interpolatedTime).toInt()
+                        v.requestLayout()
+                    }
+                }
+
+                override fun willChangeBounds(): Boolean {
+                    return true
+                }
+            }
+            a.setAnimationListener(object :Animation.AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    v.visibility = View.GONE
+                    binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle)
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+            })
+
+            // Collapse speed of 1dp/ms
+            a.duration = (initialHeight / v.context.resources.displayMetrics.density).toLong()
+            v.startAnimation(a)
+        }
+
+        private fun setDataAdapter(adapter: ElementsStudentAdapter, studentId: String){
+            getSortedElements().observeForever {
+                if (it != null){
+                    adapter.allElements = it
+                    if (adapter.userElements.isNotEmpty())
+                        binding.progressBarElements.progressBar.visibility = View.GONE
+                }
+            }
+            getStudentElements(studentId).observeForever{
+                when(it){
+                    is Resource.Error ->
+                        binding.progressBarElements.progressBar.visibility = View.GONE
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        if (it.data != null)
+                            adapter.userElements = it.data
+                        if (adapter.allElements.isNotEmpty())
+                            binding.progressBarElements.progressBar.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -165,7 +223,7 @@ class StudentsAdapter(_query: Query, private val repository: Repository, var idG
     }
 
     override fun onItemDismiss(position: Int) {
-        repository.deleteStudentFromGroup(studentsID[position], idGroup)
+        deleteStudent(studentsID[position], idGroup)
         students.removeAt(position)
         studentsID.removeAt(position)
         notifyItemRemoved(position)
@@ -185,4 +243,6 @@ class StudentsAdapter(_query: Query, private val repository: Repository, var idG
         list[toPosition] = firstPair
         return list
     }
+
+
 }

@@ -8,15 +8,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.network.Repository
+import com.castprogramms.balamutbatut.databinding.StudentsFragmentBinding
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.SimpleItemTouchHelperCallback
 import com.castprogramms.balamutbatut.ui.group.adapters.StudentsAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StudentsFragment: Fragment() {
-    private val repository : Repository by inject()
+class StudentsFragment: Fragment(R.layout.students_fragment) {
     var id = ""
     var nameGroup = ""
     val viewModel :StudentsViewModel by viewModel()
@@ -29,26 +27,34 @@ class StudentsFragment: Fragment() {
                 arguments?.getString("name")!! else ""
         }
     }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.students_fragment, container, false)
-        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val binding = StudentsFragmentBinding.bind(view)
+        binding.fab.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("id", id)
             findNavController().navigate(R.id.action_studentsFragment_to_addStudentFragment, bundle)
         }
         val recyclerView : RecyclerView = view.findViewById(R.id.students_list)
-        val studentsAdapter = StudentsAdapter(viewModel.getQuery(id), repository, id, this)
+        val studentsAdapter = StudentsAdapter(id,
+                {studentId: String, groupId: String -> viewModel.deleteStudent(studentId, groupId)},
+                {viewModel.getSortedElements() })
+                { studentId: String -> viewModel.getStudentElements(studentId) }
+        viewModel.getStudents(id).observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Error -> binding.progressStudents.progressBar.visibility = View.GONE
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    binding.progressStudents.progressBar.visibility = View.GONE
+                    if (it.data != null)
+                        studentsAdapter.setData(it.data)
+                }
+            }
+        })
         recyclerView.adapter = studentsAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         val callback = SimpleItemTouchHelperCallback(studentsAdapter)
         ItemTouchHelper(callback).attachToRecyclerView(recyclerView)
-        return view
     }
 
 }

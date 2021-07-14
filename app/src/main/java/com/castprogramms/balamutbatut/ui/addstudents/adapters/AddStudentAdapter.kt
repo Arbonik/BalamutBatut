@@ -76,41 +76,41 @@ class AddStudentAdapter(_query: Query, var idGroup: String, private val reposito
     inner class AddStudentsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemStudentBinding.bind(view)
         fun bind(student: Student, id: String){
-            binding.studentName.text = student.first_name + " " + student.second_name
-            Glide.with(itemView)
-                .load(student.img)
-                .addListener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.progressRatingPhotoItem.visibility = View.GONE
-                        binding.iconStudent.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
-                        return true
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.progressRatingPhotoItem.visibility = View.GONE
-                        val size = binding.root.height * 0.56
-                        val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
-                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
-                        return true
-                    }
-                })
-                .into(binding.iconStudent)
-            binding.root.setOnClickListener {
-                if (User.trainer != null)
-                    student.groupID = idGroup
-                repository.updateStudentGroup(id, student.groupID)
-            }
+//            binding.studentName.text = student.first_name + " " + student.second_name
+//            Glide.with(itemView)
+//                .load(student.img)
+//                .addListener(object : RequestListener<Drawable> {
+//                    override fun onLoadFailed(
+//                        e: GlideException?,
+//                        model: Any?,
+//                        target: Target<Drawable>?,
+//                        isFirstResource: Boolean
+//                    ): Boolean {
+//                        binding.progressRatingPhotoItem.visibility = View.GONE
+//                        binding.iconStudent.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
+//                        return true
+//                    }
+//
+//                    override fun onResourceReady(
+//                        resource: Drawable?,
+//                        model: Any?,
+//                        target: Target<Drawable>?,
+//                        dataSource: DataSource?,
+//                        isFirstResource: Boolean
+//                    ): Boolean {
+//                        binding.progressRatingPhotoItem.visibility = View.GONE
+//                        val size = binding.root.height * 0.56
+//                        val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
+//                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
+//                        return true
+//                    }
+//                })
+//                .into(binding.iconStudent)
+//            binding.root.setOnClickListener {
+//                if (User.trainer != null)
+//                    student.groupID = idGroup
+//                repository.updateStudentGroup(id, student.groupID)
+//            }
         }
     }
 
