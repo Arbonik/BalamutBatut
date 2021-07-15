@@ -106,7 +106,7 @@ class StudentsAdapter(
             binding.addElement.setOnClickListener {
                 val bundle = Bundle()
                 itemView.findNavController()
-//                    .navigate( )
+                    .navigate(R.id.action_studentsFragment_to_groupElementsFragment)
             }
 
             binding.root.setOnClickListener {

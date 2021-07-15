@@ -1,6 +1,7 @@
 package com.castprogramms.balamutbatut.ui.groupelements
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemGroupElementBinding
 
 class GroupElementsAdapter: RecyclerView.Adapter<GroupElementsAdapter.GroupElementsViewHolder>() {
-    var elementsTitle = mutableListOf<String>()
+    var elementsTitle = mutableListOf<Pair<String, Number>>()
     set(value) {
         field = value
         notifyDataSetChanged()
@@ -35,11 +36,12 @@ class GroupElementsAdapter: RecyclerView.Adapter<GroupElementsAdapter.GroupEleme
             colors.forEach {
                 colorsInt.add(Color.parseColor(it))
             }
+            Log.e("color", colorsInt.toString())
         }
 
-        fun bind(position: Int, string: String){
+        fun bind(position: Int, pair: Pair<String, Number>){
             binding.colorGroupElement.setBackgroundColor(colorsInt[position])
-            binding.nameGroupElements.text = string
+            binding.nameGroupElements.text = pair.first
         }
     }
 }

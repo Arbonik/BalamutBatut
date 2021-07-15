@@ -66,6 +66,13 @@
             app:exitAnim="@anim/right_out"
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
+        <action
+            android:id="@+id/action_studentsFragment_to_groupElementsFragment"
+            app:destination="@id/groupElementsFragment"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
     </fragment>
     <fragment
         android:id="@+id/addStudentFragment"
@@ -138,4 +145,8 @@
         android:id="@+id/editElementFragment"
         android:name="com.castprogramms.balamutbatut.ui.editelement.EditElementFragment"
         android:label="EditElementFragment" />
+    <fragment
+        android:id="@+id/groupElementsFragment"
+        android:name="com.castprogramms.balamutbatut.ui.groupelements.GroupElementsFragment"
+        android:label="GroupElementsFragment" />
 </navigation>
