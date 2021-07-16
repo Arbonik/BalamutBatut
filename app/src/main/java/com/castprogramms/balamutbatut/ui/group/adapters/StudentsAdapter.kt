@@ -39,7 +39,7 @@ class StudentsAdapter(
         val curStudents = mutableListOf<Student>()
         val curStudentsID = mutableListOf<String>()
         data.sortBy {
-            countElements(it.second)
+            countElements(it.second).split(" ")[1].toInt()
         }
         data.reverse()
         data.forEach {
@@ -105,8 +105,9 @@ class StudentsAdapter(
             binding.groupElements.layoutManager = LinearLayoutManager(itemView.context)
             binding.addElement.setOnClickListener {
                 val bundle = Bundle()
+                bundle.putString("id", id)
                 itemView.findNavController()
-                    .navigate(R.id.action_studentsFragment_to_groupElementsFragment)
+                    .navigate(R.id.action_studentsFragment_to_groupElementsFragment, bundle)
             }
 
             binding.root.setOnClickListener {

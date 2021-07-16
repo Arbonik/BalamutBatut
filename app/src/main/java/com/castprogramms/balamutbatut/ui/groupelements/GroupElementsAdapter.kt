@@ -1,16 +1,17 @@
 package com.castprogramms.balamutbatut.ui.groupelements
 
-import android.graphics.Color
-import android.util.Log
+import android.content.res.ColorStateList
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemGroupElementBinding
 
-class GroupElementsAdapter: RecyclerView.Adapter<GroupElementsAdapter.GroupElementsViewHolder>() {
-    var elementsTitle = mutableListOf<Pair<String, Number>>()
+class GroupElementsAdapter(val idStudent: String) : RecyclerView.Adapter<GroupElementsAdapter.GroupElementsViewHolder>() {
+    var elementsTitle = mutableListOf<Pair<String, Int>>()
     set(value) {
         field = value
         notifyDataSetChanged()
@@ -23,25 +24,24 @@ class GroupElementsAdapter: RecyclerView.Adapter<GroupElementsAdapter.GroupEleme
     }
 
     override fun onBindViewHolder(holder: GroupElementsViewHolder, position: Int) {
-        holder.bind(position, elementsTitle[position])
+        holder.bind(elementsTitle[position])
     }
 
     override fun getItemCount() = elementsTitle.size
 
     inner class GroupElementsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemGroupElementBinding.bind(view)
-        private val colors = view.context.resources.getStringArray(R.array.bg_color)
-        private val colorsInt = mutableListOf<Int>()
-        init {
-            colors.forEach {
-                colorsInt.add(Color.parseColor(it))
-            }
-            Log.e("color", colorsInt.toString())
-        }
-
-        fun bind(position: Int, pair: Pair<String, Number>){
-            binding.colorGroupElement.setBackgroundColor(colorsInt[position])
+        fun bind(pair: Pair<String, Int>){
+            binding.colorGroupElement.backgroundTintList = ColorStateList.valueOf(pair.second)
             binding.nameGroupElements.text = pair.first
+            binding.root.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("id", idStudent)
+                bundle.putString("title", pair.first)
+                bundle.putInt("color", pair.second)
+                it.findNavController()
+                    .navigate(R.id.action_groupElementsFragment_to_addElementsFragment, bundle)
+            }
         }
     }
 }

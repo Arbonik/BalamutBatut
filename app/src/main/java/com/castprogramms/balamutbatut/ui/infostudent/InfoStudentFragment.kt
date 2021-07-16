@@ -82,8 +82,8 @@ class InfoStudentFragment : FragmentWithElement(R.layout.fragment_info_fragment)
             bundle.putStringArray(
                 "idElements",
                 viewModel.mutableLiveDataStudent.value?.elements?.let { convertToIDsList(it) })
-            findNavController()
-                .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
+//            findNavController()
+//                .navigate(R.id.action_infoStudentFragment_to_changeProgramFragment, bundle)
             true
         }
     }

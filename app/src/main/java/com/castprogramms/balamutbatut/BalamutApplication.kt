@@ -10,6 +10,7 @@ import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.allElements.AllElementListViewModel
 import com.castprogramms.balamutbatut.ui.editelement.EditElementViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
+import com.castprogramms.balamutbatut.ui.groupelements.GroupElementsViewModel
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
 import com.castprogramms.balamutbatut.ui.profile.ProfileViewModel
 import com.castprogramms.balamutbatut.ui.qrcode.QrCodeViewModel
@@ -38,6 +39,7 @@ class BalamutApplication : Application() {
         viewModel {ProfileViewModel(get())}
         viewModel {EditElementViewModel(get())}
         viewModel {AddElementsViewModel(get())}
+        viewModel {GroupElementsViewModel(get())}
     }
 
     override fun onCreate() {

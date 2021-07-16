@@ -135,4 +135,5 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.14.1'
 
     implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:2.0.7'
+    implementation 'net.igenius:customcheckbox:1.3'
 }

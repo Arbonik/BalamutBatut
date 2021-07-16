@@ -115,6 +115,8 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
             = dataUserFirebase.getElement(IDs, nameGroupElement)
     fun getAllElements(idElements: Map<String, List<Int>>) = dataUserFirebase.getElements(idElements)
     fun getAllSortedElements(idElements: Map<String, List<Int>>) = dataUserFirebase.getSortedElements(idElements)
+    fun getStudentTitleElementsWithColor(idElements: Map<String, List<Int>>)
+            = dataUserFirebase.getSortedElementsWithColor(idElements)
     fun getStudentElements(studentID: String) = dataUserFirebase.getElementStudent(studentID)
     fun updateElementsStudent(elements: Map<String,List<Element>>, studentID: String) =
         dataUserFirebase.addStudentElement(elements, studentID)
@@ -123,6 +125,8 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
     fun updateUserSecondName(second_name: String, studentID: String) =
         dataUserFirebase.editLastNameStudent(second_name, studentID)
     fun getStudentsOfGroup(groupID: String) = dataUserFirebase.getStudentsOfGroup(groupID)
+    fun getAddStudentElementsOnThisTitle(idStudent: String, title: String) =
+        dataUserFirebase.getAddStudentElementsOnThisTitle(idStudent, title)
     fun updateUserIcon(img: String, studentID: String) =
         dataUserFirebase.editIconStudent(img, studentID)
     fun updateDataGroup(group: Group, groupID: String) = dataUserFirebase.updateDataGroup(group, groupID)

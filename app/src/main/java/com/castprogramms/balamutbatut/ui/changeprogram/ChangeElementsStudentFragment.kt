@@ -67,8 +67,8 @@ class ChangeElementsStudentFragment: FragmentWithElement(R.layout.fragment_chang
             repository.updateElementsStudent(adapter.checkedElements.toMap(), id)
             val bundle = Bundle()
             bundle.putString("id", id)
-            findNavController()
-                .navigate(R.id.action_changeProgramFragment_to_infoStudentFragment2, bundle)
+//            findNavController()
+//                .navigate(R.id.action_changeProgramFragment_to_infoStudentFragment2, bundle)
         }
     }
     override fun generateAdapter(map: Map<String, List<Int>>) {

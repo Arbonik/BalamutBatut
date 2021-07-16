@@ -51,17 +51,17 @@
         android:layout_marginEnd="12dp"
         style="@style/group_card"
         android:textSize="18dp"
-        android:text="GIRLS"/>
+        android:text="Прыжок в группировке"/>
 
-    <ImageView
+    <net.igenius.customcheckbox.CustomCheckBox
+        app:color_checked="#0C4C7A"
+        android:id="@+id/is_need"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/east"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/startVertical"
-        app:layout_constraintEnd_toEndOf="@id/endVertical"
-        android:backgroundTint="#C4C4C4"/>
-
+        app:layout_constraintEnd_toEndOf="@id/endVertical" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
