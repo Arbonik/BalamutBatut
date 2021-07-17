@@ -9,6 +9,7 @@ import com.castprogramms.balamutbatut.ui.addstudents.AddStudentViewModel
 import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.allElements.AllElementListViewModel
+import com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementViewModel
 import com.castprogramms.balamutbatut.ui.editelement.EditElementViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.groupelements.GroupElementsViewModel
@@ -42,6 +43,7 @@ class BalamutApplication : Application() {
         viewModel {AddElementsViewModel(get())}
         viewModel {GroupElementsViewModel(get())}
         viewModel {AddStudentViewModel(get())}
+        viewModel {AllGroupElementViewModel(get())}
     }
 
     override fun onCreate() {

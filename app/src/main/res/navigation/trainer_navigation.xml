@@ -108,10 +108,11 @@
     <fragment
         android:id="@+id/allElementListFragment2"
         android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"
-        android:label="@string/item_all_elements" >
+        android:label="@string/item_all_elements"
+        tools:layout="@layout/all_element_list_fragment">
         <action
-            android:id="@+id/action_allElementListFragment2_to_editElementFragment"
-            app:destination="@id/editElementFragment"
+            android:id="@+id/action_allElementListFragment2_to_allGroupElementFragment"
+            app:destination="@id/allGroupElementFragment"
             app:enterAnim="@anim/left_out"
             app:exitAnim="@anim/right_out"
             app:popEnterAnim="@anim/left_in"
@@ -138,5 +139,10 @@
         android:id="@+id/addElementsFragment"
         android:name="com.castprogramms.balamutbatut.ui.addelements.AddElementsFragment"
         android:label="AddElementsFragment"
+        tools:layout="@layout/fragment_add_elements"/>
+    <fragment
+        android:id="@+id/allGroupElementFragment"
+        android:name="com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementFragment"
+        android:label="AllGroupElementFragment"
         tools:layout="@layout/fragment_add_elements"/>
 </navigation>

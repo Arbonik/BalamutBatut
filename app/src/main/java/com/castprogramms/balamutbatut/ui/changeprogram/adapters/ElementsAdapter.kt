@@ -129,8 +129,8 @@ class ElementsAdapter(val context: Context, val isProfile: Boolean):
                     TypesUser.TRAINER -> {
                         val bundle = Bundle()
                         bundle.putString("element", element.name)
-                        itemView.findNavController()
-                            .navigate(R.id.action_allElementListFragment2_to_editElementFragment, bundle)
+//                        itemView.findNavController()
+//                            .navigate(R.id.action_allElementListFragment2_to_editElementFragment, bundle)
                     }
                     TypesUser.NOTHING -> {}
                 }

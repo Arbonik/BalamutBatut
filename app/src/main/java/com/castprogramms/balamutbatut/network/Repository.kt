@@ -127,6 +127,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
     fun getStudentsOfGroup(groupID: String) = dataUserFirebase.getStudentsOfGroup(groupID)
     fun getAddStudentElementsOnThisTitle(idStudent: String, title: String) =
         dataUserFirebase.getAddStudentElementsOnThisTitle(idStudent, title)
+    fun getAllElementsOnThisTitle(title: String) = dataUserFirebase.getAllElementsOnThisTitle(title)
     fun updateUserIcon(img: String, studentID: String) =
         dataUserFirebase.editIconStudent(img, studentID)
     fun updateDataGroup(group: Group, groupID: String) = dataUserFirebase.updateDataGroup(group, groupID)

@@ -15,31 +15,33 @@ import com.castprogramms.balamutbatut.tools.FragmentWithElement
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.changeprogram.adapters.IHopeThisAdapterCanWork
+import com.castprogramms.balamutbatut.ui.groupelements.GroupElementsAdapter
+import com.castprogramms.balamutbatut.ui.groupelements.GroupElementsViewModel
 import com.castprogramms.balamutbatut.users.Student
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AllElementListFragment : FragmentWithElement(R.layout.all_element_list_fragment) {
-    val viewModel: AllElementListViewModel by viewModel()
+class AllElementListFragment : Fragment(R.layout.all_element_list_fragment) {
+    val viewModel : GroupElementsViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = AllElementListFragmentBinding.bind(view)
-        val adapter = IHopeThisAdapterCanWork(true)
+        val adapter = AllElementsAdapter()
         binding.recyclerAllElementsList.adapter = adapter
-        if (User.typeUser == TypesUser.STUDENT){
-            repository.user.observe(viewLifecycleOwner, {
-                if (it is Resource.Success){
-                    adapter.haveThisElement = (it.data as Student).element.toList().toMutableList()
+        viewModel.getSortedStudentTitleElementsWithColor(mapOf()).observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Error -> {
+                    binding.progress.progressBar.visibility = View.GONE
+                    Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 }
-            })
-        }
-        generateAdapter(mapOf())
-        getTrueOrder()
-        mutableLiveDataOrder.observe(viewLifecycleOwner, {
-            if (it is Resource.Success)
-                adapter.filters = it.data!!
-        })
-        mutableLiveData.observe(viewLifecycleOwner, {
-            adapter.setElement(it)
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    if (it.data != null) {
+                        binding.progress.progressBar.visibility = View.GONE
+                        adapter.elementsTitle = it.data
+                    }
+                }
+            }
         })
     }
 }

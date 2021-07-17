@@ -609,6 +609,25 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
+    fun getAllElementsOnThisTitle(title: String): MutableLiveData<Resource<MutableList<Element>>> {
+        val mutableLiveData = MutableLiveData<Resource<MutableList<Element>>>(Resource.Loading())
+        fireStore.collection(elementTag)
+            .document(title)
+            .addSnapshotListener { value, error ->
+                if (value != null){
+                    val list = value.get("name") as List<String>
+                    val elements = mutableListOf<Element>()
+                    list.forEach {
+                        elements.add(Element(it))
+                    }
+                    mutableLiveData.postValue(Resource.Success(elements))
+                }
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
+    }
+
 
     companion object {
         const val elementTag = "elements"
@@ -633,7 +652,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         fun getListAndPosition(list: List<String>): MutableMap<String, Int> {
             val map = mutableMapOf<String, Int>()
             list.forEachIndexed { index, s ->
-                map.put(s, index)
+                map[s] = index
             }
             return map
         }

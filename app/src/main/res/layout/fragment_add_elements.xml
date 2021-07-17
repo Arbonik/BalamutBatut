@@ -18,7 +18,6 @@
 
     <com.google.android.material.button.MaterialButton
         android:visibility="invisible"
-
         android:id="@+id/add_element"
         android:layout_width="0dp"
         android:layout_marginBottom="25dp"

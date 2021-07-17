@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:background="@color/white"
+<androidx.constraintlayout.widget.ConstraintLayout android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/BodyBackground"
+    xmlns:tools="http://schemas.android.com/tools">
+    <include
+        layout="@layout/center_progress_bar"
+        android:id="@+id/progress"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        style="@style/BackgroundRecyclerView"
         android:id="@+id/recyclerAllElementsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_marginBottom="10dp"/>
+        tools:listitem="@layout/item_group_element"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
