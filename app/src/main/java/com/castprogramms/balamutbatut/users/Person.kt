@@ -10,6 +10,6 @@ open class Person(
     var img: String = ""
 ) {
     companion object{
-        val notGroup = "НетГруппы"
+        const val notGroup = "НетГруппы"
     }
 }

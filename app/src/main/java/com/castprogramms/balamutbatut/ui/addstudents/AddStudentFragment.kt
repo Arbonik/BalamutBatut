@@ -5,36 +5,72 @@ import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.databinding.FragmentAddStudentBinding
 import com.castprogramms.balamutbatut.network.Repository
+import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.ui.addstudents.adapters.AddStudentAdapter
+import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AddStudentFragment: Fragment() {
-    private val repository : Repository by inject()
+class AddStudentFragment: Fragment(R.layout.fragment_add_student) {
+    val viewModel : AddStudentViewModel by viewModel()
     var id = ""
-    val query = repository.getCollectionAllStudentsWithoutGroup()
-    val studentsAdapter = AddStudentAdapter(query, id, repository)
+    val studentsAdapter = AddStudentAdapter(id)
+        { studentId: String, groupID: String -> viewModel.updateStudentGroup(studentId, groupID) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null){
-            id = arguments?.getString("id").toString()
-            studentsAdapter.idGroup = id
-        }
+        id = requireArguments().getString("id", "")
+        studentsAdapter.idGroup = id
     }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_add_student, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         this.setHasOptionsMenu(true)
-        val recycler : RecyclerView = view.findViewById(R.id.recycler)
-        recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = studentsAdapter
-        return view
+        val binding = FragmentAddStudentBinding.bind(view)
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.recycler.adapter = studentsAdapter
+        viewModel.getStudentWithoutGroup().observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Error -> {
+                    binding.progress.progressBar.visibility = View.GONE
+                    Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_SHORT).show()
+                }
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    binding.progress.progressBar.visibility = View.GONE
+                    if (it.data != null){
+                        if (it.data.isNotEmpty()) {
+                            studentsAdapter.setData(it.data)
+                            binding.noStudents.visibility = View.GONE
+                        }
+                        else
+                            binding.noStudents.text = "Нет студентов без групп"
+                    }
+                }
+            }
+        })
+
+        studentsAdapter.liveDataSelectedStudent.observe(viewLifecycleOwner, {
+            Log.e("it", it.toString())
+            if (it.isNotEmpty())
+                binding.addStudent.visibility = View.VISIBLE
+            else
+                binding.addStudent.visibility = View.INVISIBLE
+        })
+
+        binding.addStudent.setOnClickListener {
+            if (!studentsAdapter.liveDataSelectedStudent.value.isNullOrEmpty()) {
+                studentsAdapter.liveDataSelectedStudent.value?.forEach {
+                    viewModel.updateStudentGroup(it, id)
+                }
+                it.findNavController().popBackStack()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -14,9 +14,10 @@ import com.castprogramms.balamutbatut.users.Student
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RatingFragment(private val groupType: RatingType = RatingType.All) : Fragment(R.layout.fragment_rating) {
+class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragment(R.layout.fragment_rating) {
     val viewModel: RatingViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        retainInstance = true
         val binding = FragmentRatingBinding.bind(view)
         initAdapter(binding)
     }
@@ -72,4 +73,12 @@ class RatingFragment(private val groupType: RatingType = RatingType.All) : Fragm
             }
         })
     }
+
+//    override fun onStop() {
+//        super.onStop()
+//        if (groupType == RatingType.Group)
+//            onSaveInstanceState(Bundle().apply {
+//                putString("type", "group")
+//            })
+//    }
 }

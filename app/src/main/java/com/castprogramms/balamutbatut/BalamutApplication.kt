@@ -5,6 +5,7 @@ import com.castprogramms.balamutbatut.network.DataUserFirebase
 import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.network.VideoAndDescFirebaseStorage
 import com.castprogramms.balamutbatut.ui.addelements.AddElementsViewModel
+import com.castprogramms.balamutbatut.ui.addstudents.AddStudentViewModel
 import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.allElements.AllElementListViewModel
@@ -40,6 +41,7 @@ class BalamutApplication : Application() {
         viewModel {EditElementViewModel(get())}
         viewModel {AddElementsViewModel(get())}
         viewModel {GroupElementsViewModel(get())}
+        viewModel {AddStudentViewModel(get())}
     }
 
     override fun onCreate() {

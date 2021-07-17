@@ -8,6 +8,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -15,8 +16,10 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.databinding.ItemAddStudentBinding
 import com.castprogramms.balamutbatut.databinding.ItemStudentBinding
 import com.castprogramms.balamutbatut.network.Repository
+import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
 import com.google.firebase.firestore.EventListener
@@ -24,46 +27,45 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
-class AddStudentAdapter(_query: Query, var idGroup: String, private val repository: Repository)
+class AddStudentAdapter(var idGroup: String, val updateStudentGroup: (String, String) -> Unit)
     : RecyclerView.Adapter<AddStudentAdapter.AddStudentsViewHolder>(), Filterable {
-    var students = mutableListOf<Student>()
-    var studentsID = mutableListOf<String>()
-    var sortedStudent = mutableListOf<Student>()
-    var sortedStudentsID = mutableListOf<String>()
-    var filterWord = ""
-    var query = _query
-        set(value) {
-            notifyDataSetChanged()
-            field = value
+    private var students = mutableListOf<Student>()
+    private var studentsID = mutableListOf<String>()
+    private var sortedStudent = mutableListOf<Student>()
+    private var sortedStudentsID = mutableListOf<String>()
+    fun setData(mutableList: MutableList<Pair<String, Student>>){
+        students = mutableListOf()
+        studentsID = mutableListOf()
+        mutableList.forEach {
+            studentsID.add(it.first)
+            students.add(it.second)
         }
-
-    init {
-        query.addSnapshotListener(object : EventListener<QuerySnapshot> {
-            override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                update()
-                if (value != null) {
-                    students = value.toObjects(Student::class.java)
-                    value.documents.forEach {
-                        studentsID.add(it.id)
-                    }
-                    sortedStudent = students
-                    sortedStudentsID = studentsID
-                    filter.filter(filterWord)
-                    notifyDataSetChanged()
-                }
-            }
-        })
-    }
-    fun update(){
-        students.clear()
-        studentsID.clear()
+        sortedStudent = students
+        sortedStudentsID = studentsID
         notifyDataSetChanged()
     }
+
+    val liveDataSelectedStudent = MutableLiveData<MutableList<String>>(mutableListOf())
+    fun addNeedStudent(id: String){
+        if (liveDataSelectedStudent.value.isNullOrEmpty())
+            liveDataSelectedStudent.postValue(mutableListOf(id))
+        else
+            liveDataSelectedStudent.postValue(liveDataSelectedStudent.value.apply {
+                this?.add(id)
+            })
+    }
+    fun deleteNeedStudent(id: String){
+        if (liveDataSelectedStudent.value?.contains(id) == true)
+            liveDataSelectedStudent.postValue(liveDataSelectedStudent.value.apply {
+                this?.remove(id)
+            })
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddStudentsViewHolder {
         return AddStudentsViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_student, parent, false)
+                .inflate(R.layout.item_add_student, parent, false)
         )
     }
 
@@ -74,50 +76,73 @@ class AddStudentAdapter(_query: Query, var idGroup: String, private val reposito
     override fun getItemCount(): Int = sortedStudent.size
 
     inner class AddStudentsViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val binding = ItemStudentBinding.bind(view)
+        val binding = ItemAddStudentBinding.bind(view)
         fun bind(student: Student, id: String){
-//            binding.studentName.text = student.first_name + " " + student.second_name
-//            Glide.with(itemView)
-//                .load(student.img)
-//                .addListener(object : RequestListener<Drawable> {
-//                    override fun onLoadFailed(
-//                        e: GlideException?,
-//                        model: Any?,
-//                        target: Target<Drawable>?,
-//                        isFirstResource: Boolean
-//                    ): Boolean {
-//                        binding.progressRatingPhotoItem.visibility = View.GONE
-//                        binding.iconStudent.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
-//                        return true
-//                    }
-//
-//                    override fun onResourceReady(
-//                        resource: Drawable?,
-//                        model: Any?,
-//                        target: Target<Drawable>?,
-//                        dataSource: DataSource?,
-//                        isFirstResource: Boolean
-//                    ): Boolean {
-//                        binding.progressRatingPhotoItem.visibility = View.GONE
-//                        val size = binding.root.height * 0.56
-//                        val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
-//                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
-//                        return true
-//                    }
-//                })
-//                .into(binding.iconStudent)
+            binding.score.text = countElements(student)
+            binding.studentName.text = student.getFullName()
+            Glide.with(itemView)
+                .load(student.img)
+                .addListener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.progressRatingPhotoItem.visibility = View.GONE
+                        binding.iconStudent.setBackgroundResource(R.drawable.male_user)
+                        return true
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        binding.progressRatingPhotoItem.visibility = View.GONE
+                        val size = binding.root.height * 0.56
+                        val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
+                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
+                        return true
+                    }
+                })
+                .into(binding.iconStudent)
 //            binding.root.setOnClickListener {
 //                if (User.trainer != null)
 //                    student.groupID = idGroup
-//                repository.updateStudentGroup(id, student.groupID)
+//                updateStudentGroup(id, student.groupID)
 //            }
+            binding.root.setOnClickListener {
+                binding.isNeed.setChecked(!binding.isNeed.isChecked, true)
+                checkCheckBox(id, binding.isNeed.isChecked)
+            }
+            binding.isNeed.setOnClickListener {
+                binding.isNeed.setChecked(!binding.isNeed.isChecked, true)
+                checkCheckBox(id, binding.isNeed.isChecked)
+            }
+        }
+
+        private fun checkCheckBox(id: String, checked: Boolean) {
+            if (checked)
+                addNeedStudent(id)
+            else
+                deleteNeedStudent(id)
+        }
+
+        private fun countElements(student: Student): String {
+            var score = 0
+            student.element.forEach {
+                score += it.value.size
+            }
+            return "Элементы: $score"
         }
     }
 
     override fun getFilter(): Filter {
         return object : Filter(){
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                filterWord = constraint.toString()
                 sortedStudent = mutableListOf()
                 sortedStudentsID = mutableListOf()
                 val names = mutableListOf<String>()

@@ -32,11 +32,11 @@
         app:layout_constraintEnd_toEndOf="@id/endVertical"/>
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startVertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/startVertical"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25"/>
+        app:layout_constraintGuide_percent="0.25304136" />
 
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="wrap_content"

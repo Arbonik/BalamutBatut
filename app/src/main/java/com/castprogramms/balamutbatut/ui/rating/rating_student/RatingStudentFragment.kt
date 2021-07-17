@@ -18,8 +18,6 @@ class RatingStudentFragment: Fragment(R.layout.fragment_rating_student) {
                 0 -> tab.text = "Общий рейтинг"
                 1 -> tab.text = "Рейтинг группы"
             }
-            binding.viewPager2.currentItem = i
         }.attach()
-        binding.viewPager2.currentItem = 0
     }
 }

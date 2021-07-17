@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include
+        layout="@layout/center_progress_bar"
+        android:id="@+id/progress"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/no_students"
+        style="@style/textBlackWhite"
+        android:textSize="18sp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler"/>
+        android:id="@+id/recycler"
+        tools:listitem="@layout/item_student"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:visibility="invisible"
+        android:id="@+id/add_student"
+        android:layout_width="0dp"
+        android:layout_marginBottom="25dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_group_student_button"
+        android:drawableStart="@drawable/add"
+        android:text="Добавить"
+        app:icon="@drawable/add"
+        app:layout_constraintStart_toStartOf="@id/startVertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/endVertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25304136" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/endVertical"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

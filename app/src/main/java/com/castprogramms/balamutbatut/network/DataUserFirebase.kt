@@ -202,10 +202,25 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
-    fun getCollectionAllStudentsWithoutGroup(): Query {
-        return fireStore.collection(studentTag)
+    fun getCollectionAllStudentsWithoutGroup(): MutableLiveData<Resource<MutableList<Pair<String, Student>>>> {
+        val mutableLiveData =
+            MutableLiveData<Resource<MutableList<Pair<String, Student>>>>(Resource.Loading())
+        fireStore.collection(studentTag)
             .whereEqualTo("groupID", Person.notGroup)
             .whereEqualTo("type", "student")
+            .addSnapshotListener { value, error ->
+                if (value != null){
+                    val idAndStudent = mutableListOf<Pair<String, Student>>()
+                    value.documents.forEach {
+                        if (it.toObject(Student::class.java) != null)
+                            idAndStudent.add(it.id to it.toObject(Student::class.java)!!)
+                    }
+                    mutableLiveData.postValue(Resource.Success(idAndStudent))
+                }
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
     }
 
     override fun readAllStudent(group: Group): MutableList<Student> {
