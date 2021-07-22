@@ -96,7 +96,7 @@
     <string name="text_video">Предпросмотр видео</string>
     <string name="load_video_in_cloud">Загрузить видео в облако</string>
     <string name="error_load">Загрузите видео</string>
-    <string name="desc_element">Описание элемента</string>
+    <string name="desc_element">Описание</string>
     <string name="desc">Описание:</string>
     <string name="error_desc">Введите описание элемента</string>
     <string name="change">Изменить</string>
@@ -104,4 +104,12 @@
     <string name="add">Добавить</string>
     <string name="delete">Удалить</string>
     <string name="color">Цвет</string>
+    <string name="name_element">Название</string>
+    <string name="error_name">Введите название элемента</string>
+
+    <string-array name="levels">
+        <item>Низкая</item>
+        <item>Средняя</item>
+        <item>Высокая</item>
+    </string-array>
 </resources>

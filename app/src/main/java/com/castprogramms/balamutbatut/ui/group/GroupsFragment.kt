@@ -17,17 +17,23 @@ class GroupsFragment : Fragment(R.layout.groups_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = GroupsFragmentBinding.bind(view)
-        val groupAdapter = GroupsAdapter{group: Group, groupID: String -> viewModel.updateDataGroup(group, groupID)}
+        val groupAdapter = GroupsAdapter( { group: Group, groupID: String ->
+            viewModel.updateDataGroup(
+                group,
+                groupID
+            )
+        }) { groupId: String -> viewModel.getGroupInfo(groupId) }
         viewModel.getGroups().observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 is Resource.Error -> {
-                    binding.progressBarGroups.root.visibility = View.GONE
+                    binding.progressGroups.root.visibility = View.GONE
                 }
 
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                }
 
                 is Resource.Success -> {
-                    binding.progressBarGroups.root.visibility = View.GONE
+                    binding.progressGroups.root.visibility = View.GONE
                     if (it.data != null)
                         groupAdapter.setData(it.data)
                 }

@@ -20,7 +20,7 @@ class AllGroupElementFragment: Fragment(R.layout.fragment_add_elements) {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentAddElementsBinding.bind(view)
-        val adapter = AllGroupElementAdapter(colorGroup)
+        val adapter = AllGroupElementAdapter(colorGroup, titleGroup)
         binding.recycler.adapter = adapter
         viewModel.getAllElementsOnThisTitle(titleGroup).observe(viewLifecycleOwner, {
             when(it){

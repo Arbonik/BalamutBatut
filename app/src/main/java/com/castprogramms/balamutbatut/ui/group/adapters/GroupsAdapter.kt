@@ -3,11 +3,12 @@ package com.castprogramms.balamutbatut.ui.group.adapters
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,10 @@ import com.castprogramms.balamutbatut.databinding.ItemGroupBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.ui.addgroup.ColorAdapter
 
-class GroupsAdapter(val updateData: (Group, String) -> MutableLiveData<Resource<String>>) : RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>() {
+class GroupsAdapter(
+    val updateData: (Group, String) -> MutableLiveData<Resource<String>>,
+    val getGroupInfo: (String) -> MutableLiveData<Resource<Group>>
+) : RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>() {
     var groups = mutableListOf<Group>()
     var groupsId = mutableListOf<String>()
     fun setData(data: MutableList<Pair<Group, String>>){
@@ -83,7 +87,7 @@ class GroupsAdapter(val updateData: (Group, String) -> MutableLiveData<Resource<
             val binding = EditGroupDialogBinding.bind(view)
             binding.colors.layoutManager =
                 LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
-            val adapter = ColorAdapter(groupsId)
+            val adapter = ColorAdapter()
             binding.colors.adapter = adapter
             val ad = AlertDialog.Builder(itemView.context)
                 .setView(view)
@@ -93,15 +97,35 @@ class GroupsAdapter(val updateData: (Group, String) -> MutableLiveData<Resource<
             ad.show()
             binding.button.setOnClickListener {
                 val newGroup = group.apply {
-                    if (!binding.nameGroup.text.isNullOrBlank())
+                    if (!binding.nameGroup.text.isNullOrBlank() &&
+                        binding.nameGroup.text.toString() != group.name)
                         this.name = binding.nameGroup.text.toString()
-                    if (!binding.descGroup.text.isNullOrBlank())
+                    if (!binding.descGroup.text.isNullOrBlank() &&
+                        binding.descGroup.text.toString() != group.description)
                         this.name = binding.descGroup.text.toString()
                     if (adapter.positionChosenColor != -1)
                         this.color = itemView.context.resources.getColor(adapter.colors[adapter.positionChosenColor])
                 }
                 updateData(newGroup, groupId)
                 ad.dismiss()
+            }
+
+            getGroupInfo(groupId).observeForever {
+                when(it){
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        if (it.data != null){
+                            binding.nameGroup.text = Editable.Factory().newEditable(it.data.name)
+                            binding.descGroup.text = Editable.Factory().newEditable(it.data.description)
+                            adapter.setPositionColor(it.data.color) { color: Int ->
+                                itemView.resources.getColor(
+                                    color
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }

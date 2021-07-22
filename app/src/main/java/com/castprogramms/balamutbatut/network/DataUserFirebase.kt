@@ -628,6 +628,21 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
+    fun getGroupOnID(groupID: String): MutableLiveData<Resource<Group>> {
+        val mutableLiveData = MutableLiveData<Resource<Group>>(Resource.Loading())
+        fireStore.collection(groupTag)
+            .document(groupID)
+            .addSnapshotListener { value, error ->
+                if (value?.toObject(Group::class.java) != null)
+                    mutableLiveData.postValue(
+                        Resource.Success(value.toObject(Group::class.java)!!)
+                    )
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+        return mutableLiveData
+    }
+
 
     companion object {
         const val elementTag = "elements"

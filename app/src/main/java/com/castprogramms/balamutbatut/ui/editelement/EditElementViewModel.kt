@@ -1,16 +1,28 @@
 package com.castprogramms.balamutbatut.ui.editelement
 
 import android.net.Uri
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.castprogramms.balamutbatut.network.Repository
+import com.castprogramms.balamutbatut.network.Resource
 
 class EditElementViewModel(private val repository: Repository): ViewModel() {
-    fun loadVideo(video: Uri, idVideo: String) = repository.loadVideo(video, idVideo)
-    fun loadDesc(desc: String, idVideo: String) = repository.loadDesc(desc, idVideo)
+    val lifeDataDescAndLevel = MutableLiveData<Resource<Pair<String, String>>>()
+    val liveDataHaveVideo = MutableLiveData<Resource<Boolean>>()
 
-    fun downloadVideo(idVideo: String) = repository.downloadVideo(idVideo)
-    fun downloadDesc(idVideo: String) = repository.downloadDesc(idVideo)
+    fun downloadDescAndLevel(title: String, name: String) {
+        repository.downloadDescAndLevel(title, name).observeForever {
+            lifeDataDescAndLevel.postValue(it)
+        }
+    }
+    fun checkHaveVideo(title: String, name: String){
+        repository.checkHaveVideo(title, name).observeForever {
+            liveDataHaveVideo.postValue(it)
+        }
+    }
 
-    fun loadVideoAndDesc(desc: String, video: Uri, idVideo: String) =
-        repository.loadVideoAndDesc(desc, video, idVideo)
+
+    fun loadVideoNameDecs(titleElement: String, nameElement: String, video: Uri,
+                          desc: String, level: String) = repository
+        .loadVideoNameDecs(titleElement, nameElement, video, desc, level)
 }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="15dp"
+    style="@style/BodyBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/end_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4"/>
+
+    <com.potyvideo.library.AndExoPlayerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:minHeight="300dp"
+        android:id="@+id/video"
+        app:layout_constraintBottom_toBottomOf="@id/end_video"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_container"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/video">
+
+        <ImageView
+            android:id="@+id/image_level"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/level_image"
+            android:contentDescription="Это просто значок"
+            style="@style/image_info_element"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_level"
+            android:text="Сложность"
+            style="@style/textBlackWhite"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_level"
+            android:layout_marginStart="5dp"
+            android:textSize="16sp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title_level"
+            app:layout_constraintStart_toStartOf="@id/title_level"
+            style="@style/textBlackWhite"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            tools:text="Очень сложная"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/level_container"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/image_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/image_desc"
+            android:contentDescription="Это просто значок"
+            style="@style/image_info_element"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_desc"
+            android:text="Описание"
+            style="@style/textBlackWhite"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_desc"
+            android:layout_marginStart="5dp"
+            android:textSize="16sp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title_desc"
+            app:layout_constraintStart_toStartOf="@id/title_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="start"
+            style="@style/textBlackWhite"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            tools:text="Описание, больше описания, ещё больше описания, ахахаххпхах. Я напишу всё описание, которое у меня есть"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

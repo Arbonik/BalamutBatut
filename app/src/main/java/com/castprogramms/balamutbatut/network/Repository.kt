@@ -110,6 +110,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
 
     fun addGroup(group: Group) = dataUserFirebase.addGroup(group)
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
+    fun getGroupInfo(groupID: String) = dataUserFirebase.getGroupOnID(groupID)
     fun getStudent(studentID: String) = dataUserFirebase.getUser(studentID)
     fun getElement(IDs: List<Int>, nameGroupElement: String)
             = dataUserFirebase.getElement(IDs, nameGroupElement)
@@ -149,12 +150,19 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
     //video
     fun loadVideo(video: Uri, idVideo: String) = videoAndDescFirebaseStorage.loadVideo(video, idVideo)
 
-    fun downloadVideo(idVideo: String) = videoAndDescFirebaseStorage.downloadVideo(idVideo)
+    fun downloadVideo(title: String, name: String)
+                = videoAndDescFirebaseStorage.downloadVideo(title, name)
     //desc
     fun loadDesc(desc: String, idVideo: String) = videoAndDescFirebaseStorage.loadDesc(desc, idVideo)
 
-    fun downloadDesc(idVideo: String) = videoAndDescFirebaseStorage.downloadDesc(idVideo)
+    fun downloadDescAndLevel(title: String, name: String) =
+        videoAndDescFirebaseStorage.downloadDescAndLevel(title, name)
 
-    fun loadVideoAndDesc(desc: String, video: Uri, idVideo: String) =
-        videoAndDescFirebaseStorage.loadVideoAndDecs(video, desc, idVideo)
+    fun loadVideoNameDecs(titleElement: String, nameElement: String, video: Uri,
+        desc: String, level: String) = videoAndDescFirebaseStorage
+            .loadVideoNameDecs(titleElement, nameElement, video, desc, level)
+
+    fun checkHaveVideo(title: String, name: String)
+                = videoAndDescFirebaseStorage.haveVideo(title, name)
+
 }

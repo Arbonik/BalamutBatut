@@ -1,15 +1,19 @@
 package com.castprogramms.balamutbatut.ui.allgroupelement
 
 import android.content.res.ColorStateList
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemAddElementsBinding
 import com.castprogramms.balamutbatut.tools.Element
+import com.castprogramms.balamutbatut.tools.TypesUser
+import com.castprogramms.balamutbatut.tools.User
 
-class AllGroupElementAdapter(val color: Int): RecyclerView.Adapter<AllGroupElementAdapter.AllGroupElementViewHolder>() {
+class AllGroupElementAdapter(val color: Int, val titleGroup: String): RecyclerView.Adapter<AllGroupElementAdapter.AllGroupElementViewHolder>() {
     var elements = mutableListOf<Element>()
         set(value) {
             field = value
@@ -36,8 +40,22 @@ class AllGroupElementAdapter(val color: Int): RecyclerView.Adapter<AllGroupEleme
             if (color != 0)
                 binding.colorGroupElement.backgroundTintList = ColorStateList.valueOf(color)
             binding.nameGroupElements.text = element.name
-            binding.root.setOnClickListener {
-
+            binding.root.setOnClickListener{
+                val bundle = Bundle()
+                bundle.putString("name", element.name)
+                bundle.putString("title", titleGroup)
+                it.findNavController()
+                    .navigate(R.id.action_allGroupElementFragment_to_infoElementFragment, bundle)
+            }
+            binding.root.setOnLongClickListener {
+                if (User.typeUser == TypesUser.TRAINER){
+                    val bundle = Bundle()
+                    bundle.putString("element", element.name)
+                    bundle.putString("title", titleGroup)
+                    it.findNavController()
+                        .navigate(R.id.action_allGroupElementFragment_to_editElementFragment2, bundle)
+                }
+                return@setOnLongClickListener true
             }
         }
     }

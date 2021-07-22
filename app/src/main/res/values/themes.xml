@@ -101,4 +101,12 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="spinner_background">
+        <item name="android:popupBackground">@drawable/background_spinner</item>
+    </style>
+
+    <style name="image_info_element">
+        <item name="android:tint">#293D7C</item>
+    </style>
+
 </resources>

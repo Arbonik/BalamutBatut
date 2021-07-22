@@ -119,10 +119,6 @@
             app:popExitAnim="@anim/right_in"/>
     </fragment>
     <fragment
-        android:id="@+id/editElementFragment"
-        android:name="com.castprogramms.balamutbatut.ui.editelement.EditElementFragment"
-        android:label="EditElementFragment" />
-    <fragment
         android:id="@+id/groupElementsFragment"
         android:name="com.castprogramms.balamutbatut.ui.groupelements.GroupElementsFragment"
         android:label="GroupElementsFragment"
@@ -135,14 +131,43 @@
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
     </fragment>
+
     <fragment
         android:id="@+id/addElementsFragment"
         android:name="com.castprogramms.balamutbatut.ui.addelements.AddElementsFragment"
         android:label="AddElementsFragment"
         tools:layout="@layout/fragment_add_elements"/>
+
     <fragment
         android:id="@+id/allGroupElementFragment"
         android:name="com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementFragment"
         android:label="AllGroupElementFragment"
-        tools:layout="@layout/fragment_add_elements"/>
+        tools:layout="@layout/fragment_add_elements">
+        <action
+            android:id="@+id/action_allGroupElementFragment_to_editElementFragment2"
+            app:destination="@id/editElementFragment2"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
+        <action
+            android:id="@+id/action_allGroupElementFragment_to_infoElementFragment"
+            app:destination="@id/infoElementFragment"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editElementFragment2"
+        android:name="com.castprogramms.balamutbatut.ui.editelement.EditElementFragment"
+        android:label="EditElementFragment"
+        tools:layout="@layout/fragment_edit_element"/>
+
+    <fragment
+        android:id="@+id/infoElementFragment"
+        android:name="com.castprogramms.balamutbatut.ui.infoelementfragment.InfoElementFragment"
+        android:label="InfoElementFragment"
+        tools:layout="@layout/fragment_info_element"/>
 </navigation>

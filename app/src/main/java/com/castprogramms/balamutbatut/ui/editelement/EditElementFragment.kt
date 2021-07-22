@@ -2,48 +2,56 @@ package com.castprogramms.balamutbatut.ui.editelement
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Message
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ErrorDialogBinding
 import com.castprogramms.balamutbatut.databinding.FragmentEditElementBinding
 import com.castprogramms.balamutbatut.databinding.SuccessDialogBinding
 import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.tools.CustomAdapterSpinner
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.User
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
     val viewModel: EditElementViewModel by viewModel()
     var element = Element()
-    var uri = Uri.parse("")
+    var titleElement = ""
+    private var uri = Uri.parse("")
     var isError = false
-    var isSuccess = false
+    var level = ""
+    var position = 0
     lateinit var binding: FragmentEditElementBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         element = Element(requireArguments().getString("element", "Пусто"))
+        titleElement = requireArguments().getString("title", "")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentEditElementBinding.bind(view)
-        binding.elementTitle.text = element.name
+
+        viewModel.downloadDescAndLevel(titleElement, element.name)
+        viewModel.checkHaveVideo(titleElement, element.name)
+        addSpinnerAdapter(binding)
+        binding.nameElement.text = Editable.Factory().newEditable(element.name)
         addTextWatcher(binding)
-        binding.load.setOnClickListener {
-            binding.load.error = null
+        binding.loadVideo.setOnClickListener {
+            binding.loadVideo.error = null
             val intent = Intent(
                 Intent.ACTION_PICK
             )
@@ -51,20 +59,85 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
             intent.putExtra("return-data", true)
             startActivityForResult(intent, 1)
         }
-        binding.loadVideoInCloud.setOnClickListener {
+        binding.addData.setOnClickListener {
             if (validate(binding)) {
                 observeResults(binding)
             }
         }
+
+        viewModel.liveDataHaveVideo.observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Error ->{
+                    setNoVideoInfo()
+                    binding.info.visibility = View.VISIBLE
+                }
+//                    Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_SHORT).show()
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    if (it.data != null){
+                        if (it.data) {
+                            setYesVideoInfo()
+                            binding.info.visibility = View.VISIBLE
+                        }
+                        else{
+                            setNoVideoInfo()
+                            binding.info.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    private fun addSpinnerAdapter(binding: FragmentEditElementBinding) {
+        val adapter = CustomAdapterSpinner(requireContext(), R.layout.spinner_textview)
+        val levels = resources.getStringArray(R.array.levels).toList()
+        val hintLevel = "Сложность"
+
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        adapter.addAll(levels)
+        adapter.add(hintLevel)
+        binding.spinnerLevel.adapter = adapter
+        binding.spinnerLevel.setSelection(adapter.count, true)
+        binding.spinnerLevel.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (binding.spinnerLevel.selectedItem != hintLevel)
+                    level = levels[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        viewModel.lifeDataDescAndLevel.observe(viewLifecycleOwner, {
+            when(it){
+                is Resource.Error ->
+                    Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_SHORT).show()
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    if (it.data != null){
+                        if (it.data.first != "null")
+                            binding.descElement.text = Editable.Factory().newEditable(it.data.first)
+                        if (levels.contains(it.data.second))
+                            binding.spinnerLevel.setSelection(levels.indexOf(it.data.second), true)
+                    }
+                }
+            }
+        })
     }
 
     private fun observeResults(binding: FragmentEditElementBinding) {
-        val desc = binding.desc.text.toString()
-        val lifeData = viewModel.loadVideoAndDesc(desc, uri, element.name)
+        val name = binding.nameElement.text.toString()
+        val desc = binding.descElement.text.toString()
+        val lifeData = viewModel.loadVideoNameDecs(titleElement, name, uri, desc, level)
         Log.e("data", User.id)
 
         lifeData.observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 is Resource.Error -> {
                     createErrorAlertDialog(it.message.toString())
                 }
@@ -76,34 +149,6 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
                 }
             }
         })
-//        val lifeDataDesc = viewModel.loadDesc(desc, element.name)
-
-//        lifeDataVideo.observe(viewLifecycleOwner, {
-//            when (it) {
-//                is Resource.Error -> {
-//                    if (!isError)
-//                        createErrorAlertDialog(it.message.toString())
-//                }
-//                is Resource.Loading -> {}
-//                is Resource.Success -> {}
-//            }
-//        })
-//
-//        lifeDataDesc.observe(viewLifecycleOwner, {
-//            when (it) {
-//                is Resource.Error -> {
-//                    if (!isError)
-//                        createErrorAlertDialog(it.message.toString())
-//                }
-//                is Resource.Loading -> {
-//                    createLoadingAlertDialog()
-//                }
-//                is Resource.Success -> {
-//                    if (lifeDataVideo.value is Resource.Success && !isSuccess)
-//                        createSuccessAlertDialog("Данные успешно отправлены")
-//                }
-//            }
-//        })
     }
 
     private fun createSuccessAlertDialog(message: String) {
@@ -116,10 +161,6 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
 
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(0))
         alertDialog.show()
-    }
-
-    private fun createLoadingAlertDialog() {
-
     }
 
     private fun createErrorAlertDialog(message: String) {
@@ -135,26 +176,41 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
     }
 
     private fun addTextWatcher(binding: FragmentEditElementBinding) {
-        binding.desc.addTextChangedListener(object : TextWatcher {
+        binding.nameElement.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.descContainer.helperText = null
+                binding.nameElementContainer.helperText = null
             }
         })
     }
 
     private fun validate(binding: FragmentEditElementBinding): Boolean {
-        return if (uri == Uri.parse("") && binding.desc.text.isNullOrBlank()) {
-            if (uri == Uri.parse(""))
-                binding.load.error = resources.getString(R.string.error_load)
-            if (binding.desc.text.isNullOrBlank())
-                binding.descContainer.helperText = resources.getString(R.string.error_desc)
+        return if (binding.nameElement.text.isNullOrBlank()) {
+            binding.nameElementContainer.helperText = resources.getString(R.string.error_name)
             false
         } else {
             true
         }
+    }
+
+    private fun setNoVideoInfo(){
+        binding.done.setImageResource(R.drawable.no_video)
+        binding.done.imageTintList = ColorStateList.valueOf(Color.RED)
+        binding.textInfo.text = "Нет видео"
+    }
+
+    private fun setYesVideoInfo(){
+        binding.done.setImageResource(R.drawable.done)
+        binding.done.imageTintList = ColorStateList.valueOf(Color.GREEN)
+        binding.textInfo.text = "Видео уже загружено"
+    }
+
+    private fun setLoadVideoInfo(){
+        binding.done.setImageResource(R.drawable.done)
+        binding.done.imageTintList = ColorStateList.valueOf(Color.GREEN)
+        binding.textInfo.text = "Видео загружено"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, dataImg: Intent?) {
@@ -163,16 +219,8 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
             val uri: Uri? = dataImg.data
             if (uri != null) {
                 this.uri = uri
-                Log.e("test", uri.toString())
-                binding.expandableView.visibility = View.VISIBLE
-                val player = SimpleExoPlayer.Builder(requireContext()).build()
-                binding.video.playerView.player = player
-                binding.video.releasePlayer()
-                binding.video.startPlayer()
-                val media = MediaItem.fromUri(uri)
-                player.addMediaItem(media)
-                player.prepare()
-                player.play()
+                setLoadVideoInfo()
+                binding.info.visibility = View.VISIBLE
             }
         }
     }

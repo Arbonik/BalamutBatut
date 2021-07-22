@@ -8,7 +8,7 @@
     tools:context=".ui.group.GroupsFragment">
     <include
         layout="@layout/center_progress_bar"
-        android:id="@+id/progress_bar_groups"/>
+        android:id="@+id/progress_groups"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groups_list"
         android:layout_width="match_parent"

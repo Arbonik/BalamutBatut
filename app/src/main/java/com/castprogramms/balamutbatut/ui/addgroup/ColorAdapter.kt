@@ -1,7 +1,6 @@
 package com.castprogramms.balamutbatut.ui.addgroup
 
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemColorBinding
 
-class ColorAdapter(groupsId: MutableList<String>) : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
+class ColorAdapter : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
     val colors = listOf(R.color.firstColor, R.color.secondColor, R.color.thirdColor,
         R.color.fourthColor, R.color.fifthColor, R.color.sixthColor)
     var positionChosenColor = -1
+
+    fun setPositionColor(color: Int, getColor: (Int) -> Int){
+        var position = -1
+        colors.forEachIndexed { index, it ->
+            if (getColor(it) == color)
+                position = index
+        }
+        if (position != -1) {
+            positionChosenColor = position
+            notifyDataSetChanged()
+        }
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder {
         return ColorViewHolder(
             LayoutInflater.from(parent.context)
