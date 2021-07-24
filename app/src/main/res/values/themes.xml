@@ -109,4 +109,8 @@
         <item name="android:tint">#293D7C</item>
     </style>
 
+    <style name="imageBlacWhite">
+        <item name="android:tint">@color/black</item>
+    </style>
+
 </resources>

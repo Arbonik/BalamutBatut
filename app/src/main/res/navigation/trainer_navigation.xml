@@ -26,6 +26,13 @@
             app:exitAnim="@anim/right_out"
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
+        <action
+            android:id="@+id/action_profile_Fragment_to_qrCodeScannerFragment2"
+            app:destination="@id/qrCodeScannerFragment2"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
     </fragment>
     <fragment
         android:id="@+id/group_Fragment"
@@ -78,7 +85,11 @@
         tools:layout="@layout/fragment_trainer_settings" >
         <action
             android:id="@+id/action_settingsFragment2_to_qrCodeScannerFragment2"
-            app:destination="@id/qrCodeScannerFragment2" />
+            app:destination="@id/qrCodeScannerFragment2"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment2"

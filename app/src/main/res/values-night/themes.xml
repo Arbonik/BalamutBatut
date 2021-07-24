@@ -103,4 +103,9 @@
     <style name="image_info_element">
         <item name="android:tint">#8DAEF6</item>
     </style>
+
+
+    <style name="imageBlacWhite">
+        <item name="android:tint">@color/white</item>
+    </style>
 </resources>

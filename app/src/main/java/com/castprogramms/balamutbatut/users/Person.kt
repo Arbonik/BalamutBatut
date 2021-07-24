@@ -12,4 +12,6 @@ open class Person(
     companion object{
         const val notGroup = "НетГруппы"
     }
+
+    fun getFullName() = "$first_name $second_name"
 }

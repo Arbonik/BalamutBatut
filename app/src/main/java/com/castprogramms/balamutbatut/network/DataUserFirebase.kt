@@ -643,6 +643,36 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
+    fun getPlaceStudentInRating(studentID: String): MutableLiveData<Resource<Int>> {
+        val mutableLiveData = MutableLiveData<Resource<Int>>(Resource.Loading())
+        fireStore.collection(studentTag)
+            .whereEqualTo("type", "student")
+            .addSnapshotListener { value, error ->
+                if (value != null){
+                    val studentsAndId = mutableListOf<Pair<String, Student>>()
+                    value.documents.forEach {
+                        studentsAndId.add(it.id to it.toObject(Student::class.java)!!)
+                    }
+                    studentsAndId.sortByDescending {
+                        it.second.getQuantityElements().split(" ")[1].toInt()
+                    }
+                    var position = -1
+                    studentsAndId.forEachIndexed{ index, pair ->
+                        if (pair.first == studentID)
+                            position = index + 1
+                    }
+                    if (position != -1)
+                        mutableLiveData.postValue(Resource.Success(position))
+                    else
+                        mutableLiveData.postValue(Resource.Error("Нет такого ученика"))
+                }
+                else{
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+                }
+            }
+        return mutableLiveData
+    }
+
 
     companion object {
         const val elementTag = "elements"

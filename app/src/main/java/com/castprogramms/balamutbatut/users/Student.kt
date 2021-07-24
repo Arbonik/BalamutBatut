@@ -15,10 +15,12 @@ class Student(
     var element: Map<String, List<Int>> = mapOf(),
     var batutcoin: Int = 0
 ):Person(first_name, second_name, date, sex, groupID = notGroup, type = "student", img = img){
-    fun setNodesList(nodes: List<Node>){
-        this.nodes = nodes
+    fun getQuantityElements(): String {
+        var score = 0
+        element.forEach {
+            score += it.value.size
+        }
+        return "Элементы: $score"
     }
     constructor() :this("","","","","", listOf(), listOf())
-
-    fun getFullName() = "$first_name $second_name"
 }

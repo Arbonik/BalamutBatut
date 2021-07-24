@@ -1,15 +1,12 @@
 package com.castprogramms.balamutbatut.ui.rating
 
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -20,8 +17,6 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.RecyclerItemRatingBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.users.Student
-import com.google.firebase.firestore.Query
-import com.squareup.picasso.Picasso
 
 class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String>>) :
     RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
@@ -75,8 +70,7 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                         binding.progressRatingPhotoItem.visibility = View.GONE
                         val size = binding.root.height * 0.56
                         val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
-                        val resizeBitmap = bitmap
-                        binding.iconStudent.setImageDrawable(resizeBitmap?.toDrawable(itemView.resources))
+                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
                         return true
                     }
                 })
@@ -116,18 +110,15 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
             0 -> {
             }
             1 -> {
-                binding.root.background =
-                    binding.root.context.resources.getDrawable(R.drawable.rating_rectangle_silver)
-                binding.cron.setImageDrawable(binding.root.context.resources.getDrawable(R.drawable.cron_silver))
+                binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
+                binding.cron.setImageResource(R.drawable.cron_silver)
             }
             2 -> {
-                binding.root.background =
-                    binding.root.context.resources.getDrawable(R.drawable.rating_rectangle_bronse)
-                binding.cron.setImageDrawable(binding.root.context.resources.getDrawable(R.drawable.cron_bronse))
+                binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
+                binding.cron.setImageResource(R.drawable.cron_bronse)
             }
             else -> {
-                binding.root.background =
-                    binding.root.context.resources.getDrawable(R.drawable.rating_rectangle)
+                binding.root.setBackgroundResource(R.drawable.rating_rectangle)
                 binding.cron.visibility = View.GONE
             }
         }
