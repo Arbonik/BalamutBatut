@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment2"
-        android:name="com.castprogramms.balamutbatut.ui.profile.EditProfileFragment"
+        android:name="com.castprogramms.balamutbatut.ui.editprofile.EditProfileFragment"
         android:label="@string/all_person_data"
         tools:layout="@layout/fragment_edit_profile" >
         <action

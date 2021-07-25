@@ -3,8 +3,12 @@
     <item
         android:id="@+id/ratingFragment"
         android:icon="@drawable/rating"
-        android:title="@string/rating"
-        />
+        android:title="@string/rating" />
+
+    <item
+        android:id="@+id/allElementListFragment"
+        android:icon="@drawable/elements"
+        android:title="@string/item_elements"/>
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/person_24"

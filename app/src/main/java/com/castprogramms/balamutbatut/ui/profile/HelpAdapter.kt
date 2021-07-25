@@ -32,7 +32,6 @@ class HelpAdapter : RecyclerView.Adapter<HelpAdapter.HelpViewHolder>() {
 
     inner class HelpViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemHelpInfoBinding.bind(view)
-        var firstWeight = 0
         fun bind(helpInfo: HelpInfo) {
             binding.imageHelp.setImageResource(helpInfo.photo)
             binding.text.text = helpInfo.text

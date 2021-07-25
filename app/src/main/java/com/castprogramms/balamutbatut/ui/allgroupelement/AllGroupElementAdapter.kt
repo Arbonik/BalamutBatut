@@ -44,8 +44,13 @@ class AllGroupElementAdapter(val color: Int, val titleGroup: String): RecyclerVi
                 val bundle = Bundle()
                 bundle.putString("name", element.name)
                 bundle.putString("title", titleGroup)
-                it.findNavController()
-                    .navigate(R.id.action_allGroupElementFragment_to_infoElementFragment, bundle)
+                if (User.typeUser == TypesUser.TRAINER)
+                    it.findNavController()
+                        .navigate(R.id.action_allGroupElementFragment_to_infoElementFragment, bundle)
+                else
+                    if (User.typeUser == TypesUser.STUDENT)
+                        it.findNavController()
+                            .navigate(R.id.action_allGroupElementFragment2_to_infoElementFragment2, bundle)
             }
             binding.root.setOnLongClickListener {
                 if (User.typeUser == TypesUser.TRAINER){

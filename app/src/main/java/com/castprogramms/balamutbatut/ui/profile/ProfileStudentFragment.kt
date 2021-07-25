@@ -97,12 +97,22 @@ class ProfileStudentFragment : Fragment(R.layout.fragment_profile_student) {
                 binding.butTextEdit.visibility = View.GONE
             }
         }
+
         binding.imageUser.setOnClickListener {
             countDownTimer.start()
             binding.butTextEdit.visibility = View.VISIBLE
         }
+
         binding.butTextEdit.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+        }
+
+        binding.scanContainer.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_qrCodeFragment)
+        }
+
+        binding.inviteContainer.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_qrCodeFragment)
         }
     }
 
@@ -115,9 +125,6 @@ class ProfileStudentFragment : Fragment(R.layout.fragment_profile_student) {
         when (item.itemId) {
             R.id.item__bar_settings -> {
                 findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
-            }
-            R.id.item__bar_all_element -> {
-                findNavController().navigate(R.id.action_profileFragment_to_allElementListFragment)
             }
         }
         return true

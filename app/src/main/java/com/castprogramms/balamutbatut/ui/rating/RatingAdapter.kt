@@ -16,6 +16,7 @@ import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.RecyclerItemRatingBinding
 import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.users.Student
 
 class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String>>) :
@@ -56,7 +57,7 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                         isFirstResource: Boolean
                     ): Boolean {
                         binding.progressRatingPhotoItem.visibility = View.GONE
-                        binding.iconStudent.setImageDrawable(itemView.context.getDrawable(R.drawable.male_user))
+                        binding.iconStudent.setImageResource(R.drawable.male_user)
                         return true
                     }
 
@@ -75,26 +76,27 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                     }
                 })
                 .into(binding.iconStudent)
-            binding.studentName.text = pair.second.getFullName()
+            binding.studentName.text =
+                if (pair.first != User.id) pair.second.getFullName()
+                else pair.second.getFullName() + " (Ты)"
             binding.score.text = itemView.context.resources.getString(R.string.quantityElements) + " " + getAllSize(pair.second).toString()
             binding.position.text = (position + 1).toString()
-            getRang(pair.first).observeForever {
-                when (it) {
-                    is Resource.Error -> {
-                    }
-                    is Resource.Loading -> {
-                    }
-                    is Resource.Success -> {
+//            getRang(pair.first).observeForever {
+//                when (it) {
+//                    is Resource.Error -> {
+//                    }
+//                    is Resource.Loading -> {
+//                    }
+//                    is Resource.Success -> {
 //                        binding.rang.text = itemView.context.resources.getString(R.string.rang) + " " + it.data
-                    }
-                }
-            }
+//                    }
+//                }
+//            }
         }
     }
 
     private fun filterStudent() {
-        students.sortBy { getAllSize(it.second) }
-        students.reverse()
+        students.sortByDescending { getAllSize(it.second) }
     }
 
     private fun getAllSize(student: Student): Int {

@@ -3,6 +3,7 @@ package com.castprogramms.balamutbatut.network
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.BuildConfig
+import com.castprogramms.balamutbatut.tools.EditProfile
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
@@ -10,7 +11,7 @@ import com.google.firebase.storage.FirebaseStorage
 
 class VideoAndDescFirebaseStorage : VideoAndDescApi {
     private val storage = FirebaseStorage.getInstance(BuildConfig.STORAGE_BUCKET)
-    val ref = storage.reference
+    private val ref = storage.reference
 
     val settings = FirebaseFirestoreSettings.Builder()
         .setPersistenceEnabled(true)
@@ -104,9 +105,30 @@ class VideoAndDescFirebaseStorage : VideoAndDescApi {
         return mutableLiveData
     }
 
+    fun loadPhotoUser(uri: Uri, userID: String): MutableLiveData<Resource<String>> {
+        val mutableLiveData = MutableLiveData<Resource<String>>(Resource.Loading())
+        ref.child(imagesTag + userID).putFile(uri).addOnSuccessListener {
+            ref.child(imagesTag + userID).downloadUrl.addOnCompleteListener {
+                fireStore.collection(DataUserFirebase.studentTag)
+                    .document(userID)
+                    .update(EditProfile.IMG.desc, it.result.toString()).addOnCompleteListener {
+                        if (it.isSuccessful)
+                            mutableLiveData.postValue(Resource.Success("Всё успешно"))
+                        else
+                            mutableLiveData.postValue(Resource.Error(it.exception?.message))
+                    }
+            }
+        }.addOnFailureListener{
+            mutableLiveData.postValue(Resource.Error(it.message))
+        }
+
+        return mutableLiveData
+    }
+
     companion object {
         const val elementsDescTag = "elements_desc"
         const val descTag = "desc"
         const val videoTag = "video/"
+        const val imagesTag = "images/"
     }
 }

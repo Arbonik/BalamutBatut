@@ -43,7 +43,7 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
                                 }
                                 is Resource.Success -> {
                                     if (it.data != null) {
-                                        binding.titleRatingGroup.nameTrainerGroup.text
+                                        viewModel.getFullNameTrainer(it.data.numberTrainer)
                                         binding.titleRatingGroup.nameGroup.text = it.data.name
                                         binding.titleRatingGroup.descGroup.text =
                                             it.data.description
@@ -53,6 +53,17 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
                         }
                     })
                 }
+
+                viewModel.lifeDataNameTrainer.observe(viewLifecycleOwner, {
+                    when(it){
+                        is Resource.Error -> {}
+                        is Resource.Loading -> {}
+                        is Resource.Success -> {
+                            if (it.data != null)
+                                binding.titleRatingGroup.nameTrainerGroup.text = "Тренер: " + it.data
+                        }
+                    }
+                })
             }
         }
         livedata.observe(viewLifecycleOwner, {

@@ -123,6 +123,7 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
         dataUserFirebase.addStudentElement(elements, studentID)
     fun updateUserFirstName(first_name: String, studentID: String) =
         dataUserFirebase.editNameStudent(first_name, studentID)
+    fun getFullNameTrainer(trainerID: String) = dataUserFirebase.getFullNameTrainer(trainerID)
     fun updateUserSecondName(second_name: String, studentID: String) =
         dataUserFirebase.editLastNameStudent(second_name, studentID)
     fun getStudentsOfGroup(groupID: String) = dataUserFirebase.getStudentsOfGroup(groupID)
@@ -134,6 +135,8 @@ class Repository(private val dataUserFirebase: DataUserFirebase,
     fun updateDataGroup(group: Group, groupID: String) = dataUserFirebase.updateDataGroup(group, groupID)
     fun getPlaceStudentInRating(studentID: String)
             = dataUserFirebase.getPlaceStudentInRating(studentID)
+    fun loadPhotoUser(uri: Uri, userId: String)
+            = videoAndDescFirebaseStorage.loadPhotoUser(uri, userId)
 
     fun deleteStudentFromGroup(studentID: String, groupID: String) = dataUserFirebase.deleteStudentFromGroup(studentID, groupID)
     fun getCollectionAllStudent(groupID: String) = dataUserFirebase.getCollectionAllStudents(groupID)

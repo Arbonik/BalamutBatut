@@ -673,12 +673,28 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
+    fun getFullNameTrainer(trainerID: String): MutableLiveData<Resource<String>> {
+        val mutableLiveData = MutableLiveData<Resource<String>>(Resource.Loading())
+        fireStore.collection(studentTag)
+            .document(trainerID)
+            .addSnapshotListener { value, error ->
+                if (value?.toObject(Trainer::class.java) != null)
+                    mutableLiveData.postValue(
+                        Resource.Success(value.toObject(Trainer::class.java)!!.getFullName())
+                    )
+                else
+                    mutableLiveData.postValue(Resource.Error(error?.message))
+            }
+
+        return mutableLiveData
+    }
 
     companion object {
         const val elementTag = "elements"
         const val studentTag = "students"
         const val groupTag = "groups"
         const val trueOrder = "TRUEORDER"
+
         fun printLog(message: String) {
             Log.e("Test", message)
         }

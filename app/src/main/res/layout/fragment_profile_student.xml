@@ -214,7 +214,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="Списать BatutCoin"
+                android:text="Рассчитаться BatutCoin"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/scan_image"
                 app:layout_constraintStart_toEndOf="@id/scan_image"

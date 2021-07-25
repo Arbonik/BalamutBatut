@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentProfileTrainerBinding
 import com.castprogramms.balamutbatut.tools.ActionsWithCoins
+import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -104,7 +105,8 @@ class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
                 findNavController().navigate(R.id.action_profile_Fragment_to_settingsFragment2)
             }
             R.id.item__bar_all_element -> {
-                findNavController().navigate(R.id.action_profile_Fragment_to_allElementListFragment2)
+                if (User.typeUser == TypesUser.TRAINER)
+                    findNavController().navigate(R.id.action_profile_Fragment_to_allElementListFragment2)
             }
         }
         return true
