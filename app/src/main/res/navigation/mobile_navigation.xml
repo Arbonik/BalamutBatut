@@ -78,7 +78,7 @@
         <fragment
             android:id="@+id/allGroupElementFragment2"
             android:name="com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementFragment"
-            android:label="AllGroupElementFragment"
+            android:label="@string/all_group_fragment_label"
             tools:layout="@layout/fragment_group_elements">
                 <action
                     android:id="@+id/action_allGroupElementFragment2_to_infoElementFragment2"
@@ -91,7 +91,7 @@
         <fragment
             android:id="@+id/infoElementFragment2"
             android:name="com.castprogramms.balamutbatut.ui.infoelementfragment.InfoElementFragment"
-            android:label="InfoElementFragment"
+            android:label="@string/desc_element"
             tools:layout="@layout/fragment_info_element"/>
 
 </navigation>

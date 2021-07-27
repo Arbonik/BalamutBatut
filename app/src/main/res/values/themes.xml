@@ -20,7 +20,7 @@
 
     <style name="AccentBack">
         <item name="android:backgroundTint">@color/thirdColor</item>
-        <item name="android:color">@color/colorText</item>
+        <item name="android:textColor">@color/colorText</item>
     </style>
 
     <style name="MiddleBackground">
@@ -109,8 +109,12 @@
         <item name="android:tint">#293D7C</item>
     </style>
 
-    <style name="imageBlacWhite">
+    <style name="imageBlackWhite">
         <item name="android:tint">@color/black</item>
+    </style>
+    
+    <style name="elements_card_background">
+        <item name="android:background">@drawable/background_group_elements</item>
     </style>
 
 </resources>

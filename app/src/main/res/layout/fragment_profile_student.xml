@@ -142,7 +142,7 @@
         android:layout_marginTop="9dp"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
-        app:cardElevation="6dp"
+        app:cardElevation="3dp"
         app:layout_constraintTop_toBottomOf="@id/recycler_help">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,7 +151,7 @@
 
             <ImageView
                 android:id="@+id/rating_image"
-                style="@style/imageBlacWhite"
+                style="@style/imageBlackWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="11dp"
@@ -184,10 +184,10 @@
         android:id="@+id/scan_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="2dp"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
-        app:cardElevation="6dp"
+        app:cardElevation="3dp"
         app:layout_constraintTop_toBottomOf="@id/rating_place_container">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -196,7 +196,7 @@
 
             <ImageView
                 android:id="@+id/scan_image"
-                style="@style/imageBlacWhite"
+                style="@style/imageBlackWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="11dp"
@@ -228,10 +228,10 @@
         android:id="@+id/invite_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="2dp"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
-        app:cardElevation="6dp"
+        app:cardElevation="3dp"
         app:layout_constraintTop_toBottomOf="@id/scan_container">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -240,7 +240,7 @@
 
             <ImageView
                 android:id="@+id/invite_image"
-                style="@style/imageBlacWhite"
+                style="@style/imageBlackWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="11dp"

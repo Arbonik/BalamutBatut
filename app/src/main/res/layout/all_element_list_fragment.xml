@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:background="@color/white"
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/BodyBackground"
     xmlns:tools="http://schemas.android.com/tools">
-    <include
-        layout="@layout/center_progress_bar"
-        android:id="@+id/progress"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/recyclerAllElementsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_group_element"/>
+        tools:listitem="@layout/item_group_element"
+        app:shimmer_recycler_layout="@layout/shimmer_allelement_recycler"
+        app:shimmer_recycler_item_count="6"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

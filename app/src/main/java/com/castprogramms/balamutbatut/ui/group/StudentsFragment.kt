@@ -43,7 +43,8 @@ class StudentsFragment: Fragment(R.layout.students_fragment) {
         viewModel.getStudents(id).observe(viewLifecycleOwner, {
             when(it){
                 is Resource.Error -> binding.progressStudents.progressBar.visibility = View.GONE
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                }
                 is Resource.Success -> {
                     binding.progressStudents.progressBar.visibility = View.GONE
                     if (it.data != null)

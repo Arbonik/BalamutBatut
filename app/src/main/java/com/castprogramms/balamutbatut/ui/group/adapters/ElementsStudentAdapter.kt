@@ -13,7 +13,6 @@ class ElementsStudentAdapter: RecyclerView.Adapter<ElementsStudentAdapter.Elemen
     var userElements = mutableListOf<Pair<String, List<Int>>>()
     set(value) {
         field = value
-        Log.e("prog", userElements.toString())
         if (allElements.isNotEmpty())
             notifyDataSetChanged()
     }

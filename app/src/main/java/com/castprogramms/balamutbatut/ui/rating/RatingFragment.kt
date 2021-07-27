@@ -14,7 +14,8 @@ import com.castprogramms.balamutbatut.users.Student
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragment(R.layout.fragment_rating) {
+class RatingFragment(private var groupType: RatingType = RatingType.All) :
+    Fragment(R.layout.fragment_rating) {
     val viewModel: RatingViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         retainInstance = true
@@ -23,7 +24,8 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
     }
 
     private fun initAdapter(binding: FragmentRatingBinding) {
-        val ratingAdapter = RatingAdapter { viewModel.getRang(it) }
+        val ratingAdapter = RatingAdapter({viewModel.getRang(it)},{viewModel.getSortedElements() })
+        { studentId: String -> viewModel.getStudentElements(studentId) }
         binding.recyclerRating.adapter = ratingAdapter
         var livedata = MutableLiveData<Resource<List<Pair<String, Student>>>>()
         when (groupType) {
@@ -33,6 +35,7 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
             RatingType.Group -> {
                 livedata = viewModel.getStudentGroups(User.student?.groupID.toString())
                 binding.titleRatingGroup.root.visibility = View.VISIBLE
+                binding.titleRatingGroup.shimmerLayoutRatingTitleGroup.visibility = View.VISIBLE
                 if (User.student != null) {
                     viewModel.getGroup(User.student!!.groupID).observe(viewLifecycleOwner, {
                         if (it != null) {
@@ -40,6 +43,9 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
                                 is Resource.Error -> {
                                 }
                                 is Resource.Loading -> {
+                                    binding.titleRatingGroup.shimmerLayoutRatingTitleGroup.startShimmer()
+                                    binding.titleRatingGroup.shimmerLayoutRatingTitleGroup.showShimmer(true)
+                                    Log.e("data", binding.titleRatingGroup.shimmerLayoutRatingTitleGroup.visibility.toString())
                                 }
                                 is Resource.Success -> {
                                     if (it.data != null) {
@@ -47,6 +53,7 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
                                         binding.titleRatingGroup.nameGroup.text = it.data.name
                                         binding.titleRatingGroup.descGroup.text =
                                             it.data.description
+                                        checkHaveAllData(binding)
                                     }
                                 }
                             }
@@ -55,12 +62,17 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
                 }
 
                 viewModel.lifeDataNameTrainer.observe(viewLifecycleOwner, {
-                    when(it){
-                        is Resource.Error -> {}
-                        is Resource.Loading -> {}
+                    when (it) {
+                        is Resource.Error -> {
+                        }
+                        is Resource.Loading -> {
+                        }
                         is Resource.Success -> {
-                            if (it.data != null)
-                                binding.titleRatingGroup.nameTrainerGroup.text = "Тренер: " + it.data
+                            if (it.data != null) {
+                                binding.titleRatingGroup.nameTrainerGroup.text =
+                                    "Тренер: " + it.data
+                                checkHaveAllData(binding)
+                            }
                         }
                     }
                 })
@@ -74,15 +86,26 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) : Fragm
                         .show()
                 }
                 is Resource.Loading -> {
-                    binding.progressBarRating.progressBar.visibility = View.VISIBLE
+                    binding.recyclerRating.showShimmer()
                 }
                 is Resource.Success -> {
-                    binding.progressBarRating.progressBar.visibility = View.GONE
-                    if (it.data != null)
+                    if (it.data != null) {
                         ratingAdapter.students = it.data.toMutableList()
+                        binding.recyclerRating.hideShimmer()
+                    }
                 }
             }
         })
+    }
+
+    private fun checkHaveAllData(binding: FragmentRatingBinding) {
+        Log.e("data", binding.titleRatingGroup.shimmerLayoutRatingTitleGroup.isShimmerVisible.toString())
+        if (binding.titleRatingGroup.descGroup.text.isNotEmpty()
+                && binding.titleRatingGroup.nameGroup.text.isNotEmpty()
+                && binding.titleRatingGroup.nameTrainerGroup.text.isNotEmpty()){
+            binding.titleRatingGroup.shimmerLayoutRatingTitleGroup.stopShimmer()
+            binding.titleRatingGroup.shimmerLayoutRatingTitleGroup.visibility = View.GONE
+        }
     }
 
 //    override fun onStop() {

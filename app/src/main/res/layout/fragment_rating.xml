@@ -17,13 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/recyclerRating"
             app:layout_constraintTop_toBottomOf="@id/title_rating_group"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             tools:listitem="@layout/recycler_item_rating"
+            app:shimmer_recycler_layout="@layout/shimmer_item_rating"
+            app:shimmer_recycler_item_count="6"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <include

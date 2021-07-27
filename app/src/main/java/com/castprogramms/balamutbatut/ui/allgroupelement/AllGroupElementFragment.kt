@@ -25,12 +25,10 @@ class AllGroupElementFragment: Fragment(R.layout.fragment_add_elements) {
         viewModel.getAllElementsOnThisTitle(titleGroup).observe(viewLifecycleOwner, {
             when(it){
                 is Resource.Error -> {
-                    binding.progressBarElements.progressBar.visibility = View.GONE
                     Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 }
                 is Resource.Loading -> {}
                 is Resource.Success -> {
-                    binding.progressBarElements.progressBar.visibility = View.GONE
                     if (it.data != null)
                         adapter.elements = it.data
                 }

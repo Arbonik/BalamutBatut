@@ -38,10 +38,10 @@ class StudentsAdapter(
     fun setData(data: MutableList<Pair<String, Student>>){
         val curStudents = mutableListOf<Student>()
         val curStudentsID = mutableListOf<String>()
-        data.sortBy {
-            countElements(it.second).split(" ")[1].toInt()
+        data.sortByDescending {
+            it.second.getQuantityElements().split(" ")[1].toInt()
         }
-        data.reverse()
+
         data.forEach {
             curStudents.add(it.second)
             curStudentsID.add(it.first)
@@ -208,7 +208,9 @@ class StudentsAdapter(
                 when(it){
                     is Resource.Error ->
                         binding.progressBarElements.progressBar.visibility = View.GONE
-                    is Resource.Loading -> {}
+                    is Resource.Loading -> {
+
+                    }
                     is Resource.Success -> {
                         if (it.data != null)
                             adapter.userElements = it.data
@@ -218,8 +220,6 @@ class StudentsAdapter(
                 }
             }
         }
-
-
     }
 
     private fun countElements(student: Student): String {

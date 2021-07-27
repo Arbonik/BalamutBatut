@@ -21,7 +21,7 @@
 
     <style name="AccentBack">
         <item name="android:backgroundTint">@color/purple_600</item>
-        <item name="android:color">@color/white</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="MiddleBackground">
@@ -104,8 +104,11 @@
         <item name="android:tint">#8DAEF6</item>
     </style>
 
-
-    <style name="imageBlacWhite">
+    <style name="imageBlackWhite">
         <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="elements_card_background">
+        <item name="android:background">@drawable/background_group_elements_black</item>
     </style>
 </resources>

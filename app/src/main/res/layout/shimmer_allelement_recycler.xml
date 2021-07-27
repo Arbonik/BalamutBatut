@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="12dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:translationZ="5dp"
+    android:elevation="5dp"
+    android:background="@drawable/background_group_elements">
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.048"
+        android:id="@+id/endColorVertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.843"
+        android:id="@+id/startVertical"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.925"
+        android:id="@+id/endVertical"/>
+
+    <View
+        android:id="@+id/color_group_element"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="@id/endColorVertical"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name_group_elements"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/color_group_element"
+        app:layout_constraintEnd_toStartOf="@id/startVertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        style="@style/group_card"
+        android:textSize="18dp"
+        tools:text="GIRLS"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/name_group_elements"
+        app:layout_constraintStart_toStartOf="@id/name_group_elements"
+        app:layout_constraintBottom_toBottomOf="@id/name_group_elements"
+        app:layout_constraintEnd_toEndOf="@id/name_group_elements"
+        android:background="@color/background"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/east"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/startVertical"
+        app:layout_constraintEnd_toEndOf="@id/endVertical"
+        android:backgroundTint="#C4C4C4"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

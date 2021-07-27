@@ -1,12 +1,17 @@
 package com.castprogramms.balamutbatut.ui.rating
 
+import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toDrawable
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -16,11 +21,17 @@ import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.RecyclerItemRatingBinding
 import com.castprogramms.balamutbatut.network.Resource
+import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.tools.Utils.isDarkThemeOn
+import com.castprogramms.balamutbatut.ui.group.adapters.ElementsStudentAdapter
 import com.castprogramms.balamutbatut.users.Student
 
-class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String>>) :
-    RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
+class RatingAdapter(
+    val getRang: (it: String) -> MutableLiveData<Resource<String>>,
+    val getSortedElements: () -> MutableLiveData<MutableList<Pair<String, List<Element>>>>,
+    val getStudentElements: (String) -> MutableLiveData<Resource<MutableList<Pair<String, List<Int>>>>>
+) : RecyclerView.Adapter<RatingAdapter.RatingViewHolder>() {
 
     var students = mutableListOf<Pair<String, Student>>()
         set(value) {
@@ -69,9 +80,7 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                         isFirstResource: Boolean
                     ): Boolean {
                         binding.progressRatingPhotoItem.visibility = View.GONE
-                        val size = binding.root.height * 0.56
-                        val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
-                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
+                        binding.iconStudent.setImageDrawable(resource)
                         return true
                     }
                 })
@@ -81,6 +90,37 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
                 else pair.second.getFullName() + " (Ты)"
             binding.score.text = itemView.context.resources.getString(R.string.quantityElements) + " " + getAllSize(pair.second).toString()
             binding.position.text = (position + 1).toString()
+
+            val adapter = ElementsStudentAdapter()
+            binding.groupElements.shimmerLayoutManager = LinearLayoutManager(itemView.context)
+            binding.groupElements.adapter = adapter
+            setDataAdapter(adapter, pair.first)
+
+            binding.root.setOnClickListener {
+                if (binding.expandableView.visibility == View.GONE) {
+                    expand(binding.expandableView)
+                    setExpandBackground(binding, position)
+//                    when (position) {
+//                        0 -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating_gold)
+//                        }
+//                        1 -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating_silver)
+//                        }
+//                        2 -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating_bronse)
+//                        }
+//                        else -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating)
+//                        }
+//                    }
+                }
+                else{
+                    collapse(binding.expandableView, position)
+                    setCollapseBackground(binding, position)
+                }
+            }
+
 //            getRang(pair.first).observeForever {
 //                when (it) {
 //                    is Resource.Error -> {
@@ -92,6 +132,119 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
 //                    }
 //                }
 //            }
+        }
+
+        private fun setDataAdapter(adapter: ElementsStudentAdapter, studentId: String){
+            binding.groupElements.showShimmer()
+
+            getSortedElements().observeForever {
+                if (it != null){
+                    adapter.allElements = it
+                    if (adapter.userElements.isNotEmpty())
+                        binding.groupElements.hideShimmer()
+                }
+            }
+            getStudentElements(studentId).observeForever{
+                when(it){
+                    is Resource.Error ->{}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        if (it.data != null)
+                            adapter.userElements = it.data
+                        if (adapter.allElements.isNotEmpty())
+                            binding.groupElements.hideShimmer()
+                    }
+                }
+            }
+        }
+
+        private fun expand(v: View) {
+            val matchParentMeasureSpec: Int = View.MeasureSpec.makeMeasureSpec(
+                (v.parent as View).width,
+                View.MeasureSpec.EXACTLY
+            )
+            val wrapContentMeasureSpec: Int =
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+            v.measure(matchParentMeasureSpec, wrapContentMeasureSpec)
+            val targetHeight: Int = v.measuredHeight
+
+            val a: Animation = object : Animation() {
+                override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                    v.layoutParams.height =
+                        if (interpolatedTime == 1f) ViewGroup.LayoutParams.WRAP_CONTENT
+                        else (targetHeight * interpolatedTime).toInt()
+                    v.requestLayout()
+                }
+
+                override fun willChangeBounds(): Boolean {
+                    return true
+                }
+            }
+            a.setAnimationListener(object : Animation.AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+                    v.layoutParams.height = 1
+                    v.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+            })
+
+            // Expansion speed of 1dp/ms
+            a.duration = (targetHeight / v.context.resources.displayMetrics.density).toLong()
+            v.startAnimation(a)
+        }
+
+        private fun collapse(v: View, position: Int) {
+            val initialHeight: Int = v.measuredHeight
+            val a: Animation = object : Animation() {
+                override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                    if (interpolatedTime == 1f) {
+                        v.visibility = View.GONE
+                    } else {
+                        v.layoutParams.height =
+                            initialHeight - (initialHeight * interpolatedTime).toInt()
+                        v.requestLayout()
+                    }
+                }
+
+                override fun willChangeBounds(): Boolean {
+                    return true
+                }
+            }
+            a.setAnimationListener(object : Animation.AnimationListener{
+                override fun onAnimationStart(animation: Animation?) {
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    v.visibility = View.GONE
+//                    when (position) {
+//                        0 -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle_gold)
+//                        }
+//                        1 -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle_silver)
+//                        }
+//                        2 -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle_bronse)
+//                        }
+//                        else -> {
+//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle)
+//                        }
+//                    }
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+            })
+
+            // Collapse speed of 1dp/ms
+            a.duration = (initialHeight / v.context.resources.displayMetrics.density).toLong()
+            v.startAnimation(a)
         }
     }
 
@@ -107,21 +260,76 @@ class RatingAdapter(val getRang: (it: String) -> MutableLiveData<Resource<String
         return size
     }
 
+
     private fun setBackground(binding: RecyclerItemRatingBinding, position: Int) {
-        when (position) {
-            0 -> {
+        if (binding.root.context.isDarkThemeOn()) {
+            when (position) {
+                1 -> binding.cron.setImageResource(R.drawable.cron_silver)
+                2 -> binding.cron.setImageResource(R.drawable.cron_bronse)
+                else -> binding.cron.visibility = View.GONE
             }
-            1 -> {
-                binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
-                binding.cron.setImageResource(R.drawable.cron_silver)
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
+        }
+        else {
+            when (position) {
+                0 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold)
+                }
+                1 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
+                    binding.cron.setImageResource(R.drawable.cron_silver)
+                }
+                2 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
+                    binding.cron.setImageResource(R.drawable.cron_bronse)
+                }
+                else -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle)
+                    binding.cron.visibility = View.GONE
+                }
             }
-            2 -> {
-                binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
-                binding.cron.setImageResource(R.drawable.cron_bronse)
+        }
+    }
+
+    private fun setExpandBackground(binding: RecyclerItemRatingBinding, position: Int) {
+        if (binding.root.context.isDarkThemeOn()) {
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black_expand)
+        }
+        else {
+            when (position) {
+                0 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold_expand)
+                }
+                1 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver_expand)
+                }
+                2 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse_expand)
+                }
+                else -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_expand)
+                }
             }
-            else -> {
-                binding.root.setBackgroundResource(R.drawable.rating_rectangle)
-                binding.cron.visibility = View.GONE
+        }
+    }
+    private fun setCollapseBackground(binding: RecyclerItemRatingBinding, position: Int) {
+        if (binding.root.context.isDarkThemeOn()) {
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
+        }
+        else {
+            when (position) {
+                0 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold)
+                }
+                1 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
+                }
+                2 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
+                }
+                else -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle)
+                }
             }
         }
     }

@@ -26,13 +26,11 @@ class GroupElementsFragment: Fragment(R.layout.fragment_group_elements) {
         viewModel.lifeData.observe(viewLifecycleOwner, {
             when(it){
                 is Resource.Error -> {
-                    binding.progressBarGroupsElement.progressBar.visibility = View.GONE
                     Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 }
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     if (it.data != null) {
-                        binding.progressBarGroupsElement.progressBar.visibility = View.GONE
                         adapter.elementsTitle = it.data
                     }
                 }

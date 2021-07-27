@@ -17,4 +17,7 @@ class RatingViewModel(private val repository: Repository) : ViewModel() {
             lifeDataNameTrainer.postValue(it)
         }
     }
+
+    fun getSortedElements() = repository.getAllSortedElements(mapOf())
+    fun getStudentElements(studentId: String) = repository.getStudentElements(studentId)
 }

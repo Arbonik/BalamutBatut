@@ -9,7 +9,7 @@
     <string name="item_element">Элемент</string>
     <string name="item_elements">Элементы</string>
     <string name="item_new_group">Новая группа</string>
-    <string name="item_all_elements">Все элементы</string>
+    <string name="item_all_elements">Списки элементов</string>
     <string name="item_not_group">Ученики без группы</string>
     <string name="item_settings">Настройки</string>
     <string name="students_fragment">Состав группы</string>
@@ -106,6 +106,7 @@
     <string name="color">Цвет</string>
     <string name="name_element">Название</string>
     <string name="error_name">Введите название элемента</string>
+    <string name="all_group_fragment_label">Элементы</string>
 
     <string-array name="levels">
         <item>Низкая</item>

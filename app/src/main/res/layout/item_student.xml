@@ -96,7 +96,9 @@
         <include
             layout="@layout/center_progress_bar"
             android:id="@+id/progress_bar_elements"/>
-        <androidx.recyclerview.widget.RecyclerView
+        <com.todkars.shimmer.ShimmerRecyclerView
+            app:shimmer_recycler_layout="@layout/shimmer_item_progress_user"
+            app:shimmer_recycler_item_count="6"
             android:id="@+id/group_elements"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

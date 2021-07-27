@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Тренер: Имя фамилия"
+        style="@style/textBlackWhite"
+        android:id="@+id/name_trainer_group"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_trainer_group"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Название группы"
+        style="@style/textBlackWhite"
+        android:id="@+id/name_group"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        style="@style/textBlackWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_group"
+        android:text="Lorem ipsum dolor sit amet, consectetur"
+        android:id="@+id/desc_group"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/name_trainer_group"
+        app:layout_constraintTop_toTopOf="@id/name_trainer_group"
+        app:layout_constraintEnd_toEndOf="@id/name_trainer_group"
+        app:layout_constraintBottom_toBottomOf="@id/name_trainer_group"
+        android:background="@color/background"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/name_group"
+        app:layout_constraintTop_toTopOf="@id/name_group"
+        app:layout_constraintEnd_toEndOf="@id/name_group"
+        app:layout_constraintBottom_toBottomOf="@id/name_group"
+        android:background="@color/background"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/desc_group"
+        app:layout_constraintTop_toTopOf="@id/desc_group"
+        app:layout_constraintEnd_toEndOf="@id/desc_group"
+        app:layout_constraintBottom_toBottomOf="@id/desc_group"
+        android:background="@color/background"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

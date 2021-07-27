@@ -1,11 +1,13 @@
 package com.castprogramms.balamutbatut.tools
 
+import android.content.Context
+import android.content.res.Configuration
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
 
-object ExpandAnimationCardView {
+object Utils {
     fun expand(v: View) {
         val matchParentMeasureSpec: Int = View.MeasureSpec.makeMeasureSpec(
             (v.parent as View).width,
@@ -31,8 +33,6 @@ object ExpandAnimationCardView {
                 return true
             }
         }
-
-        // Expansion speed of 1dp/ms
         a.duration = (targetHeight / v.context.resources.displayMetrics.density).toLong()
         v.startAnimation(a)
     }
@@ -58,5 +58,10 @@ object ExpandAnimationCardView {
         // Collapse speed of 1dp/ms
         a.duration = (initialHeight / v.context.resources.displayMetrics.density).toLong()
         v.startAnimation(a)
+    }
+
+    fun Context.isDarkThemeOn(): Boolean {
+        return resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 }

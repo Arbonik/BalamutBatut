@@ -30,13 +30,11 @@ class AddElementsFragment: Fragment(R.layout.fragment_add_elements) {
         viewModel.getAddStudentElementsOnThisTitle(idStudent, titleGroup).observe(viewLifecycleOwner,{
             when(it){
                 is Resource.Error -> {
-                    binding.progressBarElements.progressBar.visibility = View.GONE
                     Snackbar.make(view, it.data.toString(), Snackbar.LENGTH_SHORT).show()
                 }
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     if (it.data != null){
-                        binding.progressBarElements.progressBar.visibility = View.GONE
                         adapter.elements = it.data
                     }
                 }
