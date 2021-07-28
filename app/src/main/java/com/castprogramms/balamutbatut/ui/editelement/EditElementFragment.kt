@@ -26,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
+
     val viewModel: EditElementViewModel by viewModel()
     var element = Element()
     var titleElement = ""
@@ -71,7 +72,6 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
                     setNoVideoInfo()
                     binding.info.visibility = View.VISIBLE
                 }
-//                    Snackbar.make(requireView(), it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     if (it.data != null){

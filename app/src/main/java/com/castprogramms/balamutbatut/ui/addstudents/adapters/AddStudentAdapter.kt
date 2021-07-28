@@ -27,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
-class AddStudentAdapter(var idGroup: String, val updateStudentGroup: (String, String) -> Unit)
+class AddStudentAdapter(var idGroup: String)
     : RecyclerView.Adapter<AddStudentAdapter.AddStudentsViewHolder>(), Filterable {
     private var students = mutableListOf<Student>()
     private var studentsID = mutableListOf<String>()
@@ -109,11 +109,6 @@ class AddStudentAdapter(var idGroup: String, val updateStudentGroup: (String, St
                     }
                 })
                 .into(binding.iconStudent)
-//            binding.root.setOnClickListener {
-//                if (User.trainer != null)
-//                    student.groupID = idGroup
-//                updateStudentGroup(id, student.groupID)
-//            }
             binding.root.setOnClickListener {
                 binding.isNeed.setChecked(!binding.isNeed.isChecked, true)
                 checkCheckBox(id, binding.isNeed.isChecked)

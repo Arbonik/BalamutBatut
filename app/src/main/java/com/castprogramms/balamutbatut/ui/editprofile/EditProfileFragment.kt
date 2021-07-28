@@ -82,6 +82,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
             startActivityForResult(intent, 1)
         }
 
+        //TODO то же самое, пофикксить валидацию
         binding.acceptEdit.setOnClickListener {
             val listEmptyEditText = mutableListOf<Boolean>()
 

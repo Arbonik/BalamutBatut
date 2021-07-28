@@ -1,10 +1,6 @@
 package com.castprogramms.balamutbatut.ui.rating
 
-import android.content.Context
-import android.content.res.Configuration
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,38 +96,12 @@ class RatingAdapter(
                 if (binding.expandableView.visibility == View.GONE) {
                     expand(binding.expandableView)
                     setExpandBackground(binding, position)
-//                    when (position) {
-//                        0 -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating_gold)
-//                        }
-//                        1 -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating_silver)
-//                        }
-//                        2 -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating_bronse)
-//                        }
-//                        else -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.background_group_student_rating)
-//                        }
-//                    }
                 }
                 else{
                     collapse(binding.expandableView, position)
                     setCollapseBackground(binding, position)
                 }
             }
-
-//            getRang(pair.first).observeForever {
-//                when (it) {
-//                    is Resource.Error -> {
-//                    }
-//                    is Resource.Loading -> {
-//                    }
-//                    is Resource.Success -> {
-//                        binding.rang.text = itemView.context.resources.getString(R.string.rang) + " " + it.data
-//                    }
-//                }
-//            }
         }
 
         private fun setDataAdapter(adapter: ElementsStudentAdapter, studentId: String){
@@ -222,20 +192,6 @@ class RatingAdapter(
 
                 override fun onAnimationEnd(animation: Animation?) {
                     v.visibility = View.GONE
-//                    when (position) {
-//                        0 -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle_gold)
-//                        }
-//                        1 -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle_silver)
-//                        }
-//                        2 -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle_bronse)
-//                        }
-//                        else -> {
-//                            binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle)
-//                        }
-//                    }
                 }
 
                 override fun onAnimationRepeat(animation: Animation?) {

@@ -132,7 +132,7 @@ class InsertDataUserFragment : Fragment() {
                 }
             }
         }
-
+        //TODO задание для Полины, реализовать адекватную валидацию данных
         finishRegistration.setOnClickListener {
             val listEmptyEditText = mutableListOf<Boolean>()
             if (editFirstName.text.isNullOrBlank()) {

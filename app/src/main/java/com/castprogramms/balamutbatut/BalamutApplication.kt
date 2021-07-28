@@ -6,7 +6,6 @@ import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.network.VideoAndDescFirebaseStorage
 import com.castprogramms.balamutbatut.ui.addelements.AddElementsViewModel
 import com.castprogramms.balamutbatut.ui.addstudents.AddStudentViewModel
-import com.castprogramms.balamutbatut.ui.allElements.AllElementListViewModel
 import com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementViewModel
 import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.editelement.EditElementViewModel
@@ -15,7 +14,6 @@ import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.groupelements.GroupElementsViewModel
 import com.castprogramms.balamutbatut.ui.infoelementfragment.InfoElementViewModel
-import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
 import com.castprogramms.balamutbatut.ui.profile.ProfileViewModel
 import com.castprogramms.balamutbatut.ui.qrcode.QrCodeViewModel
 import com.castprogramms.balamutbatut.ui.rating.RatingViewModel
@@ -33,13 +31,11 @@ class BalamutApplication : Application() {
         single { VideoAndDescFirebaseStorage() }
         single { Repository(get(), get()) }
         viewModel {ChangeElementsViewModel(get())}
-        viewModel {InfoStudentViewModel(get())}
         viewModel {StudentsViewModel(get())}
         viewModel {RegistrViewModel(get())}
         viewModel {RatingViewModel(get())}
         viewModel {GroupViewModel(get())}
         viewModel {QrCodeViewModel(get())}
-        viewModel {AllElementListViewModel(get())}
         viewModel {ProfileViewModel(get())}
         viewModel {EditElementViewModel(get())}
         viewModel {AddElementsViewModel(get())}

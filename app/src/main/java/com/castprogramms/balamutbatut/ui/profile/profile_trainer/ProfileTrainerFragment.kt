@@ -4,8 +4,10 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.*
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import androidx.fragment.app.Fragment
@@ -20,11 +22,8 @@ import com.castprogramms.balamutbatut.databinding.FragmentProfileTrainerBinding
 import com.castprogramms.balamutbatut.tools.ActionsWithCoins
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
-import com.castprogramms.balamutbatut.ui.infostudent.InfoStudentViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
-    val viewModel : InfoStudentViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)

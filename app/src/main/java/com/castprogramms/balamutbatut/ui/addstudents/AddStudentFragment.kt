@@ -2,26 +2,24 @@ package com.castprogramms.balamutbatut.ui.addstudents
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentAddStudentBinding
-import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.ui.addstudents.adapters.AddStudentAdapter
 import com.google.android.material.snackbar.Snackbar
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddStudentFragment: Fragment(R.layout.fragment_add_student) {
     val viewModel : AddStudentViewModel by viewModel()
     var id = ""
     val studentsAdapter = AddStudentAdapter(id)
-        { studentId: String, groupID: String -> viewModel.updateStudentGroup(studentId, groupID) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
