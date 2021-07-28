@@ -29,6 +29,7 @@ import java.io.IOException
 class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
     val viewModel : QrCodeViewModel by viewModel()
     var quantity = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentQrCodeScannerBinding.bind(view)
         val dialogView = LayoutInflater.from(requireContext())
