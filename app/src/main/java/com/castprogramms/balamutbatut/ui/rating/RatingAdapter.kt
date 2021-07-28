@@ -264,6 +264,7 @@ class RatingAdapter(
     private fun setBackground(binding: RecyclerItemRatingBinding, position: Int) {
         if (binding.root.context.isDarkThemeOn()) {
             when (position) {
+                0 -> binding.cron.setImageResource(R.drawable.cron_gold)
                 1 -> binding.cron.setImageResource(R.drawable.cron_silver)
                 2 -> binding.cron.setImageResource(R.drawable.cron_bronse)
                 else -> binding.cron.visibility = View.GONE
@@ -274,6 +275,7 @@ class RatingAdapter(
             when (position) {
                 0 -> {
                     binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold)
+                    binding.cron.setImageResource(R.drawable.cron_gold)
                 }
                 1 -> {
                     binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
