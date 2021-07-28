@@ -1,12 +1,9 @@
 package com.castprogramms.balamutbatut.network
 
 import android.content.Context
-import android.graphics.Color
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.BuildConfig
-import com.castprogramms.balamutbatut.R
-import com.castprogramms.balamutbatut.graph.Node
 import com.castprogramms.balamutbatut.tools.EditProfile
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.Group
@@ -187,16 +184,15 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .whereEqualTo("type", "student")
             .whereEqualTo("groupID", groupID)
             .addSnapshotListener { value, error ->
-                if (value != null){
+                if (value != null) {
                     val idsAndStudents = mutableListOf<Pair<String, Student>>()
                     value.documents.forEach {
-                        if (it.toObject(Student::class.java) != null){
+                        if (it.toObject(Student::class.java) != null) {
                             idsAndStudents.add(it.id to it.toObject(Student::class.java)!!)
                         }
                     }
                     mutableLiveData.postValue(Resource.Success(idsAndStudents))
-                }
-                else 
+                } else
                     mutableLiveData.postValue(Resource.Error(error?.message))
             }
         return mutableLiveData
@@ -209,15 +205,14 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .whereEqualTo("groupID", Person.notGroup)
             .whereEqualTo("type", "student")
             .addSnapshotListener { value, error ->
-                if (value != null){
+                if (value != null) {
                     val idAndStudent = mutableListOf<Pair<String, Student>>()
                     value.documents.forEach {
                         if (it.toObject(Student::class.java) != null)
                             idAndStudent.add(it.id to it.toObject(Student::class.java)!!)
                     }
                     mutableLiveData.postValue(Resource.Success(idAndStudent))
-                }
-                else
+                } else
                     mutableLiveData.postValue(Resource.Error(error?.message))
             }
         return mutableLiveData
@@ -248,18 +243,18 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     }
 
     override fun getGroups(): MutableLiveData<Resource<MutableList<Pair<Group, String>>>> {
-        val mutableLiveData = MutableLiveData<Resource<MutableList<Pair<Group, String>>>>(Resource.Loading())
+        val mutableLiveData =
+            MutableLiveData<Resource<MutableList<Pair<Group, String>>>>(Resource.Loading())
         fireStore.collection(groupTag)
             .whereEqualTo("numberTrainer", User.id)
             .addSnapshotListener { value, error ->
                 val groupAndId = mutableListOf<Pair<Group, String>>()
-                if (value != null){
+                if (value != null) {
                     value.documents.forEach {
                         groupAndId.add((it.toObject(Group::class.java) to it.id) as Pair<Group, String>)
                     }
                     mutableLiveData.postValue(Resource.Success(groupAndId))
-                }
-                else
+                } else
                     mutableLiveData.postValue(Resource.Error(error?.message))
             }
         return mutableLiveData
@@ -274,12 +269,6 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return fireStore.collection(groupTag)
             .whereArrayContains(studentTag, studentID)
             .get()
-    }
-
-    fun updateNodeStudent(studentID: String, nodes: List<Node>) {
-        fireStore.collection(studentTag)
-            .document(studentID)
-            .update("nodes", nodes)
     }
 
     fun getNameGroup(groupID: String): Task<DocumentSnapshot> {
@@ -427,7 +416,8 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     }
 
     fun getSortedElementsWithColor(IDS: Map<String, List<Int>>): MutableLiveData<Resource<MutableList<Pair<String, Int>>>> {
-        val mutableLiveData = MutableLiveData<Resource<MutableList<Pair<String, Int>>>>(Resource.Loading())
+        val mutableLiveData =
+            MutableLiveData<Resource<MutableList<Pair<String, Int>>>>(Resource.Loading())
         var titleAndColor = mutableListOf<Pair<String, Int>>()
         fireStore.collection(elementTag)
             .get()
@@ -473,14 +463,16 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     }
 
     fun getElementStudent(studentID: String): MutableLiveData<Resource<MutableList<Pair<String, List<Int>>>>> {
-        val mutableLiveData = MutableLiveData<Resource<MutableList<Pair<String, List<Int>>>>>(Resource.Loading())
+        val mutableLiveData =
+            MutableLiveData<Resource<MutableList<Pair<String, List<Int>>>>>(Resource.Loading())
         fireStore.collection(studentTag)
             .document(studentID)
             .addSnapshotListener { value, error ->
                 if (value != null)
                     mutableLiveData.postValue(
                         Resource.Success(
-                            (value.get("element") as Map<String, List<Int>>).toList().toMutableList()
+                            (value.get("element") as Map<String, List<Int>>).toList()
+                                .toMutableList()
                         )
                     )
                 else
@@ -575,7 +567,10 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
-    fun getAddStudentElementsOnThisTitle(idStudent: String, title: String): MutableLiveData<Resource<MutableList<Element>>> {
+    fun getAddStudentElementsOnThisTitle(
+        idStudent: String,
+        title: String
+    ): MutableLiveData<Resource<MutableList<Element>>> {
         val mutableLiveData = MutableLiveData<Resource<MutableList<Element>>>(Resource.Loading())
         var noNeedPositionElements = listOf<Int>()
         val mutableListNeedElements = mutableListOf<Element>()
@@ -584,7 +579,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
             .get()
             .addOnSuccessListener {
                 val student = it.toObject(Student::class.java)
-                if (student != null){
+                if (student != null) {
                     noNeedPositionElements =
                         if (student.element.containsKey(title))
                             student.element[title]!!
@@ -614,15 +609,14 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         fireStore.collection(elementTag)
             .document(title)
             .addSnapshotListener { value, error ->
-                if (value != null){
+                if (value != null) {
                     val list = value.get("name") as List<String>
                     val elements = mutableListOf<Element>()
                     list.forEach {
                         elements.add(Element(it))
                     }
                     mutableLiveData.postValue(Resource.Success(elements))
-                }
-                else
+                } else
                     mutableLiveData.postValue(Resource.Error(error?.message))
             }
         return mutableLiveData
@@ -648,7 +642,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         fireStore.collection(studentTag)
             .whereEqualTo("type", "student")
             .addSnapshotListener { value, error ->
-                if (value != null){
+                if (value != null) {
                     val studentsAndId = mutableListOf<Pair<String, Student>>()
                     value.documents.forEach {
                         studentsAndId.add(it.id to it.toObject(Student::class.java)!!)
@@ -657,7 +651,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
                         it.second.getQuantityElements().split(" ")[1].toInt()
                     }
                     var position = -1
-                    studentsAndId.forEachIndexed{ index, pair ->
+                    studentsAndId.forEachIndexed { index, pair ->
                         if (pair.first == studentID)
                             position = index + 1
                     }
@@ -665,8 +659,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
                         mutableLiveData.postValue(Resource.Success(position))
                     else
                         mutableLiveData.postValue(Resource.Error("Нет такого ученика"))
-                }
-                else{
+                } else {
                     mutableLiveData.postValue(Resource.Error(error?.message))
                 }
             }
