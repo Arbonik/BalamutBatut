@@ -6,12 +6,12 @@ import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.network.VideoAndDescFirebaseStorage
 import com.castprogramms.balamutbatut.ui.addelements.AddElementsViewModel
 import com.castprogramms.balamutbatut.ui.addstudents.AddStudentViewModel
-import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
-import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.allElements.AllElementListViewModel
 import com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementViewModel
+import com.castprogramms.balamutbatut.ui.changeprogram.ChangeElementsViewModel
 import com.castprogramms.balamutbatut.ui.editelement.EditElementViewModel
 import com.castprogramms.balamutbatut.ui.editprofile.EditProfileViewModel
+import com.castprogramms.balamutbatut.ui.group.GroupViewModel
 import com.castprogramms.balamutbatut.ui.group.StudentsViewModel
 import com.castprogramms.balamutbatut.ui.groupelements.GroupElementsViewModel
 import com.castprogramms.balamutbatut.ui.infoelementfragment.InfoElementViewModel

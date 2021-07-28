@@ -1,14 +1,7 @@
 package com.castprogramms.balamutbatut
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -35,43 +28,11 @@ class MainActivityTrainer : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-            // проверка на наличие разрешений
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(arrayOf(Manifest.permission.CAMERA), 101)
-            }
-        }
-
-        if (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Log.e("test", checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE).toString())
-                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-            } else {
-                TODO("VERSION.SDK_INT < M")
-            }
-        ) // проверка на наличие разрешений
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 101)
-            }
     }
-
 
     override fun onSupportNavigateUp() = navController.navigateUp()
 
     fun setTitleAppBar(string: String){
         title = string
     }
-
-    /*override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        when (currentNightMode) {
-            Configuration.UI_MODE_NIGHT_NO -> {
-                theme = false
-            }
-            Configuration.UI_MODE_NIGHT_YES -> {
-                theme = true
-            }
-        }
-    }*/
 }

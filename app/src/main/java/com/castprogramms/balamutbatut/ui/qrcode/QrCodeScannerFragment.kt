@@ -1,6 +1,6 @@
 package com.castprogramms.balamutbatut.ui.qrcode
 
-import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.R
@@ -26,9 +25,21 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.IOException
 
-class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
-    val viewModel : QrCodeViewModel by viewModel()
+class QrCodeScannerFragment : Fragment(R.layout.fragment_qr_code_scanner) {
+    val viewModel: QrCodeViewModel by viewModel()
     var quantity = 0
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == 0){
+            if (grantResults.getOrNull(0) != PackageManager.PERMISSION_GRANTED)
+                findNavController().popBackStack()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentQrCodeScannerBinding.bind(view)
         val dialogView = LayoutInflater.from(requireContext())
@@ -61,64 +72,68 @@ class QrCodeScannerFragment: Fragment(R.layout.fragment_qr_code_scanner) {
             .build()
 
         val cameraSource = CameraSource.Builder(requireContext(), barcodeDetector)
-            .setRequestedPreviewSize(640,480)
+            .setRequestedPreviewSize(640, 480)
             .build()
-        binding.camerapreview.holder.addCallback(object: SurfaceHolder.Callback{
-            override fun surfaceCreated(holder:SurfaceHolder) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireActivity().applicationContext,
-                        Manifest.permission.CAMERA
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    requestPermissions(arrayOf(Manifest.permission.CAMERA), 101)
-                    return
-                }
-                try{
+        binding.camerapreview.holder.addCallback(object : SurfaceHolder.Callback {
+            @SuppressLint("MissingPermission")
+            override fun surfaceCreated(holder: SurfaceHolder) {
+                try {
                     val handler = Handler()
                     handler.postDelayed(
                         Runnable { cameraSource.start(holder) },
-                        300)
-                } catch (e : IOException){
+                        300
+                    )
+                } catch (e: IOException) {
                     e.printStackTrace()
                 }
             }
+
             override fun surfaceChanged(p0: SurfaceHolder, p1: Int, p2: Int, p3: Int) {}
 
-            override fun surfaceDestroyed(holder:SurfaceHolder) {
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
                 cameraSource.stop()
             }
         })
-        barcodeDetector.setProcessor(object : Detector.Processor<Barcode>{
+        barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
             override fun release() {
             }
+
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 val qrCodes: SparseArray<Barcode> = detections.detectedItems
-                if(qrCodes.size() != 0){
+                if (qrCodes.size() != 0) {
                     binding.textView.post {
                         val id = qrCodes.valueAt(0).displayValue.toString()
-                        when(requireArguments().getString("action")){
-                           ActionsWithCoins.PAY.desc -> {
-                               viewModel.writeOffCoin(id, quantity).observe(viewLifecycleOwner, {
-                                   when(it){
-                                       is Resource.Error -> {
-                                           binding.camerapreview.visibility = View.INVISIBLE
-                                           binding.progressScan.visibility = View.GONE
-                                           Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
-                                           findNavController().popBackStack()
-                                       }
-                                       is Resource.Loading -> {
-                                           binding.camerapreview.visibility = View.INVISIBLE
-                                           binding.progressScan.visibility = View.VISIBLE
-                                       }
-                                       is Resource.Success -> {
-                                           binding.camerapreview.visibility = View.INVISIBLE
-                                           binding.progressScan.visibility = View.GONE
-                                           Toast.makeText(requireContext(), "У ученика успешно списаны средства", Toast.LENGTH_LONG).show()
-                                           findNavController().popBackStack()
-                                       }
-                                   }
-                               })
-                           }
+                        when (requireArguments().getString("action")) {
+                            ActionsWithCoins.PAY.desc -> {
+                                viewModel.writeOffCoin(id, quantity).observe(viewLifecycleOwner, {
+                                    when (it) {
+                                        is Resource.Error -> {
+                                            binding.camerapreview.visibility = View.INVISIBLE
+                                            binding.progressScan.visibility = View.GONE
+                                            Toast.makeText(
+                                                requireContext(),
+                                                it.message.toString(),
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            findNavController().popBackStack()
+                                        }
+                                        is Resource.Loading -> {
+                                            binding.camerapreview.visibility = View.INVISIBLE
+                                            binding.progressScan.visibility = View.VISIBLE
+                                        }
+                                        is Resource.Success -> {
+                                            binding.camerapreview.visibility = View.INVISIBLE
+                                            binding.progressScan.visibility = View.GONE
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "У ученика успешно списаны средства",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                            findNavController().popBackStack()
+                                        }
+                                    }
+                                })
+                            }
                             ActionsWithCoins.GET.desc -> {
                                 User.isScan = true
                                 viewModel.addBatutCoin(id, 50)
