@@ -682,6 +682,81 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
+    fun deleteGroup(groupID: String): MutableLiveData<Resource<String>> {
+        val mutableLiveData = MutableLiveData<Resource<String>>()
+        fireStore.runTransaction {
+            fireStore.collection(groupTag)
+                .document(groupID)
+                .delete()
+            val removeID = mutableListOf<String>()
+
+            fireStore.collection(studentTag)
+                .whereEqualTo("groupID", groupID)
+                .get()
+                .addOnSuccessListener {
+                    it.documents.forEach {
+                        removeID.add(it.id)
+                    }
+                }
+
+            removeID.forEach {
+                fireStore.collection(studentTag)
+                    .document(it)
+                    .update("groupID", Person.notGroup)
+            }
+        }.addOnSuccessListener {
+            mutableLiveData.postValue(Resource.Success("Удаление прошло успешно"))
+        }.addOnFailureListener {
+            mutableLiveData.postValue(Resource.Error(it.message))
+        }
+
+        return mutableLiveData
+    }
+
+    fun deleteGroup(group: Group): MutableLiveData<Resource<String>>{
+        val mutableLiveData = MutableLiveData<Resource<String>>()
+        fireStore.runTransaction {
+            var groupID = ""
+            fireStore.collection(groupTag)
+                .whereEqualTo("color", group.color)
+                .whereEqualTo("description", group.description)
+                .whereEqualTo("name", group.name)
+                .whereEqualTo("students", group.students)
+                .whereEqualTo("numberTrainer", group.numberTrainer)
+                .get().addOnSuccessListener {
+                    if (it.documents.first() != null)
+                        groupID = it.documents.first().id
+                }
+            if (groupID != "") {
+                fireStore.collection(groupTag)
+                    .document(groupID)
+                    .delete()
+                val removeID = mutableListOf<String>()
+
+                fireStore.collection(studentTag)
+                    .whereEqualTo("groupID", groupID)
+                    .get()
+                    .addOnSuccessListener {
+                        it.documents.forEach {
+                            removeID.add(it.id)
+                        }
+                    }
+
+                removeID.forEach {
+                    fireStore.collection(studentTag)
+                        .document(it)
+                        .update("groupID", Person.notGroup)
+                }
+            }
+        }.addOnSuccessListener {
+            mutableLiveData.postValue(Resource.Success("Удаление прошло успешно"))
+        }.addOnFailureListener {
+            mutableLiveData.postValue(Resource.Error(it.message))
+        }
+
+        return mutableLiveData
+    }
+
     companion object {
         const val elementTag = "elements"
         const val studentTag = "students"

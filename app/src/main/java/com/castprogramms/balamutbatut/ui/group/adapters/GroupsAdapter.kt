@@ -1,9 +1,11 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.tools.Group
 import com.castprogramms.balamutbatut.R
+import com.castprogramms.balamutbatut.databinding.CheckDialogBinding
 import com.castprogramms.balamutbatut.databinding.EditGroupDialogBinding
 import com.castprogramms.balamutbatut.databinding.ItemGroupBinding
 import com.castprogramms.balamutbatut.network.Resource
@@ -77,7 +80,27 @@ class GroupsAdapter(
             }
 
             binding.delete.setOnClickListener {
-                //TODO сделать удаление учеников
+                createDeleteDialog()
+            }
+        }
+
+        private fun createDeleteDialog() {
+            val view = LayoutInflater.from(itemView.context)
+                .inflate(R.layout.check_dialog, null)
+            val binding = CheckDialogBinding.bind(view)
+            val ad = AlertDialog.Builder(itemView.context)
+                .setView(view)
+                .create()
+            if (ad.window != null)
+                ad.window!!.setBackgroundDrawable(ColorDrawable(0))
+            ad.show()
+
+            binding.cancel.setOnClickListener {
+                ad.dismiss()
+            }
+
+            binding.confirm.setOnClickListener {
+                ad.dismiss()
             }
         }
 
