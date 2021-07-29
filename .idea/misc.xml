@@ -3,11 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/drawable/background_group_student_progress.xml" value="0.290625" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/check_dialog.xml" value="0.25" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_group_elements.xml" value="0.1" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/insertdatauser_fragment.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_add_elements.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_color.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_group.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_group_element.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_help_info.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_progress_user.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_student.xml" value="0.1527777777777778" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/list_group.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/list_item.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/rating_title_layout.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/recycler_item_rating.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/set_data_node_fragment.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/set_quantity.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/show_elements_fragment.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/students_fragment.xml" value="0.27447916666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -10,4 +10,8 @@ class AddElementsViewModel(private val repository: Repository): ViewModel() {
 
     fun updateElementsStudent(title: String, elements: MutableList<Element>, idStudent: String) =
         repository.updateElementsStudent(mapOf(title to elements), idStudent)
+
+    fun getStudentElements(idStudent: String) = repository.getStudentElements(idStudent)
+
+    fun getAllElementsOnThisTitle(title: String) = repository.getAllElementsOnThisTitle(title)
 }

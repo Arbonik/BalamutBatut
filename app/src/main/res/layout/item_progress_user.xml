@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/title_element"
-        style="@style/group_card"
+        style="@style/group_card2"
         android:layout_weight="2"
         android:text="EASY MAN"/>
     <ProgressBar

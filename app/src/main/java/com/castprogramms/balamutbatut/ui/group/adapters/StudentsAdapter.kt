@@ -20,9 +20,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemStudentBinding
+import com.castprogramms.balamutbatut.databinding.RecyclerItemRatingBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.ItemTouchHelperAdapter
+import com.castprogramms.balamutbatut.tools.Utils.isDarkThemeOn
 import com.castprogramms.balamutbatut.users.Student
 
 class StudentsAdapter(
@@ -67,6 +69,7 @@ class StudentsAdapter(
     inner class StudentsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemStudentBinding.bind(view)
         fun bind(student: Student, id: String, position: Int){
+            setBackground(binding, position)
             binding.studentName.text = student.first_name + " " + student.second_name
             binding.position.text = (position + 1).toString()
             binding.score.text = countElements(student)
@@ -113,10 +116,12 @@ class StudentsAdapter(
             binding.root.setOnClickListener {
                 if (binding.expandableView.visibility == View.GONE) {
                     expand(binding.expandableView)
-                    binding.dataUser.setBackgroundResource(R.drawable.background_group_student)
+                    setExpandBackground(binding, position)
                 }
-                else
+                else{
                     collapse(binding.expandableView)
+                    setCollapseBackground(binding, position)
+                }
             }
         }
 
@@ -267,5 +272,69 @@ class StudentsAdapter(
         list[fromPosition] = secondPair
         list[toPosition] = firstPair
         return list
+    }
+    private fun setBackground(binding: ItemStudentBinding, position: Int) {
+        if (binding.root.context.isDarkThemeOn()) {
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
+        }
+        else {
+            when (position) {
+                0 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold)
+                }
+                1 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
+                }
+                2 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
+                }
+                else -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle)
+                }
+            }
+        }
+    }
+
+    private fun setExpandBackground(binding: ItemStudentBinding, position: Int) {
+        if (binding.root.context.isDarkThemeOn()) {
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black_expand)
+        }
+        else {
+            when (position) {
+                0 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold_expand)
+                }
+                1 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver_expand)
+                }
+                2 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse_expand)
+                }
+                else -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_expand)
+                }
+            }
+        }
+    }
+    private fun setCollapseBackground(binding: ItemStudentBinding, position: Int) {
+        if (binding.root.context.isDarkThemeOn()) {
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
+        }
+        else {
+            when (position) {
+                0 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold)
+                }
+                1 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
+                }
+                2 -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
+                }
+                else -> {
+                    binding.root.setBackgroundResource(R.drawable.rating_rectangle)
+                }
+            }
+        }
     }
 }

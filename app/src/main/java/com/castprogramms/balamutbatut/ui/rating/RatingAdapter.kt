@@ -1,12 +1,14 @@
 package com.castprogramms.balamutbatut.ui.rating
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,6 +21,7 @@ import com.castprogramms.balamutbatut.databinding.RecyclerItemRatingBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.tools.User.id
 import com.castprogramms.balamutbatut.tools.Utils.isDarkThemeOn
 import com.castprogramms.balamutbatut.ui.group.adapters.ElementsStudentAdapter
 import com.castprogramms.balamutbatut.users.Student
@@ -101,6 +104,11 @@ class RatingAdapter(
                     collapse(binding.expandableView, position)
                     setCollapseBackground(binding, position)
                 }
+            }
+            binding.seeElement.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("id", id)
+                itemView.findNavController().navigate(R.id.action_rating_Fragment_to_showElementsFragment, bundle)
             }
         }
 

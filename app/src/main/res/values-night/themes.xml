@@ -95,6 +95,15 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <!--<style name="group_card">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>-->
+
+    <style name="group_card2">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 
     <style name="spinner_background">
         <item name="android:popupBackground">@drawable/background_spinner_black</item>

@@ -96,6 +96,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="group_card2">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="textBlackWhite">
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/black</item>
