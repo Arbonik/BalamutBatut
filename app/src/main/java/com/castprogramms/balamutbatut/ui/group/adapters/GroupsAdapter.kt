@@ -1,16 +1,13 @@
 package com.castprogramms.balamutbatut.ui.group.adapters
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +18,12 @@ import com.castprogramms.balamutbatut.databinding.EditGroupDialogBinding
 import com.castprogramms.balamutbatut.databinding.ItemGroupBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.ui.addgroup.ColorAdapter
+import com.google.android.material.snackbar.Snackbar
 
 class GroupsAdapter(
     val updateData: (Group, String) -> MutableLiveData<Resource<String>>,
-    val getGroupInfo: (String) -> MutableLiveData<Resource<Group>>
+    val getGroupInfo: (String) -> MutableLiveData<Resource<Group>>,
+    val deleteGroup: (String) -> Unit
 ) : RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>() {
     var groups = mutableListOf<Group>()
     var groupsId = mutableListOf<String>()
@@ -80,11 +79,11 @@ class GroupsAdapter(
             }
 
             binding.delete.setOnClickListener {
-                createDeleteDialog()
+                createDeleteDialog(id)
             }
         }
 
-        private fun createDeleteDialog() {
+        private fun createDeleteDialog(id: String) {
             val view = LayoutInflater.from(itemView.context)
                 .inflate(R.layout.check_dialog, null)
             val binding = CheckDialogBinding.bind(view)
@@ -101,6 +100,12 @@ class GroupsAdapter(
 
             binding.confirm.setOnClickListener {
                 ad.dismiss()
+                this@GroupsAdapter.deleteGroup(id)
+                val snack = Snackbar.make(itemView, "Группа была удалена", Snackbar.LENGTH_SHORT)
+                snack.setAction("Закрыть") {
+                    snack.dismiss()
+                }
+                snack.show()
             }
         }
 

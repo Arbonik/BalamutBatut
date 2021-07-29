@@ -113,6 +113,7 @@ class Repository(
         }
     }
 
+    fun deleteGroup(groupID: String) = dataUserFirebase.deleteGroup(groupID)
     fun addGroup(group: Group) = dataUserFirebase.addGroup(group)
     fun getGroup(groupID: String) = dataUserFirebase.getGroup(groupID)
     fun getGroupInfo(groupID: String) = dataUserFirebase.getGroupOnID(groupID)

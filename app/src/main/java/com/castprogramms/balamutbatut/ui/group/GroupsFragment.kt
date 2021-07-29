@@ -17,12 +17,13 @@ class GroupsFragment : Fragment(R.layout.groups_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = GroupsFragmentBinding.bind(view)
-        val groupAdapter = GroupsAdapter( { group: Group, groupID: String ->
+        val groupAdapter = GroupsAdapter({ group: Group, groupID: String ->
             viewModel.updateDataGroup(
                 group,
                 groupID
             )
-        }) { groupId: String -> viewModel.getGroupInfo(groupId) }
+        }, { viewModel.getGroupInfo(it) })
+        { viewModel.deleteGroup(it) }
         viewModel.getGroups().observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Error -> {

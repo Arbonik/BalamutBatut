@@ -46,7 +46,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="18dp"
             style="@style/textBlackWhite"
             android:textSize="18sp"
             android:text="Вы уверены, что хотите удалить группу? \n(Это действие необратимо)"
