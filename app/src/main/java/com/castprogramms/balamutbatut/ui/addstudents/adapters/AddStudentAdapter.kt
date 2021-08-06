@@ -21,6 +21,7 @@ import com.castprogramms.balamutbatut.databinding.ItemStudentBinding
 import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.tools.Utils.isDarkThemeOn
 import com.castprogramms.balamutbatut.users.Student
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -78,6 +79,7 @@ class AddStudentAdapter(var idGroup: String)
     inner class AddStudentsViewHolder(view: View): RecyclerView.ViewHolder(view){
         val binding = ItemAddStudentBinding.bind(view)
         fun bind(student: Student, id: String){
+            setBackground(binding)
             binding.score.text = countElements(student)
             binding.studentName.text = student.getFullName()
             Glide.with(itemView)
@@ -102,9 +104,7 @@ class AddStudentAdapter(var idGroup: String)
                         isFirstResource: Boolean
                     ): Boolean {
                         binding.progressRatingPhotoItem.visibility = View.GONE
-                        val size = binding.root.height * 0.56
-                        val bitmap = resource?.toBitmap(size.toInt(), size.toInt())
-                        binding.iconStudent.setImageDrawable(bitmap?.toDrawable(itemView.resources))
+                        binding.iconStudent.setImageDrawable(resource)
                         return true
                     }
                 })
@@ -132,6 +132,13 @@ class AddStudentAdapter(var idGroup: String)
                 score += it.value.size
             }
             return "Элементы: $score"
+        }
+
+        private fun setBackground(binding: ItemAddStudentBinding) {
+            if (binding.root.context.isDarkThemeOn())
+                binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
+            else
+                binding.root.setBackgroundResource(R.drawable.rating_rectangle)
         }
     }
 

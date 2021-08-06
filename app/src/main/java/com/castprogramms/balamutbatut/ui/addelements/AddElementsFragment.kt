@@ -12,10 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddElementsFragment: Fragment(R.layout.fragment_add_elements) {
-    val viewModel : AddElementsViewModel by viewModel()
-    var idStudent = ""
-    var titleGroup = ""
-    var colorGroup = 0
+    private val viewModel : AddElementsViewModel by viewModel()
+    private var idStudent = ""
+    private var titleGroup = ""
+    private var colorGroup = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         idStudent = requireArguments().getString("id", "")
@@ -25,24 +25,28 @@ class AddElementsFragment: Fragment(R.layout.fragment_add_elements) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentAddElementsBinding.bind(view)
+        requireActivity().title = titleGroup
         val adapter = AddElementsAdapter(colorGroup)
         binding.recycler.adapter = adapter
         viewModel.getAddStudentElementsOnThisTitle(idStudent, titleGroup).observe(viewLifecycleOwner,{
             when(it){
                 is Resource.Error -> {
+                    binding.recycler.hideShimmer()
                     Snackbar.make(view, it.data.toString(), Snackbar.LENGTH_SHORT).show()
                 }
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                    binding.recycler.showShimmer()
+                }
                 is Resource.Success -> {
                     if (it.data != null){
                         adapter.elements = it.data
+                        binding.recycler.hideShimmer()
                     }
                 }
             }
         })
 
         adapter.liveDataSelectedElements.observe(viewLifecycleOwner, {
-            Log.e("it", it.toString())
             if (it.isNotEmpty())
                 binding.addElement.visibility = View.VISIBLE
             else

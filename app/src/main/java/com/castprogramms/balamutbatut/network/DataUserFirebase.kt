@@ -415,7 +415,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveDataAllElements
     }
 
-    fun getSortedElementsWithColor(IDS: Map<String, List<Int>>): MutableLiveData<Resource<MutableList<Pair<String, Int>>>> {
+    fun getAddSortedElementsWithColor(IDS: Map<String, List<Int>>): MutableLiveData<Resource<MutableList<Pair<String, Int>>>> {
         val mutableLiveData =
             MutableLiveData<Resource<MutableList<Pair<String, Int>>>>(Resource.Loading())
         var titleAndColor = mutableListOf<Pair<String, Int>>()
@@ -432,9 +432,53 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
                                 if (i !in IDS[it.id]!!) {
                                     elements.add(Element(names[i]))
                                 }
-                            } else {
+                            }
+                            else {
                                 elements.add(Element(names[i]))
                             }
+                        }
+                        val sendElements = elements.toList()
+                        if (sendElements.isNotEmpty())
+                            titleAndColor.add(it.id to it.getLong("color")!!.toInt())
+                        elements.clear()
+                    }
+//                    Log.e("it", it.data.toString())
+//                    if (it.id != trueOrder)
+//                        titleAndColor.add(it.id to it.getLong("color")!!.toInt())
+                }
+            }.addOnFailureListener {
+                mutableLiveData.postValue(Resource.Error(it.message))
+            }.continueWith {
+                var trueOrderList = listOf<String>()
+                fireStore.collection(elementTag)
+                    .document(trueOrder)
+                    .get()
+                    .addOnSuccessListener {
+                        trueOrderList = it["names"] as List<String>
+                        mutableLiveData.postValue(
+                            Resource.Success(filter(trueOrderList, titleAndColor))
+                        )
+                    }
+            }
+        return mutableLiveData
+    }
+
+    fun getSortedElementsWithColor(IDS: Map<String, List<Int>>): MutableLiveData<Resource<MutableList<Pair<String, Int>>>> {
+        val mutableLiveData =
+            MutableLiveData<Resource<MutableList<Pair<String, Int>>>>(Resource.Loading())
+        var titleAndColor = mutableListOf<Pair<String, Int>>()
+        fireStore.collection(elementTag)
+            .get()
+            .addOnSuccessListener {
+                titleAndColor = mutableListOf()
+                it.documents.forEach {
+                    if (it.id != trueOrder) {
+                        val elements = mutableListOf<Element>()
+                        val names = it.get("name") as List<String>
+                        for (i in names.indices) {
+                            if (IDS[it.id] != null)
+                                if (i in IDS[it.id]!!)
+                                    elements.add(Element(names[i]))
                         }
                         val sendElements = elements.toList()
                         if (sendElements.isNotEmpty())
@@ -604,6 +648,43 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
+    fun getStudentElementsOnThisTitle(
+        idStudent: String,
+        title: String
+    ): MutableLiveData<Resource<MutableList<Element>>> {
+        val mutableLiveData = MutableLiveData<Resource<MutableList<Element>>>(Resource.Loading())
+        var needPositionElements = listOf<Int>()
+        val mutableListNeedElements = mutableListOf<Element>()
+        fireStore.collection(studentTag)
+            .document(idStudent)
+            .get()
+            .addOnSuccessListener {
+                val student = it.toObject(Student::class.java)
+                if (student != null) {
+                    needPositionElements =
+                        if (student.element.containsKey(title))
+                            student.element[title]!!
+                        else
+                            listOf()
+                }
+            }.addOnFailureListener {
+                mutableLiveData.postValue(Resource.Error(it.message))
+            }.continueWith {
+                fireStore.collection(elementTag)
+                    .document(title)
+                    .get()
+                    .addOnSuccessListener {
+                        val listElements = it.get("name") as List<String>
+                        listElements.forEachIndexed { index, s ->
+                            if (index in needPositionElements)
+                                mutableListNeedElements.add(Element(s))
+                        }
+                        mutableLiveData.postValue(Resource.Success(mutableListNeedElements))
+                    }
+            }
+        return mutableLiveData
+    }
+
     fun getAllElementsOnThisTitle(title: String): MutableLiveData<Resource<MutableList<Element>>> {
         val mutableLiveData = MutableLiveData<Resource<MutableList<Element>>>(Resource.Loading())
         fireStore.collection(elementTag)
@@ -685,25 +766,20 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     fun deleteGroup(groupID: String): MutableLiveData<Resource<String>> {
         val mutableLiveData = MutableLiveData<Resource<String>>()
         fireStore.runTransaction {
-            fireStore.collection(groupTag)
-                .document(groupID)
-                .delete()
-            val removeID = mutableListOf<String>()
-
             fireStore.collection(studentTag)
                 .whereEqualTo("groupID", groupID)
                 .get()
                 .addOnSuccessListener {
                     it.documents.forEach {
-                        removeID.add(it.id)
+                        fireStore.collection(studentTag)
+                            .document(it.id)
+                            .update("groupID", "НетГруппы")
                     }
+                }.continueWith {
+                    fireStore.collection(groupTag)
+                        .document(groupID)
+                        .delete()
                 }
-
-            removeID.forEach {
-                fireStore.collection(studentTag)
-                    .document(it)
-                    .update("groupID", Person.notGroup)
-            }
         }.addOnSuccessListener {
             mutableLiveData.postValue(Resource.Success("Удаление прошло успешно"))
         }.addOnFailureListener {
@@ -713,7 +789,7 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         return mutableLiveData
     }
 
-    fun deleteGroup(group: Group): MutableLiveData<Resource<String>>{
+    fun deleteGroup(group: Group): MutableLiveData<Resource<String>> {
         val mutableLiveData = MutableLiveData<Resource<String>>()
         fireStore.runTransaction {
             var groupID = ""

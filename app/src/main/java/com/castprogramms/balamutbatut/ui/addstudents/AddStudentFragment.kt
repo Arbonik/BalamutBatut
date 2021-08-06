@@ -30,6 +30,7 @@ class AddStudentFragment: Fragment(R.layout.fragment_add_student) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         this.setHasOptionsMenu(true)
         val binding = FragmentAddStudentBinding.bind(view)
+        requireActivity().setTitle(R.string.item_not_group)
         binding.recycler.layoutManager = LinearLayoutManager(requireContext())
         binding.recycler.adapter = studentsAdapter
         viewModel.getStudentWithoutGroup().observe(viewLifecycleOwner, {

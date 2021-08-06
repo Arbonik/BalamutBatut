@@ -16,6 +16,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentProfileStudentBinding
 import com.castprogramms.balamutbatut.network.Resource
@@ -29,10 +30,12 @@ class ProfileStudentFragment : Fragment(R.layout.fragment_profile_student) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentProfileStudentBinding.bind(view)
         this.setHasOptionsMenu(true)
+        requireActivity().setTitle(R.string.item_profile)
 
         User.mutableLiveDataStudent.observe(viewLifecycleOwner, {
             if (it != null) {
                 binding.fullName.text = it.getFullName()
+
                 Glide.with(this)
                     .load(it.img)
                     .addListener(object : RequestListener<Drawable>{

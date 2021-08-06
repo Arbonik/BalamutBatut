@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_success"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:padding="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/success_dialog"
+        style="@style/MiddleBackground"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_success"
+            android:backgroundTint="@color/purple_600"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:text="Создание группы"/>
+
+        <ImageView
+            android:id="@+id/image_title"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/text_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_title"
+            app:tint="@color/white"
+            android:src="@drawable/add"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_group_container"
+            style="@style/radius_corners_for_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_group"
+            app:layout_constraintTop_toBottomOf="@id/text_title"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            app:startIconContentDescription="@string/name_group">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name_group"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/desc_group_container"
+            style="@style/radius_corners_for_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            android:hint="@string/desc_group"
+            app:layout_constraintTop_toBottomOf="@id/name_group_container"
+            app:startIconContentDescription="@string/desc_group">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/desc_group"
+                android:singleLine="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:background="@drawable/background_color"
+            style="@style/Back_in_color"
+            app:layout_constraintCircleRadius="10dp"
+            app:layout_constraintTop_toBottomOf="@id/desc_group_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/desc_group_container"
+                android:text="@string/color"
+                style="@style/textBlackWhite"
+                android:textSize="16sp"
+                android:layout_marginStart="6dp"
+                android:id="@+id/title_color"
+                android:layout_weight="2"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/colors"
+                android:layout_weight="3"
+                app:layout_constraintTop_toBottomOf="@id/title_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/button"
+        android:layout_marginStart="40dp"
+        android:text="@string/create"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/button_success"
+        app:backgroundTint="@color/teal_200"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/success_dialog"
+        app:layout_constraintTop_toBottomOf="@id/success_dialog"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

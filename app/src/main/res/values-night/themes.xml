@@ -120,4 +120,8 @@
     <style name="elements_card_background">
         <item name="android:background">@drawable/background_group_elements_black</item>
     </style>
+
+    <style name="edit_element_button">
+        <item name="background">@drawable/background_edit_element_button_dark</item>
+    </style>
 </resources>

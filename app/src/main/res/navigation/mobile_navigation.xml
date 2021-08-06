@@ -9,7 +9,6 @@
         <fragment
             android:id="@+id/profileFragment"
             android:name="com.castprogramms.balamutbatut.ui.profile.ProfileStudentFragment"
-            android:label="@string/item_profile"
             tools:layout="@layout/fragment_profile_student" >
                 <action
                     android:id="@+id/action_profileFragment_to_settingsFragment"
@@ -36,7 +35,6 @@
         <fragment
             android:id="@+id/settingsFragment"
             android:name="com.castprogramms.balamutbatut.ui.settings.SettingsFragment"
-            android:label="@string/item_settings"
             tools:layout="@layout/settings_fragment" >
                 <action
                     android:id="@+id/action_settingsFragment_to_qrCodeFragment"
@@ -49,23 +47,27 @@
         <fragment
             android:id="@+id/editProfileFragment"
             android:name="com.castprogramms.balamutbatut.ui.editprofile.EditProfileFragment"
-            android:label="@string/all_person_data"
             tools:layout="@layout/fragment_edit_profile" />
         <fragment
             android:id="@+id/ratingFragment"
             android:name="com.castprogramms.balamutbatut.ui.rating.rating_student.RatingStudentFragment"
-            android:label="@string/rating_name"
-            tools:layout="@layout/fragment_rating_student"/>
+            tools:layout="@layout/fragment_rating_student">
+                <action
+                    app:enterAnim="@anim/left_out"
+                    app:exitAnim="@anim/right_out"
+                    app:popEnterAnim="@anim/left_in"
+                    app:popExitAnim="@anim/right_in"
+                    android:id="@+id/action_ratingFragment_to_showGroupElementFragment"
+                    app:destination="@id/showGroupElementFragment" />
+        </fragment>
         <fragment
             android:id="@+id/qrCodeFragment"
             android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeFragment"
             tools:layout="@layout/fragment_qr_code"
-            android:label="QR-код для сканирования"
             />
         <fragment
             android:id="@+id/allElementListFragment"
             android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"
-            android:label="@string/item_all_elements"
             tools:layout="@layout/all_element_list_fragment" >
                 <action
                     android:id="@+id/action_allElementListFragment_to_allGroupElementFragment2"
@@ -78,7 +80,6 @@
         <fragment
             android:id="@+id/allGroupElementFragment2"
             android:name="com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementFragment"
-            android:label="@string/all_group_fragment_label"
             tools:layout="@layout/fragment_group_elements">
                 <action
                     android:id="@+id/action_allGroupElementFragment2_to_infoElementFragment2"
@@ -91,7 +92,30 @@
         <fragment
             android:id="@+id/infoElementFragment2"
             android:name="com.castprogramms.balamutbatut.ui.infoelementfragment.InfoElementFragment"
-            android:label="@string/desc_element"
             tools:layout="@layout/fragment_info_element"/>
+        <fragment
+            android:id="@+id/showGroupElementFragment"
+            android:name="com.castprogramms.balamutbatut.ui.showelements.ShowGroupElementsFragment"
+            tools:layout="@layout/fragment_group_elements">
+                <action
+                    android:id="@+id/action_showGroupElementFragment_to_showElementsFragment3"
+                    app:destination="@id/showElementsFragment3"
+                    app:enterAnim="@anim/left_out"
+                    app:exitAnim="@anim/right_out"
+                    app:popEnterAnim="@anim/left_in"
+                    app:popExitAnim="@anim/right_in"/>
+        </fragment>
+        <fragment
+            android:id="@+id/showElementsFragment3"
+            android:name="com.castprogramms.balamutbatut.ui.showelements.ShowElementsFragment"
+            tools:layout="@layout/fragment_add_elements">
+                <action
+                    android:id="@+id/action_showElementsFragment3_to_infoElementFragment2"
+                    app:destination="@id/infoElementFragment2"
+                    app:enterAnim="@anim/left_out"
+                    app:exitAnim="@anim/right_out"
+                    app:popEnterAnim="@anim/left_in"
+                    app:popExitAnim="@anim/right_in"/>
+        </fragment>
 
 </navigation>

@@ -23,6 +23,7 @@ class AddGroupFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentAddGroupBinding.inflate(inflater)
+        requireActivity().setTitle(R.string.item_new_group)
         binding.addGroup.setOnClickListener {
             listCheck.clear()
             isValid(binding.nameGroup)

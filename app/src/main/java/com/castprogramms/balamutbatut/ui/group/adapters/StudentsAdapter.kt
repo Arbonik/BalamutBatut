@@ -37,7 +37,7 @@ class StudentsAdapter(
     var students = mutableListOf<Student>()
     var studentsID = mutableListOf<String>()
 
-    fun setData(data: MutableList<Pair<String, Student>>){
+    fun setData(data: MutableList<Pair<String, Student>>) {
         val curStudents = mutableListOf<Student>()
         val curStudentsID = mutableListOf<String>()
         data.sortByDescending {
@@ -66,10 +66,10 @@ class StudentsAdapter(
 
     override fun getItemCount(): Int = students.size
 
-    inner class StudentsViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class StudentsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemStudentBinding.bind(view)
-        fun bind(student: Student, id: String, position: Int){
-            setBackground(binding, position)
+        fun bind(student: Student, id: String, position: Int) {
+            setBackground(binding)
             binding.studentName.text = student.first_name + " " + student.second_name
             binding.position.text = (position + 1).toString()
             binding.score.text = countElements(student)
@@ -116,9 +116,8 @@ class StudentsAdapter(
             binding.root.setOnClickListener {
                 if (binding.expandableView.visibility == View.GONE) {
                     expand(binding.expandableView)
-                    setExpandBackground(binding, position)
-                }
-                else{
+                    setExpandBackground(binding)
+                } else {
                     collapse(binding.expandableView)
                     setCollapseBackground(binding, position)
                 }
@@ -147,7 +146,7 @@ class StudentsAdapter(
                     return true
                 }
             }
-            a.setAnimationListener(object :Animation.AnimationListener{
+            a.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation?) {
                     v.layoutParams.height = 1
                     v.visibility = View.VISIBLE
@@ -182,14 +181,13 @@ class StudentsAdapter(
                     return true
                 }
             }
-            a.setAnimationListener(object :Animation.AnimationListener{
+            a.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation?) {
 
                 }
 
                 override fun onAnimationEnd(animation: Animation?) {
                     v.visibility = View.GONE
-                    binding.dataUser.setBackgroundResource(R.drawable.rating_rectangle)
                 }
 
                 override fun onAnimationRepeat(animation: Animation?) {
@@ -201,31 +199,55 @@ class StudentsAdapter(
             v.startAnimation(a)
         }
 
-        private fun setDataAdapter(adapter: ElementsStudentAdapter, studentId: String){
+        private fun setDataAdapter(adapter: ElementsStudentAdapter, studentId: String) {
+            binding.groupElements.showShimmer()
+
             getSortedElements().observeForever {
-                if (it != null){
+                if (it != null) {
                     adapter.allElements = it
-                    if (adapter.userElements.isNotEmpty())
-                        binding.progressBarElements.progressBar.visibility = View.GONE
+                    binding.groupElements.hideShimmer()
                 }
             }
-            getStudentElements(studentId).observeForever{
-                when(it){
-                    is Resource.Error ->
-                        binding.progressBarElements.progressBar.visibility = View.GONE
+            getStudentElements(studentId).observeForever {
+                when (it) {
+                    is Resource.Error -> {
+                    }
                     is Resource.Loading -> {
-
                     }
                     is Resource.Success -> {
-                        if (it.data != null)
+                        if (it.data != null) {
                             adapter.userElements = it.data
-                        if (adapter.allElements.isNotEmpty())
-                            binding.progressBarElements.progressBar.visibility = View.GONE
+                            if (adapter.allElements.isNotEmpty())
+                                binding.groupElements.hideShimmer()
+                        }
                     }
                 }
             }
         }
+
+        private fun setBackground(binding: ItemStudentBinding) {
+            if (binding.root.context.isDarkThemeOn())
+                binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
+            else
+                binding.root.setBackgroundResource(R.drawable.rating_rectangle)
+        }
     }
+
+    private fun setExpandBackground(binding: ItemStudentBinding) {
+        if (binding.root.context.isDarkThemeOn())
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black_expand)
+        else
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_expand)
+    }
+
+    private fun setCollapseBackground(binding: ItemStudentBinding, position: Int) {
+        if (binding.root.context.isDarkThemeOn())
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
+        else
+            binding.root.setBackgroundResource(R.drawable.rating_rectangle)
+
+    }
+
 
     private fun countElements(student: Student): String {
         var score = 0
@@ -238,14 +260,13 @@ class StudentsAdapter(
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
-                students = replace(students, i, i+1)
-                studentsID = replaceID(studentsID, i, i +1)
+                students = replace(students, i, i + 1)
+                studentsID = replaceID(studentsID, i, i + 1)
             }
-        }
-        else{
-            for (i in toPosition downTo fromPosition step 1){
-                students = replace(students, i, i+1)
-                studentsID = replaceID(studentsID, i, i +1)
+        } else {
+            for (i in toPosition downTo fromPosition step 1) {
+                students = replace(students, i, i + 1)
+                studentsID = replaceID(studentsID, i, i + 1)
             }
         }
         notifyItemMoved(fromPosition, toPosition)
@@ -258,7 +279,11 @@ class StudentsAdapter(
         notifyItemRemoved(position)
     }
 
-    private fun replace(list: MutableList<Student>, fromPosition: Int, toPosition: Int):MutableList<Student>{
+    private fun replace(
+        list: MutableList<Student>,
+        fromPosition: Int,
+        toPosition: Int
+    ): MutableList<Student> {
         val firstPair = list[fromPosition]
         val secondPair = list[toPosition]
         list[fromPosition] = secondPair
@@ -266,75 +291,15 @@ class StudentsAdapter(
         return list
     }
 
-    private fun replaceID(list: MutableList<String>, fromPosition: Int, toPosition: Int):MutableList<String>{
+    private fun replaceID(
+        list: MutableList<String>,
+        fromPosition: Int,
+        toPosition: Int
+    ): MutableList<String> {
         val firstPair = list[fromPosition]
         val secondPair = list[toPosition]
         list[fromPosition] = secondPair
         list[toPosition] = firstPair
         return list
-    }
-    private fun setBackground(binding: ItemStudentBinding, position: Int) {
-        if (binding.root.context.isDarkThemeOn()) {
-            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
-        }
-        else {
-            when (position) {
-                0 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold)
-                }
-                1 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
-                }
-                2 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
-                }
-                else -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle)
-                }
-            }
-        }
-    }
-
-    private fun setExpandBackground(binding: ItemStudentBinding, position: Int) {
-        if (binding.root.context.isDarkThemeOn()) {
-            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black_expand)
-        }
-        else {
-            when (position) {
-                0 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold_expand)
-                }
-                1 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver_expand)
-                }
-                2 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse_expand)
-                }
-                else -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_expand)
-                }
-            }
-        }
-    }
-    private fun setCollapseBackground(binding: ItemStudentBinding, position: Int) {
-        if (binding.root.context.isDarkThemeOn()) {
-            binding.root.setBackgroundResource(R.drawable.rating_rectangle_black)
-        }
-        else {
-            when (position) {
-                0 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_gold)
-                }
-                1 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_silver)
-                }
-                2 -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle_bronse)
-                }
-                else -> {
-                    binding.root.setBackgroundResource(R.drawable.rating_rectangle)
-                }
-            }
-        }
     }
 }

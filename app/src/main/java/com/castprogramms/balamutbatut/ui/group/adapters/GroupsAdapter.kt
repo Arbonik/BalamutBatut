@@ -23,7 +23,8 @@ import com.google.android.material.snackbar.Snackbar
 class GroupsAdapter(
     val updateData: (Group, String) -> MutableLiveData<Resource<String>>,
     val getGroupInfo: (String) -> MutableLiveData<Resource<Group>>,
-    val deleteGroup: (String) -> Unit
+    val deleteGroup: (String) -> Unit,
+    val getFullNameTrainer: (String) -> MutableLiveData<Resource<String>>
 ) : RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder>() {
     var groups = mutableListOf<Group>()
     var groupsId = mutableListOf<String>()
@@ -63,6 +64,17 @@ class GroupsAdapter(
             binding.groupName.text = group.name
             binding.groupDesc.text = group.description
             binding.quantityStudents.text = "Участники: ${group.students.size}"
+            getFullNameTrainer(group.numberTrainer).observeForever {
+                when(it){
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        if (it.data != null)
+                            binding.trainerName.text = "Тренер: " +it.data
+                    }
+                }
+            }
+
             binding.groupCard.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putString("name", group.name)
@@ -70,6 +82,7 @@ class GroupsAdapter(
                 itemView.findNavController()
                     .navigate(R.id.action_group_Fragment_to_studentsFragment, bundle)
             }
+
             binding.edit.setOnClickListener {
                 createEditAlertDialog(group, id)
             }

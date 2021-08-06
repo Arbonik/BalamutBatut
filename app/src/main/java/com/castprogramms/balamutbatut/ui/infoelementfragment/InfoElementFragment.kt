@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentInfoElementBinding
 import com.castprogramms.balamutbatut.network.Resource
@@ -26,6 +27,7 @@ class InfoElementFragment: Fragment(R.layout.fragment_info_element) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentInfoElementBinding.bind(view)
+        requireActivity().title = name
         setVideo(binding)
         setDescAndLevel(binding)
     }

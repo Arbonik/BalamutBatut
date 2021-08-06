@@ -23,6 +23,7 @@ class TrainerSettingsFragment: Fragment(R.layout.fragment_trainer_settings) {
     val registerViewModel : RegistrViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTrainerSettingsBinding.bind(view)
+        requireActivity().setTitle(R.string.item_settings)
         binding.scan.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED

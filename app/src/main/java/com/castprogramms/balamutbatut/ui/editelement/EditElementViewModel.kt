@@ -22,7 +22,8 @@ class EditElementViewModel(private val repository: Repository): ViewModel() {
     }
 
 
-    fun loadVideoNameDecs(titleElement: String, nameElement: String, video: Uri,
-                          desc: String, level: String) = repository
-        .loadVideoNameDecs(titleElement, nameElement, video, desc, level)
+    fun loadVideoNameDecs(
+        titleElement: String, nameElement: String, video: Uri,
+        desc: String, level: String
+    ) = repository.loadVideoNameDecs(titleElement, nameElement, video, desc, level)
 }

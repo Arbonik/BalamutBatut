@@ -8,6 +8,9 @@ class AddElementsViewModel(private val repository: Repository): ViewModel() {
     fun getAddStudentElementsOnThisTitle(idStudent: String, title: String) =
         repository.getAddStudentElementsOnThisTitle(idStudent, title)
 
+    fun getStudentElementsOnThisTitle(idStudent: String, title: String) =
+        repository.getStudentElementsOnThisTitle(idStudent, title)
+
     fun updateElementsStudent(title: String, elements: MutableList<Element>, idStudent: String) =
         repository.updateElementsStudent(mapOf(title to elements), idStudent)
 

@@ -9,6 +9,8 @@ interface VideoAndDescApi {
     fun loadVideo(video: Uri, idVideo: String): MutableLiveData<Resource<String>>
     fun loadDesc(desc: String, idVideo: String): MutableLiveData<Resource<String>>
     fun haveVideo(title: String, name: String): MutableLiveData<Resource<Boolean>>
-    fun loadVideoNameDecs(titleElement: String, nameElement: String, video: Uri, desc: String,
-                          level: String): MutableLiveData<Resource<String>>
+    fun loadVideoNameDecs(
+        titleElement: String, nameElement: String, video: Uri, desc: String,
+        level: String,
+    ): MutableLiveData<Resource<String>>
 }

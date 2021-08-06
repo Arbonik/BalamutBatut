@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/BodyBackground">
+    style="@style/BodyBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_add_elements"/>
+        app:shimmer_recycler_item_count="9"
+        app:shimmer_recycler_layout="@layout/shimmer_item_element"
+        tools:listitem="@layout/item_add_elements" />
 
     <com.google.android.material.button.MaterialButton
-        android:visibility="invisible"
         android:id="@+id/add_element"
         android:layout_width="0dp"
-        android:layout_marginBottom="25dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/background_group_student_button"
         android:drawableStart="@drawable/add"
         android:text="Добавить"
+        android:visibility="invisible"
         app:icon="@drawable/add"
-        app:layout_constraintStart_toStartOf="@id/startVertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/endVertical"/>
+        app:layout_constraintEnd_toEndOf="@id/endVertical"
+        app:layout_constraintStart_toStartOf="@id/startVertical" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/startVertical"
@@ -36,10 +37,10 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endVertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/endVertical"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75"/>
+        app:layout_constraintGuide_percent="0.75" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

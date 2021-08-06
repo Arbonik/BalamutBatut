@@ -8,13 +8,24 @@ import com.castprogramms.balamutbatut.users.Student
 
 class GroupElementsViewModel(private val repository: Repository): ViewModel() {
     fun getSortedStudentTitleElementsWithColor(idElements: Map<String, List<Int>>) =
-        repository.getStudentTitleElementsWithColor(idElements)
+        repository.getAddStudentTitleElementsWithColor(idElements)
     var lifeData = MutableLiveData<Resource<MutableList<Pair<String, Int>>>>()
     fun getStudent(idStudent: String){
         repository.getStudent(idStudent)
             .addSnapshotListener { value, _ ->
                 if (value != null)
                     getSortedStudentTitleElementsWithColor((value.toObject(Student::class.java))!!.element)
+                        .observeForever {
+                            lifeData.postValue(it)
+                        }
+            }
+    }
+
+    fun getAddElementsStudent(idStudent: String){
+        repository.getStudent(idStudent)
+            .addSnapshotListener { value, _ ->
+                if (value != null)
+                    repository.getStudentTitleElementsWithColor((value.toObject(Student::class.java))!!.element)
                         .observeForever {
                             lifeData.postValue(it)
                         }

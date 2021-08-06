@@ -75,14 +75,15 @@ class VideoAndDescFirebaseStorage : VideoAndDescApi {
 
     override fun loadVideoNameDecs(
         titleElement: String, nameElement: String, video: Uri,
-        desc: String, level: String): MutableLiveData<Resource<String>> {
+        desc: String, level: String
+    ): MutableLiveData<Resource<String>> {
         val mutableLiveData = MutableLiveData<Resource<String>>(Resource.Loading())
         fireStore.runTransaction {
             fireStore.collection(elementsDescTag)
                 .document(titleElement)
                 .set(hashMapOf(nameElement to hashMapOf("desc" to desc, "level" to level)))
-
-            storage.reference.child("$videoTag$titleElement/$nameElement").putFile(video)
+            if (video != Uri.parse(""))
+                storage.reference.child("$videoTag$titleElement/$nameElement").putFile(video)
         }.addOnSuccessListener {
             mutableLiveData.postValue(Resource.Success("Данные успешно загружены"))
         }.addOnFailureListener {

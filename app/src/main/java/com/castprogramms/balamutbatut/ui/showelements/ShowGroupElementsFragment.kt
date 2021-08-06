@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentGroupElementsBinding
 import com.castprogramms.balamutbatut.network.Resource
@@ -24,19 +25,22 @@ class ShowGroupElementsFragment : Fragment(R.layout.fragment_group_elements) {
         idStudent = requireArguments().getString("id", "")
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireActivity().setTitle(R.string.item_all_elements)
         val binding = FragmentGroupElementsBinding.bind(view)
         val adapter = ShowGroupElementsAdapter(idStudent)
         binding.recyclerElements.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerElements.adapter = adapter
-        viewModel.getStudent(idStudent)
+        viewModel.getAddElementsStudent(idStudent)
         viewModel.lifeData.observe(viewLifecycleOwner, {
             when(it){
                 is Resource.Error -> {
+                    binding.recyclerElements.hideShimmer()
                     Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 }
-                is Resource.Loading -> {}
+                is Resource.Loading -> binding.recyclerElements.showShimmer()
                 is Resource.Success -> {
                     if (it.data != null) {
+                        binding.recyclerElements.hideShimmer()
                         adapter.elementsTitle = it.data
                     }
                 }

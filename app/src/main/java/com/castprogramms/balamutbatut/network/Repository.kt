@@ -127,6 +127,9 @@ class Repository(
     fun getAllSortedElements(idElements: Map<String, List<Int>>) =
         dataUserFirebase.getSortedElements(idElements)
 
+    fun getAddStudentTitleElementsWithColor(idElements: Map<String, List<Int>>) =
+        dataUserFirebase.getAddSortedElementsWithColor(idElements)
+
     fun getStudentTitleElementsWithColor(idElements: Map<String, List<Int>>) =
         dataUserFirebase.getSortedElementsWithColor(idElements)
 
@@ -142,8 +145,12 @@ class Repository(
         dataUserFirebase.editLastNameStudent(second_name, studentID)
 
     fun getStudentsOfGroup(groupID: String) = dataUserFirebase.getStudentsOfGroup(groupID)
+
     fun getAddStudentElementsOnThisTitle(idStudent: String, title: String) =
         dataUserFirebase.getAddStudentElementsOnThisTitle(idStudent, title)
+
+    fun getStudentElementsOnThisTitle(idStudent: String, title: String) =
+        dataUserFirebase.getStudentElementsOnThisTitle(idStudent, title)
 
     fun getAllElementsOnThisTitle(title: String) = dataUserFirebase.getAllElementsOnThisTitle(title)
     fun updateUserIcon(img: String, studentID: String) =

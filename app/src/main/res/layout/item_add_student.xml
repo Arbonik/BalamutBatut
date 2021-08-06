@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_student"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:layout_constraintTop_toTopOf="parent"
-    android:id="@+id/card_view_student"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="top"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="5dp"
-    android:padding="5dp"
-    android:background="@drawable/rating_rectangle">
+    android:background="@drawable/rating_rectangle"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
             android:id="@+id/icon_student"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/male_user"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/male_user"/>
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progress_rating_photo_item"
@@ -33,59 +37,62 @@
             app:layout_constraintTop_toTopOf="@id/icon_student" />
 
         <LinearLayout
+            android:id="@+id/name_and_cron"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/icon_student"
-            app:layout_constraintTop_toTopOf="@id/icon_student"
-            app:layout_constraintEnd_toStartOf="@id/startVertical"
-            android:id="@+id/name_and_cron"
+            android:layout_marginStart="13dp"
             android:layout_marginTop="9dp"
-            android:layout_marginStart="13dp">
+            app:layout_constraintEnd_toStartOf="@id/startVertical"
+            app:layout_constraintStart_toEndOf="@id/icon_student"
+            app:layout_constraintTop_toTopOf="@id/icon_student">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/student_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Максим Петров"
-                android:textSize="18sp"
-                android:textStyle="normal"
-                android:textColor="#353535"
-                android:id="@+id/student_name"/>
+                style="@style/textBlackWhite"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/icon_student"
-            app:layout_constraintTop_toBottomOf="@id/name_and_cron"
             android:layout_marginStart="13dp"
             android:layout_marginTop="3dp"
             android:text="Элементы: 30"
+            style="@style/textBlackWhite"
             android:textSize="16sp"
-            android:textStyle="normal"
-            android:textColor="#353535"/>
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.843"
-            android:id="@+id/startVertical"/>
+            app:layout_constraintStart_toEndOf="@id/icon_student"
+            app:layout_constraintTop_toBottomOf="@id/name_and_cron" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.925"
-            android:id="@+id/endVertical"/>
+            app:layout_constraintGuide_percent="0.843" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.925" />
 
         <net.igenius.customcheckbox.CustomCheckBox
-            app:color_checked="#0C4C7A"
             android:id="@+id/is_need"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="18dp"
+            app:color_checked="#0C4C7A"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/endVertical"
             app:layout_constraintStart_toStartOf="@id/startVertical"
-            app:layout_constraintEnd_toEndOf="@id/endVertical" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

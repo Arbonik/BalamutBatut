@@ -1,134 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:layout_constraintTop_toTopOf="parent"
-    android:id="@+id/card_view_student"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_gravity="top"
     android:layout_marginTop="10dp"
-    android:layout_marginEnd="5dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="5dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/data_user" >
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:id="@+id/icon_student"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/male_user"/>
-
-        <ProgressBar
-            android:id="@+id/progress_rating_photo_item"
-            android:layout_width="49dp"
-            android:layout_height="52dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/icon_student"
-            app:layout_constraintEnd_toEndOf="@id/icon_student"
-            app:layout_constraintStart_toStartOf="@id/icon_student"
-            app:layout_constraintTop_toTopOf="@id/icon_student" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/icon_student"
-            app:layout_constraintTop_toTopOf="@id/icon_student"
-            app:layout_constraintEnd_toStartOf="@id/position"
-            android:id="@+id/name_and_cron"
-            android:layout_marginTop="9dp"
-            android:layout_marginStart="13dp">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Максим Петров"
-                android:textSize="18sp"
-                android:textStyle="normal"
-                android:id="@+id/student_name"/>
-        </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/icon_student"
-            app:layout_constraintTop_toBottomOf="@id/name_and_cron"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="3dp"
-            android:text="Элементы: 30"
-            android:textSize="16sp"
-            android:textStyle="normal" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="19dp"
-            android:layout_marginBottom="19dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="1"
-            android:textSize="22sp"
-            android:textStyle="normal"
-            android:textColor="#818181"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_marginEnd="5dp"
+    android:background="@drawable/rating_rectangle_gold">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/background_group_student_progress"
-        android:id="@+id/expandableView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/data_user">
-        <include
-            layout="@layout/center_progress_bar"
-            android:id="@+id/progress_bar_elements"/>
-        <com.todkars.shimmer.ShimmerRecyclerView
-            app:shimmer_recycler_layout="@layout/shimmer_item_progress_user"
-            app:shimmer_recycler_item_count="6"
-            android:id="@+id/group_elements"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/data_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_progress_user"
-            tools:itemCount="4"/>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_element"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_group_student_button"
-            android:drawableStart="@drawable/add"
-            android:text="Добавить"
-            app:icon="@drawable/add"
-            app:layout_constraintTop_toBottomOf="@id/group_elements"
-            app:layout_constraintStart_toStartOf="@id/startVertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/endVertical"/>
+            android:padding="5dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/startVertical"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.3"/>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/icon_student"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="14dp"
+                android:src="@drawable/male_user"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
+            <ProgressBar
+                android:id="@+id/progress_rating_photo_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/icon_student"
+                app:layout_constraintEnd_toEndOf="@id/icon_student"
+                app:layout_constraintStart_toStartOf="@id/icon_student"
+                app:layout_constraintTop_toTopOf="@id/icon_student" />
+
+            <LinearLayout
+                android:id="@+id/name_and_cron"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="9dp"
+                app:layout_constraintEnd_toStartOf="@id/position"
+                app:layout_constraintStart_toEndOf="@id/icon_student"
+                app:layout_constraintTop_toTopOf="@id/icon_student">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/student_name"
+                    style="@style/textBlackWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:text="Максим Петров" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/score"
+                style="@style/textBlackWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="3dp"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@id/icon_student"
+                app:layout_constraintTop_toBottomOf="@id/name_and_cron"
+                tools:text="Элементы: 30" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/position"
+                style="@style/textBlackWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="18dp"
+                android:textColor="#818181"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandableView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/endVertical"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.7"/>
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/data_user">
+
+            <com.todkars.shimmer.ShimmerRecyclerView
+                android:id="@+id/group_elements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_recycler_item_count="6"
+                app:shimmer_recycler_layout="@layout/shimmer_item_progress_user"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_progress_user" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/add_element"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_group_student_button"
+                android:drawableStart="@drawable/add"
+                android:text="Добавить"
+                app:icon="@drawable/add"
+                app:layout_constraintTop_toBottomOf="@id/group_elements"
+                app:layout_constraintStart_toStartOf="@id/startVertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/endVertical"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/startVertical"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.3"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/endVertical"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.7"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

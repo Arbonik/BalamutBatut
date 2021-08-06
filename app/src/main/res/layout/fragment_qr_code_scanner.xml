@@ -26,9 +26,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.842" />
 
-    <SurfaceView
-        android:id="@+id/camerapreview"
+    <com.budiyev.android.codescanner.CodeScannerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        android:id="@+id/code_scanner"
+        app:autoFocusButtonColor="@color/white"
+        app:autoFocusButtonVisible="true"
+        app:flashButtonVisible="true"
+        app:flashButtonColor="@color/white"
+        app:maskColor="#6C000000"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

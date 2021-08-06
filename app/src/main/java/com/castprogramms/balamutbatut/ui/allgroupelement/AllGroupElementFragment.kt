@@ -3,6 +3,7 @@ package com.castprogramms.balamutbatut.ui.allgroupelement
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentAddElementsBinding
 import com.castprogramms.balamutbatut.network.Resource
@@ -19,6 +20,7 @@ class AllGroupElementFragment: Fragment(R.layout.fragment_add_elements) {
         colorGroup = requireArguments().getInt("color", 0)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireActivity().title = titleGroup
         val binding = FragmentAddElementsBinding.bind(view)
         val adapter = AllGroupElementAdapter(colorGroup, titleGroup)
         binding.recycler.adapter = adapter

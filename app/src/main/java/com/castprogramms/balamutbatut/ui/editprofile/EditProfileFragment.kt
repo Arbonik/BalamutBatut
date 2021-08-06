@@ -33,46 +33,85 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
-    val viewModel : EditProfileViewModel by viewModel()
+    val viewModel: EditProfileViewModel by viewModel()
     lateinit var binding: FragmentEditProfileBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentEditProfileBinding.bind(view)
+        requireActivity().setTitle(R.string.all_person_data)
+        if (User.typeUser == TypesUser.STUDENT) {
+            User.mutableLiveDataStudent.observe(viewLifecycleOwner, {
+                if (it != null) {
+                    binding.lastNameUser.setText(it.second_name, TextView.BufferType.EDITABLE)
+                    binding.studentName.setText(it.first_name, TextView.BufferType.EDITABLE)
+                    Glide.with(requireView())
+                        .load(it.img)
+                        .addListener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                binding.userIcon.setImageResource(R.drawable.male_user)
 
-        User.mutableLiveDataStudent.observe(viewLifecycleOwner, {
-            if (it != null){
-                binding.lastNameUser.setText(it.second_name, TextView.BufferType.EDITABLE)
-                binding.studentName.setText(it.first_name, TextView.BufferType.EDITABLE)
-                Glide.with(requireView())
-                    .load(it.img)
-                    .addListener(object : RequestListener<Drawable>{
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            binding.userIcon.setImageResource(R.drawable.male_user)
+                                return true
+                            }
 
-                            return true
-                        }
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                binding.userIcon.setImageDrawable(resource)
 
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            binding.userIcon.setImageDrawable(resource)
+                                return true
+                            }
+                        })
+                        .into(binding.userIcon)
+                }
+            })
+        }
+        else{
+            if (User.typeUser == TypesUser.TRAINER){
+                User.mutableLiveDataTrainer.observe(viewLifecycleOwner, {
+                    if (it != null) {
+                        binding.lastNameUser.setText(it.second_name, TextView.BufferType.EDITABLE)
+                        binding.studentName.setText(it.first_name, TextView.BufferType.EDITABLE)
+                        Glide.with(requireView())
+                            .load(it.img)
+                            .addListener(object : RequestListener<Drawable> {
+                                override fun onLoadFailed(
+                                    e: GlideException?,
+                                    model: Any?,
+                                    target: Target<Drawable>?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    binding.userIcon.setImageResource(R.drawable.male_user)
 
-                            return true
-                        }
-                    })
-                    .into(binding.userIcon)
+                                    return true
+                                }
+
+                                override fun onResourceReady(
+                                    resource: Drawable?,
+                                    model: Any?,
+                                    target: Target<Drawable>?,
+                                    dataSource: DataSource?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    binding.userIcon.setImageDrawable(resource)
+
+                                    return true
+                                }
+                            })
+                            .into(binding.userIcon)
+                    }
+                })
             }
-        })
+        }
         binding.userIcon.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_PICK,
@@ -93,7 +132,8 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 listEmptyEditText.add(true)
 
             if (binding.lastNameUser.text.isNullOrBlank()) {
-                binding.lastNameUser.error = requireContext().getString(R.string.add_second_name)
+                binding.lastNameUser.error =
+                    requireContext().getString(R.string.add_second_name)
                 listEmptyEditText.add(false)
             } else
                 listEmptyEditText.add(true)

@@ -19,6 +19,7 @@ class GroupElementsFragment: Fragment(R.layout.fragment_group_elements) {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentGroupElementsBinding.bind(view)
+        requireActivity().title = "Списки элементов"
         val adapter = GroupElementsAdapter(idStudent)
         binding.recyclerElements.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerElements.adapter = adapter
@@ -26,12 +27,16 @@ class GroupElementsFragment: Fragment(R.layout.fragment_group_elements) {
         viewModel.lifeData.observe(viewLifecycleOwner, {
             when(it){
                 is Resource.Error -> {
+                    binding.recyclerElements.hideShimmer()
                     Snackbar.make(view, it.message.toString(), Snackbar.LENGTH_SHORT).show()
                 }
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                    binding.recyclerElements.showShimmer()
+                }
                 is Resource.Success -> {
                     if (it.data != null) {
                         adapter.elementsTitle = it.data
+                        binding.recyclerElements.hideShimmer()
                     }
                 }
             }

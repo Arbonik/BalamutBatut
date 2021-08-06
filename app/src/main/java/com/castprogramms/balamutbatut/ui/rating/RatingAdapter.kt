@@ -20,8 +20,8 @@ import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.RecyclerItemRatingBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.Element
+import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
-import com.castprogramms.balamutbatut.tools.User.id
 import com.castprogramms.balamutbatut.tools.Utils.isDarkThemeOn
 import com.castprogramms.balamutbatut.ui.group.adapters.ElementsStudentAdapter
 import com.castprogramms.balamutbatut.users.Student
@@ -107,8 +107,17 @@ class RatingAdapter(
             }
             binding.seeElement.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("id", id)
-                itemView.findNavController().navigate(R.id.action_rating_Fragment_to_showElementsFragment, bundle)
+                bundle.putString("id", pair.first)
+                if (User.typeUser == TypesUser.STUDENT) {
+                    it.findNavController()
+                        .navigate(R.id.action_ratingFragment_to_showGroupElementFragment, bundle)
+                }
+                else {
+                    if (User.typeUser == TypesUser.TRAINER) {
+                        it.findNavController()
+                            .navigate(R.id.action_rating_Fragment_to_showElementsFragment, bundle)
+                    }
+                }
             }
         }
 
@@ -118,8 +127,7 @@ class RatingAdapter(
             getSortedElements().observeForever {
                 if (it != null){
                     adapter.allElements = it
-                    if (adapter.userElements.isNotEmpty())
-                        binding.groupElements.hideShimmer()
+                    binding.groupElements.hideShimmer()
                 }
             }
             getStudentElements(studentId).observeForever{
@@ -127,10 +135,11 @@ class RatingAdapter(
                     is Resource.Error ->{}
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        if (it.data != null)
+                        if (it.data != null) {
                             adapter.userElements = it.data
-                        if (adapter.allElements.isNotEmpty())
-                            binding.groupElements.hideShimmer()
+                            if (adapter.allElements.isNotEmpty())
+                                binding.groupElements.hideShimmer()
+                        }
                     }
                 }
             }

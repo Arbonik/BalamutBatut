@@ -5,10 +5,9 @@
     style="@style/BackgroundRecyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        layout="@layout/center_progress_bar"
-        android:id="@+id/progress_students"/>
-    <androidx.recyclerview.widget.RecyclerView
+    <com.todkars.shimmer.ShimmerRecyclerView
+        app:shimmer_recycler_layout="@layout/shimmer_item_student"
+        app:shimmer_recycler_item_count="7"
         android:id="@+id/students_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,5 +25,16 @@
         android:src="@drawable/add"
         android:id="@+id/fab"
         android:contentDescription="TODO" />
+    <com.google.android.material.textview.MaterialTextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/no_students"
+        style="@style/textBlackWhite"
+        android:textSize="18sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

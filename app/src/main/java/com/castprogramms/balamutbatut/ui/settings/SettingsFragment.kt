@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.SplashActivity
 import com.castprogramms.balamutbatut.databinding.SettingsFragmentBinding
@@ -20,13 +21,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : Fragment() {
 
-    val registerViewModel : RegistrViewModel by viewModel()
+    private val registerViewModel : RegistrViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.settings_fragment, container, false)
+        (requireActivity() as MainActivityStudent).setTitle(R.string.item_settings)
         val binding = SettingsFragmentBinding.bind(view)
         val signOut : MaterialButton = view.findViewById(R.id.exit_but)
         binding.invite.setOnClickListener {

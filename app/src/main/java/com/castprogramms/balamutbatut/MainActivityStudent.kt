@@ -50,4 +50,5 @@ class MainActivityStudent : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()
+
 }

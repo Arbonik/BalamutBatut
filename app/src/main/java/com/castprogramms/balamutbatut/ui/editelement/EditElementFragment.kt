@@ -9,11 +9,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ErrorDialogBinding
 import com.castprogramms.balamutbatut.databinding.FragmentEditElementBinding
@@ -21,9 +22,11 @@ import com.castprogramms.balamutbatut.databinding.SuccessDialogBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.CustomAdapterSpinner
 import com.castprogramms.balamutbatut.tools.Element
-import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.tools.Utils.isDarkThemeOn
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+import kotlin.concurrent.timerTask
 
 class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
 
@@ -35,6 +38,7 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
     var level = ""
     var position = 0
     lateinit var binding: FragmentEditElementBinding
+    private var isDescAndLevelChange = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,12 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentEditElementBinding.bind(view)
+        requireActivity().title = element.name
+        binding.nameElement.isEnabled = false
+        if (binding.root.context.isDarkThemeOn())
+            binding.addData.setBackgroundResource(R.drawable.background_edit_element_button_dark)
+        else
+            binding.addData.setBackgroundResource(R.drawable.background_edit_element_button)
 
         viewModel.downloadDescAndLevel(titleElement, element.name)
         viewModel.checkHaveVideo(titleElement, element.name)
@@ -134,33 +144,37 @@ class EditElementFragment : Fragment(R.layout.fragment_edit_element) {
         val name = binding.nameElement.text.toString()
         val desc = binding.descElement.text.toString()
         val lifeData = viewModel.loadVideoNameDecs(titleElement, name, uri, desc, level)
-        Log.e("data", User.id)
-
+        binding.addData.doneLoadingAnimation(
+            resources.getColor(R.color.white),
+            resources.getDrawable(R.drawable.done).toBitmap()
+        )
         lifeData.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Error -> {
                     createErrorAlertDialog(it.message.toString())
                 }
                 is Resource.Loading -> {
-
+                    binding.addData.startMorphAnimation()
                 }
                 is Resource.Success -> {
-                    createSuccessAlertDialog(it.data.toString())
+                    binding.addData.revertAnimation {
+                        if (binding.root.context.isDarkThemeOn())
+                            binding.addData.setBackgroundResource(R.drawable.background_edit_element_button_dark)
+                        else
+                            binding.addData.setBackgroundResource(R.drawable.background_edit_element_button)
+
+                        binding.addData.text = "Успех"
+                        binding.addData.isPressed = true
+                        binding.addData.isClickable = false
+                        setTimerToExit()
+                    }
                 }
             }
         })
     }
 
-    private fun createSuccessAlertDialog(message: String) {
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.success_dialog, null)
-        val binding = SuccessDialogBinding.bind(view)
-        binding.textBody.text = message
-        val alertDialog = AlertDialog.Builder(requireContext())
-            .setView(view)
-            .create()
-
-        alertDialog.window?.setBackgroundDrawable(ColorDrawable(0))
-        alertDialog.show()
+    private fun setTimerToExit() {
+        Timer().schedule(timerTask { binding.descElement.post { findNavController().popBackStack()} }, 1000)
     }
 
     private fun createErrorAlertDialog(message: String) {

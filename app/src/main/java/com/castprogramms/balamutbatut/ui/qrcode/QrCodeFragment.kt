@@ -14,6 +14,7 @@ import com.castprogramms.balamutbatut.tools.User
 
 class QrCodeFragment: Fragment(R.layout.fragment_qr_code) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (requireActivity() as MainActivityStudent).setTitle("QR-код для сканирования")
         val binding = FragmentQrCodeBinding.bind(view)
         val qrgEncoder = QRGEncoder(User.id, null, QRGContents.Type.TEXT, 1000)
         try {

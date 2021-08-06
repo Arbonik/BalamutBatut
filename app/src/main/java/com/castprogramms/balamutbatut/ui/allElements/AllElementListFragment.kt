@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.castprogramms.balamutbatut.MainActivityStudent
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.AllElementListFragmentBinding
 import com.castprogramms.balamutbatut.network.Resource
@@ -18,6 +19,7 @@ class AllElementListFragment : Fragment(R.layout.all_element_list_fragment) {
     val viewModel: GroupElementsViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireActivity().setTitle(R.string.item_all_elements)
         val binding = AllElementListFragmentBinding.bind(view)
         val adapter = AllElementsAdapter()
         binding.recyclerAllElementsList.shimmerLayoutManager = LinearLayoutManager(requireContext())

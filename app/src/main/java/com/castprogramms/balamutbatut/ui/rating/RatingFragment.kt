@@ -20,6 +20,7 @@ class RatingFragment(private var groupType: RatingType = RatingType.All) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         retainInstance = true
         val binding = FragmentRatingBinding.bind(view)
+        requireActivity().setTitle(R.string.rating)
         initAdapter(binding)
     }
 

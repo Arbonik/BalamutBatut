@@ -7,7 +7,6 @@
     <fragment
         android:id="@+id/profile_Fragment"
         android:name="com.castprogramms.balamutbatut.ui.profile.profile_trainer.ProfileTrainerFragment"
-        android:label="@string/item_profile"
         tools:layout="@layout/profile_fragment_trainer">
         <action
             android:id="@+id/action_profile_Fragment_to_settingsFragment2"
@@ -18,7 +17,11 @@
             app:popExitAnim="@anim/right_in" />
         <action
             android:id="@+id/action_profile_Fragment_to_editProfileFragment2"
-            app:destination="@id/editProfileFragment2" />
+            app:destination="@id/editProfileFragment2"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
         <action
             android:id="@+id/action_profile_Fragment_to_allElementListFragment2"
             app:destination="@id/allElementListFragment2"
@@ -34,10 +37,10 @@
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
     </fragment>
+
     <fragment
         android:id="@+id/group_Fragment"
         android:name="com.castprogramms.balamutbatut.ui.group.GroupsFragment"
-        android:label="@string/item_groups"
         tools:layout="@layout/groups_fragment">
         <action
             android:id="@+id/action_group_Fragment_to_studentsFragment"
@@ -54,10 +57,10 @@
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
     </fragment>
+
     <fragment
         android:id="@+id/studentsFragment"
         android:name="com.castprogramms.balamutbatut.ui.group.StudentsFragment"
-        android:label="@string/students_fragment"
         tools:layout="@layout/students_fragment">
         <action
             android:id="@+id/action_studentsFragment_to_addStudentFragment"
@@ -74,14 +77,13 @@
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
     </fragment>
+
     <fragment
         android:id="@+id/addStudentFragment"
-        android:name="com.castprogramms.balamutbatut.ui.addstudents.AddStudentFragment"
-        android:label="@string/item_not_group" />
+        android:name="com.castprogramms.balamutbatut.ui.addstudents.AddStudentFragment" />
     <fragment
         android:id="@+id/settingsFragment2"
         android:name="com.castprogramms.balamutbatut.ui.settings.TrainerSettingsFragment"
-        android:label="@string/item_settings"
         tools:layout="@layout/fragment_trainer_settings" >
         <action
             android:id="@+id/action_settingsFragment2_to_qrCodeScannerFragment2"
@@ -94,25 +96,19 @@
     <fragment
         android:id="@+id/editProfileFragment2"
         android:name="com.castprogramms.balamutbatut.ui.editprofile.EditProfileFragment"
-        android:label="@string/all_person_data"
-        tools:layout="@layout/fragment_edit_profile" >
-        <action
-            android:id="@+id/action_editProfileFragment2_to_profile_Fragment"
-            app:destination="@id/profile_Fragment" />
-    </fragment>
+        tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/addGroupFragment"
         android:name="com.castprogramms.balamutbatut.ui.addgroup.AddGroupFragment"
-        android:label="@string/item_new_group"
         tools:layout="@layout/fragment_add_group">
         <action
             android:id="@+id/action_addGroupFragment_to_group_Fragment"
             app:destination="@id/group_Fragment" />
     </fragment>
+
     <fragment
         android:id="@+id/rating_Fragment"
         android:name="com.castprogramms.balamutbatut.ui.rating.RatingFragment"
-        android:label="@string/rating"
         tools:layout="@layout/fragment_rating">
         <action
             android:id="@+id/action_rating_Fragment_to_showElementsFragment"
@@ -122,14 +118,14 @@
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
     </fragment>
+
     <fragment
         android:id="@+id/qrCodeScannerFragment2"
-        android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeScannerFragment"
-        android:label="Сканирование QR-кода" />
+        android:name="com.castprogramms.balamutbatut.ui.qrcode.QrCodeScannerFragment" />
+
     <fragment
         android:id="@+id/allElementListFragment2"
         android:name="com.castprogramms.balamutbatut.ui.allElements.AllElementListFragment"
-        android:label="@string/item_all_elements"
         tools:layout="@layout/all_element_list_fragment">
         <action
             android:id="@+id/action_allElementListFragment2_to_allGroupElementFragment"
@@ -139,10 +135,10 @@
             app:popEnterAnim="@anim/left_in"
             app:popExitAnim="@anim/right_in"/>
     </fragment>
+
     <fragment
         android:id="@+id/groupElementsFragment"
         android:name="com.castprogramms.balamutbatut.ui.groupelements.GroupElementsFragment"
-        android:label="@string/item_groups"
         tools:layout="@layout/fragment_group_elements">
         <action
             android:id="@+id/action_groupElementsFragment_to_addElementsFragment"
@@ -156,13 +152,11 @@
     <fragment
         android:id="@+id/addElementsFragment"
         android:name="com.castprogramms.balamutbatut.ui.addelements.AddElementsFragment"
-        android:label="@string/item_elements"
         tools:layout="@layout/fragment_add_elements" />
 
     <fragment
         android:id="@+id/allGroupElementFragment"
         android:name="com.castprogramms.balamutbatut.ui.allgroupelement.AllGroupElementFragment"
-        android:label="AllGroupElementFragment"
         tools:layout="@layout/fragment_add_elements">
         <action
             android:id="@+id/action_allGroupElementFragment_to_editElementFragment2"
@@ -183,18 +177,16 @@
     <fragment
         android:id="@+id/editElementFragment2"
         android:name="com.castprogramms.balamutbatut.ui.editelement.EditElementFragment"
-        android:label="EditElementFragment"
         tools:layout="@layout/fragment_edit_element"/>
 
     <fragment
         android:id="@+id/infoElementFragment"
         android:name="com.castprogramms.balamutbatut.ui.infoelementfragment.InfoElementFragment"
-        android:label="InfoElementFragment"
         tools:layout="@layout/fragment_info_element"/>
+
     <fragment
         android:id="@+id/showElementsFragment"
         android:name="com.castprogramms.balamutbatut.ui.showelements.ShowGroupElementsFragment"
-        android:label="@string/item_groups"
         tools:layout="@layout/fragment_group_elements">
         <action
             android:id="@+id/action_showElementsFragment_to_showElementsFragment2"
@@ -207,6 +199,13 @@
     <fragment
         android:id="@+id/showElementsFragment2"
         android:name="com.castprogramms.balamutbatut.ui.showelements.ShowElementsFragment"
-        android:label="@string/all_group_fragment_label"
-        tools:layout="@layout/fragment_add_elements"/>
+        tools:layout="@layout/fragment_add_elements">
+        <action
+            android:id="@+id/action_showElementsFragment2_to_infoElementFragment"
+            app:destination="@id/infoElementFragment"
+            app:enterAnim="@anim/left_out"
+            app:exitAnim="@anim/right_out"
+            app:popEnterAnim="@anim/left_in"
+            app:popExitAnim="@anim/right_in"/>
+    </fragment>
 </navigation>

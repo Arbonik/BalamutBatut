@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/BodyBackground"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.todkars.shimmer.ShimmerRecyclerView
+        app:shimmer_recycler_item_count="6"
+        app:shimmer_recycler_layout="@layout/shimmer_allelement_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycler_elements"
-        tools:listitem="@layout/item_group_element"/>
+        tools:listitem="@layout/item_group_element"
+        tools:itemCount="6"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

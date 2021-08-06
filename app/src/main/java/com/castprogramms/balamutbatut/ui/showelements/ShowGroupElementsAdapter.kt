@@ -9,13 +9,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.ItemGroupElementBinding
+import com.castprogramms.balamutbatut.tools.TypesUser
+import com.castprogramms.balamutbatut.tools.User
 
-class ShowGroupElementsAdapter(val idStudent: String) : RecyclerView.Adapter<ShowGroupElementsAdapter.GroupElementsViewHolder>() {
+class ShowGroupElementsAdapter(val idStudent: String) :
+    RecyclerView.Adapter<ShowGroupElementsAdapter.GroupElementsViewHolder>() {
     var elementsTitle = mutableListOf<Pair<String, Int>>()
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupElementsViewHolder {
         return GroupElementsViewHolder(
             LayoutInflater.from(parent.context)
@@ -29,9 +33,9 @@ class ShowGroupElementsAdapter(val idStudent: String) : RecyclerView.Adapter<Sho
 
     override fun getItemCount() = elementsTitle.size
 
-    inner class GroupElementsViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class GroupElementsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = ItemGroupElementBinding.bind(view)
-        fun bind(pair: Pair<String, Int>){
+        fun bind(pair: Pair<String, Int>) {
             binding.colorGroupElement.backgroundTintList = ColorStateList.valueOf(pair.second)
             binding.nameGroupElements.text = pair.first
             binding.root.setOnClickListener {
@@ -39,8 +43,19 @@ class ShowGroupElementsAdapter(val idStudent: String) : RecyclerView.Adapter<Sho
                 bundle.putString("id", idStudent)
                 bundle.putString("title", pair.first)
                 bundle.putInt("color", pair.second)
-                it.findNavController()
-                    .navigate(R.id.action_showElementsFragment_to_showElementsFragment2, bundle)
+                if (User.typeUser == TypesUser.STUDENT) {
+                    it.findNavController().navigate(
+                        R.id.action_showGroupElementFragment_to_showElementsFragment3,
+                        bundle
+                    )
+                } else {
+                    if (User.typeUser == TypesUser.TRAINER) {
+                        it.findNavController().navigate(
+                            R.id.action_showElementsFragment_to_showElementsFragment2,
+                            bundle
+                        )
+                    }
+                }
             }
         }
     }

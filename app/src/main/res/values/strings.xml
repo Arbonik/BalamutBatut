@@ -107,6 +107,7 @@
     <string name="name_element">Название</string>
     <string name="error_name">Введите название элемента</string>
     <string name="all_group_fragment_label">Элементы</string>
+    <string name="create">Создать</string>
 
     <string-array name="levels">
         <item>Низкая</item>

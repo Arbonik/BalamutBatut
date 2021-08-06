@@ -30,6 +30,7 @@ class StudentsFragment: Fragment(R.layout.students_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = StudentsFragmentBinding.bind(view)
+        requireActivity().title = nameGroup
         binding.fab.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("id", id)
@@ -42,13 +43,22 @@ class StudentsFragment: Fragment(R.layout.students_fragment) {
                 { studentId: String -> viewModel.getStudentElements(studentId) }
         viewModel.getStudents(id).observe(viewLifecycleOwner, {
             when(it){
-                is Resource.Error -> binding.progressStudents.progressBar.visibility = View.GONE
+                is Resource.Error -> binding.studentsList.hideShimmer()
                 is Resource.Loading -> {
+                    binding.studentsList.showShimmer()
                 }
                 is Resource.Success -> {
-                    binding.progressStudents.progressBar.visibility = View.GONE
-                    if (it.data != null)
+                    binding.studentsList.hideShimmer()
+                    if (it.data != null) {
                         studentsAdapter.setData(it.data)
+                        if (it.data.isEmpty()){
+                            binding.noStudents.visibility = View.VISIBLE
+                            binding.noStudents.text = "Нет учеников в группе"
+                        }
+                        else{
+                            binding.noStudents.visibility = View.GONE
+                        }
+                    }
                 }
             }
         })

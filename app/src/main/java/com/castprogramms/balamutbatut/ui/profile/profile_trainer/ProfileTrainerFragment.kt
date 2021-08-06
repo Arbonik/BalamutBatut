@@ -1,6 +1,9 @@
 package com.castprogramms.balamutbatut.ui.profile.profile_trainer
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -10,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -24,10 +28,24 @@ import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 
 class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
+    private val CAMERA_PERMISSION_CODE_FOR_SCAN_BUTTON = 0
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == CAMERA_PERMISSION_CODE_FOR_SCAN_BUTTON) {
+            if (grantResults.getOrNull(0) == PackageManager.PERMISSION_GRANTED) {
+                toScanner()
+            }
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         val binding = FragmentProfileTrainerBinding.bind(view)
+        requireActivity().setTitle(R.string.item_profile)
 
         User.mutableLiveDataTrainer.observe(viewLifecycleOwner, {
             if (it != null) {
@@ -65,12 +83,20 @@ class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
             }
         })
         binding.scanContainer.setOnClickListener {
-            findNavController()
-                .navigate(R.id.action_profile_Fragment_to_qrCodeScannerFragment2,
-                    Bundle().apply{
-                        putString("action", ActionsWithCoins.PAY.desc)
-                        putString("type", "trainer_scan")
-                    })
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.CAMERA),
+                        CAMERA_PERMISSION_CODE_FOR_SCAN_BUTTON
+                    )
+                }
+            } else {
+                toScanner()
+            }
         }
 
         val animImg: Animation = AlphaAnimation(0.3f, 1.0f)
@@ -93,6 +119,17 @@ class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
         }
 
     }
+
+    private fun toScanner() {
+        Log.e("test", findNavController().graph.toString())
+        findNavController()
+            .navigate(R.id.action_profile_Fragment_to_qrCodeScannerFragment2,
+                Bundle().apply{
+                    putString("action", ActionsWithCoins.PAY.desc)
+                    putString("type", "trainer_scan")
+                })
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.app_bar_menu, menu)

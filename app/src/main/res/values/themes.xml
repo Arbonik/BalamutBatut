@@ -122,4 +122,8 @@
         <item name="android:background">@drawable/background_group_elements</item>
     </style>
 
+    <style name="edit_element_button">
+        <item name="background">@drawable/background_edit_element_button</item>
+    </style>
+
 </resources>
