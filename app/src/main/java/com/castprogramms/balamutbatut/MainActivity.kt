@@ -30,22 +30,11 @@ class MainActivity : AppCompatActivity() {
 
         repository.getUidInReferralLink(intent).observe(this, {
             when (it) {
-                is Resource.Error -> {
-                    Snackbar.make(
-                        findViewById(R.id.root),
-                        it.message.toString(),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
+                is Resource.Error -> {}
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     if (it.data != null) {
-                        createNotificationReferral(it.data)
-                        Snackbar.make(
-                            findViewById(R.id.root),
-                            it.data,
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                        createNotificationReferral()
                         User.referId = it.data
                     }
                 }
@@ -65,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun createNotificationReferral(uid: String) {
+    private fun createNotificationReferral() {
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val title = "Приглашение"

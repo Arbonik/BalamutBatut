@@ -137,6 +137,7 @@ class QrCodeScannerFragment : Fragment(R.layout.fragment_qr_code_scanner) {
                                 Log.e("data", id)
                                 val uid = id.split("D").last()
                                 Log.e("data", uid)
+                                User.referId = uid
                                 viewModel.addBatutCoin(uid, 50)
                                 Toast.makeText(
                                     requireContext(),
