@@ -98,7 +98,7 @@ class InsertDataUserFragment : Fragment() {
                     )
                 }
             } else {
-                if (User.referId == "") {
+                if (User.referId == "" && !User.isScan) {
                     toScanner()
                 } else {
                     val snackbar = Snackbar.make(

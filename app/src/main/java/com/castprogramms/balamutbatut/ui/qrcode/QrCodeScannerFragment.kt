@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -133,7 +134,10 @@ class QrCodeScannerFragment : Fragment(R.layout.fragment_qr_code_scanner) {
                             }
                             ActionsWithCoins.GET.desc -> {
                                 User.isScan = true
-                                viewModel.addBatutCoin(id, 50)
+                                Log.e("data", id)
+                                val uid = id.split("D").last()
+                                Log.e("data", uid)
+                                viewModel.addBatutCoin(uid, 50)
                                 Toast.makeText(
                                     requireContext(),
                                     "Успех",

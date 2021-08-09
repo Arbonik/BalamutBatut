@@ -1,5 +1,6 @@
 package com.castprogramms.balamutbatut.ui.qrcode
 
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import com.castprogramms.balamutbatut.network.Repository
 
@@ -10,4 +11,5 @@ class QrCodeViewModel(private val repository: Repository): ViewModel() {
     var isScan = false
 
     fun getReferralLink(uid: String) = repository.getReferralLink(uid)
+    fun getDataInReferalLink(intent: Intent) = repository.getUidInReferralLink(intent)
 }

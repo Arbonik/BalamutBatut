@@ -30,7 +30,13 @@ class MainActivity : AppCompatActivity() {
 
         repository.getUidInReferralLink(intent).observe(this, {
             when (it) {
-                is Resource.Error -> {}
+                is Resource.Error -> {
+                    Snackbar.make(
+                        findViewById(R.id.root),
+                        it.message.toString(),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     if (it.data != null) {
