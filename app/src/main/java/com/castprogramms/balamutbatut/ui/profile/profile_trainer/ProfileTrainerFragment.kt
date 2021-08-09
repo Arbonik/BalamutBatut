@@ -140,10 +140,6 @@ class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
             R.id.item__bar_settings -> {
                 findNavController().navigate(R.id.action_profile_Fragment_to_settingsFragment2)
             }
-            R.id.item__bar_all_element -> {
-                if (User.typeUser == TypesUser.TRAINER)
-                    findNavController().navigate(R.id.action_profile_Fragment_to_allElementListFragment2)
-            }
         }
         return true
     }
