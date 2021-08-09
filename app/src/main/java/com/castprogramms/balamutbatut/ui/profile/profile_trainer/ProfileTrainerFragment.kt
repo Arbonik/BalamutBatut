@@ -24,7 +24,6 @@ import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentProfileTrainerBinding
 import com.castprogramms.balamutbatut.tools.ActionsWithCoins
-import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
 
 class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
@@ -132,13 +131,16 @@ class ProfileTrainerFragment: Fragment(R.layout.fragment_profile_trainer) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.app_bar_menu, menu)
+        inflater.inflate(R.menu.app_bar_menu_trainer, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item__bar_settings -> {
+            R.id.item_bar_settings -> {
                 findNavController().navigate(R.id.action_profile_Fragment_to_settingsFragment2)
+            }
+            R.id.item_bar_all_element -> {
+                findNavController().navigate(R.id.action_profile_Fragment_to_allElementListFragment2)
             }
         }
         return true

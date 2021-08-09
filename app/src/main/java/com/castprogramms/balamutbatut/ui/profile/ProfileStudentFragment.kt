@@ -126,7 +126,7 @@ class ProfileStudentFragment : Fragment(R.layout.fragment_profile_student) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item__bar_settings -> {
+            R.id.item_bar_settings -> {
                 findNavController().navigate(R.id.action_profileFragment_to_settingsFragment)
             }
         }
