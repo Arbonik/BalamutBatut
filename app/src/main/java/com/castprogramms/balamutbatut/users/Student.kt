@@ -10,7 +10,8 @@ class Student(
     img: String,
     var elements: List<Element>,
     var element: Map<String, List<Int>> = mapOf(),
-    var batutcoin: Int = 0
+    var batutcoin: Int = 0,
+    var referId: String = ""
 ):Person(first_name, second_name, date, sex, groupID = notGroup, type = "student", img = img){
     fun getQuantityElements(): String {
         var score = 0

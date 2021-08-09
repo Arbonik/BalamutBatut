@@ -1,5 +1,6 @@
 package com.castprogramms.balamutbatut.network
 
+import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +15,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 class Repository(
     private val dataUserFirebase: DataUserFirebase,
-    private val videoAndDescFirebaseStorage: VideoAndDescFirebaseStorage
+    private val videoAndDescFirebaseStorage: VideoAndDescFirebaseStorage,
+    private val referralDynamicLinks: ReferralDynamicLinks
 ) {
 
     private val _userData = MutableLiveData<Resource<out Person>>(null)
@@ -210,5 +212,8 @@ class Repository(
 
     fun checkHaveVideo(title: String, name: String) =
         videoAndDescFirebaseStorage.haveVideo(title, name)
+
+    fun getReferralLink(userId: String) = referralDynamicLinks.getReferralLink(userId)
+    fun getUidInReferralLink(intent: Intent) = referralDynamicLinks.getUidInReferralLink(intent)
 
 }

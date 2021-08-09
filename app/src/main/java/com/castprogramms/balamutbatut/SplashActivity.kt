@@ -2,7 +2,6 @@ package com.castprogramms.balamutbatut
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -24,17 +23,30 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
-        val backgrounds = listOf(R.drawable.splactwp0, R.drawable.splactwp1, R.drawable.splactwp2, R.drawable.splactwp3, R.drawable.splactwp4, R.drawable.splactwp5, R.drawable.splactwp6, R.drawable.splactwp7, R.drawable.splactwp8, R.drawable.splactwp9, R.drawable.splactwp10)
-        var view = findViewById<ConstraintLayout>(R.id.layout)
-        view.setBackgroundResource(backgrounds.random())                  //рандомные фотографии на фон ставятся + значок баламута
+        val view = findViewById<ConstraintLayout>(R.id.layout)
+        val backgrounds = listOf(
+            R.drawable.splactwp0,
+            R.drawable.splactwp1,
+            R.drawable.splactwp2,
+            R.drawable.splactwp3,
+            R.drawable.splactwp4,
+            R.drawable.splactwp5,
+            R.drawable.splactwp6,
+            R.drawable.splactwp7,
+            R.drawable.splactwp8,
+            R.drawable.splactwp9,
+            R.drawable.splactwp10
+        )
+        view.setBackgroundResource(backgrounds.random()) //рандомные фотографии на фон ставятся + значок баламута
         val googleAuth = GoogleSignIn.getLastSignedInAccount(this)
-        Log.e("Data", googleAuth?.idToken.toString())
         if (googleAuth != null) {
             repository.loadUserData(googleAuth)
-        } else{
-            startActivity( Intent(
-                this,
-                MainActivity::class.java)
+        } else {
+            startActivity(
+                Intent(
+                    this,
+                    MainActivity::class.java
+                )
             )
             finish()
             User.mutableLiveDataSuccess.postValue(false)

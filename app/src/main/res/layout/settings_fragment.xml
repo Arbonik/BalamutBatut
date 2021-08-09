@@ -24,13 +24,11 @@
         android:id="@+id/invite"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/settingsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:text="@string/invite"
         app:icon="@drawable/person_add"
-        app:iconTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/exit_but" />
 
@@ -38,13 +36,11 @@
         android:id="@+id/pay"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/settingsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:text="@string/pay"
         app:icon="@drawable/pay"
-        app:iconTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/invite" />
 

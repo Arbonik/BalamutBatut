@@ -111,11 +111,11 @@ class ProfileStudentFragment : Fragment(R.layout.fragment_profile_student) {
         }
 
         binding.scanContainer.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_qrCodeFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_qrCodeFragment, Bundle().apply { putString("type", "scan") })
         }
 
         binding.inviteContainer.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_qrCodeFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_qrCodeFragment, Bundle().apply { putString("type", "invite") })
         }
     }
 

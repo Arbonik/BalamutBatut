@@ -12,6 +12,7 @@
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/drawable/background_group_student_progress.xml" value="0.290625" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/drawable/edit_element_button.xml" value="0.19427083333333334" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/drawable/rating_rectangle.xml" value="0.403125" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/activity_main.xml" value="0.1453804347826087" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/check_dialog.xml" value="0.25" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/create_group_dialog.xml" value="0.35280797101449274" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/edit_group_dialog.xml" value="0.35280797101449274" />
@@ -19,8 +20,10 @@
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_add_student.xml" value="0.35280797101449274" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_edit_element.xml" value="0.33" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_group_elements.xml" value="0.1" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_qr_code.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_qr_code_scanner.xml" value="0.21875" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_rating.xml" value="0.35280797101449274" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_trainer_settings.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/groups_fragment.xml" value="0.35280797101449274" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/insertdatauser_fragment.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_add_elements.xml" value="0.27447916666666666" />

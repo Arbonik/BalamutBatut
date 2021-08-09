@@ -8,4 +8,6 @@ class QrCodeViewModel(private val repository: Repository): ViewModel() {
     fun writeOffCoin(id: String, quantity: Int) = repository.writeOffCoin(id, quantity)
     var date = ""
     var isScan = false
+
+    fun getReferralLink(uid: String) = repository.getReferralLink(uid)
 }

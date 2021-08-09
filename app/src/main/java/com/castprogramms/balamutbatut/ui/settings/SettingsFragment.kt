@@ -32,10 +32,10 @@ class SettingsFragment : Fragment() {
         val binding = SettingsFragmentBinding.bind(view)
         val signOut : MaterialButton = view.findViewById(R.id.exit_but)
         binding.invite.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_qrCodeFragment)
+            findNavController().navigate(R.id.action_settingsFragment_to_qrCodeFragment, Bundle().apply { putString("type", "invite") })
         }
         binding.pay.setOnClickListener {
-            findNavController().navigate(R.id.action_settingsFragment_to_qrCodeFragment)
+            findNavController().navigate(R.id.action_settingsFragment_to_qrCodeFragment, Bundle().apply { putString("type", "scan") })
         }
         signOut.setOnClickListener {
             FirebaseAuth.getInstance().signOut()

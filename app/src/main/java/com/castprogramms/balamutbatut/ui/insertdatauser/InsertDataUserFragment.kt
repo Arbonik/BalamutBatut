@@ -2,17 +2,14 @@ package com.castprogramms.balamutbatut.ui.insertdatauser
 
 import android.Manifest
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Vibrator
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -52,13 +49,12 @@ class InsertDataUserFragment : Fragment() {
     val viewModel: QrCodeViewModel by viewModel()
     lateinit var editDate: MaterialButton
     var date = ""
-    val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-        override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+    private val dateSetListener =
+        DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             editDate.text =
-                requireContext().getString(R.string.your_date) + " $dayOfMonth-${month + 1}-$year"
+                resources.getString(R.string.your_date) + " $dayOfMonth-${month + 1}-$year"
             viewModel.date = "$dayOfMonth-${month + 1}-$year"
         }
-    }
     var sex = ""
     var img = ""
     var typeU = TypesUser.STUDENT.desc
@@ -102,7 +98,17 @@ class InsertDataUserFragment : Fragment() {
                     )
                 }
             } else {
-                toScanner()
+                if (User.referId == "") {
+                    toScanner()
+                } else {
+                    val snackbar = Snackbar.make(
+                        requireView(),
+                        "У вас уже есть реферал",
+                        Snackbar.LENGTH_SHORT
+                    )
+                    snackbar.setAction("Закрыть") { snackbar.dismiss() }
+                    snackbar.show()
+                }
             }
         }
         editDate = view.findViewById(R.id.insert_date)
@@ -193,7 +199,6 @@ class InsertDataUserFragment : Fragment() {
                     }.create()
                     alert.show()
                 } else {
-                    Log.d("as", typeU)
                     when (typeU) {
                         TypesUser.STUDENT.desc -> {
                             addDataStudent(Student(
@@ -204,7 +209,8 @@ class InsertDataUserFragment : Fragment() {
                                 User.img,
                                 listOf(),
                                 mapOf(),
-                                if (User.isScan) 50 else 0
+                                if (User.isScan && User.referId == "") 50 else 0,
+                                User.referId
                             ).apply {
                                 groupID = Person.notGroup
                             })
@@ -250,15 +256,12 @@ class InsertDataUserFragment : Fragment() {
         val qrCodes = barcodeDetector.detect(frame)
         Log.e("Data", qrCodes.toString())
         if (qrCodes.size() != 0) {
-            val vibrator: Vibrator =
-                requireActivity().applicationContext.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(100)
             val uri = qrCodes.valueAt(0).displayValue.toString()
             Snackbar.make(requireView(), uri, Snackbar.LENGTH_LONG).show()
         }
     }
 
-    fun onDeleteView(view: View) {
+    private fun onDeleteView(view: View) {
         parentConstraintLayout.removeView(view)
     }
 

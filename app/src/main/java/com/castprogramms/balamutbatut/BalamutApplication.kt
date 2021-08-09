@@ -2,6 +2,7 @@ package com.castprogramms.balamutbatut
 
 import android.app.Application
 import com.castprogramms.balamutbatut.network.DataUserFirebase
+import com.castprogramms.balamutbatut.network.ReferralDynamicLinks
 import com.castprogramms.balamutbatut.network.Repository
 import com.castprogramms.balamutbatut.network.VideoAndDescFirebaseStorage
 import com.castprogramms.balamutbatut.ui.addelements.AddElementsViewModel
@@ -29,7 +30,8 @@ class BalamutApplication : Application() {
     private val appModule = module {
         single { DataUserFirebase(this@BalamutApplication.applicationContext) }
         single { VideoAndDescFirebaseStorage() }
-        single { Repository(get(), get()) }
+        single { ReferralDynamicLinks() }
+        single { Repository(get(), get(), get()) }
         viewModel {ChangeElementsViewModel(get())}
         viewModel {StudentsViewModel(get())}
         viewModel {RegistrViewModel(get())}

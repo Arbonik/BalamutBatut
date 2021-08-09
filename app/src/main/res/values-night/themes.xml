@@ -124,4 +124,9 @@
     <style name="edit_element_button">
         <item name="background">@drawable/background_edit_element_button_dark</item>
     </style>
+
+    <style name="settingsButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="iconTint">@color/white</item>
+    </style>
 </resources>

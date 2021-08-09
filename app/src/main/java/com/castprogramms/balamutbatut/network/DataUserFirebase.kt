@@ -41,9 +41,16 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
     }
 
     override fun addStudent(student: Student, studentID: String) {
-        fireStore.collection(studentTag)
-            .document(studentID)
-            .set(student)
+        fireStore.runTransaction {
+            fireStore.collection(studentTag)
+                .document(studentID)
+                .set(student)
+
+            if (student.referId != ""){
+                addBatutCoin(50, studentID)
+                addBatutCoin(50, student.referId)
+            }
+        }
     }
 
     override fun addBatutCoin(quantity: Int, id: String) {
