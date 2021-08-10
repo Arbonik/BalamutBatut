@@ -24,6 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:src="@drawable/add"
         android:id="@+id/fab"
+        style="@style/FAB"
         android:contentDescription="TODO" />
     <com.google.android.material.textview.MaterialTextView
         android:visibility="gone"

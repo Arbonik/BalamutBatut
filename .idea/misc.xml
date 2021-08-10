@@ -60,6 +60,8 @@
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/menu/change_group_programm.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/menu/student_nav_menu.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/menu/trainer_nav_menu.xml" value="0.38697916666666665" />
+        <entry key="app/src/main/res/layout/groups_fragment.xml" value="0.20260416666666667" />
+        <entry key="app/src/main/res/layout/students_fragment.xml" value="0.20260416666666667" />
       </map>
     </option>
   </component>
