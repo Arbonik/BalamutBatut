@@ -4,10 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.castprogramms.balamutbatut.BuildConfig
-import com.castprogramms.balamutbatut.tools.EditProfile
-import com.castprogramms.balamutbatut.tools.Element
-import com.castprogramms.balamutbatut.tools.Group
-import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.tools.*
 import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
@@ -838,6 +835,18 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
         }
 
         return mutableLiveData
+    }
+
+    fun updateContacts(linkContacts: MutableList<LinkContact>, id: String){
+        fireStore.collection(studentTag)
+            .document(id)
+            .update("userContacts", User.student?.userContacts.apply { linkContacts.toList().forEach { this?.addContact(it) } })
+    }
+
+    fun updateUserDesc(desc: String, id: String) {
+        fireStore.collection(studentTag)
+            .document(id)
+            .update("userContacts.descUser", desc)
     }
 
     companion object {

@@ -15,7 +15,9 @@
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/activity_main.xml" value="0.1453804347826087" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/check_dialog.xml" value="0.25" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/create_group_dialog.xml" value="0.35280797101449274" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/edit_contact_dialog.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/edit_group_dialog.xml" value="0.35280797101449274" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/error_dialog.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_add_elements.xml" value="0.30344202898550726" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_add_student.xml" value="0.35280797101449274" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/fragment_edit_element.xml" value="0.33" />
@@ -31,6 +33,7 @@
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_add_elements.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_add_student.xml" value="0.2907608695652174" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_color.xml" value="0.27447916666666666" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_contacts.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_group.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_group_element.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/item_help_info.xml" value="0.27447916666666666" />
@@ -40,6 +43,7 @@
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/list_item.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/rating_title_layout.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/recycler_item_rating.xml" value="0.35280797101449274" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/see_contact_dialog.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/set_data_node_fragment.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/set_quantity.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/settings_fragment.xml" value="0.2907608695652174" />
@@ -47,8 +51,10 @@
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/shimmer_item_element.xml" value="0.30344202898550726" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/shimmer_item_rating.xml" value="0.35280797101449274" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/shimmer_item_student.xml" value="0.35280797101449274" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/shimmer_title_group_rating.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/show_elements_fragment.xml" value="0.27447916666666666" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/students_fragment.xml" value="0.35280797101449274" />
+        <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/layout/success_dialog.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/menu/app_bar_menu.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/menu/app_bar_menu_trainer.xml" value="0.38697916666666665" />
         <entry key="..\:/StudioProjects/BalamutBatut/app/src/main/res/menu/change_group_programm.xml" value="0.38697916666666665" />

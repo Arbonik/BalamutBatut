@@ -4,10 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.castprogramms.balamutbatut.tools.Element
-import com.castprogramms.balamutbatut.tools.Group
-import com.castprogramms.balamutbatut.tools.TypesUser
-import com.castprogramms.balamutbatut.tools.User
+import com.castprogramms.balamutbatut.tools.*
 import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
 import com.castprogramms.balamutbatut.users.Trainer
@@ -215,5 +212,7 @@ class Repository(
 
     fun getReferralLink(userId: String) = referralDynamicLinks.getReferralLink(userId)
     fun getUidInReferralLink(intent: Intent) = referralDynamicLinks.getUidInReferralLink(intent)
+    fun updateContacts(linkContacts: MutableList<LinkContact>, id: String) = dataUserFirebase.updateContacts(linkContacts, id)
+    fun updateUserDesc(desc: String, id: String) = dataUserFirebase.updateUserDesc(desc, id)
 
 }

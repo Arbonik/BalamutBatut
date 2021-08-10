@@ -1,5 +1,7 @@
 package com.castprogramms.balamutbatut.ui.rating
 
+import android.app.AlertDialog
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,6 +20,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.RecyclerItemRatingBinding
+import com.castprogramms.balamutbatut.databinding.SeeContactDialogBinding
 import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.Element
 import com.castprogramms.balamutbatut.tools.TypesUser
@@ -104,6 +107,11 @@ class RatingAdapter(
                     collapse(binding.expandableView, position)
                     setCollapseBackground(binding, position)
                 }
+            }
+
+            binding.root.setOnLongClickListener {
+                createContactsAlertDialog(pair.second)
+                return@setOnLongClickListener true
             }
             binding.seeElement.setOnClickListener {
                 val bundle = Bundle()
@@ -218,6 +226,27 @@ class RatingAdapter(
             // Collapse speed of 1dp/ms
             a.duration = (initialHeight / v.context.resources.displayMetrics.density).toLong()
             v.startAnimation(a)
+        }
+
+        private fun createContactsAlertDialog(student: Student) {
+            val view =
+                LayoutInflater.from(itemView.context).inflate(R.layout.see_contact_dialog, null)
+            val alertDialogBinding = SeeContactDialogBinding.bind(view)
+            val ad = AlertDialog.Builder(itemView.context)
+                .setView(view)
+                .create()
+            if (ad.window != null)
+                ad.window!!.setBackgroundDrawable(ColorDrawable(0))
+            val adapter = SeeContactsAdapter()
+            adapter.listLinkContact = student.userContacts.listContacts.toMutableList()
+            if (student.userContacts.listContacts.isEmpty())
+                alertDialogBinding.noLinks.visibility = View.VISIBLE
+            alertDialogBinding.descUser.text = if (student.userContacts.descUser != "") student.userContacts.descUser else "Пользователь не добавил описание :("
+            alertDialogBinding.recyclerContacts.adapter = adapter
+            alertDialogBinding.button.setOnClickListener {
+                ad.dismiss()
+            }
+            ad.show()
         }
     }
 

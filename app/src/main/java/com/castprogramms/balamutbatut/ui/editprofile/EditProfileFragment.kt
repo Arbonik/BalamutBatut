@@ -5,10 +5,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -17,19 +14,10 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.castprogramms.balamutbatut.*
+import com.castprogramms.balamutbatut.R
 import com.castprogramms.balamutbatut.databinding.FragmentEditProfileBinding
-import com.castprogramms.balamutbatut.network.Repository
-import com.castprogramms.balamutbatut.network.Resource
 import com.castprogramms.balamutbatut.tools.TypesUser
 import com.castprogramms.balamutbatut.tools.User
-import com.castprogramms.balamutbatut.tools.User.student
-import com.castprogramms.balamutbatut.tools.User.trainer
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.storage.FirebaseStorage
-import de.hdodenhof.circleimageview.CircleImageView
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
@@ -40,11 +28,15 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentEditProfileBinding.bind(view)
         requireActivity().setTitle(R.string.all_person_data)
+        val adapter = ContactsAdapter()
+        binding.recyclerContacts.adapter = adapter
         if (User.typeUser == TypesUser.STUDENT) {
             User.mutableLiveDataStudent.observe(viewLifecycleOwner, {
                 if (it != null) {
                     binding.lastNameUser.setText(it.second_name, TextView.BufferType.EDITABLE)
                     binding.studentName.setText(it.first_name, TextView.BufferType.EDITABLE)
+                    binding.descUser.setText(it.userContacts.descUser, TextView.BufferType.EDITABLE)
+
                     Glide.with(requireView())
                         .load(it.img)
                         .addListener(object : RequestListener<Drawable> {
@@ -74,7 +66,9 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                         .into(binding.userIcon)
                 }
             })
+            binding.userContacts.visibility = View.VISIBLE
         }
+
         else{
             if (User.typeUser == TypesUser.TRAINER){
                 User.mutableLiveDataTrainer.observe(viewLifecycleOwner, {
@@ -106,8 +100,7 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
                                     return true
                                 }
-                            })
-                            .into(binding.userIcon)
+                            }).into(binding.userIcon)
                     }
                 })
             }
@@ -132,14 +125,17 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 listEmptyEditText.add(true)
 
             if (binding.lastNameUser.text.isNullOrBlank()) {
-                binding.lastNameUser.error =
-                    requireContext().getString(R.string.add_second_name)
+                binding.lastNameUser.error = requireContext().getString(R.string.add_second_name)
                 listEmptyEditText.add(false)
             } else
                 listEmptyEditText.add(true)
             if (!listEmptyEditText.contains(false)) {
                 viewModel.updateUserFirstName(binding.studentName.text.toString(), User.id)
                 viewModel.updateUserSecondName(binding.lastNameUser.text.toString(), User.id)
+                if (User.typeUser == TypesUser.STUDENT) {
+                    viewModel.updateContacts(adapter.createLinkContact, User.id)
+                    viewModel.updateUserDesc(binding.descUser.text.toString(), User.id)
+                }
                 findNavController().popBackStack()
             }
         }
