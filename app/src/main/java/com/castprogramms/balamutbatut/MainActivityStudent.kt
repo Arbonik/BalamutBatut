@@ -70,7 +70,7 @@ class MainActivityStudent : AppCompatActivity() {
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val title = "Напоминание"
         val text = "Если вы добавите свои контакты (сделать это можно, дважды нажав на картинку " +
-                "профиля в профиле), то люди смогут проще узнать, кем гордиться и к кому можно обратиться за советом"
+                "в профиле), то люди смогут узнать, кем гордиться и к кому можно обратиться за советом"
 
         val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(

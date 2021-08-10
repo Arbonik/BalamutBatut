@@ -29,7 +29,6 @@ class QrCodeFragment: Fragment(R.layout.fragment_qr_code) {
         }
         else {
             Log.e("data", viewModel.getReferralLink(User.id).toString())
-            Snackbar.make(binding.root, viewModel.getReferralLink(User.id).toString(), Snackbar.LENGTH_SHORT).show()
             QRGEncoder(
                 viewModel.getReferralLink(User.id).toString(),
                 null,

@@ -3,7 +3,11 @@ package com.castprogramms.balamutbatut.network
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.castprogramms.balamutbatut.BuildConfig
+import com.castprogramms.balamutbatut.BuildConfig.*
+import com.castprogramms.balamutbatut.BuildConfig.APP_ID
+import com.castprogramms.balamutbatut.BuildConfig.API_FIRE_KEY
+import com.castprogramms.balamutbatut.BuildConfig.PROJECT_ID
+import com.castprogramms.balamutbatut.BuildConfig.STORAGE_BUCKET
 import com.castprogramms.balamutbatut.tools.*
 import com.castprogramms.balamutbatut.users.Person
 import com.castprogramms.balamutbatut.users.Student
@@ -23,10 +27,10 @@ class DataUserFirebase(val applicationContext: Context) : DataUserApi {
 
     init {
         val options = FirebaseOptions.Builder()
-            .setApplicationId(BuildConfig.APP_ID)
-            .setApiKey(BuildConfig.API_FIRE_KEY)
-            .setProjectId(BuildConfig.PROJECT_ID)
-            .setStorageBucket(BuildConfig.STORAGE_BUCKET)
+            .setApplicationId(APP_ID)
+            .setApiKey(API_FIRE_KEY)
+            .setProjectId(PROJECT_ID)
+            .setStorageBucket(STORAGE_BUCKET)
             .build()
         FirebaseApp.initializeApp(applicationContext, options, "test")
     }
